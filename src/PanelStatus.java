@@ -16,8 +16,13 @@ public class PanelStatus extends JPanel {
         setPreferredSize(new Dimension(960,540));
         setBackground(new Color(236, 236, 236));
         setBorder(new LineBorder(Color.black, 1));
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        setLayout(new GridLayout(3, 3, 20, 20));
+        JPanel p = new JPanel();
+        p.setLayout(new GridLayout(3, 3, 20, 20));
+        p.setMaximumSize(new Dimension(900,480));
+        p.setMinimumSize(new Dimension(900,480));
+        p.setPreferredSize(new Dimension(900,480));
 
         jb_verbonden.setFont(new Font("Arial", Font.PLAIN, 30));
         jb_rust.setFont(new Font("Arial", Font.PLAIN, 30));
@@ -39,15 +44,22 @@ public class PanelStatus extends JPanel {
         jb_empty2.setBackground(Color.lightGray);
         jb_productTerugzetten.setBackground(Color.lightGray);
 
-        add(jb_verbonden);
-        add(jb_rust);
-        add(jb_productOphalen);
-        add(jb_inBeweging);
-        add(jb_nood);
-        add(jb_productAfgeven);
-        add(jb_empty1);
-        add(jb_empty2);
-        add(jb_productTerugzetten);
+        p.add(jb_verbonden);
+        p.add(jb_rust);
+        p.add(jb_productOphalen);
+        p.add(jb_inBeweging);
+        p.add(jb_nood);
+        p.add(jb_productAfgeven);
+        p.add(jb_empty1);
+        p.add(jb_empty2);
+        p.add(jb_productTerugzetten);
+
+        Box box = new Box(BoxLayout.Y_AXIS);
+        box.add(Box.createVerticalGlue());
+        box.add(p);
+        box.add(Box.createVerticalGlue());
+
+        add(box);
 
 
     }
