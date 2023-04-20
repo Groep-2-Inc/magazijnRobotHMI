@@ -4,17 +4,16 @@ import java.awt.*;
 public class FrameHome extends FrameHeader{
 
     public FrameHome(){
-        JPanel p = new JPanel();
+        JPanel f = new JPanel();
         setPreferredSize(new Dimension(1920, 1080));
+        f.setLayout(new GridLayout(2,2));
 
-        p.setLayout(new GridLayout(2,2));
+        f.add(new PanelPositie());
+        f.add(new PanelStatus());
+        f.add(new PanelOrderStatus());
+        f.add(new PanelLogboek());
 
-        p.add(new PanelLogboek());
-        p.add(new PanelStatus());
-        p.add(new PanelOrderStatus());
-        p.add(new PanelPositie());
-
-        add(p);
+        add(f);
         setVisible(true);
     }
 }
