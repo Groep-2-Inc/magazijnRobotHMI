@@ -1,3 +1,5 @@
+package panels;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -12,6 +14,7 @@ public class PanelStatus extends JPanel {
     private JButton jb_productTerugzetten = new JButton("Product Terugzetten"); //melding voor terugzetten
     private JButton jb_empty1 = new JButton(""); //voor nu lege melding
     private JButton jb_empty2 = new JButton(""); //voor nu lege melding
+
     public PanelStatus(){
         //initialiseer het hoofd paneel
         setPreferredSize(new Dimension(960,540));

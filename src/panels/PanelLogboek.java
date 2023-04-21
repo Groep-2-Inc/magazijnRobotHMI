@@ -1,9 +1,14 @@
+package panels;
+
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 
-public class PanelOrderStatus extends JPanel {
-    public PanelOrderStatus(){
+public class PanelLogboek extends JPanel{
+    public PanelLogboek(){
         //initializeer het hoofd paneel
         setPreferredSize(new Dimension(960,540));
         setBackground(new Color(236, 236, 236));
@@ -13,7 +18,7 @@ public class PanelOrderStatus extends JPanel {
         JPanel p3 = new JPanel();
         p3.setPreferredSize(new Dimension(620, 40));
         p3.setBorder(new LineBorder(Color.BLACK));
-        p3.add(new Label("Order Status"));
+        p3.add(new Label("Logboek"));
         add(p3);
 
         //nieuw paneel voor alle informatie

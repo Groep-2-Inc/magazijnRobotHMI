@@ -1,3 +1,10 @@
+package frames;
+
+import panels.PanelLogboek;
+import panels.PanelOrderStatus;
+import panels.PanelPositie;
+import panels.PanelStatus;
+
 import javax.swing.*;
 import java.awt.*;
 

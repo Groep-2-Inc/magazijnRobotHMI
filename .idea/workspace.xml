@@ -4,7 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="243acab9-fcc2-48e8-a3d6-fe673eea8e2e" name="Changes" comment="" />
+    <list default="true" id="243acab9-fcc2-48e8-a3d6-fe673eea8e2e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FrameHeader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/frames/FrameHeader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FrameHome.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/frames/FrameHome.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PanelLogboek.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/panels/PanelLogboek.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PanelOrderStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/panels/PanelOrderStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PanelPositie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/panels/PanelPositie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PanelStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/panels/PanelStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/noodstop2.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/noodstop2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/settings2.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/settings2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/switch off.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/switch off.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/switch on.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/switch on.png" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,35 +44,6 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/OneDrive/Documenten/School/Windesheim/Periode 4/KBS/magazijnRobotHMI",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "vue.rearranger.settings.migration": "true"
-  }
-}]]></component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-  </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
@@ -76,6 +60,32 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\OneDrive\Documenten\School\Windesheim\Periode 4\KBS\magazijnRobotHMI\src" />
+      <recent name="D:\OneDrive\Documenten\School\Windesheim\Periode 4\KBS\magazijnRobotHMI\src\images" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="magazijnRobotHMI" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

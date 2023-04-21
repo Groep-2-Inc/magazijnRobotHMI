@@ -1,3 +1,5 @@
+package frames;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -21,8 +23,8 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
     private JPanel p2 = new JPanel(); //paneel voor in de popup
     private JToggleButton jtb_darkMode; //button voor het toggelen van darmode en lightmode
     public boolean b_darkMode = false; //boolean om de darkmode bij te houden
-    private ImageIcon ii_switchOff = new ImageIcon(getClass().getResource("switch off.png")); //imageicon van de switch uit
-    private ImageIcon ii_switchOn = new ImageIcon(getClass().getResource("switch on.png")); //imageicon van de switch aan
+    private ImageIcon ii_switchOff = new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/switch off.png"))); //imageicon van de switch uit
+    private ImageIcon ii_switchOn = new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/switch on.png"))); //imageicon van de switch aan
 
     public FrameHeader(){
         //de uiterlijk van het paneel regelen
@@ -42,12 +44,12 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
         jmb_main.add(Box.createHorizontalGlue());
 
         //haalt de images op, maak knoppen met deze images en zet de marigin op 0;
-        ImageIcon settings = new ImageIcon(Objects.requireNonNull(getClass().getResource("settings2.png")));
+        ImageIcon settings = new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/settings2.png")));
         jb_settings = new JButton(settings);
         jb_settings.setMargin(new Insets(0, 0, 0, 0));
         jb_settings.addActionListener(this);
 
-        ImageIcon ii_noodstop = new ImageIcon(Objects.requireNonNull(getClass().getResource("noodstop2.png")));
+        ImageIcon ii_noodstop = new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/noodstop2.png")));
         jb_noodstop = new JButton(ii_noodstop);
         jb_noodstop.setMargin(new Insets(0, 0, 0, 0));
         jb_noodstop.addActionListener(this);
