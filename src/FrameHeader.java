@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 import javax.swing.border.LineBorder;
 
 public class FrameHeader extends JFrame implements ActionListener, ItemListener{
@@ -27,7 +28,7 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
         setSize(1920, 1080);
         setLayout(new FlowLayout());
 
-        //voeg de knoppen toe met actionlisteners aan het menu
+        //voegt de knoppen toe met actionlisteners aan het menu
         jb_home.addActionListener(this);
         jmb_main.add(jb_home);
         jb_orders.addActionListener(this);
@@ -38,22 +39,21 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
         //zorg ervoor dat in plaats van links nu alles rechts wordt toegevoegd
         jmb_main.add(Box.createHorizontalGlue());
 
-        //haal de immages op, maak knoppen met deze immages en zet de marigin op 0;
-        ImageIcon settings = new ImageIcon(getClass().getResource("settings2.png"));
+        //haalt de images op, maak knoppen met deze images en zet de marigin op 0;
+        ImageIcon settings = new ImageIcon(Objects.requireNonNull(getClass().getResource("settings2.png")));
         jb_settings = new JButton(settings);
         jb_settings.setMargin(new Insets(0, 0, 0, 0));
         jb_settings.addActionListener(this);
 
-
-        ImageIcon ii_noodstop = new ImageIcon(getClass().getResource("noodstop2.png"));
+        ImageIcon ii_noodstop = new ImageIcon(Objects.requireNonNull(getClass().getResource("noodstop2.png")));
         jb_noodstop = new JButton(ii_noodstop);
         jb_noodstop.setMargin(new Insets(0, 0, 0, 0));
 
-        //voeg deze uiteindelijk toe aan de menubalk
+        //voegt deze uiteindelijk toe aan de menubalk
         jmb_main.add(jb_settings);
         jmb_main.add(jb_noodstop);
 
-        //voeg de menubalk toe aan het scherm
+        //voegt de menubalk toe aan het scherm
         setJMenuBar(jmb_main);
 
         //zet de default close operation en laat het scherm zien.
