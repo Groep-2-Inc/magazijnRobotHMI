@@ -11,15 +11,11 @@ public class FrameHeader extends JFrame implements ActionListener{
     private JButton jb_settings; //button om de settings te openen
     private JButton jb_noodstop; //button voor de noodstop
 
-
-
     public FrameHeader(){
-
         //de uiterlijk van het paneel regelen
         setTitle("JavaAplication/Home");
         setSize(1920, 1080);
         setLayout(new FlowLayout());
-
 
         //voeg de knoppen toe met actionlisteners aan het menu
         jb_home.addActionListener(this);

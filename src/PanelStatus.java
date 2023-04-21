@@ -27,15 +27,15 @@ public class PanelStatus extends JPanel {
         p.setPreferredSize(new Dimension(900,480));
 
         //zet het font voor alle meldingen
-        jb_verbonden.setFont(new Font("Arial", Font.PLAIN, 30));
-        jb_rust.setFont(new Font("Arial", Font.PLAIN, 30));
-        jb_productOphalen.setFont(new Font("Arial", Font.PLAIN, 30));
-        jb_inBeweging.setFont(new Font("Arial", Font.PLAIN, 30));
-        jb_nood.setFont(new Font("Arial", Font.PLAIN, 30));
-        jb_productAfgeven.setFont(new Font("Arial", Font.PLAIN, 30));
-        jb_empty1.setFont(new Font("Arial", Font.PLAIN, 30));
-        jb_empty2.setFont(new Font("Arial", Font.PLAIN, 30));
-        jb_productTerugzetten.setFont(new Font("Arial", Font.PLAIN, 30));
+        jb_verbonden.setFont(new Font("Arial", Font.PLAIN, 27));
+        jb_rust.setFont(new Font("Arial", Font.PLAIN, 27));
+        jb_productOphalen.setFont(new Font("Arial", Font.PLAIN, 27));
+        jb_inBeweging.setFont(new Font("Arial", Font.PLAIN, 27));
+        jb_nood.setFont(new Font("Arial", Font.PLAIN, 27));
+        jb_productAfgeven.setFont(new Font("Arial", Font.PLAIN, 27));
+        jb_empty1.setFont(new Font("Arial", Font.PLAIN, 27));
+        jb_empty2.setFont(new Font("Arial", Font.PLAIN, 27));
+        jb_productTerugzetten.setFont(new Font("Arial", Font.PLAIN, 27));
 
         //zet de background voor alle meldingen
         jb_verbonden.setBackground(Color.lightGray);
