@@ -128,6 +128,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
             JPanel panelOrders = new OrderPanel(orders.get(i));
             buttons.get(i).add(panelOrders);
             panel2.add(buttons.get(i));
+            buttons.get(i).setBackground(Color.white);
             Dimension sizeOrderPanel = panelOrders.getPreferredSize();
             panelOrders.setBounds(0, sizeOrderPanel.height * i, sizeOrderPanel.width, sizeOrderPanel.height);
 
