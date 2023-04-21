@@ -92,7 +92,7 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
                 p_settings = pf.getPopup(this, p2, 1700, 80);
                 p_settings.show();
                 b_isShowingSettings = true;
-            } else if (b_isShowingSettings){
+            } else{
                 p_settings.hide();
                 b_isShowingSettings = false;
             }
