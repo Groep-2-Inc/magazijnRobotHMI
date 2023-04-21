@@ -4,14 +4,17 @@ import java.awt.*;
 
 public class PanelPositie extends JPanel {
     public PanelPositie(){
+        //initializeer het hoofd paneel
         setPreferredSize(new Dimension(960,540));
         setBackground(new Color(236, 236, 236));
         setBorder(new LineBorder(Color.black, 1));
 
+        //nieuw paneel voor alle informatie
         JPanel p = new JPanel();
         p.setPreferredSize(new Dimension(500, 500));
         p.setLayout(new GridLayout(6, 6));
 
+        //voeg alle dingen toe aan het paneel
         for (int i = 0; i <= 35; i++){
             switch (i){
                 case 0:
@@ -42,6 +45,7 @@ public class PanelPositie extends JPanel {
                     p.add(p2);
             }
         }
+        //voeg paneel toe aan het hoofdscherm
         add(p);
     }
 }
