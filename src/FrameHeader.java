@@ -86,10 +86,10 @@ public class FrameHeader extends JFrame implements ActionListener{
 
         //voeg de tekst en knop toe
         JLabel l = new JLabel("                    Attentie                    ");
-        JLabel l2 = new JLabel("de robot is gestopt!!!");
+        JLabel l2 = new JLabel("De robot is gestopt!");
         l.setFont(new Font("Arial", Font.PLAIN, 80));
         l2.setFont(new Font("Arial", Font.PLAIN, 80));
-        jb_noodstopSluiten = new JButton("verder");
+        jb_noodstopSluiten = new JButton("Verder");
         jb_noodstopSluiten.addActionListener(this);
 
         //nieuw paneel voor de maregin
