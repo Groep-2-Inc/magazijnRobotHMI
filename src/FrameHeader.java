@@ -11,15 +11,15 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
     private JButton jb_producten = new JButton("Producten"); //button om naar het scherm naar producten te gaan
     private JButton jb_settings; //button om de settings te openen
     private JButton jb_noodstop; //button voor de noodstop
-    private JButton jb_logboek = new JButton("Logboek");
-    private Popup p_settings;
-    private boolean b_isShowingSettings = false;
-    private PopupFactory pf = new PopupFactory();
-    private JPanel p2 = new JPanel();
-    private JToggleButton jtb_darkMode;
-    public boolean b_darkMode = false;
-    private ImageIcon ii_switchOff = new ImageIcon(getClass().getResource("switch off.png"));
-    private ImageIcon ii_switchOn = new ImageIcon(getClass().getResource("switch on.png"));
+    private JButton jb_logboek = new JButton("Logboek"); // nieuwe logboek knop
+    private Popup p_settings; //popup voor de settings
+    private boolean b_isShowingSettings = false; //bool om te kijken of de settings aan het showen zijn
+    private PopupFactory pf = new PopupFactory(); //popupfactory om de popup werkend te krijgen
+    private JPanel p2 = new JPanel(); //paneel voor in de popup
+    private JToggleButton jtb_darkMode; //button voor het toggelen van darmode en lightmode
+    public boolean b_darkMode = false; //boolean om de darkmode bij te houden
+    private ImageIcon ii_switchOff = new ImageIcon(getClass().getResource("switch off.png")); //imageicon van de switch uit
+    private ImageIcon ii_switchOn = new ImageIcon(getClass().getResource("switch on.png")); //imageicon van de switch aan
 
     public FrameHeader(){
 
@@ -62,26 +62,31 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
+        //initializeer de darkmode button
         jtb_darkMode = new JToggleButton(ii_switchOff);
         jtb_darkMode.setMargin(new Insets(0, 0, 0, 0));
         jtb_darkMode.setBackground(Color.WHITE);
         jtb_darkMode.setBorder(new LineBorder(Color.white));
         jtb_darkMode.addItemListener(this);
 
+        //initializeer het paneel.
         p2.setPreferredSize(new Dimension(200, 200));
         p2.setBorder(new LineBorder(Color.BLACK));
         p2.add(new JLabel("          Instellingen          "));
         p2.add(new JLabel("                                "));
         p2.add(new JLabel("Light/Dark mode"));
+        //voeg de buttons toe
         p2.add(jtb_darkMode);
         jb_logboek.setPreferredSize(new Dimension(150, 40));
         p2.add(jb_logboek);
         p2.setBackground(Color.white);
+        //maak de popup
         p_settings = pf.getPopup(this, p2, 1800, 60);
     }
 
     public void actionPerformed(ActionEvent e) {
-        //hieronder de code voor als de knoppen ingedrukt worden.
+
+        //open de settings popup
         if(e.getSource() == jb_settings){
             if(!b_isShowingSettings){
                 p_settings = pf.getPopup(this, p2, 1700, 80);
@@ -94,9 +99,13 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
         }
     }
     public void itemStateChanged(ItemEvent eve) {
-        if (jtb_darkMode.isSelected())
+        //switch van dark/light mode
+        if (jtb_darkMode.isSelected()){
             jtb_darkMode.setIcon(ii_switchOn);
-        else
+            b_darkMode = true;
+        } else {
+            b_darkMode = false;
             jtb_darkMode.setIcon(ii_switchOff);
+        }
     }
 }
