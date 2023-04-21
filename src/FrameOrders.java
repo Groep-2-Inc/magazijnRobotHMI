@@ -146,20 +146,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
                 }
             });
         }
-//        //for loop waarbij voor elke order nieuw panel wordt aangemaakt, de teller wordt opgehoogt en de grootte en de plaats van elk panel wordt bedacht
-//        int teller1 = 0;
-//        for (Order order : orders) {
-//            JButton jb_order = new JButton();
-//            JPanel panelOrders = new OrderPanel(order);
-//            jb_order.add(panelOrders);
-//            panel2.add(jb_order);
-//            Dimension sizeOrderPanel = panelOrders.getPreferredSize();
-//            panelOrders.setBounds(0, sizeOrderPanel.height * teller, sizeOrderPanel.width, sizeOrderPanel.height);
-//
-//            Dimension sizeButtonOrder = jb_order.getPreferredSize();
-//            jb_order.setBounds(0, sizeButtonOrder.height * teller, sizeButtonOrder.width, sizeButtonOrder.height);
-//            teller ++;
-//        }
+
 
         //aanmaken scrollpane, juiste grootte megeven en de vertical scrollbar en toevoegen aan het scherm
         JScrollPane scrollPane = new JScrollPane(panel2);
@@ -167,28 +154,6 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setPreferredSize(new Dimension(1500, 535));
         super.add(scrollPane);
-
-        //aanmaken derde panel voor inzien button, layout op null zetten
-        JPanel panel3 = new JPanel();
-        panel3.setLayout(null);
-        panel3.setPreferredSize(new Dimension(1500, 50));
-//        panel3.setBackground(Color.magenta); // voor het debuggen
-
-        //Button voor inzien aanmaken, toevoegen aan panel en de juiste plek, grootte en lettertype meegeven
-        jb_view = new JButton("Inzien");
-        panel3.add(jb_view);
-        jb_view.setFont(new Font("Arial", Font.PLAIN, 17));
-        Dimension sizeViewButton = jb_view.getPreferredSize();
-        jb_view.setBounds(1350, 10, 120, 40);
-        jb_view.addActionListener(this); // actionlistener toevoegen
-
-        super.add(panel3); // panel3 toevoegen aan het hoofdscherm
-
-
-
-    }
-
-    public void actionPerformed(ActionEvent e) {
     }
 
 
