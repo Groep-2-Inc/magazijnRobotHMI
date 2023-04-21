@@ -9,7 +9,7 @@ public class Product {
     public Product(String productname, int stock){
         this.productname = productname;
         this.stock = stock;
-        this.productID = amountOfProducts;
+        this.productID = amountOfProducts +1;
         this.imgPath = "unknown";
         amountOfProducts++;
     }

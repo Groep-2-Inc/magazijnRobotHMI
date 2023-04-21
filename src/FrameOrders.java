@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import static javax.swing.text.html.HTML.Attribute.N;
+
 public class FrameOrders extends FrameHeader implements ActionListener {
     private ArrayList<Order> orders;// arraylist waarin alle orders staan
     private JButton jb_search; // butten voor het zoeken
@@ -12,6 +14,8 @@ public class FrameOrders extends FrameHeader implements ActionListener {
 
     private JTextField jtf_orderNumber; // tekstveld voor het ordernummer
     private JComboBox jcb_sort; //combobox voor het sorteren
+
+    private ArrayList<JButton> buttons = new ArrayList<>(); // alle buttons uit het panel komen in deze lijst
 
     public FrameOrders(ArrayList<Order> orders){
         //standaard instellingen
@@ -116,15 +120,45 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         panel2.setLayout(new FlowLayout());
         panel2.setPreferredSize(new Dimension(1500, 100* orders.size() + 50));
 
-        //for loop waarbij voor elke order nieuw panel wordt aangemaakt, de teller wordt opgehoogt en de grootte en de plaats van elk panel wordt bedacht
-        int teller = 0;
-        for (Order order : orders) {
-            JPanel panelOrders = new OrderPanel(order);
-            panel2.add(panelOrders);
+        // for loop waar eerst een buttun toegevoegd wordt aan de arraylist, dan wordt in deze button een panel toegevoegt
+        // en wordt de juiste grootte meegegeven
+        for (int i = 0; i < orders.size(); i++) {
+            buttons.add(new JButton());
+//            JButton jb_order = new JButton();
+            JPanel panelOrders = new OrderPanel(orders.get(i));
+            buttons.get(i).add(panelOrders);
+            panel2.add(buttons.get(i));
             Dimension sizeOrderPanel = panelOrders.getPreferredSize();
-            panelOrders.setBounds(0, sizeOrderPanel.height * teller, sizeOrderPanel.width, sizeOrderPanel.height);
-            teller ++;
+            panelOrders.setBounds(0, sizeOrderPanel.height * i, sizeOrderPanel.width, sizeOrderPanel.height);
+
+            Dimension sizeButtonOrder = buttons.get(i).getPreferredSize();
+            buttons.get(i).setBounds(0, sizeButtonOrder.height * i, sizeButtonOrder.width, sizeButtonOrder.height);
         }
+
+        //for loop die controleerd die elke knop in de arrayList langsgaat en checkt of die gedrukt is, bij het indrukken, wordt er een regel geprint, dat is alleen voor het debuggen
+        for (int i = 0; i < orders.size(); i++) {
+            final int buttonNumber = i + 1;
+            buttons.get(i).addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println("Gedrukt op knop nummer " + buttonNumber ); // voor het debuggen kijken of de knop werkt
+                    //straks moet er iets komen van Panel = new Panel(orders.get(buttonNumber-1)) -> moet nog beter uitgewerkt worden
+                }
+            });
+        }
+//        //for loop waarbij voor elke order nieuw panel wordt aangemaakt, de teller wordt opgehoogt en de grootte en de plaats van elk panel wordt bedacht
+//        int teller1 = 0;
+//        for (Order order : orders) {
+//            JButton jb_order = new JButton();
+//            JPanel panelOrders = new OrderPanel(order);
+//            jb_order.add(panelOrders);
+//            panel2.add(jb_order);
+//            Dimension sizeOrderPanel = panelOrders.getPreferredSize();
+//            panelOrders.setBounds(0, sizeOrderPanel.height * teller, sizeOrderPanel.width, sizeOrderPanel.height);
+//
+//            Dimension sizeButtonOrder = jb_order.getPreferredSize();
+//            jb_order.setBounds(0, sizeButtonOrder.height * teller, sizeButtonOrder.width, sizeButtonOrder.height);
+//            teller ++;
+//        }
 
         //aanmaken scrollpane, juiste grootte megeven en de vertical scrollbar en toevoegen aan het scherm
         JScrollPane scrollPane = new JScrollPane(panel2);

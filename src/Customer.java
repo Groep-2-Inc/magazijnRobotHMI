@@ -6,7 +6,7 @@ public class Customer {
 
     public Customer(String customername){
         this.customername = customername;
-        this.customerID = amountOfCustomers;
+        this.customerID = amountOfCustomers +1;
         amountOfCustomers++;
     }
 
