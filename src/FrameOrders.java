@@ -11,7 +11,6 @@ public class FrameOrders extends FrameHeader implements ActionListener {
     private JButton jb_search; // butten voor het zoeken
     private JButton jb_view; // button voor het orders inzien
     private JTextField jtf_customerNumber; // tekstveld voor het klantnummer
-
     private JTextField jtf_orderNumber; // tekstveld voor het ordernummer
     private JComboBox jcb_sort; //combobox voor het sorteren
 
@@ -24,11 +23,10 @@ public class FrameOrders extends FrameHeader implements ActionListener {
 
         this.orders = orders; // Het attribuut de meegegeven waarde geven
 
-        //panel  voor de buttons aanmaken en de juiste grootte meegeven
+        //panel voor de buttons aanmaken en de juiste grootte meegeven
         JPanel panelButtons1 = new JPanel();
         panelButtons1.setLayout(null);
         panelButtons1.setPreferredSize(new Dimension(1500, 50));
-//        panelButtons1.setBackground(Color.green); // voor het debuggen
 
         //label voor de tekst orders aanmaken, toevoegen aan panel en de juiste plek, grootte en lettertype meegeven
         JLabel jl_orderLabel = new JLabel("Orders");
@@ -120,7 +118,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         panel2.setLayout(new FlowLayout());
         panel2.setPreferredSize(new Dimension(1500, 100* orders.size() + 50));
 
-        // for loop waar eerst een buttun toegevoegd wordt aan de arraylist, dan wordt in deze button een panel toegevoegt
+        // for loop waar eerst een buttun toegevoegd wordt aan de arraylist, dan wordt in deze button een panel toegevoegd
         // en wordt de juiste grootte meegegeven
         for (int i = 0; i < orders.size(); i++) {
             buttons.add(new JButton());
@@ -147,14 +145,11 @@ public class FrameOrders extends FrameHeader implements ActionListener {
             });
         }
 
-
-        //aanmaken scrollpane, juiste grootte megeven en de vertical scrollbar en toevoegen aan het scherm
+        //aanmaken scrollPane, juiste grootte meegeven en de vertical scrollbar en toevoegen aan het scherm
         JScrollPane scrollPane = new JScrollPane(panel2);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setPreferredSize(new Dimension(1500, 535));
         super.add(scrollPane);
     }
-
-
 }
