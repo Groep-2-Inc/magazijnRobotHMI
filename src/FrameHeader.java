@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.border.LineBorder;
 
 public class FrameHeader extends JFrame implements ActionListener, ItemListener{
-    private JMenuBar jmb_main = new JMenuBar(); //menubarr voor alle menu knoppen
+    private JMenuBar jmb_main = new JMenuBar(); //menubar voor alle menu knoppen
     private JButton jb_home = new JButton("Home"); //button om naar het hoofdscherm te gaan
     private JButton jb_orders = new JButton("Orders"); //button om naar het order scherm te gaan
     private JButton jb_producten = new JButton("Producten"); //button om naar het scherm naar producten te gaan
@@ -22,12 +22,10 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
     private ImageIcon ii_switchOn = new ImageIcon(getClass().getResource("switch on.png")); //imageicon van de switch aan
 
     public FrameHeader(){
-
         //de uiterlijk van het paneel regelen
         setTitle("JavaAplication/Home");
         setSize(1920, 1080);
         setLayout(new FlowLayout());
-
 
         //voeg de knoppen toe met actionlisteners aan het menu
         jb_home.addActionListener(this);
