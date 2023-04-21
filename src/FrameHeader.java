@@ -98,16 +98,6 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
                 b_isShowingSettings = false;
             }
         }
-    }
-    public void itemStateChanged(ItemEvent eve) {
-        //switch van dark/light mode
-        if (jtb_darkMode.isSelected()){
-            jtb_darkMode.setIcon(ii_switchOn);
-            b_darkMode = true;
-        } else {
-            b_darkMode = false;
-            jtb_darkMode.setIcon(ii_switchOff);
-        }
 
         //als de noodstop wordt ingedrukt open het noodstopframe
         if(e.getSource() == jb_noodstop){
@@ -117,6 +107,16 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
         //als de noodstopSluiten knop wordt ingedrukt sluit het noodstopFrame
         if(e.getSource() == jb_noodstopSluiten){
             jf_noodstopFrame.dispose();
+        }
+    }
+    public void itemStateChanged(ItemEvent eve) {
+        //switch van dark/light mode
+        if (jtb_darkMode.isSelected()){
+            jtb_darkMode.setIcon(ii_switchOn);
+            b_darkMode = true;
+        } else {
+            b_darkMode = false;
+            jtb_darkMode.setIcon(ii_switchOff);
         }
     }
     public void noodStop(){
