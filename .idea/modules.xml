@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/magazijnRobot.iml" filepath="$PROJECT_DIR$/magazijnRobot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/magazijnHMI.iml" filepath="$PROJECT_DIR$/magazijnHMI.iml" />
     </modules>
   </component>
 </project>
