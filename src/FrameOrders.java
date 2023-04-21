@@ -118,7 +118,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         panel2.setLayout(new FlowLayout());
         panel2.setPreferredSize(new Dimension(1500, 100* orders.size() + 50));
 
-        // for loop waar eerst een buttun toegevoegd wordt aan de arraylist, dan wordt in deze button een panel toegevoegd
+        // for loop waar eerst een button toegevoegd wordt aan de arraylist, dan wordt in deze button een panel toegevoegd
         // en wordt de juiste grootte meegegeven
         for (int i = 0; i < orders.size(); i++) {
             buttons.add(new JButton());
