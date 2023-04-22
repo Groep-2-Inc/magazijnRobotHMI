@@ -19,12 +19,17 @@ public class Main {
         products.add(product5);
         products.add(product6);
         products.add(product7);
+        ArrayList<Product> products2 = new ArrayList<>();
+        products.add(product);
+        products.add(product2);
         Customer customer = new Customer("Piet");
         Customer customer2 = new Customer("Klaas");
         Customer customer3 = new Customer("Annabel");
+        Customer customer4 = new Customer("Erik");
         Order order = new Order(customer, products);
         Order order2 = new Order(customer2, products);
         Order order3 = new Order(customer3, products);
+        Order order4 = new Order(customer4, products2);
         ArrayList<Order> orders= new ArrayList<>();
         orders.add(order);
         orders.add(order2);
@@ -35,6 +40,7 @@ public class Main {
         orders.add(order);
         orders.add(order2);
         orders.add(order3);
+        orders.add(order4);
 //
         FrameOrders frame = new FrameOrders(orders);
     }
