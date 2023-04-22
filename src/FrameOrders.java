@@ -29,6 +29,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         //standaard instellingen (Joëlle)
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Java-application/Orders"); // moet nog een betere naam hebben (Joëlle)
+        
 
         this.orders = orders; // Het attribuut de meegegeven waarde geven (Joëlle)
 
@@ -53,24 +54,20 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         String sortpossibilities[]={"Ordernummer oplopend", "Ordernummer aflopend", "Datum oplopend", "Datum aflopend", "Voltooid", "Onvoltooid"};
         jcb_sort = new JComboBox(sortpossibilities);
         panelButtons1.add(jcb_sort);
-        Dimension sizeSortBox = jcb_sort.getPreferredSize();
         jcb_sort.setBounds(800 + sizeSortLabel.width +10, 10, 175, 30);
 
         //Tekstveld toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         panelButtons1.add(jtf_customerNumber);
-        Dimension sizeCustomerNumber = jtf_customerNumber.getPreferredSize();
         jtf_customerNumber.setBounds(1070, 10, 120, 30);
 
         //Tekstveld toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         panelButtons1.add(jtf_orderNumber);
-        Dimension sizeOrderNumber = jtf_orderNumber.getPreferredSize();
         jtf_orderNumber.setBounds(1200, 10, 120, 30);
 
         // Buttun toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jb_search.setFont(new Font("Arial", Font.PLAIN, 17));
         panelButtons1.add(jb_search);
         jb_search.addActionListener(this); // actionlistener toevoegen aan button (Joëlle)
-        Dimension sizeSearchButton = jb_search.getPreferredSize();
         jb_search.setBounds(1350, 5, 120, 40);
 
         super.add(panelButtons1); // PanelButtons toevoegen aan het hoofdscherm (Joëlle)
