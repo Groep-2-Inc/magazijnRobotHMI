@@ -52,3 +52,35 @@ void stopMovement(){
     analogWrite(pwmPinX, 0);
     analogWrite(pwmPinY, 0);
 }
+
+void manualControl(){
+    float dir = readJoystick();
+
+    if (dir == 1.0){
+        moveLeft();
+        Serial.println("L");
+    }else if (dir == 2.0){
+        moveRight();
+        Serial.println("R");
+    }else if (dir == 0.1){
+        moveUp();
+        Serial.println("U");
+    }else if (dir == 0.2){
+        moveDown();
+        Serial.println("D");
+    }else if (dir == 1.1){
+        moveUp();
+        moveLeft();
+    }else if (dir == 2.1){
+        moveUp();
+        moveRight();
+    }else if (dir == 1.2){
+        moveDown();
+        moveLeft();
+    }else if (dir == 2.2){
+        moveDown();
+        moveRight();
+    }else {
+        stopMovement();
+    }
+}
