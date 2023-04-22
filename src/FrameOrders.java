@@ -29,7 +29,11 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         //standaard instellingen (Joëlle)
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Java-application/Orders"); // moet nog een betere naam hebben (Joëlle)
-        
+        // standaard fonts instellen
+        Font arial20 = new Font("Arial", Font.PLAIN, 20);
+        Font arial17 = new Font("Arial", Font.PLAIN, 17);
+        Font arial15 = new Font("Arial", Font.PLAIN, 15);
+
 
         this.orders = orders; // Het attribuut de meegegeven waarde geven (Joëlle)
 
@@ -65,7 +69,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         jtf_orderNumber.setBounds(1200, 10, 120, 30);
 
         // Buttun toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
-        jb_search.setFont(new Font("Arial", Font.PLAIN, 17));
+        jb_search.setFont(arial17);
         panelButtons1.add(jb_search);
         jb_search.addActionListener(this); // actionlistener toevoegen aan button (Joëlle)
         jb_search.setBounds(1350, 5, 120, 40);
@@ -79,31 +83,31 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         panelTitles.setBackground(Color.lightGray);
 
         //Label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
-        jl_orderText.setFont(new Font("Arial", Font.PLAIN, 20));
+        jl_orderText.setFont(arial20);
         panelTitles.add(jl_orderText);
         Dimension sizeOrderText = jl_orderText.getPreferredSize();
         jl_orderText.setBounds(50, 10, sizeOrderText.width, sizeOrderText.height);
 
         //Label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
-        jl_customerText.setFont(new Font("Arial", Font.PLAIN, 20));
+        jl_customerText.setFont(arial20);
         panelTitles.add(jl_customerText);
         Dimension sizeCustomerText = jl_customerText.getPreferredSize();
         jl_customerText.setBounds(400, 10, sizeCustomerText.width +10, sizeCustomerText.height);
 
         //Label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
-        jl_productsText.setFont(new Font("Arial", Font.PLAIN, 20));
+        jl_productsText.setFont(arial20);
         panelTitles.add(jl_productsText);
         Dimension sizeProductenText = jl_productsText.getPreferredSize();
         jl_productsText.setBounds(750, 10, sizeProductenText.width +10, sizeProductenText.height);
 
         //Label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
-        jl_productsQuantityText.setFont(new Font("Arial", Font.PLAIN, 15));
+        jl_productsQuantityText.setFont(arial15);
         panelTitles.add(jl_productsQuantityText);
         Dimension sizeProductsQuantityText = jl_productsQuantityText.getPreferredSize();
         jl_productsQuantityText.setBounds(750 +sizeProductenText.width +10, 15, sizeProductsQuantityText.width +10, sizeProductsQuantityText.height);
 
         //Label voor Datum aanmaken, toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
-        jlDateText.setFont(new Font("Arial", Font.PLAIN, 20));
+        jlDateText.setFont(arial20);
         panelTitles.add(jlDateText);
         Dimension sizeDateText = jlDateText.getPreferredSize();
         jlDateText.setBounds(1100, 10, sizeDateText.width +10, sizeDateText.height);
