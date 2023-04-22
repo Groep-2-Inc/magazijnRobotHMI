@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import static javax.swing.text.html.HTML.Attribute.N;
 
 public class FrameOrders extends FrameHeader implements ActionListener {
     private ArrayList<Order> orders;// arraylist waarin alle orders staan
