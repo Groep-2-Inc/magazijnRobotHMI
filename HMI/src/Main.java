@@ -1,7 +1,7 @@
-import frames.FrameHome;
+import frames.FrameVerwerken;
 
 public class Main {
     public static void main(String[] args) {
-        new FrameHome();
+        new FrameVerwerken();
     }
 }

@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
+//door Jason Joshua van der Kolk
 public class PanelStatus extends JPanel {
     private JButton jb_verbonden = new JButton("Verbonden"); //melding voor verbonden
     private JButton jb_rust = new JButton("Rust"); //melding voor rust

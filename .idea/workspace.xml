@@ -36,7 +36,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/OneDrive/Documenten/School/Windesheim/Periode 4/KBS/magazijnRobotHMI/HMI",
+    "last_opened_file_path": "C:/Users/jason/Desktop/Files/Homework/KBS 2/magazijnHMI/magazijnHMI/HMI",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -61,17 +61,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -89,6 +78,8 @@
       <workItem from="1682081943899" duration="617000" />
       <workItem from="1682072662990" duration="6346000" />
       <workItem from="1682081531366" duration="284000" />
+      <workItem from="1682254470448" duration="50000" />
+      <workItem from="1682254556519" duration="14000" />
     </task>
     <servers />
   </component>

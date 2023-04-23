@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
+//door Jason Joshua van der Kolk
 public class PanelPositie extends JPanel {
     public PanelPositie(){
         //initializeer het hoofd paneel
