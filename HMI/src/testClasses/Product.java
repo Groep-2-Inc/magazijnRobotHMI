@@ -7,7 +7,6 @@ public class Product {
     private int stock;
     private String imgPath;
 
-
     public Product(String productname, int stock){
         this.productname = productname;
         this.stock = stock;
