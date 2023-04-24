@@ -1,4 +1,4 @@
 #include <Arduino.h>
 
-float readJoystick();
+String readJoystick();
 void joystickSetup();

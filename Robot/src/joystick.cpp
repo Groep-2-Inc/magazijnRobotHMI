@@ -35,7 +35,7 @@ bool checkButton(){
 // Naar links zou dus zijn 1.0, rechts 2.0
 // Boven 0.1, onder 0.2
 // Dit kan gecombineerd worden voor diagonale 1.1, 1.2, 2.1, 2.2
-float readJoystick() {
+String readJoystick() {
 	// Leest de assen en knop uit
 	xDirection = analogRead(joyX);
 	yDirection = analogRead(joyY);
@@ -67,8 +67,6 @@ float readJoystick() {
 
 	// Voegt de horizontal en vertical samen zodat het een float kan worden
 	String direction = horizontal + "." + vertical;
-	// Zet de string om naar een float
-	float returnValue = direction.toFloat();
 
-	return returnValue;
+	return direction;
 }
