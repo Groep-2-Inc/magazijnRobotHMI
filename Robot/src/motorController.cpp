@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <joystick.h>
+#include <comms.h>
 
 int globalSpeed = 255;
 const int directionPinX = 13;
@@ -76,7 +77,14 @@ void manualControl(){
     }else if (dir == "2.2.0"){
         moveDown();
         moveRight();
+    }else if (dir == "0.0.1"){
+        toSlaveArduino(1);
+        stopMovement();
+    }else if (dir == "0.0.2"){
+        toSlaveArduino(2);
+        stopMovement();
     }else {
+        toSlaveArduino(0);
         stopMovement();
     }
 }

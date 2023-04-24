@@ -13,7 +13,7 @@ bool zAs = false;
 void joystickSetup(){
 	pinMode(joyY, INPUT);
 	pinMode(joyX, INPUT);
-	pinMode(swPin, INPUT);
+	pinMode(swPin, INPUT_PULLUP);
 }
 
 unsigned long lastPressed = 0;
@@ -96,7 +96,6 @@ String readJoystick() {
 
 	// Voegt de horizontal en vertical samen zodat het een float kan worden
 	String data =  horizontal + "." + vertical + "." + depth;
-	Serial.println(data);
 
 	return data;
 }
