@@ -6,15 +6,16 @@
 
 // Sets correct pinmodes
 void setup() {  
-  emergyStopSetup();
-  joystickSetup();
-  motorSetup();
-  Serial.begin(9600);
+	emergyStopSetup();
+	joystickSetup();
+	motorSetup();
+	Serial.begin(9600);
+	pinMode(6, INPUT_PULLUP);
 }
 
 // Herhaald de volgende code meerder keren
 void loop() {
-    checkStop();
+    // checkStop();
 
 	manualControl();
 

@@ -1,30 +1,31 @@
 #include <Arduino.h>
 
-const int joyX = A5;
-const int joyY = A4;
-const int swPin = 5;
+const int joyX = A3;
+const int joyY = A2;
+const int swPin = 6;
 int xDirection = 0;
 int yDirection = 0;
-int swState = 0;
+bool swState;
+
+bool zAs = false;
 
 // Zet de pinmode voor joystick
 void joystickSetup(){
 	pinMode(joyY, INPUT);
 	pinMode(joyX, INPUT);
-	pinMode(swPin, INPUT_PULLUP);
+	pinMode(swPin, INPUT);
 }
 
-// Controleert of de joyStick button is ingedrukt
-unsigned long lastPress = 0;
-bool checkButton(){
-  bool pressed = digitalRead(swPin);
-  if (pressed){
-    if (millis() - lastPress > 250){
-      lastPress = millis();
-      return true;
-    }
-  }
-  return false;
+unsigned long lastPressed = 0;
+bool checkJoystickButton(){
+	bool ingedrukt = digitalRead(swPin); 
+	if(!ingedrukt){
+		if(millis() - lastPressed > 300){
+			lastPressed = millis();
+			return true;
+		}
+	}
+	return false;
 }
 
 // Leest de joystick uit
@@ -39,34 +40,63 @@ String readJoystick() {
 	// Leest de assen en knop uit
 	xDirection = analogRead(joyX);
 	yDirection = analogRead(joyY);
-	swState = checkButton();
+	swState = checkJoystickButton();
+
+	// Zet de standaard direction
+	String direction = "0.0.0";
 
 	// Zet standaard waarde voor de return var
 	String horizontal = "0";
 	String vertical = "0";
+	String depth = "0";
 
-	// Als de waarde boven de 600 komt
-	if (xDirection > 600){
-		// Zet horizontal op 1
-		horizontal = "1";
-	}else if (xDirection < 400){
-		// Anders als kleinder is dan 400 
-		// Zet horizontal op 2
-		horizontal = "2";
+	// Als de knop is ingedrukt
+	if(swState == 1){
+		// Als zAs true is; dus de knop is een keer ingedrukt
+		if(zAs){
+			// Zet zAs op false
+			zAs = false;
+		}else{
+			// Anders zet hem op 
+			zAs = true;
+		}
 	}
 
-	// Als waarde onder de 450 komt
-	if (yDirection < 450){
-		// Zet vertical op 1
-		vertical = "1";
-	}else if (yDirection > 650){
-		// Anders als groter dan 650
-		// Zet veritcal op 2
-		vertical = "2";
+	if(!zAs){
+		// Als de waarde boven de 600 komt
+		if (xDirection > 600){
+			// Zet horizontal op 1
+			horizontal = "1";
+		}else if (xDirection < 400){
+			// Anders als kleinder is dan 400 
+			// Zet horizontal op 2
+			horizontal = "2";
+		}
+
+		// Als waarde onder de 450 komt
+		if (yDirection < 450){
+			// Zet vertical op 1
+			vertical = "1";
+		}else if (yDirection > 650){
+			// Anders als groter dan 650
+			// Zet veritcal op 2
+			vertical = "2";
+		}
+	}else{
+		// Als waarde onder de 450 komt
+		if (yDirection < 450){
+			// Zet vertical op 1
+			depth = "1";
+		}else if (yDirection > 650){
+			// Anders als groter dan 650
+			// Zet veritcal op 2
+			depth = "2";
+		}
 	}
 
 	// Voegt de horizontal en vertical samen zodat het een float kan worden
-	String direction = horizontal + "." + vertical;
+	String data =  horizontal + "." + vertical + "." + depth;
+	Serial.println(data);
 
-	return direction;
+	return data;
 }

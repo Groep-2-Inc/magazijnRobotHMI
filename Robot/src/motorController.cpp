@@ -56,36 +56,26 @@ void stopMovement(){
 void manualControl(){
     String dir = readJoystick();
 
-    Serial.println(dir);
-
-    if (dir == "1.0"){
+    if (dir == "1.0.0"){
         moveLeft();
-        Serial.println("L");
-    }else if (dir == "2.0"){
+    }else if (dir == "2.0.0"){
         moveRight();
-        Serial.println("R");
-    }else if (dir == "0.1"){
+    }else if (dir == "0.1.0"){
         moveUp();
-        Serial.println("U");
-    }else if (dir == "0.2"){
+    }else if (dir == "0.2.0"){
         moveDown();
-        Serial.println("D");
-    }else if (dir == "1.1"){
+    }else if (dir == "1.1.0"){
         moveUp();
         moveLeft();
-        Serial.println("UL");
-    }else if (dir == "1.2"){
+    }else if (dir == "1.2.0"){
         moveDown();
         moveLeft();
-        Serial.println("DL");
-    }else if (dir == "2.1"){
+    }else if (dir == "2.1.0"){
         moveUp();
         moveRight();
-        Serial.println("UR");
-    }else if (dir == "2.2"){
+    }else if (dir == "2.2.0"){
         moveDown();
         moveRight();
-        Serial.println("DR");
     }else {
         stopMovement();
     }
