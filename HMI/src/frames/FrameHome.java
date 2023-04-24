@@ -25,6 +25,6 @@ public class FrameHome extends FrameHeader{
 
         //voeg het hoofd paneel toe
         add(f);
-        setVisible(true);
+//        setVisible(true);
     }
 }

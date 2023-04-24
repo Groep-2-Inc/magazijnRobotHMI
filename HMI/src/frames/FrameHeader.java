@@ -63,7 +63,7 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
 
         //zet de default close operation en laat het scherm zien.
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
+//        setVisible(true);
 
         //initializeer de darkmode button
         jtb_darkMode = new JToggleButton(ii_switchOff);
