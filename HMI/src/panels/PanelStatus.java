@@ -13,7 +13,7 @@ public class PanelStatus extends JPanel {
     private JButton jb_nood = new JButton("NOOD"); //melding voor nood
     private JButton jb_productAfgeven = new JButton("Product Afgeven"); //melding voor product afgeven
     private JButton jb_productTerugzetten = new JButton("Product Terugzetten"); //melding voor terugzetten
-    private JButton jb_empty1 = new JButton(""); //voor nu lege melding
+    private JButton jb_handmatige = new JButton("Handmatig"); //melding voor handmatig besturing
     private JButton jb_empty2 = new JButton(""); //voor nu lege melding
 
     public PanelStatus(){
@@ -37,7 +37,7 @@ public class PanelStatus extends JPanel {
         jb_inBeweging.setFont(new Font("Arial", Font.PLAIN, 27));
         jb_nood.setFont(new Font("Arial", Font.PLAIN, 27));
         jb_productAfgeven.setFont(new Font("Arial", Font.PLAIN, 27));
-        jb_empty1.setFont(new Font("Arial", Font.PLAIN, 27));
+        jb_handmatige.setFont(new Font("Arial", Font.PLAIN, 27));
         jb_empty2.setFont(new Font("Arial", Font.PLAIN, 27));
         jb_productTerugzetten.setFont(new Font("Arial", Font.PLAIN, 27));
 
@@ -48,7 +48,7 @@ public class PanelStatus extends JPanel {
         jb_inBeweging.setBackground(Color.lightGray);
         jb_nood.setBackground(Color.lightGray);
         jb_productAfgeven.setBackground(Color.lightGray);
-        jb_empty1.setBackground(Color.lightGray);
+        jb_handmatige.setBackground(Color.lightGray);
         jb_empty2.setBackground(Color.lightGray);
         jb_productTerugzetten.setBackground(Color.lightGray);
 
@@ -59,7 +59,7 @@ public class PanelStatus extends JPanel {
         p.add(jb_inBeweging);
         p.add(jb_nood);
         p.add(jb_productAfgeven);
-        p.add(jb_empty1);
+        p.add(jb_handmatige);
         p.add(jb_empty2);
         p.add(jb_productTerugzetten);
 

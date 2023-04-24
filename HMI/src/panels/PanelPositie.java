@@ -1,5 +1,7 @@
 package panels;
 
+import frames.FrameHeader;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -8,7 +10,7 @@ import java.awt.*;
 public class PanelPositie extends JPanel {
     public PanelPositie(){
         //initializeer het hoofd paneel
-        setPreferredSize(new Dimension(960,540));
+        setPreferredSize(new Dimension(FrameHeader.getScreenWidth(50f),540));
         setBackground(new Color(236, 236, 236));
         setBorder(new LineBorder(Color.black, 1));
 

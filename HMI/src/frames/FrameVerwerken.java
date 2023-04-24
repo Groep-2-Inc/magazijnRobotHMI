@@ -3,13 +3,16 @@ package frames;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.Date;
 import panels.PanelPositie;
 import panels.PanelStatus;
+import testClasses.Order;
 
 //door Jason Joshua van der Kolk
-public class FrameVerwerken extends FrameHeader{
+public class FrameVerwerken extends FrameHeader implements ActionListener {
     private int i_orderID = 1; //int voor order id
     private Date d_date = new Date(2000, Calendar.JANUARY, 1); //date voor datum
     private String s_customerName = "customerName"; // string voor de customer name
@@ -19,9 +22,18 @@ public class FrameVerwerken extends FrameHeader{
     private JButton jb_annuleer = new JButton("Annuleer"); //button voor het annuleeren
     private JButton jb_go = new JButton("GO!"); //button voor het starten van het pakken van de orders
     private JButton jb_pakbonnenMaken = new JButton("Pakbonnen maken"); //button voor het aanmaken van de pakbonnen
+    private Order o_order;
 
 
-    public FrameVerwerken(){
+    public FrameVerwerken(Order order){
+        //initializeer alle nodige variabelen.
+        o_order = order;
+        this.i_orderID = order.getOrderID();
+        this.i_customerID = order.getCustomer().getCustomerID();
+        this.i_totaalAantalProducten = order.getProductAmount();
+        this.s_customerName = order.getCustomer().getCustomername();
+        this.d_date = order.getDate();
+
         //nieuwe pannel aanmaken voor alle informatie
         JPanel f = new JPanel();
         f.setPreferredSize(new Dimension(1920, 1080));
@@ -73,6 +85,7 @@ public class FrameVerwerken extends FrameHeader{
         p2 = new JPanel();
         p2.setPreferredSize(new Dimension(150, 40));
         p2.setLayout(new GridLayout(1,1));
+        jb_annuleer.addActionListener(this);
         p2.add(jb_annuleer);
         p.add(p2);
 
@@ -85,6 +98,7 @@ public class FrameVerwerken extends FrameHeader{
         p2 = new JPanel();
         p2.setPreferredSize(new Dimension(150, 40));
         p2.setLayout(new GridLayout(1,1));
+        jb_go.addActionListener(this);
         p2.add(jb_go);
         p.add(p2);
 
@@ -97,6 +111,7 @@ public class FrameVerwerken extends FrameHeader{
         p2 = new JPanel();
         p2.setPreferredSize(new Dimension(150, 40));
         p2.setLayout(new GridLayout(1,1));
+        jb_pakbonnenMaken.addActionListener(this);
         p2.add(jb_pakbonnenMaken);
         p.add(p2);
 
@@ -275,5 +290,13 @@ public class FrameVerwerken extends FrameHeader{
         }
         //return het subpaneel
         return p;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        super.actionPerformed(e);
+        if(e.getSource() == jb_pakbonnenMaken){
+            FrameController.setActiveFramePackingList(this, o_order);
+        }
     }
 }
