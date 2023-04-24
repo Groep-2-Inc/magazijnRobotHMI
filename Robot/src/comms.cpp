@@ -1,5 +1,14 @@
 // Hoofdbestand dat met de HMI communiceert
 #include <Arduino.h>
+// Arduino communicatie
+#include <Wire.h>
+
+byte i2c_rcv;
+
+void commsSetup(){
+  Serial.begin(9600);
+  Wire.begin();
+}
 
 // Print een status- en waardetekst naar de Serial
 // status -> een code die kan worden geïnterpreteerd door de HMI-applicatie
@@ -15,15 +24,15 @@ int fromJava() {
 		// Leest de bytes van de seriële poort
 		status = Serial.readString().toInt();
 
-		if (status == 200) {
-			digitalWrite(9, HIGH);
-		} else {
-			digitalWrite(8, HIGH);
-		}
-
 		return status;
   }
 
   // Als er geen nieuwe data is return dan 
   return status;
+}
+
+void toSlaveArduino(int value){
+  Wire.beginTransmission(0x08);
+	Wire.write(value);
+	Wire.endTransmission();
 }

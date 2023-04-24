@@ -9,7 +9,7 @@ void setup() {
 	emergyStopSetup();
 	joystickSetup();
 	motorSetup();
-	Serial.begin(9600);
+	commsSetup();
 	pinMode(6, INPUT_PULLUP);
 }
 
