@@ -3,6 +3,7 @@
 #include <emergencyStop.h>
 #include <motorController.h>
 #include <joystick.h>
+#include <positionController.h>
 
 // Sets correct pinmodes
 void setup() {  
@@ -10,6 +11,7 @@ void setup() {
 	joystickSetup();
 	motorSetup();
 	commsSetup();
+	positionSetup();
 	pinMode(6, INPUT_PULLUP);
 }
 
@@ -18,6 +20,7 @@ void loop() {
     // checkStop();
 
 	manualControl();
+	// readXposition();
 
     fromJava();
 }
