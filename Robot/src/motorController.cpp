@@ -52,8 +52,6 @@ void stopMovement(){
     digitalWrite(brakePinY, HIGH);
     analogWrite(pwmPinX, 0);
     analogWrite(pwmPinY, 0);
-
-    toSlaveArduino(0);
 }
 
 void manualControl(){
@@ -79,11 +77,14 @@ void manualControl(){
     }else if (dir == "2.2.0"){
         moveDown();
         moveRight();
-    }else if (dir = "0.0.1"){
+    }else if (dir == "0.0.1"){
         toSlaveArduino(1);
-    }else if (dir = "0.0.2"){
+        stopMovement();
+    }else if (dir == "0.0.2"){
         toSlaveArduino(2);
+        stopMovement();
     }else {
+        toSlaveArduino(0);
         stopMovement();
     }
 }

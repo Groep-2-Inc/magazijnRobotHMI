@@ -14,7 +14,7 @@ void commsSetup(){
 // status -> een code die kan worden geïnterpreteerd door de HMI-applicatie
 void toJava(int status){
   // Print de status naar serial
-	Serial.println(status);
+	// Serial.println(status);
 }
 
 // Haalt status codes uit de Serial.
@@ -32,7 +32,8 @@ int fromJava() {
 }
 
 void toSlaveArduino(int value){
-  Wire.beginTransmission(0x08);
+  Serial.println(value);
+  Wire.beginTransmission(9);
 	Wire.write(value);
 	Wire.endTransmission();
 }

@@ -27,6 +27,7 @@ bool checkStopButton(){
 void stop(){
     // stopt de robot
     stopMovement();
+	toSlaveArduino(0);
     // Stuurt melding naar de HMI
     toJava(500);
 }
