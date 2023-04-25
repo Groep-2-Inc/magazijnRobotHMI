@@ -32,7 +32,7 @@ int fromJava() {
 }
 
 void toSlaveArduino(int value){
-  Serial.println(value);
+  // Serial.println(value);
   Wire.beginTransmission(9);
 	Wire.write(value);
 	Wire.endTransmission();
