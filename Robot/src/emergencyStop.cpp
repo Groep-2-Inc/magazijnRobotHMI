@@ -20,10 +20,23 @@ void stop(){
     toJava(500);
 }
 
+unsigned long lastStopPressed = 0;
+bool checkEmergencyStop(){
+	bool stopPressed = !digitalRead(stopButtton); 
+	if(stopPressed){
+		if(millis() - lastStopPressed > 250){
+			stopPressed = millis();
+            lastStopPressed = stopPressed;
+			return true;
+		}
+	}
+	return false;
+}
+
 // Controleert of de stopknop is ingedrukt
 // stopButton -> pin waar de noodstop op is aangesloten
 void checkStop(){
-	if(!digitalRead(stopButtton)){
+	if(checkEmergencyStop()){
 		Serial.println("STOP!");
 		stop();
 	}

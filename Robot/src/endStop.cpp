@@ -38,12 +38,14 @@ bool checkEndStopY(){
 	return false;
 }
 
+void resetEndStop(){
+	atHome = false;
+}
+
 void readEndStop(){
-    if (checkEndStopX() && checkEndStopY()){
+    if (checkEndStopX() && checkEndStopY() && !atHome){
         atHome = true;
         stopMovement();
         Serial.println("De encoders zijn gereset");
-    }else if (!checkEndStopX() || !checkEndStopY()){
-        atHome = false;
     }
 }

@@ -2,3 +2,4 @@
 
 void endStopSetup();
 void readEndStop();
+void resetEndStop();

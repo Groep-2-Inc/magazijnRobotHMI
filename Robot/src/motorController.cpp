@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <joystick.h>
 #include <comms.h>
+#include <endStop.h>
 
 int globalSpeed = 255;
 const int directionPinX = 13;
@@ -50,11 +51,12 @@ void moveRight(){
 void stopMovement(){
     digitalWrite(brakePinX, HIGH);
     digitalWrite(brakePinY, HIGH);
-    analogWrite(pwmPinX, 0);
-    analogWrite(pwmPinY, 0);
+    analogWrite(pwmPinX, 255);
+    analogWrite(pwmPinY, 255);
 }
 
 void manualControl(){
+    // resetEndStop();
     String dir = readJoystick();
 
     // Serial.println(dir);
