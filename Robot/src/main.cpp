@@ -17,9 +17,12 @@ void setup() {
 
 // Herhaald de volgende code meerder keren
 void loop() {
-    // checkStop();
+    checkStop();
 
-	manualControl();
+	if(!isEmergency()){
+		manualControl();
+	}
+
 	// readXposition();
 
     fromJava();
