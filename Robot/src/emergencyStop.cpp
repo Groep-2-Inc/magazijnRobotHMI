@@ -3,7 +3,7 @@
 #include <motorController.h>
 
 const int stopButtton = 10;
-int emergency = 0;
+bool emergency = false;
 
 // Zet de pinmode voor noodstop
 void emergyStopSetup(){
@@ -15,7 +15,7 @@ void stop(){
     // stopt de robot
     stopMovement();
 	toSlaveArduino(0);
-	emergency = 1;
+	emergency = true;
     // Stuurt melding naar de HMI
     toJava(500);
 }
