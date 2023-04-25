@@ -171,5 +171,9 @@ public class FrameOrders extends FrameHeader implements ActionListener {
                 System.out.println("Gedrukt op knop nummer " + i );
             }
         }
+
+        if(e.getSource() == jb_ordersAanmaken){
+            FrameController.setActiveFrameMakeOrder(this);
+        }
     }
 }

@@ -20,6 +20,7 @@ public class FrameController {
     private static FrameJournal jf_FrameJournal;
     private static FrameViewingOrder jf_FrameViewingOrder;
     private static FramePackingList jf_FramePackingList;
+    private static FrameMakeOrder jf_FrameMakeOrder;
 
     public FrameController(){
         jf_home.setVisible(true);
@@ -92,6 +93,7 @@ public class FrameController {
         //initialiseer products frame
         jf_FrameProducts = new FrameProducts(products);
 
+        //dummydata journal frame
         ArrayList<Activity> activities = new ArrayList<>();
         Date date = new Date();
         Activity a1 = new Activity(date, "logboek openen");
@@ -105,7 +107,55 @@ public class FrameController {
         }
         activities.add(a4);
 
+        //initialiseer journal frame
         jf_FrameJournal = new FrameJournal(activities);
+
+        //dummydate voor de FrameMakeOrder
+        product = new Product("Fiets", 4);
+        product2 = new Product("Auto", 100);
+        product3 = new Product("Boot", 11);
+        product4 = new Product("Hamer", 11);
+        product5 = new Product("Schrift", 11);
+        product6 = new Product("Geodriehoek", 11);
+        product7 = new Product("Microfoon", 11);
+        products = new ArrayList<>();
+        products.add(product);
+        products.add(product2);
+        products.add(product3);
+        products.add(product4);
+        products.add(product5);
+        products.add(product6);
+        products.add(product7);
+
+        ArrayList<Customer> customers = new ArrayList<>();
+        customer = new Customer("Piet");
+        customer2 = new Customer("Klaas");
+        customer3 = new Customer("Annabel");
+        customer4 = new Customer("Rick");
+        customers.add(customer);
+        customers.add(customer2);
+        customers.add(customer3);
+        customers.add(customer);
+        customers.add(customer2);
+        customers.add(customer3);
+        customers.add(customer4);
+
+        order = new Order(customer, products);
+        order2 = new Order(customer2, products);
+        order3 = new Order(customer3, products);
+        orders= new ArrayList<>();
+        orders.add(order);
+        orders.add(order2);
+        orders.add(order3);
+        orders.add(order);
+        orders.add(order2);
+        orders.add(order3);
+        orders.add(order);
+        orders.add(order2);
+        orders.add(order3);
+
+        //initialiseer framemakeorder
+        jf_FrameMakeOrder = new FrameMakeOrder(products, customers);
     }
 
     public static void setActiveFrameHome(JFrame f){
@@ -159,8 +209,11 @@ public class FrameController {
             f.setVisible(false);
         }
     }
-
-    public static FrameVerwerken getJf_FrameVerwerken() {
-        return jf_FrameVerwerken;
+    public static void setActiveFrameMakeOrder(JFrame f){
+        if(jf_FrameMakeOrder != f){
+            jf_FrameMakeOrder.setVisible(true);
+            f.setVisible(false);
+        }
     }
+
 }

@@ -46,4 +46,8 @@ public class Order {
     public void addProduct(String productname, int stock, String imgPath){
         products.add( new Product(productname, stock, imgPath));
     }
+
+    public static int getAmountOfOrders() {
+        return amountOfOrders;
+    }
 }
