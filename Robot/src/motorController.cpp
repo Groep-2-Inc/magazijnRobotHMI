@@ -57,6 +57,8 @@ void stopMovement(){
 void manualControl(){
     String dir = readJoystick();
 
+    // Serial.println(dir);
+
     if (dir == "1.0.0"){
         moveLeft();
     }else if (dir == "2.0.0"){

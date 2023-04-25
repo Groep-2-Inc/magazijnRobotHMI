@@ -2,25 +2,12 @@
 #include <comms.h>
 #include <motorController.h>
 
-const int stopButtton = 7;
+const int stopButtton = 10;
+bool emergency = false;
 
 // Zet de pinmode voor noodstop
 void emergyStopSetup(){
-	pinMode(stopButtton, INPUT);
-}
-
-// Leest de stopknop uit
-// stopButton -> pin waar de noodstop op is aangesloten
-unsigned long laatstIngedrukt = 0;
-bool checkStopButton(){
-	bool ingedrukt = digitalRead(stopButtton); 
-	if(ingedrukt){
-		if(millis() - laatstIngedrukt > 250){
-			laatstIngedrukt = millis();
-			return true;
-		}
-	}
-	return false;
+	pinMode(stopButtton, INPUT_PULLUP);
 }
 
 // Stopt de robot en stuurt melding naar HMI
@@ -28,6 +15,7 @@ void stop(){
     // stopt de robot
     stopMovement();
 	toSlaveArduino(0);
+	emergency = true;
     // Stuurt melding naar de HMI
     toJava(500);
 }
@@ -35,7 +23,12 @@ void stop(){
 // Controleert of de stopknop is ingedrukt
 // stopButton -> pin waar de noodstop op is aangesloten
 void checkStop(){
-	if(checkStopButton()){
+	if(!digitalRead(stopButtton)){
+		Serial.println("STOP!");
 		stop();
 	}
+}
+
+int isEmergency(){
+	return emergency;
 }
