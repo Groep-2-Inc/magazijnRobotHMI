@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 
+//door Jason Joshua van der Kolk
 public class PanelLogboek extends JPanel{
     public PanelLogboek(){
         //initializeer het hoofd paneel

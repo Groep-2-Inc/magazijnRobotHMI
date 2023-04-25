@@ -8,6 +8,7 @@ import panels.PanelStatus;
 import javax.swing.*;
 import java.awt.*;
 
+//door Jason Joshua van der Kolk
 public class FrameHome extends FrameHeader{
 
     public FrameHome(){
@@ -24,6 +25,6 @@ public class FrameHome extends FrameHeader{
 
         //voeg het hoofd paneel toe
         add(f);
-        setVisible(true);
+//        setVisible(true);
     }
 }

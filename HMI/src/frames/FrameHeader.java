@@ -6,6 +6,7 @@ import java.awt.event.*;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 import javax.swing.border.LineBorder;
+//code door Jason Joshua
 
 public class FrameHeader extends JFrame implements ActionListener, ItemListener{
     private JMenuBar jmb_main = new JMenuBar(); //menubar voor alle menu knoppen
@@ -29,7 +30,7 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
     public FrameHeader(){
         //de uiterlijk van het paneel regelen
         setTitle("JavaAplication/Home");
-        setSize(1920, 1080);
+        setSize(getScreenWidth(100.00f), getScreenHeight(100.00f));
         setLayout(new FlowLayout());
 
         //voegt de knoppen toe met actionlisteners aan het menu
@@ -63,7 +64,7 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
 
         //zet de default close operation en laat het scherm zien.
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
+//        setVisible(true);
 
         //initializeer de darkmode button
         jtb_darkMode = new JToggleButton(ii_switchOff);
@@ -81,6 +82,7 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
         //voeg de buttons toe
         p2.add(jtb_darkMode);
         jb_logboek.setPreferredSize(new Dimension(150, 40));
+        jb_logboek.addActionListener(this);
         p2.add(jb_logboek);
         p2.setBackground(Color.white);
         //maak de popup
@@ -109,6 +111,32 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
         //als de noodstopSluiten knop wordt ingedrukt sluit het noodstopFrame
         if(e.getSource() == jb_noodstopSluiten){
             jf_noodstopFrame.dispose();
+        }
+
+        //order button naar order scherm
+        if(e.getSource() == jb_orders){
+            p_settings.hide();
+            b_isShowingSettings = false;
+            FrameController.setActiveFrameOrders(this);
+        }
+
+        //home button naar home scherm
+        if(e.getSource() == jb_home){
+            p_settings.hide();
+            b_isShowingSettings = false;
+            FrameController.setActiveFrameHome(this);
+        }
+
+        if(e.getSource() == jb_producten){
+            p_settings.hide();
+            b_isShowingSettings = false;
+            FrameController.setActiveFrameProducts(this);
+        }
+
+        if(e.getSource() == jb_logboek){
+            p_settings.hide();
+            b_isShowingSettings = false;
+            FrameController.setActiveFrameJournal(this);
         }
     }
     public void itemStateChanged(ItemEvent eve) {
@@ -160,5 +188,20 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
         jf_noodstopFrame.pack();
         jf_noodstopFrame.setLocationRelativeTo(null);
         jf_noodstopFrame.setVisible(true);
+    }
+
+    //Methode die de grootte van het scherm bepaald en berekend met procenten naar de juiste waarde (Joëlle)
+    public static int getScreenWidth(Float percentage){
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = (int) (screenSize.getWidth() /100 * percentage);
+//        System.out.println(width); // voor het debuggen
+        return width;
+    }
+    //Methode die de grootte van het scherm bepaald en berekend met procenten naar de juiste waarde (Joëlle)
+    public static int getScreenHeight(Float percentage){
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int height = (int) (screenSize.getHeight() /100 * percentage);
+//        System.out.println(height); voor het debuggen
+        return height;
     }
 }
