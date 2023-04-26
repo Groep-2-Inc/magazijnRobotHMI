@@ -52,38 +52,38 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         jl_orderLabel.setFont(new Font(jl_orderLabel.getFont().getName(), jl_orderLabel.getFont().getStyle(), 20));
         panelButtons1.add(jl_orderLabel);
         Dimension sizeOrderLabel = jl_orderLabel.getPreferredSize();
-        jl_orderLabel.setBounds(10, 10, sizeOrderLabel.width, sizeOrderLabel.height);
+        jl_orderLabel.setBounds(getScreenWidth(0f), getScreenHeight(1.157407407f), sizeOrderLabel.width, sizeOrderLabel.height); // x = 0 pixels, y = 10 pixels
 
         //label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         panelButtons1.add(jl_sortLabel);
         Dimension sizeSortLabel = jl_sortLabel.getPreferredSize();
-        jl_sortLabel.setBounds(800, 15, sizeSortLabel.width +10, sizeSortLabel.height);
+        jl_sortLabel.setBounds(getScreenWidth(37.76041667f), getScreenHeight(1.736111111f), sizeSortLabel.width +10, sizeSortLabel.height); // x = 580 pixels, y = 15 pixels
 
         //Combobox aanmaken en waarde toekennen, toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         String sortpossibilities[]={"Ordernummer oplopend", "Ordernummer aflopend", "Datum oplopend", "Datum aflopend", "Voltooid", "Onvoltooid"};
         jcb_sort = new JComboBox(sortpossibilities);
         panelButtons1.add(jcb_sort);
-        jcb_sort.setBounds(800 + sizeSortLabel.width +10, 10, 175, 30);
+        jcb_sort.setBounds(getScreenWidth(38.41145833f) + sizeSortLabel.width +10, getScreenHeight(1.157407407f), getScreenWidth(11.39322917f), getScreenHeight(3.472222222f)); // x = 590 pixels + sizesortlabels.width, y = 10 pixels, width = 175 pixels, height = 30 pixels
 
         //Tekstveld toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         panelButtons1.add(jtf_customerNumber);
-        jtf_customerNumber.setBounds(1070, 10, 120, 30);
+        jtf_customerNumber.setBounds(getScreenWidth(55.33854167f), getScreenHeight(1.157407407f), getScreenWidth(7.8125f), getScreenHeight(3.472222222f)); // x = 850 pixels, y = 10 pixels, width = 120 pixels, height = 30 pixels
 
         //Tekstveld toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         panelButtons1.add(jtf_orderNumber);
-        jtf_orderNumber.setBounds(1200, 10, 120, 30);
+        jtf_orderNumber.setBounds(getScreenWidth(63.80208333f), getScreenHeight(1.157407407f), getScreenWidth(7.8125f), getScreenHeight(3.472222222f)); // x = 980 pixels, y = 10 pixels, width = 120 pixels, height = 30 pixels
 
         // Buttun toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jb_search.setFont(arial17);
         panelButtons1.add(jb_search);
         jb_search.addActionListener(this); // actionlistener toevoegen aan button (Joëlle)
-        jb_search.setBounds(1350, 5, 120, 40);
+        jb_search.setBounds(getScreenWidth(73.56770833f), getScreenHeight(0.578703704f), getScreenWidth(7.8125f), getScreenHeight(4.62962963f)); // x = 1130 pixels, y = 5 pixels, width = 120 pixels, height = 40 pixels
 
         //button toevoegen voor order aanmaken, door Jason Joshua van der Kolk
         jb_ordersAanmaken.setFont(arial17);
         panelButtons1.add(jb_ordersAanmaken);
         jb_ordersAanmaken.addActionListener(this);
-        jb_ordersAanmaken.setBounds(1550, 5, 220, 40);
+        jb_ordersAanmaken.setBounds(getScreenWidth(82.68229167f), getScreenHeight(0.578703704f), getScreenWidth(14.32291667f), getScreenHeight(4.62962963f)); // x = 1270 pixels, y = 5 pixels, width = 220 pixels, height = 40 pixels
 
         super.add(panelButtons1); // PanelButtons toevoegen aan het hoofdscherm (Joëlle)
 
@@ -97,31 +97,31 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         jl_orderText.setFont(arial20);
         panelTitles.add(jl_orderText);
         Dimension sizeOrderText = jl_orderText.getPreferredSize();
-        jl_orderText.setBounds(50, 10, sizeOrderText.width, sizeOrderText.height);
+        jl_orderText.setBounds(getScreenWidth(3.255208333f), getScreenHeight(1.157407407f), sizeOrderText.width, sizeOrderText.height); // x = 50 pixels, y = 10 pixels
 
         //Label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jl_customerText.setFont(arial20);
         panelTitles.add(jl_customerText);
         Dimension sizeCustomerText = jl_customerText.getPreferredSize();
-        jl_customerText.setBounds(400, 10, sizeCustomerText.width +10, sizeCustomerText.height);
+        jl_customerText.setBounds(getScreenWidth(26.04166667f), getScreenHeight(1.157407407f), sizeCustomerText.width +10, sizeCustomerText.height); // x = 400 pixels, y = 10 pixels
 
         //Label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jl_productsText.setFont(arial20);
         panelTitles.add(jl_productsText);
         Dimension sizeProductenText = jl_productsText.getPreferredSize();
-        jl_productsText.setBounds(750, 10, sizeProductenText.width +10, sizeProductenText.height);
+        jl_productsText.setBounds(getScreenWidth(48.828125f), getScreenHeight(1.157407407f), sizeProductenText.width +10, sizeProductenText.height); // x = 750 pixels, y = 10 pixels
 
         //Label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jl_productsQuantityText.setFont(arial15);
         panelTitles.add(jl_productsQuantityText);
         Dimension sizeProductsQuantityText = jl_productsQuantityText.getPreferredSize();
-        jl_productsQuantityText.setBounds(750 +sizeProductenText.width +10, 15, sizeProductsQuantityText.width +10, sizeProductsQuantityText.height);
+        jl_productsQuantityText.setBounds(getScreenWidth(49.47916667f) +sizeProductenText.width, getScreenHeight(1.736111111f), sizeProductsQuantityText.width +10, sizeProductsQuantityText.height); // x = 760 + sizePoructsQuantityText.width pixels, y = 15 pixels
 
         //Label voor Datum aanmaken, toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jlDateText.setFont(arial20);
         panelTitles.add(jlDateText);
         Dimension sizeDateText = jlDateText.getPreferredSize();
-        jlDateText.setBounds(1100, 10, sizeDateText.width +10, sizeDateText.height);
+        jlDateText.setBounds(getScreenWidth(71.61458333f), getScreenHeight(1.157407407f), sizeDateText.width +10, sizeDateText.height); // x = 1100 pixels, y = 10 pixels
 
         super.add(panelTitles); //Panel van de titels toevoegen aan het hoofdscherm (Joëlle)
 
@@ -140,10 +140,10 @@ public class FrameOrders extends FrameHeader implements ActionListener {
             panel2.add(buttons.get(i));
             buttons.get(i).setBackground(Color.white);
             Dimension sizeOrderPanel = panelOrders.getPreferredSize();
-            panelOrders.setBounds(0, sizeOrderPanel.height * i, sizeOrderPanel.width, sizeOrderPanel.height);
+            panelOrders.setBounds(getScreenHeight(0f), sizeOrderPanel.height * i, sizeOrderPanel.width, sizeOrderPanel.height);
 
             Dimension sizeButtonOrder = buttons.get(i).getPreferredSize();
-            buttons.get(i).setBounds(0, sizeButtonOrder.height * i, sizeButtonOrder.width, sizeButtonOrder.height);
+            buttons.get(i).setBounds(getScreenHeight(0f), sizeButtonOrder.height * i, sizeButtonOrder.width, sizeButtonOrder.height);
         }
 
         //For loop die controleerd die elke knop in de arrayList langsgaat en checkt of die gedrukt is, bij het indrukken, wordt er een regel geprint, dat is alleen voor het debuggen (Joëlle)

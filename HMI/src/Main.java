@@ -9,9 +9,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
         new FrameController();
 
-        Communication coms = new Communication();
-        coms.sendComms(200);
 
-        coms.getComms();
     }
 }

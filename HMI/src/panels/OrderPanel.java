@@ -28,21 +28,21 @@ public class OrderPanel extends JPanel {
         jlOrderID.setFont(arial20);
         add(jlOrderID);
         Dimension sizeOrderID = jlOrderID.getPreferredSize();
-        jlOrderID.setBounds(50, 40, sizeOrderID.width, sizeOrderID.height);
+        jlOrderID.setBounds(getScreenWidth(3.255208333f), getScreenHeight(4.62962963f), sizeOrderID.width, sizeOrderID.height); // x = 50 pixels, y = 40 pixels
 
         //label aanmaken voor de  naam en juiste lettertype, grootte en plaats meegegeven (Joëlle)
         JLabel jlCustomerName = new JLabel(this.order.getCustomer().getCustomername());
         jlCustomerName.setFont(arial20);
         add(jlCustomerName);
         Dimension sizeCustomerName = jlCustomerName.getPreferredSize();
-        jlCustomerName.setBounds(400, 40, sizeCustomerName.width + 10, sizeCustomerName.height);
+        jlCustomerName.setBounds(getScreenWidth(26.04166667f), getScreenHeight(4.62962963f), sizeCustomerName.width + 10, sizeCustomerName.height); // x = 400 pixels, y = 40 pixels
 
         //label aanmaken voor de custumerID, int waarde omgezet naar string en juiste lettertype, grootte en plaats meegegeven (Joëlle)
         JLabel jlCustomerID = new JLabel(", " + this.order.getCustomer().getCustomerID());
         jlCustomerID.setFont(arial20);
         add(jlCustomerID);
         Dimension sizeCustomerID = jlCustomerID.getPreferredSize();
-        jlCustomerID.setBounds(400 + sizeCustomerName.width + 2, 40, sizeCustomerID.width + 10, sizeCustomerID.height);
+        jlCustomerID.setBounds(getScreenWidth(26.171875f) + sizeCustomerName.width , getScreenHeight(4.62962963f), sizeCustomerID.width + 10, sizeCustomerID.height); // x = 402 pixels + size customerName.width, y = 40 pixels
 
         //label aanmaken voor de producten, int waarde omgezet naar string en juiste lettertype, grootte en plaats meegegeven (Joëlle)
         String stringProductAmount = valueOf(this.order.getProductAmount());
@@ -50,7 +50,7 @@ public class OrderPanel extends JPanel {
         jlProductAmount.setFont(arial20);
         add(jlProductAmount);
         Dimension sizeProductAmount = jlProductAmount.getPreferredSize();
-        jlProductAmount.setBounds(750, 40, sizeProductAmount.width, sizeProductAmount.height);
+        jlProductAmount.setBounds(getScreenWidth(48.828125f), getScreenHeight(4.62962963f), sizeProductAmount.width, sizeProductAmount.height); // x = 750 pixels, y = 40 pixels
 
         //label aanmaken voor de datum, datum converteren naar bepaald patroon en juiste lettertype, grootte en plaats meegeven (Joëlle)
         Date date = this.order.getDate();
@@ -60,7 +60,7 @@ public class OrderPanel extends JPanel {
         jlDate.setFont(arial20);
         add(jlDate);
         Dimension sizeDate = jlDate.getPreferredSize();
-        jlDate.setBounds(1100, 40, sizeDate.width, sizeDate.height);
+        jlDate.setBounds(getScreenWidth(71.61458333f), getScreenHeight(4.62962963f), sizeDate.width, sizeDate.height); // x = 1100 pixels, y = 40 pixels
     }
     //Methode die de grootte van het scherm bepaald en berekend met procenten naar de juiste waarde, staan niet goed hoor, moet nog opgelost worden (Joëlle)
     public int getScreenWidth(Float percentage){
