@@ -42,6 +42,7 @@ public class PanelStatus extends JPanel {
         jb_productTerugzetten.setFont(new Font("Arial", Font.PLAIN, 27));
 
         //zet de background voor alle meldingen
+
         jb_verbonden.setBackground(Color.lightGray);
         jb_rust.setBackground(Color.lightGray);
         jb_productOphalen.setBackground(Color.lightGray);

@@ -8,6 +8,7 @@ import java.io.IOException;
 
 public class Commuinication {
     private SerialPort sp;
+    private boolean hasComms;
 
     public Commuinication() throws InterruptedException {
         sp = SerialPort.getCommPort("COM7");
@@ -16,6 +17,7 @@ public class Commuinication {
 
         if (sp.openPort()) {
             Thread.sleep(2000);
+            hasComms = true;
             System.out.println(getClass() + ": Comms port is open");
         } else {
             System.out.println(getClass() + ": Failed to open comms port");
@@ -32,16 +34,20 @@ public class Commuinication {
         }
     }
 
+    public boolean hasComms() {
+        return hasComms;
+    }
+
     public boolean sendComms(int value) throws IOException {
         try{
-            String message = "200";
+            String message = String.valueOf(value);
             System.out.println(message);
             byte[] buffer = message.getBytes();
 
             sp.getOutputStream().write(buffer);
             sp.getOutputStream().flush();
 
-            return  true;
+            return true;
         }catch (NumberFormatException nfe){
             System.out.println(getClass() + "Comms error: ");
             return false;
@@ -49,8 +55,6 @@ public class Commuinication {
     }
 
     public int getComms(){
-
-
         sp.addDataListener(new SerialPortDataListener() {
             @Override
             public void serialEvent(SerialPortEvent event) {

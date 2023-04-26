@@ -7,8 +7,8 @@ public class Main {
         new FrameController();
 
         Commuinication comms = new Commuinication();
-//        comms.sendComms(200);
+        comms.sendComms(200);
 
-        comms.getComms();
+//        comms.getComms();
     }
 }

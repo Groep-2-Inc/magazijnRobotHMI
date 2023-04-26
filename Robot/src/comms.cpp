@@ -8,29 +8,28 @@ byte i2c_rcv;
 // Start serial zodat deze in elk ander bestand gebruikt kan worden.
 // Start de communicatie tussen de arduino's.
 void commsSetup(){
-  Serial.begin(9600);
-  Wire.begin();
+	Serial.begin(9600);
+	Wire.begin();
 }
 
 // Print een status- en waardetekst naar de Serial
 // status -> een code die kan worden geïnterpreteerd door de HMI-applicatie
 void toJava(int status){
-  // Print de status naar serial
-	// Serial.println(status);
+  	// Print de status naar serial
+	Serial.println(status);
 }
 
 // Haalt status codes uit de Serial.
 int fromJava() {
-  int status = 0;
-  if (Serial.available() > 0) {
-		// Leest de bytes van de seriële poort
-		status = Serial.readString().toInt();
+	int incomingData = 0;
+	if(Serial.available() > 0) {
+		incomingData = Serial.readString().toInt();
 
-		return status;
-  }
-
-  // Als er geen nieuwe data is return dan 
-  return status;
+		if(incomingData == 200){
+			digitalWrite(5, HIGH);
+		}
+	}
+	return incomingData;
 }
 
 // Zorgt ervoor dat data vanuit de master arduino naar de slave arduino gestuurd wordt
