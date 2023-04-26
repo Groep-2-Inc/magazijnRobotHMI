@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
+//door Jason Joshua van der Kolk
 public class PanelOrderStatus extends JPanel {
     public PanelOrderStatus(){
         //initializeer het hoofd paneel
