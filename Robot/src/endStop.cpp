@@ -47,5 +47,7 @@ void readEndStop(){
         atHome = true;
         stopMovement();
         Serial.println("De encoders zijn gereset");
-    }
+    } else if (!checkEndStopX() || !checkEndStopY()){
+		atHome = false;
+	}
 }
