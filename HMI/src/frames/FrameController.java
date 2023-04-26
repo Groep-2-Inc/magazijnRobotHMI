@@ -11,8 +11,9 @@ import java.util.ArrayList;
 import java.util.Date;
 //code door Jason Joshua
 
-public class FrameController {
+import comms.Communication;
 
+public class FrameController {
     private static FrameHome jf_home = new FrameHome();
     private static FrameVerwerken jf_FrameVerwerken;
     private static FrameOrders jf_FrameOrders;
@@ -22,7 +23,11 @@ public class FrameController {
     private static FramePackingList jf_FramePackingList;
     private static FrameMakeOrder jf_FrameMakeOrder;
 
-    public FrameController(){
+    public Communication comms;
+
+    public FrameController(Communication comms){
+        this.comms = comms;
+
         jf_home.setVisible(true);
 
         //dummydata voor de orders pagina

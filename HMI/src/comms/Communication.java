@@ -6,11 +6,11 @@ import com.fazecast.jSerialComm.SerialPortEvent;
 
 import java.io.IOException;
 
-public class Commuinication {
+public class Communication {
     private SerialPort sp;
     private boolean hasComms;
 
-    public Commuinication() throws InterruptedException {
+    public Communication() throws InterruptedException {
         sp = SerialPort.getCommPort("COM7");
         sp.setComPortParameters(9600, 8, 1, 0);
         sp.setComPortTimeouts(SerialPort.TIMEOUT_WRITE_BLOCKING, 0, 0);

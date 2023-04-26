@@ -1,12 +1,13 @@
 import java.io.IOException;
-import comms.Commuinication;
+import comms.Communication;
 import frames.*;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
-        new FrameController();
+        Communication comms = new Communication();
 
-        Commuinication comms = new Commuinication();
+        new FrameController(comms);
+
         comms.sendComms(200);
 
 //        comms.getComms();
