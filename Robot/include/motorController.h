@@ -6,3 +6,4 @@ void moveLeft();
 void moveRight();
 void stopMovement();
 void motorSetup();
+void manualControl();
