@@ -91,14 +91,21 @@ public class PanelStatus extends JPanel implements ActionListener {
     // Handelt knop acties af
     // Door Martijn
     public void actionPerformed(ActionEvent e) {
+        // Als het om de verbonden knop gaat
         if(e.getSource() == jb_verbonden){
+            // Probeer
             try {
+                // Als hij nog geen communicatie heeft
                 if(!Communication.hasComms()){
+                    // Begin de communicatie
                     Communication.openComms();
+                    // Stuur status 200 naar de Arduino
                     Communication.sendComms(200);
-                    repaint();
+                    // Refresht de frame
+                    repaint(); // werkt nog niet!
                 }
             } catch (InterruptedException | IOException ex) {
+                // Als er een error is print dit
                 System.out.println(getClass() + ": comms error" + ex);
             }
         }

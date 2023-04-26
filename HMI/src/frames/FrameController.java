@@ -12,7 +12,7 @@ import java.util.Date;
 
 
 public class FrameController {
-    private static FrameHome jf_home;
+    private static FrameHome jf_home = new FrameHome();
     private static FrameVerwerken jf_FrameVerwerken;
     private static FrameOrders jf_FrameOrders;
     private static FrameProducts jf_FrameProducts;
@@ -22,7 +22,6 @@ public class FrameController {
     private static FrameMakeOrder jf_FrameMakeOrder;
 
     public FrameController(){
-        jf_home = new FrameHome();
         jf_home.setVisible(true);
 
         //dummydata voor de orders pagina

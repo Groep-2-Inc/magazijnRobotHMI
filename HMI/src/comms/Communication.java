@@ -27,7 +27,7 @@ public class Communication extends JPanel {
         // Probeert de Serial verbinding te beginnen
         if (sp.openPort()) {
             // Wacht twee seconden om de verbinding tot stand te brengen
-            // Is nodig omdat al anders te snel door gaat en al data probeert te verzenden
+            // Is nodig omdat anders te snel door gaat en al data probeert te verzenden
             // Terwijl de poort nog niet open is
             Thread.sleep(2000);
             // Zet hasComms op true
@@ -74,7 +74,7 @@ public class Communication extends JPanel {
             // Een int naar String om te zetten
             // Moet zodat de String omgezet kan worden naar bytes
             String message = String.valueOf(value);
-            // Print de waarde die naar de Arduino versturud gaat worden
+            // Print de waarde die naar de Arduino verstuurd gaat worden
             System.out.println(Communication.class + ": sendComms: " +  message);
             // Zet de Serial om naar een byte buffer
             byte[] buffer = message.getBytes();
@@ -87,7 +87,7 @@ public class Communication extends JPanel {
             // Doen we nu nog niks mee, maar zou wel kunnen
             return true;
         }catch (NumberFormatException | SerialPortIOException nfe){
-            // Als er iets fout is gegaan in de int naar Serial of verzenden van de bytes
+            // Als er iets fout is gegaan in de int naar String of verzenden van de bytes
             // Print een error en returnt false
             System.out.println(Communication.class + " comms error sendComms: " + nfe);
             return false;
@@ -96,7 +96,7 @@ public class Communication extends JPanel {
 
     // Leest de Serial communicatie uit
     public int getComms(){
-        // Voegt een nieuwe datalistener toe aan de verbinding
+        // Voegt een nieuwe dataListener toe aan de verbinding
         // Deze leest de Serial uit
         sp.addDataListener(new SerialPortDataListener() {
             @Override
