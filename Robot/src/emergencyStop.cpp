@@ -1,7 +1,10 @@
+// Zorgt ervoor dat functies uit andere .cpp bestanden gebruikt kunnen worden in dit bestand.
 #include <Arduino.h>
 #include <comms.h>
 #include <motorController.h>
 
+// stopButton - Definieert de pin van de noodstop.
+// emergency - Slaat op of er een noodgeval is.
 const int stopButtton = 10;
 bool emergency = false;
 
@@ -20,8 +23,10 @@ void stop(){
     toJava(500);
 }
 
+// Kijkt of de noodstop is ingedrukt en geeft deze lezing een debounce mee.
 unsigned long lastStopPressed = 0;
 bool checkEmergencyStop(){
+	// Leest de waarde van de noodstop uit
 	bool stopPressed = !digitalRead(stopButtton); 
 	if(stopPressed){
 		if(millis() - lastStopPressed > 250){
@@ -42,6 +47,7 @@ void checkStop(){
 	}
 }
 
+// Geeft de status van het noodgeval terug
 int isEmergency(){
 	return emergency;
 }

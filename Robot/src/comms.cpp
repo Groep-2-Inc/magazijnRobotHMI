@@ -5,6 +5,8 @@
 
 byte i2c_rcv;
 
+// Start serial zodat deze in elk ander bestand gebruikt kan worden.
+// Start de communicatie tussen de arduino's.
 void commsSetup(){
   Serial.begin(9600);
   Wire.begin();
@@ -31,6 +33,7 @@ int fromJava() {
   return status;
 }
 
+// Zorgt ervoor dat data vanuit de master arduino naar de slave arduino gestuurd wordt
 void toSlaveArduino(int value){
   // Serial.println(value);
   Wire.beginTransmission(9);

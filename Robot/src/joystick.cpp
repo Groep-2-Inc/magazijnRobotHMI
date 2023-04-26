@@ -1,5 +1,13 @@
+// Zorgt ervoor dat functies uit andere .cpp bestanden gebruikt kunnen worden in dit bestand.
 #include <Arduino.h>
 
+// joyX - Definieert de pinmode van de joystick voor de data voor de x-as.
+// joyY - Definieert de pinmode van de joystick voor de data voor de y-as.
+// swPin - Definieert de pinmode van de switch knop van de joystick.
+// xDirection - Slaat de waarde van de x-as op.
+// yDirection - Slaat de waarde van de y-as op.
+// swState - Slaat de status van de switch op.
+// zAs - Slaat op of de robot de z-as beweegt.
 const int joyX = A3;
 const int joyY = A2;
 const int swPin = 6;
@@ -9,15 +17,17 @@ bool swState;
 
 bool zAs = false;
 
-// Zet de pinmode voor joystick
+// Zet de pinmode voor joystick.
 void joystickSetup(){
 	pinMode(joyY, INPUT);
 	pinMode(joyX, INPUT);
 	pinMode(swPin, INPUT_PULLUP);
 }
 
+// Bekijkt of de joystick is ingedrukt en geeft deze lezing een debounce mee.
 unsigned long lastPressed = 0;
 bool checkJoystickButton(){
+	// Leest de waarde van de switch uit.
 	bool ingedrukt = digitalRead(swPin); 
 	if(!ingedrukt){
 		if(millis() - lastPressed > 300){
@@ -35,7 +45,8 @@ bool checkJoystickButton(){
 //		Dit omdat we op basis van het cijfer achter de komma de naar boven en onder kunnen bepalen.
 // Naar links zou dus zijn 1.0, rechts 2.0
 // Boven 0.1, onder 0.2
-// Dit kan gecombineerd worden voor diagonale 1.1, 1.2, 2.1, 2.2
+// Naar voren 0.0.1, naar achter 0.0.2
+// Dit kan gecombineerd worden voor diagonale 1.1.0, 1.2.0, 2.1, 2.2.0
 String readJoystick() {
 	// Leest de assen en knop uit
 	xDirection = analogRead(joyX);

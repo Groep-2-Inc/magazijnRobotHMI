@@ -1,3 +1,4 @@
+// Zorgt ervoor dat functies uit andere .cpp bestanden gebruikt kunnen worden in dit bestand.
 #include <Arduino.h>
 #include <comms.h>
 #include <emergencyStop.h>
