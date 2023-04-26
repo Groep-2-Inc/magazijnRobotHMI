@@ -33,7 +33,7 @@ public class PanelProductOverview extends JPanel {
         try {
             productImg = ImageIO.read(new File(products.get(index).getImgPath()));
         } catch (IOException ex) {
-            System.out.println("no image available");
+//            System.out.println(getClass() + ": no image available");
         }
     }
 

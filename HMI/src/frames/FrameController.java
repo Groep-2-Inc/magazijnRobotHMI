@@ -1,4 +1,5 @@
 package frames;
+// Jason Joshua
 
 import testClasses.Activity;
 import testClasses.Customer;
@@ -6,12 +7,9 @@ import testClasses.Order;
 import testClasses.Product;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Date;
-//code door Jason Joshua
 
-import comms.Communication;
 
 public class FrameController {
     private static FrameHome jf_home;
@@ -22,13 +20,10 @@ public class FrameController {
     private static FrameViewingOrder jf_FrameViewingOrder;
     private static FramePackingList jf_FramePackingList;
     private static FrameMakeOrder jf_FrameMakeOrder;
-    public Communication comms;
 
-    public FrameController(Communication comms){
-        this.comms = comms;
-
-        FrameHome frame = new FrameHome(comms);
-        frame.setVisible(true);
+    public FrameController(){
+        jf_home = new FrameHome();
+        jf_home.setVisible(true);
 
         //dummydata voor de orders pagina
         Product product = new Product("Fiets", 4, "src/bicycle.jpg");

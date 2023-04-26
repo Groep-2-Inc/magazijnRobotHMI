@@ -1,13 +1,16 @@
 package panels;
+//door Jason Joshua
 
 import comms.Communication;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
-//door Jason Joshua van der Kolk
-public class PanelStatus extends JPanel {
+public class PanelStatus extends JPanel implements ActionListener {
     private JButton jb_verbonden = new JButton("Verbonden"); //melding voor verbonden
     private JButton jb_rust = new JButton("Rust"); //melding voor rust
     private JButton jb_productOphalen = new JButton("Product Ophalen"); //melding voor product ophalen
@@ -18,7 +21,7 @@ public class PanelStatus extends JPanel {
     private JButton jb_handmatige = new JButton("Handmatig"); //melding voor handmatig besturing
     private JButton jb_empty2 = new JButton(""); //voor nu lege melding
 
-    public PanelStatus(Communication comms){
+    public PanelStatus(){
         //initialiseer het hoofd paneel
         setPreferredSize(new Dimension(960,540));
         setBackground(new Color(236, 236, 236));
@@ -43,13 +46,16 @@ public class PanelStatus extends JPanel {
         jb_empty2.setFont(new Font("Arial", Font.PLAIN, 27));
         jb_productTerugzetten.setFont(new Font("Arial", Font.PLAIN, 27));
 
-        //zet de background voor alle meldingen
-        if(comms.hasComms()){
-            jb_verbonden.setBackground(Color.red);
-        }else{
+        // Als er Serial verbinding is
+        if(Communication.hasComms()){
+            // Maak de knop groen
             jb_verbonden.setBackground(Color.green);
+        }else{
+            // Anders maak hem rood
+            jb_verbonden.setBackground(Color.red);
         }
 
+        //zet de background voor alle meldingen
         jb_rust.setBackground(Color.lightGray);
         jb_productOphalen.setBackground(Color.lightGray);
         jb_inBeweging.setBackground(Color.lightGray);
@@ -76,9 +82,25 @@ public class PanelStatus extends JPanel {
         box.add(p);
         box.add(Box.createVerticalGlue());
 
+        jb_verbonden.addActionListener(this);
+
         //voeg deze box toe.
         add(box);
+    }
 
-
+    // Handelt knop acties af
+    // Door Martijn
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == jb_verbonden){
+            try {
+                if(!Communication.hasComms()){
+                    Communication.openComms();
+                    Communication.sendComms(200);
+                    repaint();
+                }
+            } catch (InterruptedException | IOException ex) {
+                System.out.println(getClass() + ": comms error" + ex);
+            }
+        }
     }
 }

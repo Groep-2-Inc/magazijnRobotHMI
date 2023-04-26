@@ -33,7 +33,7 @@ public class PanelProduct2 extends JPanel{
             productImg = ImageIO.read(new File(this.product.getImgPath()));
             image = productImg.getScaledInstance(100, 65, Image.SCALE_DEFAULT);
         } catch (IOException ex) {
-            System.out.println("no image available");
+//            System.out.println(getClass() + ": no image available");
         }
 
         // label aanmaken plus waarde toekennen, toevoegen aan het panel en juiste grootte en locatie toevoegen (Joëlle)

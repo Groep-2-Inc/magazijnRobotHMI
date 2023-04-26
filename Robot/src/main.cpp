@@ -27,7 +27,7 @@ void loop() {
 	}
 
 	// readXposition();
-	readEndStop();
+	// readEndStop();
 
     fromJava();
 }
