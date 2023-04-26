@@ -1,5 +1,7 @@
 package panels;
 
+import comms.Communication;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -16,7 +18,7 @@ public class PanelStatus extends JPanel {
     private JButton jb_handmatige = new JButton("Handmatig"); //melding voor handmatig besturing
     private JButton jb_empty2 = new JButton(""); //voor nu lege melding
 
-    public PanelStatus(){
+    public PanelStatus(Communication comms){
         //initialiseer het hoofd paneel
         setPreferredSize(new Dimension(960,540));
         setBackground(new Color(236, 236, 236));
@@ -42,8 +44,12 @@ public class PanelStatus extends JPanel {
         jb_productTerugzetten.setFont(new Font("Arial", Font.PLAIN, 27));
 
         //zet de background voor alle meldingen
+        if(comms.hasComms()){
+            jb_verbonden.setBackground(Color.red);
+        }else{
+            jb_verbonden.setBackground(Color.green);
+        }
 
-        jb_verbonden.setBackground(Color.lightGray);
         jb_rust.setBackground(Color.lightGray);
         jb_productOphalen.setBackground(Color.lightGray);
         jb_inBeweging.setBackground(Color.lightGray);

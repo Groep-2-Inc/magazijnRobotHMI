@@ -14,7 +14,7 @@ import java.util.Date;
 import comms.Communication;
 
 public class FrameController {
-    private static FrameHome jf_home = new FrameHome();
+    private static FrameHome jf_home;
     private static FrameVerwerken jf_FrameVerwerken;
     private static FrameOrders jf_FrameOrders;
     private static FrameProducts jf_FrameProducts;
@@ -22,13 +22,13 @@ public class FrameController {
     private static FrameViewingOrder jf_FrameViewingOrder;
     private static FramePackingList jf_FramePackingList;
     private static FrameMakeOrder jf_FrameMakeOrder;
-
     public Communication comms;
 
     public FrameController(Communication comms){
         this.comms = comms;
 
-        jf_home.setVisible(true);
+        FrameHome frame = new FrameHome(comms);
+        frame.setVisible(true);
 
         //dummydata voor de orders pagina
         Product product = new Product("Fiets", 4, "src/bicycle.jpg");

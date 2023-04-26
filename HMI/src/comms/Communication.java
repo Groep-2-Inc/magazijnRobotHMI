@@ -4,9 +4,10 @@ import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
 
+import javax.swing.*;
 import java.io.IOException;
 
-public class Communication {
+public class Communication extends JPanel {
     private SerialPort sp;
     private boolean hasComms;
 
