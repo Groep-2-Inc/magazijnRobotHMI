@@ -194,14 +194,14 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
     public static int getScreenWidth(Float percentage){
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int) (screenSize.getWidth() /100 * percentage);
-        System.out.println(width); // voor het debuggen
+//         System.out.println(width); // voor het debuggen
         return width;
     }
     //Methode die de grootte van het scherm bepaald en berekend met procenten naar de juiste waarde (Joëlle)
     public static int getScreenHeight(Float percentage){
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int height = (int) (screenSize.getHeight() /100 * percentage);
-        System.out.println(height);// voor het debuggen
+//         System.out.println(height);// voor het debuggen
         return height;
     }
 }
