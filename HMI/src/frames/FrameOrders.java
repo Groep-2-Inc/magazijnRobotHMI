@@ -70,8 +70,8 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         headerPanel.add(jcb_sort);
 
         //Tekstveld toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
-        headerPanel.add(jtf_customerNumber);
         jtf_customerNumber.setBounds(getScreenWidth(60f), getScreenHeight(1.1f), getScreenWidth(7.8125f), getScreenHeight(3f));
+        headerPanel.add(jtf_customerNumber);
 
         //Tekstveld toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         headerPanel.add(jtf_orderNumber);
