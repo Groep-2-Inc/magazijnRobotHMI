@@ -81,10 +81,10 @@ public class PanelProduct extends JPanel implements ActionListener{
         add(jl_productID);
 
         //Producthoeveelheid toevoegen en stylen (Sarah)
-        JLabel jl_amount = new JLabel("Hoeveelheid: ");
+        JLabel jl_amount = new JLabel("Hoeveelheid besteld: ");
         jl_amount.setFont(new Font("Arial", Font.PLAIN, 20));
         Dimension sizeJLAmount = jl_amount.getPreferredSize();
-        jl_amount.setBounds(1100, 60, sizeJLAmount.width + 10, sizeJLAmount.height);
+        jl_amount.setBounds(1000, 60, sizeJLAmount.width + 10, sizeJLAmount.height);
         add(jl_amount);
         jtf_amount = new JTextField(String.valueOf(order.getProducts().get(index).getStock()));
         jtf_amount.setBackground(setBackground);

@@ -30,7 +30,7 @@ public class ProductsInBoxPanel extends JPanel {
         add(jl_productname);
 
         //Producthoeveelheid opvragen en stylen (Sarah)
-        JLabel jl_amount = new JLabel("Hoeveelheid: " + order.getProducts().get(index).getStock());
+        JLabel jl_amount = new JLabel("Hoeveelheid in doos: " + order.getProducts().get(index).getStock());
         jl_amount.setFont(new Font("Arial", Font.PLAIN, 17));
         Dimension sizeJLAmount = jl_amount.getPreferredSize();
         jl_amount.setBounds(1100, 30, sizeJLAmount.width + 10, sizeJLAmount.height);
