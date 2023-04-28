@@ -77,10 +77,10 @@ public class PanelProductOverview extends JPanel {
         add(jl_productID);
 
         //Producthoeveelheid toevoegen en stylen (Sarah)
-        JLabel jl_amount = new JLabel("Hoeveelheid: ");
+        JLabel jl_amount = new JLabel("Hoeveelheid op voorraad: ");
         jl_amount.setFont(new Font("Arial", Font.PLAIN, 20));
         Dimension sizeJLAmount = jl_amount.getPreferredSize();
-        jl_amount.setBounds(1100, 60, sizeJLAmount.width + 10, sizeJLAmount.height);
+        jl_amount.setBounds(980, 60, sizeJLAmount.width + 10, sizeJLAmount.height);
         add(jl_amount);
         jtf_amount = new JTextField(String.valueOf(products.get(index).getStock()));
         jtf_amount.setBackground(setBackground);
