@@ -1,5 +1,7 @@
 package panels;
 
+import frames.FrameHeader;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -30,16 +32,17 @@ public class PanelStatus extends JPanel {
         p.setMinimumSize(new Dimension(900,480));
         p.setPreferredSize(new Dimension(900,480));
 
+        Font Arial20 = new Font("Arial", Font.PLAIN, 20);
         //zet het font voor alle meldingen
-        jb_verbonden.setFont(new Font("Arial", Font.PLAIN, 27));
-        jb_rust.setFont(new Font("Arial", Font.PLAIN, 27));
-        jb_productOphalen.setFont(new Font("Arial", Font.PLAIN, 27));
-        jb_inBeweging.setFont(new Font("Arial", Font.PLAIN, 27));
-        jb_nood.setFont(new Font("Arial", Font.PLAIN, 27));
-        jb_productAfgeven.setFont(new Font("Arial", Font.PLAIN, 27));
-        jb_handmatige.setFont(new Font("Arial", Font.PLAIN, 27));
-        jb_empty2.setFont(new Font("Arial", Font.PLAIN, 27));
-        jb_productTerugzetten.setFont(new Font("Arial", Font.PLAIN, 27));
+        jb_verbonden.setFont(Arial20);
+        jb_rust.setFont(Arial20);
+        jb_productOphalen.setFont(Arial20);
+        jb_inBeweging.setFont(Arial20);
+        jb_nood.setFont(Arial20);
+        jb_productAfgeven.setFont(Arial20);
+        jb_handmatige.setFont(Arial20);
+        jb_empty2.setFont(Arial20);
+        jb_productTerugzetten.setFont(Arial20);
 
         //zet de background voor alle meldingen
         jb_verbonden.setBackground(Color.lightGray);
