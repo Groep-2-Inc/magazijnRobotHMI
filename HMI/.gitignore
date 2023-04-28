@@ -34,3 +34,6 @@ out/
 .idea/modules.xml
 .idea/workspace.xml
 .idea/workspace.xml
+
+#env
+env.json
