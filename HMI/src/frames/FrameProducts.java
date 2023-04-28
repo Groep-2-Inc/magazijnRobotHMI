@@ -24,10 +24,10 @@ public class FrameProducts extends FrameHeader implements ActionListener {
 
         //Titel aanmaken en stylen (Sarah)
         JLabel jl_products = new JLabel("Producten");
-        add(jl_products);
         jl_products.setFont(new Font("Arial", Font.BOLD, 30));
         Dimension sizeOrder = jl_products.getPreferredSize();
         jl_products.setBounds(25, 5, sizeOrder.width + 10, sizeOrder.height);
+        add(jl_products);
 
         //JPanel die lijst van producten laat zien (om doorheen te scrollen) aanmaken en stylen en scrollPane van maken (Sarah)
         JPanel jp_productListPanel = new JPanel();
@@ -35,8 +35,9 @@ public class FrameProducts extends FrameHeader implements ActionListener {
         jp_productListPanel.setLayout(null);
         Dimension sizeProductListPanel = jp_productListPanel.getPreferredSize();
         JScrollPane jsp_productList = new JScrollPane(jp_productListPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        add(jsp_productList);
         jsp_productList.setBounds(25, 50, sizeProductListPanel.width + 10, 800);
+        add(jsp_productList);
+
 
         //productListPanel voorzien van panels die de productinformatie weergeven (Sarah)
         for (int i = 0; i < products.size(); i++) {
@@ -49,26 +50,26 @@ public class FrameProducts extends FrameHeader implements ActionListener {
 
         //Button om productlijst te bewerken aanmaken en stylen (zichtbaar totdat op "bewerken" wordt gedrukt) (Sarah)
         jb_change = new JButton("Bewerken");
-        add(jb_change);
         jb_change.setFont(arial17);
-        jb_change.setBounds(100, 870, 150, 40);
+        jb_change.setBounds(25, 870, 150, 40);
         jb_change.addActionListener(this);
+        add(jb_change);
 
         //Button om aanpassingen in productlijst op te slaan aanmaken en stylen (onzichtbaar totdat op "bewerken" wordt gedrukt) (Sarah)
         jb_save = new JButton("Opslaan");
-        add(jb_save);
         jb_save.setFont(arial17);
-        jb_save.setBounds(100, 870, 150, 40);
+        jb_save.setBounds(25, 870, 150, 40);
         jb_save.addActionListener(this);
         jb_save.setVisible(false);
+        add(jb_save);
 
         //Button om aanpassingen in productlijst te annuleren aanmaken en stylen (onzichtbaar totdat op "bewerken" wordt gedrukt) (Sarah)
         jb_cancel = new JButton("Annuleren");
-        add(jb_cancel);
         jb_cancel.setFont(arial17);
-        jb_cancel.setBounds(300, 870, 150, 40);
+        jb_cancel.setBounds(225, 870, 150, 40);
         jb_cancel.addActionListener(this);
         jb_cancel.setVisible(false);
+        add(jb_cancel);
     }
 
     public void actionPerformed(ActionEvent e) {
