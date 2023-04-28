@@ -5,9 +5,11 @@ import frames.FrameHeader;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 //door Jason Joshua van der Kolk
-public class PanelStatus extends JPanel {
+public class PanelStatus extends JPanel implements ActionListener {
     private JButton jb_verbonden = new JButton("Verbonden"); //melding voor verbonden
     private JButton jb_rust = new JButton("Rust"); //melding voor rust
     private JButton jb_productOphalen = new JButton("Product Ophalen"); //melding voor product ophalen
@@ -66,6 +68,9 @@ public class PanelStatus extends JPanel {
         p.add(jb_empty2);
         p.add(jb_productTerugzetten);
 
+        // actionlisteners toevoegen (Joëlle)
+        jb_nood.addActionListener(this);
+
         //voeg nieuwe box toe om het paneel in het midde te laten zitten
         Box box = new Box(BoxLayout.Y_AXIS);
         box.add(Box.createVerticalGlue());
@@ -74,7 +79,14 @@ public class PanelStatus extends JPanel {
 
         //voeg deze box toe.
         add(box);
+    }
 
-
+        public void actionPerformed(ActionEvent e) {
+        //deze methode checkt of de kleur rood is en er gedrukt is, zoja, kleur dan grijs, als er gedrukt wordt en de kleur is grijs dan kleurt die rood -> moet nog beter worden (Joëlle)
+        if(e.getSource() == jb_nood && jb_nood.getBackground() == Color.red){
+            jb_nood.setBackground(Color.lightGray);
+        }else if(e.getSource() == jb_nood && jb_nood.getBackground() == Color.lightGray){
+            jb_nood.setBackground(Color.red);
+        }
     }
 }
