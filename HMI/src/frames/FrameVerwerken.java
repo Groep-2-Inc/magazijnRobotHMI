@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.Date;
 import panels.PanelPositie;
-import panels.PanelStatus;
 import testClasses.Order;
 
 //door Jason Joshua van der Kolk
@@ -27,7 +26,7 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
 
     public FrameVerwerken(Order order){
         //initializeer alle nodige variabelen.
-        FrameHeader.closeProgram();
+        closeProgram();
         o_order = order;
         this.i_orderID = order.getOrderID();
         this.i_customerID = order.getCustomer().getCustomerID();

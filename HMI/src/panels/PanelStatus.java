@@ -101,8 +101,6 @@ public class PanelStatus extends JPanel implements ActionListener {
                     Communication.openComms();
                     // Stuur status 200 naar de Arduino
                     Communication.sendComms(200);
-                    // Refresht de frame
-                    repaint(); // werkt nog niet!
                 }
             } catch (InterruptedException | IOException ex) {
                 // Als er een error is print dit

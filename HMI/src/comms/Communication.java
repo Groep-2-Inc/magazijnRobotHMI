@@ -7,6 +7,7 @@ import com.fazecast.jSerialComm.SerialPortEvent;
 import com.fazecast.jSerialComm.SerialPortIOException;
 import javax.swing.*;
 import java.io.IOException;
+import env.GetEnv;
 
 public class Communication extends JPanel {
     private static SerialPort sp; // Globale Serial verbinding
@@ -20,7 +21,7 @@ public class Communication extends JPanel {
     // Methode die verbinding maakt met de Arduino
     public static boolean openComms() throws InterruptedException {
         // Zet de juiste parameters voor de Serial verbinding
-        sp = SerialPort.getCommPort("COM7");
+        sp = SerialPort.getCommPort(GetEnv.getArduinoCommsPort());
         sp.setComPortParameters(9600, 8, 1, 0);
         sp.setComPortTimeouts(SerialPort.TIMEOUT_WRITE_BLOCKING, 0, 0);
 

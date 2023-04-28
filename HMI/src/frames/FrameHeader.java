@@ -209,16 +209,16 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
 
     // Handelt het sluiten van de applicatie beter af
     // Door Martijn
-    public static void closeProgram(){
+    public void closeProgram(){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                // Sluit Serial verbinding
-                Communication.closeComms();
+            // Sluit Serial verbinding
+            Communication.closeComms();
 
-                // Sluit de applicatie
-                dispose();
+            // Sluit de applicatie
+            dispose();
             }
         });
     }

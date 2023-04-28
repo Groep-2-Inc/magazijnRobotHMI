@@ -38,7 +38,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         Font arial20 = new Font("Arial", Font.PLAIN, 20);
         Font arial17 = new Font("Arial", Font.PLAIN, 17);
         Font arial15 = new Font("Arial", Font.PLAIN, 15);
-        FrameHeader.closeProgram();
+        closeProgram();
 
         this.orders = orders; // Het attribuut de meegegeven waarde geven (Joëlle)
 

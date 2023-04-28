@@ -19,7 +19,7 @@ public class FrameJournal extends FrameHeader {
      */
     public FrameJournal(ArrayList<Activity> activities) {
         this.activities = activities;
-        FrameHeader.closeProgram();
+        closeProgram();
 
         //Panel toevoegen voor de titel (Joëlle)
         JPanel panelJournalTitle = new JPanel();

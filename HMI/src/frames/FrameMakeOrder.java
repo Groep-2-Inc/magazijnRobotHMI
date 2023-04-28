@@ -39,7 +39,7 @@ public class FrameMakeOrder extends FrameHeader {
 
     public FrameMakeOrder(ArrayList<Product> products,ArrayList<Customer> customers){
         //standaardinstellingen( Joëlle
-        FrameHeader.closeProgram();
+        closeProgram();
         setTitle("Java-application/MakeOrders"); // moet nog een betere naam hebben
 
         //standaard fonts (Joëlle)
