@@ -58,36 +58,36 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         headerPanel.add(jl_orderLabel);
 
         //label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
-        jl_sortLabel.setFont(arial20);
+        jl_sortLabel.setFont(arial17);
         Dimension sizeSortLabel = jl_sortLabel.getPreferredSize();
-        jl_sortLabel.setBounds(getScreenWidth(44f), getScreenHeight(1.4f), sizeSortLabel.width +10, sizeSortLabel.height); // x = 580 pixels, y = 15 pixels
+        jl_sortLabel.setBounds(getScreenWidth(42f), getScreenHeight(1.4f), sizeSortLabel.width +10, sizeSortLabel.height); // x = 580 pixels, y = 15 pixels
         headerPanel.add(jl_sortLabel);
 
         //Combobox aanmaken en waarde toekennen, toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jcb_sort = new JComboBox(new String[]{"Ordernummer oplopend", "Ordernummer aflopend", "Datum oplopend", "Datum aflopend", "Voltooid", "Onvoltooid"});
         jcb_sort.setBackground(Color.white);
-        jcb_sort.setBounds(getScreenWidth(44f) + sizeSortLabel.width +10, getScreenHeight(0.9f), getScreenWidth(11.39322917f), getScreenHeight(3f)); // x = 590 pixels + sizesortlabels.width, y = 10 pixels, width = 175 pixels, height = 30 pixels
+        jcb_sort.setBounds(getScreenWidth(42f) + sizeSortLabel.width +10, getScreenHeight(1.1f), getScreenWidth(11.39322917f), getScreenHeight(3f)); // x = 590 pixels + sizesortlabels.width, y = 10 pixels, width = 175 pixels, height = 30 pixels
         headerPanel.add(jcb_sort);
 
         //Tekstveld toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         headerPanel.add(jtf_customerNumber);
-        jtf_customerNumber.setBounds(getScreenWidth(60f), getScreenHeight(0.9f), getScreenWidth(7.8125f), getScreenHeight(3f)); // x = 850 pixels, y = 10 pixels, width = 120 pixels, height = 30 pixels
+        jtf_customerNumber.setBounds(getScreenWidth(60f), getScreenHeight(1.1f), getScreenWidth(7.8125f), getScreenHeight(3f)); // x = 850 pixels, y = 10 pixels, width = 120 pixels, height = 30 pixels
 
         //Tekstveld toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         headerPanel.add(jtf_orderNumber);
-        jtf_orderNumber.setBounds(getScreenWidth(69f), getScreenHeight(0.9f), getScreenWidth(7.8125f), getScreenHeight(3f)); // x = 980 pixels, y = 10 pixels, width = 120 pixels, height = 30 pixels
+        jtf_orderNumber.setBounds(getScreenWidth(69f), getScreenHeight(1.1f), getScreenWidth(7.8125f), getScreenHeight(3f)); // x = 980 pixels, y = 10 pixels, width = 120 pixels, height = 30 pixels
 
         // Buttun toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jb_search.setFont(arial17);
         headerPanel.add(jb_search);
         jb_search.addActionListener(this); // actionlistener toevoegen aan button (Joëlle)
-        jb_search.setBounds(getScreenWidth(77.5f), getScreenHeight(0.9f), getScreenWidth(10f), getScreenHeight(3f)); // x = 1130 pixels, y = 5 pixels, width = 120 pixels, height = 40 pixels
+        jb_search.setBounds(getScreenWidth(77.5f), getScreenHeight(1.1f), getScreenWidth(10f), getScreenHeight(3f)); // x = 1130 pixels, y = 5 pixels, width = 120 pixels, height = 40 pixels
 
         //button toevoegen voor order aanmaken, door Jason Joshua van der Kolk
         jb_ordersAanmaken.setFont(arial17);
         headerPanel.add(jb_ordersAanmaken);
         jb_ordersAanmaken.addActionListener(this);
-        jb_ordersAanmaken.setBounds(getScreenWidth(88f), getScreenHeight(0.9f), getScreenWidth(10f), getScreenHeight(3f)); // x = 1270 pixels, y = 5 pixels, width = 220 pixels, height = 40 pixels
+        jb_ordersAanmaken.setBounds(getScreenWidth(88f), getScreenHeight(1.1f), getScreenWidth(10f), getScreenHeight(3f)); // x = 1270 pixels, y = 5 pixels, width = 220 pixels, height = 40 pixels
 
         super.add(headerPanel); // PanelButtons toevoegen aan het hoofdscherm (Joëlle)
     }
@@ -103,7 +103,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         jl_orderText.setFont(arial22);
         panelTitles.add(jl_orderText);
         Dimension sizeOrderText = jl_orderText.getPreferredSize();
-        jl_orderText.setBounds(getScreenWidth(3.255208333f), getScreenHeight(1.157407407f), sizeOrderText.width, sizeOrderText.height); // x = 50 pixels, y = 10 pixels
+        jl_orderText.setBounds(getScreenWidth(3.255208333f), getScreenHeight(1.157407407f), sizeOrderText.width +10, sizeOrderText.height); // x = 50 pixels, y = 10 pixels
 
         //Label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jl_customerText.setFont(arial22);
