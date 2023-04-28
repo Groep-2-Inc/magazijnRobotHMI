@@ -9,6 +9,7 @@ import java.util.Objects;
 import javax.swing.*;
 import javax.swing.border.*;
 import testClasses.*;
+
 public class PanelProduct extends JPanel implements ActionListener{
     private Order order; //Order waarvan hij de producten laat zien
     private BufferedImage productImg; //Productafbeelding
