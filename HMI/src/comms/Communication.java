@@ -69,27 +69,32 @@ public class Communication extends JPanel {
 
     // Verstuurd een status naar de Arduino
     public static boolean sendComms(int value) throws IOException {
-        // Probeert
-        try{
-            // Een int naar String om te zetten
-            // Moet zodat de String omgezet kan worden naar bytes
-            String message = String.valueOf(value);
-            // Print de waarde die naar de Arduino verstuurd gaat worden
-            System.out.println(Communication.class + ": sendComms: " +  message);
-            // Zet de Serial om naar een byte buffer
-            byte[] buffer = message.getBytes();
+        if(hasComms()){
+            // Probeert
+            try{
+                // Een int naar String om te zetten
+                // Moet zodat de String omgezet kan worden naar bytes
+                String message = String.valueOf(value);
+                // Print de waarde die naar de Arduino verstuurd gaat worden
+                System.out.println(Communication.class + ": sendComms: " +  message);
+                // Zet de Serial om naar een byte buffer
+                byte[] buffer = message.getBytes();
 
-            // Schrijft de byte buffer naar de Arduino
-            sp.getOutputStream().write(buffer);
-            sp.getOutputStream().flush();
+                // Schrijft de byte buffer naar de Arduino
+                sp.getOutputStream().write(buffer);
+                sp.getOutputStream().flush();
 
-            // Returnt true omdat het is gelukt
-            // Doen we nu nog niks mee, maar zou wel kunnen
-            return true;
-        }catch (NumberFormatException | SerialPortIOException nfe){
-            // Als er iets fout is gegaan in de int naar String of verzenden van de bytes
-            // Print een error en returnt false
-            System.out.println(Communication.class + " comms error sendComms: " + nfe);
+                // Returnt true omdat het is gelukt
+                // Doen we nu nog niks mee, maar zou wel kunnen
+                return true;
+            }catch (NumberFormatException | SerialPortIOException nfe){
+                // Als er iets fout is gegaan in de int naar String of verzenden van de bytes
+                // Print een error en returnt false
+                System.out.println(Communication.class + ": comms error sendComms: " + nfe);
+                return false;
+            }
+        }else{
+            System.out.println(Communication.class + ": comms port not open, can't send message");
             return false;
         }
     }
