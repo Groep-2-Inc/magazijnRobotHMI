@@ -18,7 +18,7 @@ public class FrameProducts extends FrameHeader implements ActionListener {
 
         //Informatie voor het hele frame (Sarah)
         super.setTitle("JavaApplication/viewingProducts");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        FrameHeader.closeProgram();
         setLayout(null);
 
         //Titel aanmaken en stylen (Sarah)

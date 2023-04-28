@@ -1,5 +1,7 @@
 package frames;
 
+import comms.Communication;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -203,5 +205,21 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
         int height = (int) (screenSize.getHeight() /100 * percentage);
 //        System.out.println(height); voor het debuggen
         return height;
+    }
+
+    // Handelt het sluiten van de applicatie beter af
+    // Door Martijn
+    public static void closeProgram(){
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Sluit Serial verbinding
+                Communication.closeComms();
+
+                // Sluit de applicatie
+                dispose();
+            }
+        });
     }
 }

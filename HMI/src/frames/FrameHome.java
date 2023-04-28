@@ -18,20 +18,7 @@ public class FrameHome extends FrameHeader{
         JPanel f = new JPanel();
         setPreferredSize(new Dimension(1920, 1080));
         f.setLayout(new GridLayout(2,2));
-
-        // Handelt het sluiten van de applicatie beter af
-        // Door Martijn
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                // Sluit Serial verbinding
-                Communication.closeComms();
-
-                // Sluit de applicatie
-                dispose();
-            }
-        });
+        FrameHeader.closeProgram();
 
         //voeg de panelen toe
         f.add(new PanelPositie());

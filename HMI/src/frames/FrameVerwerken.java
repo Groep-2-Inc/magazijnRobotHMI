@@ -27,6 +27,7 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
 
     public FrameVerwerken(Order order){
         //initializeer alle nodige variabelen.
+        FrameHeader.closeProgram();
         o_order = order;
         this.i_orderID = order.getOrderID();
         this.i_customerID = order.getCustomer().getCustomerID();

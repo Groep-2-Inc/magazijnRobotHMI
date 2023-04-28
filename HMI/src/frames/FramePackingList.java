@@ -18,7 +18,7 @@ public class FramePackingList extends FrameHeader implements ActionListener {
 
         //Informatie voor het hele frame (Sarah)
         super.setTitle("JavaApplication/CreatePackingList");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        FrameHeader.closeProgram();
         setLayout(null);
 
         //Ordernummer opvragen en stylen (Sarah)
