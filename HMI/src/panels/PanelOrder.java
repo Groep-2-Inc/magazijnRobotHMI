@@ -52,7 +52,7 @@ public class PanelOrder extends JPanel {
         jlProductAmount.setFont(arial20);
         add(jlProductAmount);
         Dimension sizeProductAmount = jlProductAmount.getPreferredSize();
-        jlProductAmount.setBounds(FrameHeader.getScreenWidth(48.828125f), FrameHeader.getScreenHeight(2f), sizeProductAmount.width, sizeProductAmount.height); // x = 750 pixels, y = 40 pixels
+        jlProductAmount.setBounds(FrameHeader.getScreenWidth(48.828125f), FrameHeader.getScreenHeight(2f), sizeProductAmount.width +15, sizeProductAmount.height); // x = 750 pixels, y = 40 pixels
 
         //label aanmaken voor de datum, datum converteren naar bepaald patroon en juiste lettertype, grootte en plaats meegeven (Joëlle)
         Date date = this.order.getDate();
@@ -62,6 +62,6 @@ public class PanelOrder extends JPanel {
         jlDate.setFont(arial20);
         add(jlDate);
         Dimension sizeDate = jlDate.getPreferredSize();
-        jlDate.setBounds(FrameHeader.getScreenWidth(71.61458333f), FrameHeader.getScreenHeight(2f), sizeDate.width, sizeDate.height); // x = 1100 pixels, y = 40 pixels
+        jlDate.setBounds(FrameHeader.getScreenWidth(71.61458333f), FrameHeader.getScreenHeight(2f), sizeDate.width +15, sizeDate.height); // x = 1100 pixels, y = 40 pixels
     }
 }
