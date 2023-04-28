@@ -74,20 +74,20 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         headerPanel.add(jtf_customerNumber);
 
         //Tekstveld toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
-        headerPanel.add(jtf_orderNumber);
         jtf_orderNumber.setBounds(getScreenWidth(69f), getScreenHeight(1.1f), getScreenWidth(7.8125f), getScreenHeight(3f));
+        headerPanel.add(jtf_orderNumber);
 
         // Buttun toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jb_search.setFont(arial17);
-        headerPanel.add(jb_search);
         jb_search.addActionListener(this); // actionlistener toevoegen aan button (Joëlle)
         jb_search.setBounds(getScreenWidth(77.5f), getScreenHeight(1.1f), getScreenWidth(10f), getScreenHeight(3f));
+        headerPanel.add(jb_search);
 
         //button toevoegen voor order aanmaken, door Jason Joshua van der Kolk
         jb_ordersAanmaken.setFont(arial17);
-        headerPanel.add(jb_ordersAanmaken);
         jb_ordersAanmaken.addActionListener(this);
         jb_ordersAanmaken.setBounds(getScreenWidth(88f), getScreenHeight(1.1f), getScreenWidth(10f), getScreenHeight(3f));
+        headerPanel.add(jb_ordersAanmaken);
 
         super.add(headerPanel); // PanelButtons toevoegen aan het hoofdscherm (Joëlle)
     }
@@ -101,33 +101,33 @@ public class FrameOrders extends FrameHeader implements ActionListener {
 
         //Label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jl_orderText.setFont(arial22);
-        panelTitles.add(jl_orderText);
         Dimension sizeOrderText = jl_orderText.getPreferredSize();
         jl_orderText.setBounds(getScreenWidth(3.255208333f), getScreenHeight(1.157407407f), sizeOrderText.width +10, sizeOrderText.height);
+        panelTitles.add(jl_orderText);
 
         //Label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jl_customerText.setFont(arial22);
-        panelTitles.add(jl_customerText);
         Dimension sizeCustomerText = jl_customerText.getPreferredSize();
         jl_customerText.setBounds(getScreenWidth(26.04166667f), getScreenHeight(1.157407407f), sizeCustomerText.width +10, sizeCustomerText.height);
+        panelTitles.add(jl_customerText);
 
         //Label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jl_productsText.setFont(arial22);
-        panelTitles.add(jl_productsText);
         Dimension sizeProductenText = jl_productsText.getPreferredSize();
         jl_productsText.setBounds(getScreenWidth(48.828125f), getScreenHeight(1.157407407f), sizeProductenText.width +10, sizeProductenText.height);
+        panelTitles.add(jl_productsText);
 
         //Label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jl_productsQuantityText.setFont(arial15);
-        panelTitles.add(jl_productsQuantityText);
         Dimension sizeProductsQuantityText = jl_productsQuantityText.getPreferredSize();
         jl_productsQuantityText.setBounds(getScreenWidth(49.47916667f) +sizeProductenText.width, getScreenHeight(1.736111111f), sizeProductsQuantityText.width +10, sizeProductsQuantityText.height);
+        panelTitles.add(jl_productsQuantityText);
 
         //Label voor Datum aanmaken, toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jlDateText.setFont(arial22);
-        panelTitles.add(jlDateText);
         Dimension sizeDateText = jlDateText.getPreferredSize();
         jlDateText.setBounds(getScreenWidth(71.61458333f), getScreenHeight(1.157407407f), sizeDateText.width +10, sizeDateText.height);
+        panelTitles.add(jlDateText);
 
         super.add(panelTitles); //Panel van de titels toevoegen aan het hoofdscherm (Joëlle)
     }
@@ -145,10 +145,10 @@ public class FrameOrders extends FrameHeader implements ActionListener {
 
             JPanel panelOrderRow = new PanelOrder(orders.get(i));
             buttons.get(i).add(panelOrderRow);
-            panelTabel.add(buttons.get(i));
             buttons.get(i).setBackground(Color.white);
             Dimension sizeOrderPanel = panelOrderRow.getPreferredSize();
             panelOrderRow.setBounds(getScreenHeight(0f), sizeOrderPanel.height * i, sizeOrderPanel.width, sizeOrderPanel.height);
+            panelTabel.add(buttons.get(i));
 
             Dimension sizeButtonOrder = buttons.get(i).getPreferredSize();
             buttons.get(i).setBounds(getScreenHeight(0f), sizeButtonOrder.height * i, sizeButtonOrder.width, sizeButtonOrder.height);
