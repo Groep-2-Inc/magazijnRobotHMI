@@ -1,5 +1,5 @@
 package panels;
-//door Jason Joshua
+//Door Jason Joshua & Martijn
 
 import comms.Communication;
 
@@ -11,15 +11,16 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class PanelStatus extends JPanel implements ActionListener {
-    private JButton jb_verbonden = new JButton("Verbonden"); //melding voor verbonden
-    private JButton jb_rust = new JButton("Rust"); //melding voor rust
-    private JButton jb_productOphalen = new JButton("Product Ophalen"); //melding voor product ophalen
-    private JButton jb_inBeweging = new JButton("In Beweging"); //melding voor in beweging
-    private JButton jb_nood = new JButton("NOOD"); //melding voor nood
-    private JButton jb_productAfgeven = new JButton("Product Afgeven"); //melding voor product afgeven
-    private JButton jb_productTerugzetten = new JButton("Product Terugzetten"); //melding voor terugzetten
-    private JButton jb_handmatige = new JButton("Handmatig"); //melding voor handmatig besturing
-    private JButton jb_empty2 = new JButton(""); //voor nu lege melding
+    // Static door Martijn
+    private static JButton jb_verbonden = new JButton("Verbonden"); //melding voor verbonden
+    private static JButton jb_rust = new JButton("Rust"); //melding voor rust
+    private static JButton jb_productOphalen = new JButton("Product Ophalen"); //melding voor product ophalen
+    private static JButton jb_inBeweging = new JButton("In Beweging"); //melding voor in beweging
+    private static JButton jb_nood = new JButton("NOOD"); //melding voor nood
+    private static JButton jb_productAfgeven = new JButton("Product Afgeven"); //melding voor product afgeven
+    private static JButton jb_productTerugzetten = new JButton("Product Terugzetten"); //melding voor terugzetten
+    private static JButton jb_handmatige = new JButton("Handmatig"); //melding voor handmatig besturing
+    private static JButton jb_empty2 = new JButton(""); //voor nu lege melding
 
     public PanelStatus(){
         //initialiseer het hoofd paneel
@@ -46,24 +47,8 @@ public class PanelStatus extends JPanel implements ActionListener {
         jb_empty2.setFont(new Font("Arial", Font.PLAIN, 27));
         jb_productTerugzetten.setFont(new Font("Arial", Font.PLAIN, 27));
 
-        // Als er Serial verbinding is
-        if(Communication.hasComms()){
-            // Maak de knop groen
-            jb_verbonden.setBackground(Color.green);
-        }else{
-            // Anders maak hem rood
-            jb_verbonden.setBackground(Color.red);
-        }
-
-        //zet de background voor alle meldingen
-        jb_rust.setBackground(Color.lightGray);
-        jb_productOphalen.setBackground(Color.lightGray);
-        jb_inBeweging.setBackground(Color.lightGray);
-        jb_nood.setBackground(Color.lightGray);
-        jb_productAfgeven.setBackground(Color.lightGray);
-        jb_handmatige.setBackground(Color.lightGray);
-        jb_empty2.setBackground(Color.lightGray);
-        jb_productTerugzetten.setBackground(Color.lightGray);
+        //Update de status van de robot
+        PanelStatus.updateStatus();
 
         //voeg alle meldingen toe
         p.add(jb_verbonden);
@@ -88,6 +73,29 @@ public class PanelStatus extends JPanel implements ActionListener {
         add(box);
     }
 
+    // Update de status van de robot
+    // Door Martijn
+    public static void updateStatus(){
+        // Als er Serial verbinding is
+        if(Communication.hasComms()){
+            // Maak de knop groen
+            jb_verbonden.setBackground(Color.green);
+        }else{
+            // Anders maak hem rood
+            jb_verbonden.setBackground(Color.red);
+        }
+
+        //zet de background voor alle meldingen
+        jb_rust.setBackground(Color.lightGray);
+        jb_productOphalen.setBackground(Color.lightGray);
+        jb_inBeweging.setBackground(Color.lightGray);
+        jb_nood.setBackground(Color.lightGray);
+        jb_productAfgeven.setBackground(Color.lightGray);
+        jb_handmatige.setBackground(Color.lightGray);
+        jb_empty2.setBackground(Color.lightGray);
+        jb_productTerugzetten.setBackground(Color.lightGray);
+    }
+
     // Handelt knop acties af
     // Door Martijn
     public void actionPerformed(ActionEvent e) {
@@ -101,6 +109,9 @@ public class PanelStatus extends JPanel implements ActionListener {
                     Communication.openComms();
                     // Stuur status 200 naar de Arduino
                     Communication.sendComms(200);
+
+                    // Update de status op het home scherm
+                    PanelStatus.updateStatus();
                 }
             } catch (InterruptedException | IOException ex) {
                 // Als er een error is print dit

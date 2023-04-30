@@ -8,6 +8,7 @@ import com.fazecast.jSerialComm.SerialPortIOException;
 import javax.swing.*;
 import java.io.IOException;
 import env.GetEnv;
+import panels.PanelStatus;
 
 public class Communication extends JPanel {
     private static SerialPort sp; // Globale Serial verbinding
@@ -33,6 +34,9 @@ public class Communication extends JPanel {
             Thread.sleep(2000);
             // Zet hasComms op true
             hasComms = true;
+
+            // Update de status op het home scherm
+            PanelStatus.updateStatus();
 
             // Print dat de comms open is
             System.out.println(Communication.class + ": Comms port is open");
