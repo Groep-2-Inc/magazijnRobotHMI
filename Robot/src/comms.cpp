@@ -34,8 +34,8 @@ int fromJava() {
 
 // Zorgt ervoor dat data vanuit de master arduino naar de slave arduino gestuurd wordt
 void toSlaveArduino(int value){
-  // Serial.println(value);
-  Wire.beginTransmission(9);
+  	// Serial.println(value);
+  	Wire.beginTransmission(9);
 	Wire.write(value);
 	Wire.endTransmission();
 }

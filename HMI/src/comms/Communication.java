@@ -92,10 +92,10 @@ public class Communication extends JPanel {
                 // Returnt true omdat het is gelukt
                 // Doen we nu nog niks mee, maar zou wel kunnen
                 return true;
-            }catch (NumberFormatException | SerialPortIOException nfe){
+            }catch (NumberFormatException | SerialPortIOException exc){
                 // Als er iets fout is gegaan in de int naar String of verzenden van de bytes
                 // Print een error en returnt false
-                System.out.println(Communication.class + ": comms error sendComms: " + nfe);
+                System.out.println(Communication.class + ": comms error sendComms: " + exc);
                 return false;
             }
         }else{

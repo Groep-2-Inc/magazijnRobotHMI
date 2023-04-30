@@ -17,7 +17,7 @@ public class GetEnv {
 
     // Leest een env bestand uit
     public GetEnv() {
-        // Probeer
+        // Probeert
         try{
             // Een json bestand uit te lezen dat in de root staat
             JSONObject json = (JSONObject) new JSONParser().parse(new FileReader("env.json"));
