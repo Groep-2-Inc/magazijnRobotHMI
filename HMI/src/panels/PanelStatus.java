@@ -2,6 +2,7 @@ package panels;
 //Door Jason Joshua & Martijn
 
 import comms.Communication;
+import database.Database;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -12,7 +13,8 @@ import java.io.IOException;
 
 public class PanelStatus extends JPanel implements ActionListener {
     // Static door Martijn
-    private static JButton jb_verbonden = new JButton("Verbonden"); //melding voor verbonden
+    private static JButton jb_robotVerbinding = new JButton("Robot verbinding"); //melding voor robot verbinding
+    private static JButton jb_databaseVerbinding = new JButton("Database verbinding"); //melding voor database verbinding
     private static JButton jb_rust = new JButton("Rust"); //melding voor rust
     private static JButton jb_productOphalen = new JButton("Product Ophalen"); //melding voor product ophalen
     private static JButton jb_inBeweging = new JButton("In Beweging"); //melding voor in beweging
@@ -20,7 +22,6 @@ public class PanelStatus extends JPanel implements ActionListener {
     private static JButton jb_productAfgeven = new JButton("Product Afgeven"); //melding voor product afgeven
     private static JButton jb_productTerugzetten = new JButton("Product Terugzetten"); //melding voor terugzetten
     private static JButton jb_handmatige = new JButton("Handmatig"); //melding voor handmatig besturing
-    private static JButton jb_empty2 = new JButton(""); //voor nu lege melding
 
     public PanelStatus(){
         //initialiseer het hoofd paneel
@@ -37,28 +38,28 @@ public class PanelStatus extends JPanel implements ActionListener {
         p.setPreferredSize(new Dimension(900,480));
 
         //zet het font voor alle meldingen
-        jb_verbonden.setFont(new Font("Arial", Font.PLAIN, 27));
+        jb_robotVerbinding.setFont(new Font("Arial", Font.PLAIN, 27));
         jb_rust.setFont(new Font("Arial", Font.PLAIN, 27));
         jb_productOphalen.setFont(new Font("Arial", Font.PLAIN, 27));
         jb_inBeweging.setFont(new Font("Arial", Font.PLAIN, 27));
         jb_nood.setFont(new Font("Arial", Font.PLAIN, 27));
         jb_productAfgeven.setFont(new Font("Arial", Font.PLAIN, 27));
         jb_handmatige.setFont(new Font("Arial", Font.PLAIN, 27));
-        jb_empty2.setFont(new Font("Arial", Font.PLAIN, 27));
+        jb_databaseVerbinding.setFont(new Font("Arial", Font.PLAIN, 27));
         jb_productTerugzetten.setFont(new Font("Arial", Font.PLAIN, 27));
 
         //Update de status van de robot
         PanelStatus.updateStatus();
 
         //voeg alle meldingen toe
-        p.add(jb_verbonden);
+        p.add(jb_robotVerbinding);
+        p.add(jb_databaseVerbinding);
         p.add(jb_rust);
         p.add(jb_productOphalen);
         p.add(jb_inBeweging);
         p.add(jb_nood);
         p.add(jb_productAfgeven);
         p.add(jb_handmatige);
-        p.add(jb_empty2);
         p.add(jb_productTerugzetten);
 
         //voeg nieuwe box toe om het paneel in het midde te laten zitten
@@ -67,7 +68,8 @@ public class PanelStatus extends JPanel implements ActionListener {
         box.add(p);
         box.add(Box.createVerticalGlue());
 
-        jb_verbonden.addActionListener(this);
+        jb_robotVerbinding.addActionListener(this);
+        jb_databaseVerbinding.addActionListener(this);
 
         //voeg deze box toe.
         add(box);
@@ -79,10 +81,18 @@ public class PanelStatus extends JPanel implements ActionListener {
         // Als er Serial verbinding is
         if(Communication.hasComms()){
             // Maak de knop groen
-            jb_verbonden.setBackground(Color.green);
+            jb_robotVerbinding.setBackground(Color.green);
         }else{
             // Anders maak hem rood
-            jb_verbonden.setBackground(Color.red);
+            jb_robotVerbinding.setBackground(Color.red);
+        }
+        // Als er database verbinding is
+        if(Database.hasDbConnection()){
+            // Maak de knop groen
+            jb_databaseVerbinding.setBackground(Color.green);
+        }else{
+            // Anders maak hem rood
+            jb_databaseVerbinding.setBackground(Color.red);
         }
 
         //zet de background voor alle meldingen
@@ -92,7 +102,6 @@ public class PanelStatus extends JPanel implements ActionListener {
         jb_nood.setBackground(Color.lightGray);
         jb_productAfgeven.setBackground(Color.lightGray);
         jb_handmatige.setBackground(Color.lightGray);
-        jb_empty2.setBackground(Color.lightGray);
         jb_productTerugzetten.setBackground(Color.lightGray);
     }
 
@@ -100,7 +109,7 @@ public class PanelStatus extends JPanel implements ActionListener {
     // Door Martijn
     public void actionPerformed(ActionEvent e) {
         // Als het om de verbonden knop gaat
-        if(e.getSource() == jb_verbonden){
+        if(e.getSource() == jb_robotVerbinding){
             // Probeer
             try {
                 // Als hij nog geen communicatie heeft
@@ -116,6 +125,11 @@ public class PanelStatus extends JPanel implements ActionListener {
             } catch (InterruptedException | IOException ex) {
                 // Als er een error is print dit
                 System.out.println(getClass() + ": comms error" + ex);
+            }
+        }
+        if(e.getSource() == jb_databaseVerbinding) {
+            if(!Database.hasDbConnection()) {
+                Database.connectToDatase();
             }
         }
     }

@@ -1,6 +1,7 @@
 package frames;
 
 import comms.Communication;
+import database.Database;
 
 import javax.swing.*;
 import java.awt.*;
@@ -216,6 +217,8 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
             public void windowClosing(WindowEvent e) {
             // Sluit Serial verbinding
             Communication.closeComms();
+            //Stopt connectie met de database
+            Database.stopConnection();
 
             // Sluit de applicatie
             dispose();

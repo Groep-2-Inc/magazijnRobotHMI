@@ -39,19 +39,19 @@ public class GetEnv {
         return arduinoCommsPort;
     }
 
-    public String getDb_host() {
+    public static String getDb_host() {
         return db_host;
     }
 
-    public String getDb_port() {
+    public static String getDb_port() {
         return db_port;
     }
 
-    public String getDb_username() {
+    public static String getDb_username() {
         return db_username;
     }
 
-    public String getDb_password() {
+    public static String getDb_password() {
         return db_password;
     }
 }

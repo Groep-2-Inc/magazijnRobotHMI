@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
+import database.Database;
 import testClasses.*;
 import panels.*;
 
@@ -159,6 +161,8 @@ public class FrameOrders extends FrameHeader implements ActionListener {
 //        panelTitles.setPreferredSize(new Dimension(getScreenWidth(98f), getScreenHeight(5f))); // procenten toegevoegd( Joëlle)
         scrollPane.setPreferredSize(new Dimension(getScreenWidth(98f), getScreenHeight(67.5f))); // procenten toegevoegd( Joëlle)
         super.add(scrollPane);
+
+        System.out.println(Database.getDbData("select * from orders limit 10"));
     }
 
     //aangepast door Jason Joshua van der Kolk
@@ -176,4 +180,6 @@ public class FrameOrders extends FrameHeader implements ActionListener {
             FrameController.setActiveFrameMakeOrder(this);
         }
     }
+
+
 }
