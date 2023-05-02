@@ -13,6 +13,7 @@ import java.util.Objects;
 public class Database {
     private static Connection con;
     private static boolean hasDbConnection;
+
     public Database() {
         connectToDatase();
     }
@@ -65,8 +66,6 @@ public class Database {
 
     public static boolean insertInDatabase(String query, List<Object> placeholders){
         try {
-//            Statement stmt = con.createStatement();
-//            ResultSet rs = stmt.executeQuery(query);
             PreparedStatement pstmt = con.prepareStatement(query);
             for (int i = 0; i < placeholders.size(); i++){
                 pstmt.setObject(i + 1, placeholders.get(i));
