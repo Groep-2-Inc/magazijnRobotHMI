@@ -3,13 +3,31 @@
 // Arduino communicatie
 #include <Wire.h>
 
-byte i2c_rcv;
+int x = 0;
+
+// Leest de waarde van de data van de tweede arduino.
+void receiveEvent(int bytes){
+  x = Wire.read();
+}
 
 // Start serial zodat deze in elk ander bestand gebruikt kan worden.
 // Start de communicatie tussen de arduino's.
 void commsSetup(){
 	Serial.begin(9600);
-	Wire.begin();
+	Wire.begin(9);
+  	Wire.onReceive(receiveEvent);
+}
+
+// Zorgt ervoor dat data vanuit de master arduino naar de slave arduino gestuurd wordt
+void toSlaveArduino(int value){
+  	// Serial.println(value);
+  	// Wire.beginTransmission(9);
+	// Wire.write(value);
+	// Wire.endTransmission();
+
+	// DEBUG
+	delay(500);
+	x = 50;
 }
 
 // Print een status- en waardetekst naar de Serial
@@ -25,17 +43,29 @@ int fromJava() {
 	if(Serial.available() > 0) {
 		incomingData = Serial.readString().toInt();
 
-		if(incomingData == 200){
-			digitalWrite(5, HIGH);
+		switch (incomingData){
+			case 50:
+				// Zet een LED aan als debug
+				digitalWrite(5, HIGH);
+
+				// Stuurt status 60 naar de tweede Arduino
+				toSlaveArduino(60);
+
+				// Als return van tweede Arduino code 65 is
+				if(x == 65){
+					toJava(200);
+				}else{
+					toJava(100);
+				}
+				break;
+			case 500:
+				// Zet een LED aan als nood
+				digitalWrite(7, HIGH);
+				toJava(500);
+			default:
+				break;
 		}
 	}
-	return incomingData;
-}
 
-// Zorgt ervoor dat data vanuit de master arduino naar de slave arduino gestuurd wordt
-void toSlaveArduino(int value){
-  	// Serial.println(value);
-  	Wire.beginTransmission(9);
-	Wire.write(value);
-	Wire.endTransmission();
+	return incomingData;
 }
