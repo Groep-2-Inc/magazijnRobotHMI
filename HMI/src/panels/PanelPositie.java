@@ -10,13 +10,13 @@ import java.awt.*;
 public class PanelPositie extends JPanel {
     public PanelPositie(){
         //initializeer het hoofd paneel
-        setPreferredSize(new Dimension(FrameHeader.getScreenWidth(50f),540));
+        setPreferredSize(new Dimension(FrameHeader.getScreenWidth(50f),FrameHeader.getScreenHeight(50f)));
         setBackground(new Color(236, 236, 236));
         setBorder(new LineBorder(Color.black, 1));
 
         //nieuw paneel voor alle informatie
         JPanel p = new JPanel();
-        p.setPreferredSize(new Dimension(500, 500));
+        p.setPreferredSize(new Dimension(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1920, 500)),FrameHeader.getScreenHeight(FrameHeader.getPercentage(1080, 500))));
         p.setLayout(new GridLayout(6, 6));
 
         //voeg alle dingen toe aan het paneel
