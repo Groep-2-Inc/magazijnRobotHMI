@@ -18,12 +18,8 @@ public class Communication {
     private static CountDownLatch latch; // Countdown die wacht tot Serial uitlezen is voltooid
 
     public Communication() {
-        //Probeert verbinding te maken met de Arduino
-//        try{
-//            openComms();
-//        }catch (InterruptedException ie){
-//            System.out.println(Communication.class + ": comms error " + ie);
-//        }
+//        Probeert verbinding te maken met de Arduino
+        openComms();
     }
 
     // Methode die verbinding maakt met de Arduino
@@ -41,7 +37,7 @@ public class Communication {
             try{
                 Thread.sleep(2000);
             }catch (InterruptedException ie){
-                System.out.println(Communication.class + "openComms: sleep error :" + ie);
+                System.out.println(Communication.class + " openComms: sleep error :" + ie);
             }
 
             // Probeert
@@ -49,7 +45,7 @@ public class Communication {
                 // De commando 50 te versturen naar de Arduino
                 // 50 betekent: maak verbinding
                 String message = String.valueOf(50);
-                System.out.println(Communication.class + "openComms: sending: " +  message);
+                System.out.println(Communication.class + " openComms: sending: " +  message);
                 // Zet de String om naar een byte array
                 byte[] buffer = message.getBytes();
 
@@ -71,15 +67,15 @@ public class Communication {
                 PanelStatus.updateStatus();
 
                 // Print dat de comms open is
-                System.out.println(Communication.class + "openComms: Comms port is open");
+                System.out.println(Communication.class + " openComms: Comms port is open");
             }catch (IOException ioe){
-                System.out.println(Communication.class + "openComms: Failed to open comms port");
+                System.out.println(Communication.class + " openComms: Failed to open comms port");
             }
         } else {
             // Zet hasFirstComms op false omdat het niet is gelukt om verbinding te maken
             hasFirstComms = false;
             // Print dat het niet is gelukt
-            System.out.println(Communication.class + "openComms: Failed to open comms port");
+            System.out.println(Communication.class + " openComms: Failed to open comms port");
         }
     }
 
@@ -88,11 +84,11 @@ public class Communication {
         // Als het is gelukt verbinding te sluiten
         if (sp.closePort()) {
             // Print dit en return true
-            System.out.println(Communication.class + "closeComms: Port is closed :)");
+            System.out.println(Communication.class + " closeComms: Port is closed :)");
             return true;
         } else {
             // Anders print een error en return false
-            System.out.println(Communication.class + "closeComms: Failed to close port :(");
+            System.out.println(Communication.class + " closeComms: Failed to close port :(");
             return false;
         }
     }
@@ -126,7 +122,7 @@ public class Communication {
                 // Moet zodat de String omgezet kan worden naar bytes
                 String message = String.valueOf(value);
                 // Print de waarde die naar de Arduino verstuurd gaat worden
-                System.out.println(Communication.class + "sendComms: sending " +  message);
+                System.out.println(Communication.class + " sendComms: sending " +  message);
                 // Zet de Serial om naar een byte buffer
                 byte[] buffer = message.getBytes();
 
@@ -137,10 +133,10 @@ public class Communication {
             }catch (NumberFormatException | IOException exc){
                 // Als er iets fout is gegaan in de int naar String of verzenden van de bytes
                 // Print een error
-                System.out.println(Communication.class + "sendComms comms error: " + exc);
+                System.out.println(Communication.class + " sendComms comms error: " + exc);
             }
         }else{
-            System.out.println(Communication.class + "sendComms: comms port not open, can't send message");
+            System.out.println(Communication.class + " sendComms: comms port not open, can't send message");
         }
     }
 
