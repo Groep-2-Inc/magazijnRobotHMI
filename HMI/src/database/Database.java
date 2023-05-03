@@ -21,7 +21,7 @@ public class Database {
     public static void connectToDatase(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(GetEnv.getDb_host(), GetEnv.getDb_username(), GetEnv.getDb_password());
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nerdygadgets", "root", "");
             hasDbConnection = true;
             PanelStatus.updateStatus();
         }catch (Exception e){
@@ -29,7 +29,7 @@ public class Database {
         }
     }
 
-    public static JSONArray getDbData(String query){
+    public static JSONArray getDbData(String query, String[] placeholders){
         JSONArray data = new JSONArray();
         if (hasDbConnection){
             int rowCount = 0;
@@ -64,11 +64,11 @@ public class Database {
         }
     }
 
-    public static boolean insertInDatabase(String query, List<Object> placeholders){
+    public static boolean updateDatabase(String query, String[] placeholders){
         try {
             PreparedStatement pstmt = con.prepareStatement(query);
-            for (int i = 0; i < placeholders.size(); i++){
-                pstmt.setObject(i + 1, placeholders.get(i));
+            for (int i = 0; i < placeholders.length; i++){
+                pstmt.setObject(i + 1, placeholders[i]);
             }
             pstmt.executeUpdate();
             return true;

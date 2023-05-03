@@ -161,8 +161,6 @@ public class FrameOrders extends FrameHeader implements ActionListener {
 //        panelTitles.setPreferredSize(new Dimension(getScreenWidth(98f), getScreenHeight(5f))); // procenten toegevoegd( Joëlle)
         scrollPane.setPreferredSize(new Dimension(getScreenWidth(98f), getScreenHeight(67.5f))); // procenten toegevoegd( Joëlle)
         super.add(scrollPane);
-
-        System.out.println(Database.getDbData("select * from orders limit 10"));
     }
 
     //aangepast door Jason Joshua van der Kolk

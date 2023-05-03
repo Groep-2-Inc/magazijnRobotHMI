@@ -15,7 +15,7 @@ public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
         new GetEnv();
         new Database();
-//        new FrameController();
+        new FrameController();
         
 //         Start de Serial communication
 //        Communication comms = new Communication();
@@ -23,12 +23,8 @@ public class Main {
 //
 //        comms.getComms();
 
-        List<Object> placeholders = new ArrayList<>();
-        placeholders.add(37);
-        placeholders.add("Daan");
-        placeholders.add(2);
-        placeholders.add("2023-05-01 14:37:02.000000");
-        placeholders.add("2023-05-01 14:37:02.000000");
-        System.out.println(Database.insertInDatabase("INSERT INTO colors (ColorID, ColorName, LastEditedBy, ValidFrom, ValidTo) VALUES (?, ?, ?, ?, ?)", placeholders));
+//        System.out.println(Database.insertInDatabase("INSERT INTO colors (ColorID, ColorName, LastEditedBy, ValidFrom, ValidTo) VALUES (?, ?, ?, ?, ?)", new String[]{"38", "Test", "2", "2023-05-01 14:37:02.000000", "2023-05-01 14:37:02.000000"}));
+
+//        Database.getDbData("select * from colors limit 10");
     }
 }
