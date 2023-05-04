@@ -7,6 +7,8 @@ import com.fazecast.jSerialComm.SerialPortEvent;
 import com.fazecast.jSerialComm.SerialPortIOException;
 import javax.swing.*;
 import java.io.IOException;
+
+import database.Database;
 import env.GetEnv;
 import panels.PanelStatus;
 
@@ -55,15 +57,20 @@ public class Communication extends JPanel {
 
     // Sluit Serial comms
     public static boolean closeComms(){
-        // Als het is gelukt verbinding te sluiten
-        if (sp.closePort()) {
-            // Print dit en return true
+        try{
+            // Als het is gelukt verbinding te sluiten
+            if (sp.closePort()) {
+                // Print dit en return true
+                System.out.println(Communication.class + ": Port is closed :)");
+                return true;
+            } else {
+                // Anders print een error en return false
+                System.out.println(Communication.class + ": Failed to close port :(");
+                return false;
+            }
+        }catch (NullPointerException npe){
             System.out.println(Communication.class + ": Port is closed :)");
             return true;
-        } else {
-            // Anders print een error en return false
-            System.out.println(Communication.class + ": Failed to close port :(");
-            return false;
         }
     }
 

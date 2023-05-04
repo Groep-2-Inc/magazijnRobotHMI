@@ -36,7 +36,6 @@ public class Database {
                 PanelStatus.updateStatus();
             // Als de try is mislukt worden twee foutmeldingen getoond.
             }catch (Exception e){
-                System.out.println("env.json niet gevonden!");
                 System.out.println(Database.class + ": " + e); // Foutmelding met details.
             }
         // Foutmelding als env.json bestand niet kan worden uitgelezen.
@@ -53,10 +52,7 @@ public class Database {
             int rowCount = 0; // Houdt de rijen bij van een tabel.
             // Probeert data op te halen.
             try{
-//                Statement stmt = con.createStatement();
-//                ResultSet rs = stmt.executeQuery(query);
-
-//                // Slaat de query op als preparedstatement.
+                // Slaat de query op als preparedstatement.
                 PreparedStatement pstmt = con.prepareStatement(query);
                 // Voor elk vraagteken in de preparedstatement wordt een placeholder ingevuld.
                 for (int i = 0; i < placeholders.length; i++){
@@ -76,6 +72,7 @@ public class Database {
                         // Stop de naam en de waatde in row.
                         row.put(rsmd.getColumnName(i), rs.getString(i));
                     }
+                    // Voegt de data toe aan het json object data.
                     data.add(rowCount, row);
                     rowCount++;
                 }
@@ -91,24 +88,29 @@ public class Database {
     }
 
     // Methode die de verbinding verbreekt met de database.
-    public static void stopConnection(){
+    public static boolean stopConnection(){
         // Als er een verbinding is
         if(hasDbConnection){
             try {
                 // Stopt verbinding en zet de status op false.
                 con.close();
                 hasDbConnection = false;
-            // Try mislukt
+                System.out.println("Database verbinding verbroken.");
+                return true;
+                // Try mislukt
             }catch(SQLException e){
                 System.out.println(Database.class + ": " + e); // Toont foutmelding met details.
+                return false;
             }
-        // Anders geef foutmelding
+            // Anders geef foutmelding
         }else {
             System.out.println("Verbinding kan niet verboken worden, omdat er geen verbinding is!");
+            return false;
         }
     }
 
-    // Methode die een update kan uitvoeren op de database.
+
+    // Methode die een update (of een insert) kan uitvoeren op de database.
     public static boolean updateDatabase(String query, String[] placeholders){
         // Als er een verbinding is.
         if (hasDbConnection){
