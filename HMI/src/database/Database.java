@@ -59,7 +59,7 @@ public class Database {
                     pstmt.setObject(i + 1, placeholders[i]);
                 }
                 // Voert de query uit.
-                ResultSet rs = pstmt.executeQuery(query);
+                ResultSet rs = pstmt.executeQuery();
                 // Haalt data op over de kolommen van een tabel.
                 ResultSetMetaData rsmd = rs.getMetaData();
                 // Slaat het aantal kolommen op.
