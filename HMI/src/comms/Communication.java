@@ -4,25 +4,28 @@ package comms;
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
-import com.fazecast.jSerialComm.SerialPortIOException;
-import javax.swing.*;
 import java.io.IOException;
 
 import database.Database;
+import java.util.concurrent.CountDownLatch;
+
 import env.GetEnv;
 import panels.PanelStatus;
 
-public class Communication extends JPanel {
+public class Communication {
     private static SerialPort sp; // Globale Serial verbinding
-    private static boolean hasComms; // Boolean die bijhoudt of er Serial verbinding is
+    private static boolean hasFirstComms; // Boolean die bijhoudt of er Serial verbinding is
+    private static boolean hasSecondComms; // Boolean die bijhoudt of er Serial verbinding is
+    private static String receivedValue = "0"; // Waarde die wordt bijgewerkt op basis van Serial
+    private static CountDownLatch latch; // Countdown die wacht tot Serial uitlezen is voltooid
 
-    public Communication() throws InterruptedException {
-        //Probeert verbinding te maken met de Arduino
+    public Communication() {
+//        Probeert verbinding te maken met de Arduino
         openComms();
     }
 
     // Methode die verbinding maakt met de Arduino
-    public static boolean openComms() throws InterruptedException {
+    public static void openComms() {
         // Zet de juiste parameters voor de Serial verbinding
         sp = SerialPort.getCommPort(GetEnv.getArduinoCommsPort());
         sp.setComPortParameters(9600, 8, 1, 0);
@@ -33,25 +36,48 @@ public class Communication extends JPanel {
             // Wacht twee seconden om de verbinding tot stand te brengen
             // Is nodig omdat anders te snel door gaat en al data probeert te verzenden
             // Terwijl de poort nog niet open is
-            Thread.sleep(2000);
-            // Zet hasComms op true
-            hasComms = true;
+            try{
+                Thread.sleep(2000);
+            }catch (InterruptedException ie){
+                System.out.println(Communication.class + " openComms: sleep error :" + ie);
+            }
 
-            // Update de status op het home scherm
-            PanelStatus.updateStatus();
+            // Probeert
+            try{
+                // De commando 50 te versturen naar de Arduino
+                // 50 betekent: maak verbinding
+                String message = String.valueOf(50);
+                System.out.println(Communication.class + " openComms: sending: " +  message);
+                // Zet de String om naar een byte array
+                byte[] buffer = message.getBytes();
 
-            // Print dat de comms open is
-            System.out.println(Communication.class + ": Comms port is open");
-            // Returnt true omdat het is gelukt
-            // Wordt nu nog nergens gebruikt, maar kan wel
-            return true;
+                // Schrijft de byte buffer naar de Arduino
+                sp.getOutputStream().write(buffer);
+                sp.getOutputStream().flush();
+
+                // Leest de Serial comms uit
+                if(readComms() == 100){
+                    hasFirstComms = true;
+                    hasSecondComms = false;
+                }else if(readComms() == 200){
+                    // Zet hasFirstComms op true
+                    hasFirstComms = true;
+                    hasSecondComms = true;
+                }
+
+                // Update de status op het home scherm
+                PanelStatus.updateStatus();
+
+                // Print dat de comms open is
+                System.out.println(Communication.class + " openComms: Comms port is open");
+            }catch (IOException ioe){
+                System.out.println(Communication.class + " openComms: Failed to open comms port");
+            }
         } else {
-            // Zet hasComms op false omdat het niet is gelukt om verbinding te maken
-            hasComms = false;
+            // Zet hasFirstComms op false omdat het niet is gelukt om verbinding te maken
+            hasFirstComms = false;
             // Print dat het niet is gelukt
-            System.out.println(Communication.class + ": Failed to open comms port");
-            // Returnt false omdat het niet is gelukt verbinding te maken
-            return false;
+            System.out.println(Communication.class + " openComms: Failed to open comms port");
         }
     }
 
@@ -61,34 +87,49 @@ public class Communication extends JPanel {
             // Als het is gelukt verbinding te sluiten
             if (sp.closePort()) {
                 // Print dit en return true
-                System.out.println(Communication.class + ": Port is closed :)");
+                System.out.println(Communication.class + " closeComms: Port is closed :)");
                 return true;
             } else {
                 // Anders print een error en return false
-                System.out.println(Communication.class + ": Failed to close port :(");
+                System.out.println(Communication.class + " closeComms: Failed to close port :(");
                 return false;
             }
         }catch (NullPointerException npe){
-            System.out.println(Communication.class + ": Port is closed :)");
+            System.out.println(Communication.class + " closeComms: Port is closed :)");
             return true;
         }
     }
 
-    // Methode die de waarde van hasComms returnt
+    // Methode die de waarde van hasFirstComms returnt
     public static boolean hasComms() {
-        return hasComms;
+        return hasFirstComms && hasSecondComms;
+    }
+
+    // Methode die de waarde van hasSecondComms returnt.
+    public static boolean hasFirstComms(){
+        return hasFirstComms;
+    }
+
+    // Methode die de waarde van hasSecondComms returnt.
+    // Is aangemaakt aangezien er ook een gedeeltelijke verbinding kan zijn
+    // Als hasComms false returnt en hasCompleteComms returnt ook false
+    // Heeft Java geen verbinding met tweede Arduino
+    // Dus status home scherm moet oranje worden
+    public static boolean hasSecondCommsComms(){
+        return hasSecondComms;
     }
 
     // Verstuurd een status naar de Arduino
-    public static boolean sendComms(int value) throws IOException {
-        if(hasComms()){
+    public static void sendComms(int value) {
+//        if(hasComms()){ // Moet later gebruikt worden!
+        if(hasFirstComms()){
             // Probeert
             try{
                 // Een int naar String om te zetten
                 // Moet zodat de String omgezet kan worden naar bytes
                 String message = String.valueOf(value);
                 // Print de waarde die naar de Arduino verstuurd gaat worden
-                System.out.println(Communication.class + ": sendComms: " +  message);
+                System.out.println(Communication.class + " sendComms: sending " +  message);
                 // Zet de Serial om naar een byte buffer
                 byte[] buffer = message.getBytes();
 
@@ -96,35 +137,55 @@ public class Communication extends JPanel {
                 sp.getOutputStream().write(buffer);
                 sp.getOutputStream().flush();
 
-                // Returnt true omdat het is gelukt
-                // Doen we nu nog niks mee, maar zou wel kunnen
-                return true;
-            }catch (NumberFormatException | SerialPortIOException exc){
+            }catch (NumberFormatException | IOException exc){
                 // Als er iets fout is gegaan in de int naar String of verzenden van de bytes
-                // Print een error en returnt false
-                System.out.println(Communication.class + ": comms error sendComms: " + exc);
-                return false;
+                // Print een error
+                System.out.println(Communication.class + " sendComms comms error: " + exc);
             }
         }else{
-            System.out.println(Communication.class + ": comms port not open, can't send message");
-            return false;
+            System.out.println(Communication.class + " sendComms: comms port not open, can't send message");
         }
     }
 
     // Leest de Serial communicatie uit
-    public int getComms(){
+    public static void readSerialComms() {
         // Voegt een nieuwe dataListener toe aan de verbinding
         // Deze leest de Serial uit
         sp.addDataListener(new SerialPortDataListener() {
             @Override
             public void serialEvent(SerialPortEvent event) {
-                int size = event.getSerialPort().bytesAvailable();
-                byte[] buffer = new byte[size];
-                event.getSerialPort().readBytes(buffer, size);
-
-                for(byte b:buffer) {
-                    System.out.print((char) b);
+                // Wacht 250ms zodat de Arduino genoeg tijd heeft om alle bytes te verzenden
+                // Zonder leest hij het niet altijd even goed uit
+                try {
+                    Thread.sleep(250);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
+                // Aantal bytes in de Serial buffer wordt gelezen
+                int size = event.getSerialPort().bytesAvailable();
+                // Maakt een nieuwe byte buffer aan van het formaat dat in de buffer zit
+                byte[] buffer = new byte[size];
+
+                // Leest de Serial data uit en stop dit in de buffer array
+                int numBytesRead = 0;
+                while (numBytesRead < size) {
+                    numBytesRead += event.getSerialPort().readBytes(buffer, size - numBytesRead);
+                }
+
+                // Maakt een lege String aan die later wordt gevuld met de Serial data
+                String value = "";
+
+                // Voor elke byte in de buffer zet deze om naar een char en voeg hem toe aan de String value
+                for(byte b:buffer) {
+                    value += (char) b;
+                }
+
+                // Zet alle waardes in de static receivedValue
+                // Doet een .trim() om eventuele enters en spaties weg te halen
+                receivedValue = value.trim();
+                // Hier wordt de CountDownLatch met één verlaagd. Dit betekent dat de await()-functie in de functie readComms() kan worden ontgrendeld.
+                latch.countDown();
+                System.out.println(Communication.class + " readSerialComms: recived: " + value);
             }
 
             @Override
@@ -132,7 +193,39 @@ public class Communication extends JPanel {
                 return SerialPort.LISTENING_EVENT_DATA_AVAILABLE;
             }
         });
+    }
 
-        return 0;
+    // Getter voor de static receivedValue
+    public static int getReceivedValue() {
+        int returnValue = 0;
+        try{
+            // Probeert de waarde om te zetten naar in int
+            returnValue = Integer.parseInt(receivedValue);
+        }catch (NumberFormatException nfe){
+            System.out.println(Communication.class + ": getReceivedValue error: " + nfe);
+        }
+
+        // Returnt de waarde als een int
+        return returnValue;
+    }
+
+    // Leest de Serial communicatie uit en zet de ontvangen waarde in receivedValue
+    // Latch wordt gebruikt om de methode te blokkeren totdat er een waarde is ontvangen
+    public static int readComms() {
+        int returnValue = 0;
+        try{
+            // Roep de methode aan om de Serial communicatie uit te lezen
+            readSerialComms();
+            // Initialiseer de CountDownLatch met 1
+            latch = new CountDownLatch(1);
+            // Blokkeer de methode totdat de latch klaar is
+            latch.await();
+            // Haal de ontvangen waarde op uit receivedValue
+            returnValue = getReceivedValue();
+        } catch (InterruptedException e) {
+            System.out.println(Communication.class + ": error " + e);
+        }
+
+        return returnValue;
     }
 }

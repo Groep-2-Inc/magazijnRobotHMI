@@ -70,6 +70,7 @@ public class PanelStatus extends JPanel implements ActionListener {
 
         jb_robotVerbinding.addActionListener(this);
         jb_databaseVerbinding.addActionListener(this);
+        jb_nood.addActionListener(this);
 
         //voeg deze box toe.
         add(box);
@@ -81,8 +82,12 @@ public class PanelStatus extends JPanel implements ActionListener {
         // Als er Serial verbinding is
         if(Communication.hasComms()){
             // Maak de knop groen
-            jb_robotVerbinding.setBackground(Color.green);
-        }else{
+            jb_verbonden.setBackground(Color.green);
+        }else if(Communication.hasFirstComms() && !Communication.hasSecondCommsComms()){
+            // Als hij geen verbinding met tweede Arduino heeft
+            // Maak de knop oranje
+            jb_verbonden.setBackground(Color.orange);
+        } else{
             // Anders maak hem rood
             jb_robotVerbinding.setBackground(Color.red);
         }
@@ -119,12 +124,22 @@ public class PanelStatus extends JPanel implements ActionListener {
                     // Stuur status 200 naar de Arduino
                     Communication.sendComms(200);
 
-                    // Update de status op het home scherm
-                    PanelStatus.updateStatus();
+                // Update de status op het home scherm
+                PanelStatus.updateStatus();
+            }
+        }
+
+        // Als test!
+        if(e.getSource() == jb_nood){
+            if(!Communication.hasComms()){
+                Communication.sendComms(500);
+
+                // Werkt niet, panel logica moet in nieuwe methode komen!
+                if(Communication.readComms() == 500){
+                    jb_nood.setBackground(Color.red);
                 }
-            } catch (InterruptedException | IOException ex) {
-                // Als er een error is print dit
-                System.out.println(getClass() + ": comms error" + ex);
+
+                PanelStatus.updateStatus();
             }
         }
         if(e.getSource() == jb_databaseVerbinding) {
