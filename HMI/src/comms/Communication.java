@@ -81,15 +81,20 @@ public class Communication {
 
     // Sluit Serial comms
     public static boolean closeComms(){
-        // Als het is gelukt verbinding te sluiten
-        if (sp.closePort()) {
-            // Print dit en return true
+        try{
+            // Als het is gelukt verbinding te sluiten
+            if (sp.closePort()) {
+                // Print dit en return true
+                System.out.println(Communication.class + " closeComms: Port is closed :)");
+                return true;
+            } else {
+                // Anders print een error en return false
+                System.out.println(Communication.class + " closeComms: Failed to close port :(");
+                return false;
+            }
+        }catch (NullPointerException npe){
             System.out.println(Communication.class + " closeComms: Port is closed :)");
             return true;
-        } else {
-            // Anders print een error en return false
-            System.out.println(Communication.class + " closeComms: Failed to close port :(");
-            return false;
         }
     }
 
