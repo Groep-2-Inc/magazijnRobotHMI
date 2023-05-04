@@ -53,11 +53,11 @@ public class PanelProduct2 extends JPanel{
 
         // label aanmaken plus waarde toekennen, toevoegen aan het panel en juiste grootte en locatie toevoegen (Joëlle)
         String str_productQuantity = valueOf(product.getStock()); // int omzetten naar string (Joëlle)
-        JLabel jl_quantityTitle = new JLabel("Voorraad: " + str_productQuantity);
+        JLabel jl_quantityTitle = new JLabel("Hoeveelheid op voorraad: " + str_productQuantity);
         jl_quantityTitle.setFont(arial15);
         add(jl_quantityTitle);
         Dimension sizeQuantityTitle = jl_quantityTitle.getPreferredSize();
-        jl_quantityTitle.setBounds(1100, 30, sizeQuantityTitle.width + 10, sizeQuantityTitle.height);
+        jl_quantityTitle.setBounds(1000, 30, sizeQuantityTitle.width + 10, sizeQuantityTitle.height);
 
         //label toevoegen aan scherm en juist grootte en locatie meegeven
         JLabel jl_productWantedQuantity = new JLabel("Aantal:");
