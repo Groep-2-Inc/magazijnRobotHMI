@@ -8,9 +8,12 @@ public class Main {
         new GetEnv();
         new FrameController();
         new Communication();
+        
+        //Start de Serial communication
+        Communication.sendComms(200);
 
         System.out.println(Database.updateDatabase("INSERT INTO colors (ColorID, ColorName, LastEditedBy, ValidFrom, ValidTo) VALUES (?, ?, ?, ?, ?)", new String[]{"38", "Test", "2", "2023-05-01 14:37:02.000000", "2023-05-01 14:37:02.000000"}));
 
-        Database.getDbData("select * from orders where CustomerID <= ? limit 10", new String[]{"5"});
+        System.out.println(Database.getDbData("select * from orders where CustomerID <= ? limit 10", new String[]{"10"}));
     }
 }
