@@ -1,14 +1,11 @@
 package database;
 // Door Daan
+
 import env.GetEnv;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import panels.PanelStatus;
-
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 // con - Slaat een statische verbinding met de database op.
 // hasDbConnection - Slaat de status van de database verbinding op.
@@ -24,13 +21,13 @@ public class Database {
     // Methode die verbinding maakt met de database.
     public static void connectToDatase(){
         // Als de env.json file data bevat, wordt de try en catch uitgevoerd.
-//        if (GetEnv.getDb_host() != null || GetEnv.getDb_username() != null || GetEnv.getDb_password() != null){
+        if (GetEnv.getDb_host() != null || GetEnv.getDb_username() != null || GetEnv.getDb_password() != null){
             // Probeert verbinding te maken met de database.
             try{
                 // Laadt de MySQL-driver klasse.
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 // Maakt verbinding met de database (doormiddel van, host, username en password).
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nerdygadgets", "root", "");
+                con = DriverManager.getConnection(GetEnv.getDb_host(), GetEnv.getDb_username(), GetEnv.getDb_password());
                 hasDbConnection = true;
                 // Werkt de status bij in de applicatie
                 PanelStatus.updateStatus();
@@ -38,10 +35,10 @@ public class Database {
             }catch (Exception e){
                 System.out.println(Database.class + ": " + e); // Foutmelding met details.
             }
-        // Foutmelding als env.json bestand niet kan worden uitgelezen.
-//        }else {
-//            System.out.println(Database.class + ": env.json kan niet worden uitgelezen, er wordt geen verbinding gemaakt!");
-//        }
+        //Foutmelding als env.json bestand niet kan worden uitgelezen.
+        }else {
+            System.out.println(Database.class + ": env.json kan niet worden uitgelezen, er wordt geen verbinding gemaakt!");
+        }
     }
     
     // Methode die de status van de verbinding teruggeeft.

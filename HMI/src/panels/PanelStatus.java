@@ -82,11 +82,11 @@ public class PanelStatus extends JPanel implements ActionListener {
         // Als er Serial verbinding is
         if(Communication.hasComms()){
             // Maak de knop groen
-            jb_verbonden.setBackground(Color.green);
+            jb_robotVerbinding.setBackground(Color.green);
         }else if(Communication.hasFirstComms() && !Communication.hasSecondCommsComms()){
             // Als hij geen verbinding met tweede Arduino heeft
             // Maak de knop oranje
-            jb_verbonden.setBackground(Color.orange);
+            jb_robotVerbinding.setBackground(Color.orange);
         } else{
             // Anders maak hem rood
             jb_robotVerbinding.setBackground(Color.red);
@@ -115,18 +115,16 @@ public class PanelStatus extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         // Als het om de verbonden knop gaat
         if(e.getSource() == jb_robotVerbinding){
-            // Probeer
-            try {
-                // Als hij nog geen communicatie heeft
-                if(!Communication.hasComms()){
-                    // Begin de communicatie
-                    Communication.openComms();
-                    // Stuur status 200 naar de Arduino
-                    Communication.sendComms(200);
-
-                // Update de status op het home scherm
-                PanelStatus.updateStatus();
+            // Als hij nog geen communicatie heeft
+            if(!Communication.hasComms()) {
+                // Begin de communicatie
+                Communication.openComms();
+                // Stuur status 200 naar de Arduino
+                Communication.sendComms(200);
             }
+
+            // Update de status op het home scherm
+            PanelStatus.updateStatus();
         }
 
         // Als test!

@@ -8,9 +8,7 @@ public class Main {
         new GetEnv();
         new FrameController();
         new Communication();
-        
-        //Start de Serial communication
-        Communication.sendComms(200);
+        new Database();
 
         System.out.println(Database.updateDatabase("INSERT INTO colors (ColorID, ColorName, LastEditedBy, ValidFrom, ValidTo) VALUES (?, ?, ?, ?, ?)", new String[]{"38", "Test", "2", "2023-05-01 14:37:02.000000", "2023-05-01 14:37:02.000000"}));
 
