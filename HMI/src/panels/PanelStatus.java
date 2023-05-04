@@ -38,7 +38,6 @@ public class PanelStatus extends JPanel implements ActionListener {
         p.setPreferredSize(new Dimension(900,480));
 
         //zet het font voor alle meldingen
-        jb_robotVerbinding.setFont(new Font("Arial", Font.PLAIN, 27));
         jb_rust.setFont(new Font("Arial", Font.PLAIN, 27));
         jb_productOphalen.setFont(new Font("Arial", Font.PLAIN, 27));
         jb_inBeweging.setFont(new Font("Arial", Font.PLAIN, 27));
@@ -46,6 +45,7 @@ public class PanelStatus extends JPanel implements ActionListener {
         jb_productAfgeven.setFont(new Font("Arial", Font.PLAIN, 27));
         jb_handmatige.setFont(new Font("Arial", Font.PLAIN, 27));
         jb_databaseVerbinding.setFont(new Font("Arial", Font.PLAIN, 27));
+        jb_robotVerbinding.setFont(new Font("Arial", Font.PLAIN, 27));
         jb_productTerugzetten.setFont(new Font("Arial", Font.PLAIN, 27));
 
         //Update de status van de robot

@@ -40,7 +40,7 @@ public class Database {
             }
         // Foutmelding als env.json bestand niet kan worden uitgelezen.
         }else {
-            System.out.println("env.json kan niet worden uitgelezen, er wordt geen verbinding gemaakt!");
+            System.out.println(Database.class + ": env.json kan niet worden uitgelezen, er wordt geen verbinding gemaakt!");
         }
     }
 
@@ -82,7 +82,7 @@ public class Database {
             }
         // Anders foutmelding
         }else {
-            System.out.println("Er is geen verbinding met de database, er kan geen data worden opgehaald!");
+            System.out.println(Database.class + ": Er is geen verbinding met de database, er kan geen data worden opgehaald!");
         }
         return data;
     }
@@ -95,7 +95,7 @@ public class Database {
                 // Stopt verbinding en zet de status op false.
                 con.close();
                 hasDbConnection = false;
-                System.out.println("Database verbinding verbroken.");
+                System.out.println(Database.class + ": Database verbinding verbroken.");
                 return true;
                 // Try mislukt
             }catch(SQLException e){
@@ -104,7 +104,7 @@ public class Database {
             }
             // Anders geef foutmelding
         }else {
-            System.out.println("Verbinding kan niet verboken worden, omdat er geen verbinding is!");
+            System.out.println(Database.class + ": Verbinding kan niet verboken worden, omdat er geen verbinding is!");
             return false;
         }
     }
@@ -132,7 +132,7 @@ public class Database {
             }
         // Anders foutmelding
         }else {
-            System.out.println("Er is geen verbinding met de database, update mislukt!");
+            System.out.println(Database.class + ": Er is geen verbinding met de database, update mislukt!");
             return false;
         }
     }
