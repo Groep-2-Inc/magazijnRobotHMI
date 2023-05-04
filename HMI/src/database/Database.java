@@ -43,6 +43,11 @@ public class Database {
 //            System.out.println(Database.class + ": env.json kan niet worden uitgelezen, er wordt geen verbinding gemaakt!");
 //        }
     }
+    
+    // Methode die de status van de verbinding teruggeeft.
+    public static boolean hasDbConnection() {
+        return hasDbConnection;
+    }
 
     // Methode die data ophaalt uit de database.
     public static JSONArray getDbData(String query, String[] placeholders){
@@ -87,29 +92,6 @@ public class Database {
         return data;
     }
 
-    // Methode die de verbinding verbreekt met de database.
-    public static boolean stopConnection(){
-        // Als er een verbinding is
-        if(hasDbConnection){
-            try {
-                // Stopt verbinding en zet de status op false.
-                con.close();
-                hasDbConnection = false;
-                System.out.println(Database.class + ": Database verbinding verbroken.");
-                return true;
-                // Try mislukt
-            }catch(SQLException e){
-                System.out.println(Database.class + ": " + e); // Toont foutmelding met details.
-                return false;
-            }
-            // Anders geef foutmelding
-        }else {
-            System.out.println(Database.class + ": Verbinding kan niet verboken worden, omdat er geen verbinding is!");
-            return false;
-        }
-    }
-
-
     // Methode die een update (of een insert) kan uitvoeren op de database.
     public static boolean updateDatabase(String query, String[] placeholders){
         // Als er een verbinding is.
@@ -137,8 +119,25 @@ public class Database {
         }
     }
 
-    // Methode die de status van de verbinding teruggeeft.
-    public static boolean hasDbConnection() {
-        return hasDbConnection;
+    // Methode die de verbinding verbreekt met de database.
+    public static boolean stopConnection(){
+        // Als er een verbinding is
+        if(hasDbConnection){
+            try {
+                // Stopt verbinding en zet de status op false.
+                con.close();
+                hasDbConnection = false;
+                System.out.println(Database.class + ": Database verbinding verbroken.");
+                return true;
+                // Try mislukt
+            }catch(SQLException e){
+                System.out.println(Database.class + ": " + e); // Toont foutmelding met details.
+                return false;
+            }
+            // Anders geef foutmelding
+        }else {
+            System.out.println(Database.class + ": Verbinding kan niet verboken worden, omdat er geen verbinding is!");
+            return false;
+        }
     }
 }
