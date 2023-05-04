@@ -24,13 +24,13 @@ public class Database {
     // Methode die verbinding maakt met de database.
     public static void connectToDatase(){
         // Als de env.json file data bevat, wordt de try en catch uitgevoerd.
-        if (GetEnv.getDb_host() != null && GetEnv.getDb_username() != null && GetEnv.getDb_password() != null){
+//        if (GetEnv.getDb_host() != null || GetEnv.getDb_username() != null || GetEnv.getDb_password() != null){
             // Probeert verbinding te maken met de database.
             try{
                 // Laadt de MySQL-driver klasse.
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 // Maakt verbinding met de database (doormiddel van, host, username en password).
-                con = DriverManager.getConnection(GetEnv.getDb_host(), GetEnv.getDb_username(), GetEnv.getDb_password());
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nerdygadgets", "root", "");
                 hasDbConnection = true;
                 // Werkt de status bij in de applicatie
                 PanelStatus.updateStatus();
@@ -39,9 +39,9 @@ public class Database {
                 System.out.println(Database.class + ": " + e); // Foutmelding met details.
             }
         // Foutmelding als env.json bestand niet kan worden uitgelezen.
-        }else {
-            System.out.println(Database.class + ": env.json kan niet worden uitgelezen, er wordt geen verbinding gemaakt!");
-        }
+//        }else {
+//            System.out.println(Database.class + ": env.json kan niet worden uitgelezen, er wordt geen verbinding gemaakt!");
+//        }
     }
 
     // Methode die data ophaalt uit de database.
@@ -59,7 +59,7 @@ public class Database {
                     pstmt.setObject(i + 1, placeholders[i]);
                 }
                 // Voert de query uit.
-                ResultSet rs = pstmt.executeQuery(query);
+                ResultSet rs = pstmt.executeQuery();
                 // Haalt data op over de kolommen van een tabel.
                 ResultSetMetaData rsmd = rs.getMetaData();
                 // Slaat het aantal kolommen op.
