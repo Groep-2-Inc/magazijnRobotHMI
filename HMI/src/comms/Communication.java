@@ -26,58 +26,62 @@ public class Communication {
 
     // Methode die verbinding maakt met de Arduino
     public static void openComms() {
-        // Zet de juiste parameters voor de Serial verbinding
-        sp = SerialPort.getCommPort(GetEnv.getArduinoCommsPort());
-        sp.setComPortParameters(9600, 8, 1, 0);
-        sp.setComPortTimeouts(SerialPort.TIMEOUT_WRITE_BLOCKING, 0, 0);
+        if(GetEnv.getArduinoCommsPort() != null){
+            // Zet de juiste parameters voor de Serial verbinding
+            sp = SerialPort.getCommPort(GetEnv.getArduinoCommsPort());
+            sp.setComPortParameters(9600, 8, 1, 0);
+            sp.setComPortTimeouts(SerialPort.TIMEOUT_WRITE_BLOCKING, 0, 0);
 
-        // Probeert de Serial verbinding te beginnen
-        if (sp.openPort()) {
-            // Wacht twee seconden om de verbinding tot stand te brengen
-            // Is nodig omdat anders te snel door gaat en al data probeert te verzenden
-            // Terwijl de poort nog niet open is
-            try{
-                Thread.sleep(2000);
-            }catch (InterruptedException ie){
-                System.out.println(Communication.class + " openComms: sleep error :" + ie);
-            }
-
-            // Probeert
-            try{
-                // De commando 50 te versturen naar de Arduino
-                // 50 betekent: maak verbinding
-                String message = String.valueOf(50);
-                System.out.println(Communication.class + " openComms: sending: " +  message);
-                // Zet de String om naar een byte array
-                byte[] buffer = message.getBytes();
-
-                // Schrijft de byte buffer naar de Arduino
-                sp.getOutputStream().write(buffer);
-                sp.getOutputStream().flush();
-
-                // Leest de Serial comms uit
-                if(readComms() == 100){
-                    hasFirstComms = true;
-                    hasSecondComms = false;
-                }else if(readComms() == 200){
-                    // Zet hasFirstComms op true
-                    hasFirstComms = true;
-                    hasSecondComms = true;
+            // Probeert de Serial verbinding te beginnen
+            if (sp.openPort()) {
+                // Wacht twee seconden om de verbinding tot stand te brengen
+                // Is nodig omdat anders te snel door gaat en al data probeert te verzenden
+                // Terwijl de poort nog niet open is
+                try{
+                    Thread.sleep(2000);
+                }catch (InterruptedException ie){
+                    System.out.println(Communication.class + " openComms: sleep error :" + ie);
                 }
 
-                // Update de status op het home scherm
-                PanelStatus.updateStatus();
+                // Probeert
+                try{
+                    // De commando 50 te versturen naar de Arduino
+                    // 50 betekent: maak verbinding
+                    String message = String.valueOf(50);
+                    System.out.println(Communication.class + " openComms: sending: " +  message);
+                    // Zet de String om naar een byte array
+                    byte[] buffer = message.getBytes();
 
-                // Print dat de comms open is
-                System.out.println(Communication.class + " openComms: Comms port is open");
-            }catch (IOException ioe){
+                    // Schrijft de byte buffer naar de Arduino
+                    sp.getOutputStream().write(buffer);
+                    sp.getOutputStream().flush();
+
+                    // Leest de Serial comms uit
+                    if(readComms() == 100){
+                        hasFirstComms = true;
+                        hasSecondComms = false;
+                    }else if(readComms() == 200){
+                        // Zet hasFirstComms op true
+                        hasFirstComms = true;
+                        hasSecondComms = true;
+                    }
+
+                    // Update de status op het home scherm
+                    PanelStatus.updateStatus();
+
+                    // Print dat de comms open is
+                    System.out.println(Communication.class + " openComms: Comms port is open");
+                }catch (IOException ioe){
+                    System.out.println(Communication.class + " openComms: Failed to open comms port");
+                }
+            } else {
+                // Zet hasFirstComms op false omdat het niet is gelukt om verbinding te maken
+                hasFirstComms = false;
+                // Print dat het niet is gelukt
                 System.out.println(Communication.class + " openComms: Failed to open comms port");
             }
-        } else {
-            // Zet hasFirstComms op false omdat het niet is gelukt om verbinding te maken
-            hasFirstComms = false;
-            // Print dat het niet is gelukt
-            System.out.println(Communication.class + " openComms: Failed to open comms port");
+        }else{
+            System.out.println(Communication.class + " openComms: env.json error");
         }
     }
 

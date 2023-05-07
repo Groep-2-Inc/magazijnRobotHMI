@@ -20,7 +20,7 @@ public class GetEnv {
         // Probeert
         try{
             // Een json bestand uit te lezen dat in de root staat
-            JSONObject json = (JSONObject) new JSONParser().parse(new FileReader("env.json"));
+            JSONObject json = (JSONObject) new JSONParser().parse(new FileReader("src/env.json"));
             // Haalt dingen voor de database uit het geneste json object
             JSONObject database = (JSONObject) json.get("database");
 
