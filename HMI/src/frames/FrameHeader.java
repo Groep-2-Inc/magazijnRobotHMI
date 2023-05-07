@@ -89,56 +89,7 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
         p_settings = pf.getPopup(this, p2, getScreenWidth(93.75f), getScreenHeight(5.555f));
     }
 
-    public void actionPerformed(ActionEvent e) {
 
-        //open de settings popup
-        if(e.getSource() == jb_settings){
-            if(!b_isShowingSettings){
-                p_settings = pf.getPopup(this, p2, getScreenWidth(88.5f), getScreenHeight(7.4f));
-                p_settings.show();
-                b_isShowingSettings = true;
-            } else{
-                p_settings.hide();
-                b_isShowingSettings = false;
-            }
-        }
-
-        //als de noodstop wordt ingedrukt open het noodstopframe
-        if(e.getSource() == jb_noodstop){
-            noodStop();
-        }
-
-        //als de noodstopSluiten knop wordt ingedrukt sluit het noodstopFrame
-        if(e.getSource() == jb_noodstopSluiten){
-            jf_noodstopFrame.dispose();
-        }
-
-        //order button naar order scherm
-        if(e.getSource() == jb_orders){
-            p_settings.hide();
-            b_isShowingSettings = false;
-            FrameController.setActiveFrameOrders(this);
-        }
-
-        //home button naar home scherm
-        if(e.getSource() == jb_home){
-            p_settings.hide();
-            b_isShowingSettings = false;
-            FrameController.setActiveFrameHome(this);
-        }
-
-        if(e.getSource() == jb_producten){
-            p_settings.hide();
-            b_isShowingSettings = false;
-            FrameController.setActiveFrameProducts(this);
-        }
-
-        if(e.getSource() == jb_logboek){
-            p_settings.hide();
-            b_isShowingSettings = false;
-            FrameController.setActiveFrameJournal(this);
-        }
-    }
     public void itemStateChanged(ItemEvent eve) {
         //switch van dark/light mode
         if (jtb_darkMode.isSelected()){
@@ -208,5 +159,56 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
     public static float getPercentage(int main, int size){
 
         return ((float) size / (float) main) * 100;
+    }
+
+    public void actionPerformed(ActionEvent e) {
+
+        //open de settings popup
+        if(e.getSource() == jb_settings){
+            if(!b_isShowingSettings){
+                p_settings = pf.getPopup(this, p2, getScreenWidth(88.5f), getScreenHeight(7.4f));
+                p_settings.show();
+                b_isShowingSettings = true;
+            } else{
+                p_settings.hide();
+                b_isShowingSettings = false;
+            }
+        }
+
+        //als de noodstop wordt ingedrukt open het noodstopframe
+        if(e.getSource() == jb_noodstop){
+            noodStop();
+        }
+
+        //als de noodstopSluiten knop wordt ingedrukt sluit het noodstopFrame
+        if(e.getSource() == jb_noodstopSluiten){
+            jf_noodstopFrame.dispose();
+        }
+
+        //order button naar order scherm
+        if(e.getSource() == jb_orders){
+            p_settings.hide();
+            b_isShowingSettings = false;
+            FrameController.setActiveFrameOrders(this);
+        }
+
+        //home button naar home scherm
+        if(e.getSource() == jb_home){
+            p_settings.hide();
+            b_isShowingSettings = false;
+            FrameController.setActiveFrameHome(this);
+        }
+
+        if(e.getSource() == jb_producten){
+            p_settings.hide();
+            b_isShowingSettings = false;
+            FrameController.setActiveFrameProducts(this);
+        }
+
+        if(e.getSource() == jb_logboek){
+            p_settings.hide();
+            b_isShowingSettings = false;
+            FrameController.setActiveFrameJournal(this);
+        }
     }
 }

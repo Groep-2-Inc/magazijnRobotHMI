@@ -15,7 +15,6 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
     private Font arial17 = new Font("Arial", Font.PLAIN, 17);
 
     public FrameViewingOrder(Order order) {
-        System.out.println("-------------------------------------------------------------");
         this.order = order;
 
         //Informatie voor het hele frame (Sarah)
@@ -30,6 +29,7 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         jb_back.setOpaque(false);
         jb_back.setContentAreaFilled(false);
         jb_back.setBorderPainted(false);
+        jb_back.addActionListener(this);
         add(jb_back);
 
         //Ordernummer opvragen en stylen (Sarah)
@@ -188,6 +188,14 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         //naar pick scherm, door Jason Joshua van der Kolk
         if (e.getSource() == jb_pick){
             FrameController.setActiveFrameVerwerken(this, order);
+        }
+
+        if(e.getSource() == jb_addProduct){
+            System.out.println("er is op de addproduct knop gedruklt");
+        }
+
+        if(e.getSource() == jb_back){
+            System.out.println("er is op de terug knop gedrukt");
         }
 
     }

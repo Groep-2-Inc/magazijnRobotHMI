@@ -295,8 +295,17 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         super.actionPerformed(e);
+        //ga naar het pakbonnenmakenscherm
         if(e.getSource() == jb_pakbonnenMaken){
             FrameController.setActiveFramePackingList(this, o_order);
+        }
+
+        if(e.getSource() == jb_annuleer){
+            System.out.println("er is op de annuleerknop gedrukt");
+        }
+
+        if(e.getSource() == jb_go){
+            System.out.println("er is op de go knop gedrukt");
         }
     }
 }

@@ -114,7 +114,7 @@ public class PanelProduct extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == jb_deleteProduct) {
-
+            System.out.println("er is op de delete knop gedrukt bij " + order.getProducts().get(index).getProductID());
         }
     }
 }
