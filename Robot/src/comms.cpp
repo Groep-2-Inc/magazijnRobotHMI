@@ -21,13 +21,13 @@ void commsSetup(){
 // Zorgt ervoor dat data vanuit de master arduino naar de slave arduino gestuurd wordt
 void toSlaveArduino(int value){
   	// Serial.println(value);
-  	// Wire.beginTransmission(9);
-	// Wire.write(value);
-	// Wire.endTransmission();
+  	Wire.beginTransmission(9);
+	Wire.write(value);
+	Wire.endTransmission();
 
-	// DEBUG
-	delay(500);
-	x = 50;
+	// // DEBUG
+	// delay(500);
+	// x = 50;
 }
 
 // Print een status- en waardetekst naar de Serial
