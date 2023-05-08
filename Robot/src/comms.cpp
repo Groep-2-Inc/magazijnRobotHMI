@@ -40,9 +40,6 @@ int fromJava() {
 
 		switch (incomingData){
 			case 50:
-				// Zet een LED aan als debug
-				digitalWrite(5, HIGH);
-
 				toJava(200);
 				break;
 			case 500:

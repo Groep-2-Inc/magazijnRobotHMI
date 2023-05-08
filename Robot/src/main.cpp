@@ -14,9 +14,6 @@ void setup() {
 	motorSetup();
 	commsSetup();
 	positionSetup();
-	pinMode(6, INPUT_PULLUP);
-	pinMode(5, OUTPUT);
-	pinMode(7, OUTPUT);
 }
 
 // Herhaald de volgende code meerder keren
