@@ -6,6 +6,7 @@ import panels.PanelPositie;
 import panels.PanelStatus;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 
 //door Jason Joshua van der Kolk

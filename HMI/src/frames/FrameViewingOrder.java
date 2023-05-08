@@ -58,10 +58,11 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
 
         //JPanel die lijst van producten laat zien (om doorheen te scrollen) aanmaken en stylen en scrollPane van maken (Sarah)
         JPanel jp_productListPanel = new JPanel();
-        jp_productListPanel.setPreferredSize(new Dimension(getScreenWidth(getPercentage(1536, 1320)), getScreenHeight(getPercentage(864, 150)) * order.getProducts().size()));
+        jp_productListPanel.setPreferredSize(new Dimension(getScreenWidth(97f), getScreenHeight(getPercentage(864, 150)) * order.getProducts().size()));
         jp_productListPanel.setLayout(null);
         Dimension sizeProductListPanel = jp_productListPanel.getPreferredSize();
         JScrollPane jsp_productList = new JScrollPane(jp_productListPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        jsp_productList.getVerticalScrollBar().setUnitIncrement(14);
         jsp_productList.setBounds(getScreenWidth(getPercentage(1536, 20)), getScreenHeight(getPercentage(864, 90)), sizeProductListPanel.width + getScreenWidth(getPercentage(1536, 10)), getScreenHeight(getPercentage(864, 600)));
         add(jsp_productList);
 
@@ -77,7 +78,7 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         //Button om productlijst te bewerken aanmaken en stylen (zichtbaar totdat op "bewerken" wordt gedrukt) (Sarah)
         jb_change = new JButton("Bewerken");
         jb_change.setFont(arial17);
-        jb_change.setBounds(getScreenWidth(getPercentage(1536, 20)), getScreenHeight(getPercentage(864, 700)), getScreenWidth(getPercentage(1536, 150)), getScreenHeight(getPercentage(864, 40)));
+        jb_change.setBounds(getScreenWidth(getPercentage(1536, 20)), getScreenHeight(getPercentage(864, 700)), getScreenWidth(10f), getScreenHeight(3f));
         jb_change.addActionListener(this);
         add(jb_change);
 
@@ -85,14 +86,14 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         //TODO knop om order te picken moet nog werkend gemaakt worden
         jb_pick = new JButton("Pick");
         jb_pick.setFont(arial17);
-        jb_pick.setBounds(getScreenWidth(getPercentage(1536, 210)), getScreenHeight(getPercentage(864, 700)), getScreenWidth(getPercentage(1536, 150)), getScreenHeight(getPercentage(864, 40)));
+        jb_pick.setBounds(getScreenWidth(getPercentage(1536, 210)), getScreenHeight(getPercentage(864, 700)), getScreenWidth(10f), getScreenHeight(3f));
         jb_pick.addActionListener(this);
         add(jb_pick);
 
         //Button om aanpassingen in productlijst op te slaan aanmaken en stylen (onzichtbaar totdat op "bewerken" wordt gedrukt) (Sarah)
         jb_save = new JButton("Opslaan");
         jb_save.setFont(arial17);
-        jb_save.setBounds(getScreenWidth(getPercentage(1536, 20)), getScreenHeight(getPercentage(864, 700)), getScreenWidth(getPercentage(1536, 150)), getScreenHeight(getPercentage(864, 40)));
+        jb_save.setBounds(getScreenWidth(getPercentage(1536, 20)), getScreenHeight(getPercentage(864, 700)), getScreenWidth(10f), getScreenHeight(3f));
         jb_save.addActionListener(this);
         jb_save.setVisible(false);
         add(jb_save);
@@ -100,7 +101,7 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         //Button om aanpassingen in productlijst te annuleren aanmaken en stylen (onzichtbaar totdat op "bewerken" wordt gedrukt) (Sarah)
         jb_cancel = new JButton("Annuleren");
         jb_cancel.setFont(arial17);
-        jb_cancel.setBounds(getScreenWidth(getPercentage(1536, 210)), getScreenHeight(getPercentage(864, 700)), getScreenWidth(getPercentage(1536, 150)), getScreenHeight(getPercentage(864, 40)));
+        jb_cancel.setBounds(getScreenWidth(getPercentage(1536, 210)), getScreenHeight(getPercentage(864, 700)), getScreenWidth(10f), getScreenHeight(3f));
         jb_cancel.addActionListener(this);
         jb_cancel.setVisible(false);
         add(jb_cancel);

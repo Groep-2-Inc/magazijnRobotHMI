@@ -31,10 +31,11 @@ public class FrameProducts extends FrameHeader implements ActionListener {
 
         //JPanel die lijst van producten laat zien (om doorheen te scrollen) aanmaken en stylen en scrollPane van maken (Sarah)
         JPanel jp_productListPanel = new JPanel();
-        jp_productListPanel.setPreferredSize(new Dimension(getScreenWidth(getPercentage(1536, 1320)), getScreenHeight(getPercentage(864, 150)) * products.size()));
+        jp_productListPanel.setPreferredSize(new Dimension(getScreenWidth(getPercentage(1536, 1475)), getScreenHeight(getPercentage(864, 150)) * products.size()));
         jp_productListPanel.setLayout(null);
         Dimension sizeProductListPanel = jp_productListPanel.getPreferredSize();
         JScrollPane jsp_productList = new JScrollPane(jp_productListPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        jsp_productList.getVerticalScrollBar().setUnitIncrement(14);
         jsp_productList.setBounds(getScreenWidth(getPercentage(1536, 25)), getScreenHeight(getPercentage(864, 50)), sizeProductListPanel.width + getScreenWidth(getPercentage(1536, 10)), getScreenHeight(getPercentage(864, 800)));
         add(jsp_productList);
 

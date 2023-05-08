@@ -83,7 +83,7 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
 
         //voeg een knop toe aan de footer
         p2 = new JPanel();
-        p2.setPreferredSize(new Dimension(getScreenWidth(7.8f), getScreenHeight(3.7f)));
+        p2.setPreferredSize(new Dimension(getScreenWidth(10f), getScreenHeight(3f)));
         p2.setLayout(new GridLayout(1,1));
         jb_annuleer.addActionListener(this);
         p2.add(jb_annuleer);
@@ -96,7 +96,7 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
 
         //voeg een knop toe aan de footer
         p2 = new JPanel();
-        p2.setPreferredSize(new Dimension(getScreenWidth(7.8f), getScreenHeight(3.7f)));
+        p2.setPreferredSize(new Dimension(getScreenWidth(10f), getScreenHeight(3f)));
         p2.setLayout(new GridLayout(1,1));
         jb_go.addActionListener(this);
         p2.add(jb_go);
@@ -109,7 +109,7 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
 
         //voeg een knop toe aan de footer
         p2 = new JPanel();
-        p2.setPreferredSize(new Dimension(getScreenWidth(7.8f), getScreenHeight(3.7f)));
+        p2.setPreferredSize(new Dimension(getScreenWidth(10f), getScreenHeight(3f)));
         p2.setLayout(new GridLayout(1,1));
         jb_pakbonnenMaken.addActionListener(this);
         p2.add(jb_pakbonnenMaken);
@@ -126,11 +126,13 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
     public JPanel GetHeaderPanel(){
         //maak een nieuw subpaneel aan
         JPanel p = new JPanel();
-        p.setPreferredSize(new Dimension(getScreenWidth(100f), getScreenHeight(4.6f)));
+        p.setPreferredSize(new Dimension(getScreenWidth(98f), getScreenHeight(4.6f)));
 
         //voeg de tekst voor de order toe
         JLabel l = new JLabel("Order");
         l.setFont(new Font("Arial", Font.BOLD, 30));
+        Dimension sizeOrder = l.getPreferredSize();
+        l.setBounds(getScreenWidth(getPercentage(1536, 25)), getScreenHeight(getPercentage(864, 5)), sizeOrder.width + getScreenWidth(getPercentage(1536, 10)), sizeOrder.height);
         p.add(l);
 
         //maak een paneel aan en definieer de dimension en border

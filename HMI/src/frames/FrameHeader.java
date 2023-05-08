@@ -28,12 +28,14 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
     private ImageIcon ii_switchOn = new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/switch on.png"))); //imageicon van de switch aan
 
     public FrameHeader(){
-        //de uiterlijk van het paneel regelen
+        //Het uiterlijk van het paneel regelen
         setTitle("JavaAplication/Home");
         setSize(getScreenWidth(100.00f), getScreenHeight(100.00f));
         setLayout(new FlowLayout());
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         //voegt de knoppen toe met actionlisteners aan het menu
+        jmb_main.add(Box.createHorizontalStrut(10));
         jb_home.addActionListener(this);
         jmb_main.add(jb_home);
         jb_orders.addActionListener(this);

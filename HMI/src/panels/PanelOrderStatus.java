@@ -8,6 +8,8 @@ import java.awt.*;
 
 //door Jason Joshua van der Kolk
 public class PanelOrderStatus extends JPanel {
+    private Font arial14B = new Font("Arial", Font.BOLD, 14);
+
     public PanelOrderStatus(){
         //initializeer het hoofd paneel
         setPreferredSize(new Dimension(FrameHeader.getScreenWidth(50f),FrameHeader.getScreenHeight(50f)));
@@ -16,20 +18,23 @@ public class PanelOrderStatus extends JPanel {
 
         //voeg nieuw paneel toe voor de titel
         JPanel p3 = new JPanel();
-        p3.setPreferredSize(new Dimension(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1920, 620)),FrameHeader.getScreenHeight(FrameHeader.getPercentage(1080, 40))));
+        p3.setPreferredSize(new Dimension(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1920, 896)),FrameHeader.getScreenHeight(FrameHeader.getPercentage(1080, 40))));
         p3.setBorder(new LineBorder(Color.BLACK));
+        p3.setBackground(Color.lightGray);
+        p3.setFont(arial14B);
         p3.add(new Label("Order Status"));
         add(p3);
 
         //nieuw paneel voor alle informatie
         JPanel p = new JPanel();
-        p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
+        p.setLayout(new FlowLayout());
+        p.setPreferredSize(new Dimension(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1920, 896)), 580));
 
         //voeg de informatie toe
-        for(int i = 0; i<20; i++){
+        for(int i = 0; i<10; i++){
             JPanel p2 = new JPanel();
             p2.setLayout(new GridLayout(1, 1));
-            p2.setPreferredSize(new Dimension(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1920, 600)),FrameHeader.getScreenHeight(FrameHeader.getPercentage(1080, 20))));
+            p2.setPreferredSize(new Dimension(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1920, 896)), 58));
             p2.setBorder(new LineBorder(Color.BLACK));
             p2.add(new Label("tekst"));
             p.add(p2);
@@ -37,7 +42,8 @@ public class PanelOrderStatus extends JPanel {
 
         //maar het scrollpane en voeg uiteindelijk het scrollpane toe.
         JScrollPane s = new JScrollPane(p, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        s.setPreferredSize(new Dimension(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1920, 600)),FrameHeader.getScreenHeight(FrameHeader.getPercentage(1080, 380))));
+        s.getVerticalScrollBar().setUnitIncrement(14);
+        s.setPreferredSize(new Dimension(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1920, 896)),FrameHeader.getScreenHeight(FrameHeader.getPercentage(1080, 380))));
         add(s);
     }
 }

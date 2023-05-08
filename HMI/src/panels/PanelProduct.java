@@ -77,7 +77,7 @@ public class PanelProduct extends JPanel implements ActionListener{
         add(jl_productname);
 
         //ProductID opvragen en stylen (Sarah)
-        JLabel jl_productID = new JLabel(String.valueOf(this.order.getProducts().get(index).getProductID()));
+        JLabel jl_productID = new JLabel(String.valueOf("Artikelnummer: " + this.order.getProducts().get(index).getProductID()));
         jl_productID.setFont(new Font("Arial", Font.PLAIN, 20));
         Dimension sizeProductID = jl_productID.getPreferredSize();
         jl_productID.setBounds(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 200)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 60)), sizeProductID.width + FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 10)), sizeProductID.height);

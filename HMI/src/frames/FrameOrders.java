@@ -13,7 +13,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
     private JLabel jl_orderLabel = new JLabel("Orders"); // label voor titel Orders(Joëlle)
     private JLabel jl_sortLabel = new JLabel("Sortering:"); // label voor titel sortering (Joëlle)
     private JLabel jl_orderText = new JLabel("Order"); // label voor in het titel panel van de scrollpanel: tekst producten (Joëlle)
-    private JLabel jl_customerText = new JLabel("Naam"); // label voor in het titel panel van de scrollpanel: tekst producten (Joëlle)
+    private JLabel jl_customerText = new JLabel("Naam, klantnummer"); // label voor in het titel panel van de scrollpanel: tekst producten (Joëlle)
     private JLabel jl_productsText = new JLabel("Producten"); // label voor in het titel panel van de scrollpanel: tekst producten (Joëlle)
     private JLabel jl_productsQuantityText = new JLabel("(aantal)"); // label voor in het titel panel van de scrollpanel: tekst aantal (Joëlle)
     private JLabel jlDateText = new JLabel("Datum");  // label voor in het titel panel van de scrollpanel: tekst datum (Joëlle)
@@ -164,6 +164,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         JScrollPane scrollPane = new JScrollPane(panelTabel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(14);
         scrollPane.setPreferredSize(new Dimension(getScreenWidth(98f), getScreenHeight(70f))); // procenten toegevoegd( Joëlle)
         super.add(scrollPane);
     }

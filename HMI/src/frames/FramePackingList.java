@@ -74,7 +74,7 @@ public class FramePackingList extends FrameHeader implements ActionListener {
         jb_export = new JButton("Exporteer als PDF");
         add(jb_export);
         jb_export.setFont(new Font("Arial", Font.PLAIN, 17));
-        jb_export.setBounds(getScreenWidth(getPercentage(1536, 1200)), getScreenHeight(getPercentage(864, 720)), getScreenWidth(getPercentage(1536, 200)), getScreenHeight(getPercentage(864, 40)));
+        jb_export.setBounds(getScreenWidth(getPercentage(1536, 1200)), getScreenHeight(getPercentage(864, 720)), getScreenWidth(10f), getScreenHeight(3f));
         jb_export.addActionListener(this);
 
         setVisible(true);

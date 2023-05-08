@@ -27,7 +27,7 @@ public class PanelProductOverview extends JPanel {
         this.index = index;
 
         //Informatie voor het hele panel (Sarah)
-        setPreferredSize(new Dimension(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 1320)),FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 150))));
+        setPreferredSize(new Dimension(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 1500)),FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 150))));
         setLayout(null);
 
         //Productafbeelding wordt toegevoegd, error bij ontbrekende afbeelding wordt opgevangen (Sarah)
@@ -71,7 +71,7 @@ public class PanelProductOverview extends JPanel {
         add(jl_productname);
 
         //ProductID opvragen en stylen (Sarah)
-        JLabel jl_productID = new JLabel(String.valueOf(products.get(index).getProductID()));
+        JLabel jl_productID = new JLabel(String.valueOf("Artikelnummer: " + products.get(index).getProductID()));
         jl_productID.setFont(new Font("Arial", Font.PLAIN, 20));
         Dimension sizeProductID = jl_productID.getPreferredSize();
         jl_productID.setBounds(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 200)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 60)), sizeProductID.width + FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 10)), sizeProductID.height);
