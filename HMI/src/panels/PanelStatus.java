@@ -91,7 +91,7 @@ public class PanelStatus extends JPanel implements ActionListener {
             // Anders maak hem rood
             jb_robotVerbinding.setBackground(Color.red);
         }
-        
+
         // Als er database verbinding is
         if(Database.hasDbConnection()){
             // Maak de knop groen

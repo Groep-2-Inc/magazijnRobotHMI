@@ -42,7 +42,6 @@ bool checkEmergencyStop(){
 // stopButton -> pin waar de noodstop op is aangesloten
 void checkStop(){
 	if(checkEmergencyStop()){
-		Serial.println("STOP!");
 		stop();
 	}
 }
