@@ -55,6 +55,12 @@ void toMasterArduino(int value){
 	Wire.endTransmission();
 }
 
+void toMasterArduino(int value){
+  Wire.beginTransmission(9);
+	Wire.write(value);
+	Wire.endTransmission();
+}
+
 void loop() {
   // Serial.println(x);
   // Als de waarde 0 is
