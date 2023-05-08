@@ -1,4 +1,5 @@
 package frames;
+// Jason Joshua
 
 import testClasses.Activity;
 import testClasses.Customer;
@@ -6,13 +7,11 @@ import testClasses.Order;
 import testClasses.Product;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Date;
-//code door Jason Joshua
+
 
 public class FrameController {
-
     private static FrameHome jf_home = new FrameHome();
     private static FrameVerwerken jf_FrameVerwerken;
     private static FrameOrders jf_FrameOrders;

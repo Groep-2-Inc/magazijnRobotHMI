@@ -9,3 +9,6 @@
 .idea/workspace.xml
 .idea/wcs.xml
 .out
+.HMI/env.json
+.out/production/magazijnRobotHMI/
+HMI/env.json

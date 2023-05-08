@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
+import database.Database;
 import testClasses.*;
 import panels.*;
 
@@ -32,7 +34,6 @@ public class FrameOrders extends FrameHeader implements ActionListener {
     public FrameOrders(ArrayList<Order> orders){
         //standaard instellingen (Joëlle)
         setTitle("Java-application/Orders"); // moet nog een betere naam hebben (Joëlle)
-
         this.orders = orders; // Het attribuut de meegegeven waarde geven (Joëlle)
 
         // Verplaats naar eigen methode om code overzichtelijker te maken
@@ -183,4 +184,6 @@ public class FrameOrders extends FrameHeader implements ActionListener {
             FrameController.setActiveFrameMakeOrder(this);
         }
     }
+
+
 }

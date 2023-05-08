@@ -13,7 +13,7 @@ void setup() {
 	joystickSetup();
 	motorSetup();
 	commsSetup();
-	// positionSetup();
+	positionSetup();
 }
 
 // Herhaald de volgende code meerder keren
@@ -25,7 +25,7 @@ void loop() {
 	}
 
 	// readXposition();
-	readEndStop();
+	// readEndStop();
 
     fromJava();
 }

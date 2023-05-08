@@ -34,7 +34,7 @@ public class PanelProduct extends JPanel implements ActionListener{
         try {
             productImg = ImageIO.read(new File(this.order.getProducts().get(index).getImgPath()));
         } catch (IOException ex) {
-            System.out.println("no image available");
+            System.out.println(getClass() + ": no image available");
         }
     }
 
