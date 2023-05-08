@@ -108,5 +108,7 @@ String readJoystick() {
 	// Voegt de horizontal en vertical samen zodat het een float kan worden
 	String data =  horizontal + "." + vertical + "." + depth;
 
+	Serial.println(data);
+
 	return data;
 }

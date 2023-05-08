@@ -13,9 +13,7 @@ void setup() {
 	joystickSetup();
 	motorSetup();
 	commsSetup();
-	positionSetup();
-	pinMode(6, INPUT_PULLUP);
-	
+	// positionSetup();
 }
 
 // Herhaald de volgende code meerder keren
