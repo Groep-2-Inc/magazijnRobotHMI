@@ -14,8 +14,7 @@ import panels.PanelStatus;
 
 public class Communication {
     private static SerialPort sp; // Globale Serial verbinding
-    private static boolean hasFirstComms; // Boolean die bijhoudt of er Serial verbinding is
-    private static boolean hasSecondComms; // Boolean die bijhoudt of er Serial verbinding is
+    private static boolean hasComms; // Boolean die bijhoudt of er Serial verbinding is
     private static String receivedValue = "0"; // Waarde die wordt bijgewerkt op basis van Serial
     private static CountDownLatch latch; // Countdown die wacht tot Serial uitlezen is voltooid
 
@@ -57,13 +56,9 @@ public class Communication {
                     sp.getOutputStream().flush();
 
                     // Leest de Serial comms uit
-                    if(readComms() == 100){
-                        hasFirstComms = true;
-                        hasSecondComms = false;
-                    }else if(readComms() == 200){
+                    if(readComms() == 200){
                         // Zet hasFirstComms op true
-                        hasFirstComms = true;
-                        hasSecondComms = true;
+                        hasComms = true;
                     }
 
                     // Update de status op het home scherm
@@ -76,7 +71,7 @@ public class Communication {
                 }
             } else {
                 // Zet hasFirstComms op false omdat het niet is gelukt om verbinding te maken
-                hasFirstComms = false;
+                hasComms = false;
                 // Print dat het niet is gelukt
                 System.out.println(Communication.class + " openComms: Failed to open comms port");
             }
@@ -106,27 +101,13 @@ public class Communication {
 
     // Methode die de waarde van hasFirstComms returnt
     public static boolean hasComms() {
-        return hasFirstComms && hasSecondComms;
+        return hasComms;
     }
 
-    // Methode die de waarde van hasSecondComms returnt.
-    public static boolean hasFirstComms(){
-        return hasFirstComms;
-    }
-
-    // Methode die de waarde van hasSecondComms returnt.
-    // Is aangemaakt aangezien er ook een gedeeltelijke verbinding kan zijn
-    // Als hasComms false returnt en hasCompleteComms returnt ook false
-    // Heeft Java geen verbinding met tweede Arduino
-    // Dus status home scherm moet oranje worden
-    public static boolean hasSecondCommsComms(){
-        return hasSecondComms;
-    }
 
     // Verstuurd een status naar de Arduino
     public static void sendComms(int value) {
-//        if(hasComms()){ // Moet later gebruikt worden!
-        if(hasFirstComms()){
+        if(hasComms()){
             // Probeert
             try{
                 // Een int naar String om te zetten

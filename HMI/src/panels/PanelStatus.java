@@ -87,14 +87,11 @@ public class PanelStatus extends JPanel implements ActionListener {
         if(Communication.hasComms()){
             // Maak de knop groen
             jb_robotVerbinding.setBackground(Color.green);
-        }else if(Communication.hasFirstComms() && !Communication.hasSecondCommsComms()){
-            // Als hij geen verbinding met tweede Arduino heeft
-            // Maak de knop oranje
-            jb_robotVerbinding.setBackground(Color.orange);
         } else{
             // Anders maak hem rood
             jb_robotVerbinding.setBackground(Color.red);
         }
+        
         // Als er database verbinding is
         if(Database.hasDbConnection()){
             // Maak de knop groen

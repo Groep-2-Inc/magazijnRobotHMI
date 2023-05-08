@@ -57,10 +57,6 @@ void toMasterArduino(int value){
 }
 
 void loop() {
-  if(x == 60){
-    toMasterArduino(65);
-  }
-
   // Serial.println(x);
   // Als de waarde 0 is
   if (x == 0){
