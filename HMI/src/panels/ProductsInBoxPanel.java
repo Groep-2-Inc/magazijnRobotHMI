@@ -13,7 +13,7 @@ public class ProductsInBoxPanel extends JPanel {
         this.order = order;
 
         //Informatie voor het hele panel (Sarah)
-        setPreferredSize(new Dimension(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 1320)),FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 75))));
+        setPreferredSize(new Dimension(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 1496)),FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 75))));
         setLayout(null);
 
         //ProductID opvragen en stylen (Sarah)

@@ -15,7 +15,7 @@ public class FrameHome extends FrameHeader{
     public FrameHome(){
         //initializeer het hoofd paneel
         JPanel f = new JPanel();
-        setPreferredSize(new Dimension(getScreenWidth(100f), getScreenHeight(100f)));
+        setPreferredSize(new Dimension(getScreenWidth(100f), getScreenHeight(20f)));
         f.setLayout(new GridLayout(2,2));
 
         //voeg de panelen toe

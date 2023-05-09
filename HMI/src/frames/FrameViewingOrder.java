@@ -9,10 +9,11 @@ import testClasses.*;
 import panels.*;
 public class FrameViewingOrder extends FrameHeader implements ActionListener {
     private Order order; //Order waarvan het frame is
-    private JButton jb_change, jb_cancel, jb_pick, jb_save, jb_back, jb_addProduct; //Buttons die in het scherm gebruikt worden
+    private JButton jb_change, jb_cancel, jb_pick, jb_save, jb_back; //Buttons die in het scherm gebruikt worden
     private ArrayList<PanelProduct> productPanels = new ArrayList<>(); //Arraylist van de afzonderlijke productPanels
     private Font arial30B = new Font("Arial", Font.BOLD, 30);
     private Font arial17 = new Font("Arial", Font.PLAIN, 17);
+    private Font arial24 = new Font("Arial", Font.PLAIN, 24);
 
     public FrameViewingOrder(Order order) {
         this.order = order;
@@ -33,7 +34,7 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         add(jb_back);
 
         //Ordernummer opvragen en stylen (Sarah)
-        JLabel jl_order = new JLabel("Order " + order.getOrderID() + ":");
+        JLabel jl_order = new JLabel("Order " + order.getOrderID());
         jl_order.setFont(arial30B);
         Dimension sizeOrder = jl_order.getPreferredSize();
         jl_order.setBounds(getScreenWidth(getPercentage(1536, 20)), getScreenHeight(getPercentage(864, 50)), sizeOrder.width + getScreenWidth(getPercentage(1536, 10)), sizeOrder.height);
@@ -44,16 +45,16 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
         String strDate = dateFormat.format(date);
         JLabel jl_date = new JLabel(strDate);
-        jl_date.setFont(arial30B);
+        jl_date.setFont(arial24);
         Dimension sizeDate = jl_date.getPreferredSize();
-        jl_date.setBounds(getScreenWidth(getPercentage(1536, 210)), getScreenHeight(getPercentage(864, 50)), sizeDate.width + getScreenWidth(getPercentage(1536, 10)), sizeDate.height);
+        jl_date.setBounds(getScreenWidth(getPercentage(1536, 210)), getScreenHeight(getPercentage(864, 55)), sizeDate.width + getScreenWidth(getPercentage(1536, 10)), sizeDate.height);
         add(jl_date);
 
         //Naam en nummer van klant opvragen en stylen (Sarah)
         JLabel jl_customer = new JLabel("Klant: " + order.getCustomer().getCustomername() + ", " + order.getCustomer().getCustomerID());
-        jl_customer.setFont(arial30B);
+        jl_customer.setFont(arial24);
         Dimension sizeCustomer = jl_customer.getPreferredSize();
-        jl_customer.setBounds(getScreenWidth(getPercentage(1536, 810)), getScreenHeight(getPercentage(864, 50)), sizeCustomer.width + + getScreenWidth(getPercentage(1536, 10)), sizeCustomer.height);
+        jl_customer.setBounds(getScreenWidth(getPercentage(1536, 810)), getScreenHeight(getPercentage(864, 55)), sizeCustomer.width + + getScreenWidth(getPercentage(1536, 10)), sizeCustomer.height);
         add(jl_customer);
 
         //JPanel die lijst van producten laat zien (om doorheen te scrollen) aanmaken en stylen en scrollPane van maken (Sarah)
@@ -70,7 +71,7 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         for (int i = 0; i < order.getProducts().size(); i++) {
             PanelProduct jp_productsPanel = new PanelProduct(order, i);
             Dimension sizeProductsPanel = jp_productsPanel.getPreferredSize();
-            jp_productsPanel.setBounds(0, sizeProductsPanel.height * i, sizeProductsPanel.width + getScreenWidth(getPercentage(1536, 10)), sizeProductsPanel.height);
+            jp_productsPanel.setBounds(0, sizeProductsPanel.height * i, sizeProductsPanel.width + getScreenWidth(getPercentage(1536, 200)), sizeProductsPanel.height);
             productPanels.add(jp_productsPanel);
             jp_productListPanel.add(jp_productsPanel);
         }
@@ -106,15 +107,6 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         jb_cancel.setVisible(false);
         add(jb_cancel);
 
-        //Button om product toe te voegen aan productlijst aanmaken en stylen (onzichtbaar totdat op "bewerken" wordt gedrukt) (Sarah)
-        //TODO knop om producten toe te voegen aan productlijst moet nog werkend gemaakt worden
-        jb_addProduct = new JButton("Product toevoegen");
-        jb_addProduct.setFont(arial17);
-        jb_addProduct.setBounds(getScreenWidth(getPercentage(1536, 1150)), getScreenHeight(getPercentage(864, 40)), getScreenWidth(getPercentage(1536, 200)), getScreenHeight(getPercentage(864, 40)));
-        jb_addProduct.addActionListener(this);
-        jb_addProduct.setVisible(false);
-        add(jb_addProduct);
-
         setVisible(true);
     }
 
@@ -124,7 +116,6 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         //Als op "bewerken" wordt gedrukt: (Sarah)
         if (e.getSource() == jb_change) {
             //Andere knoppen worden op zichtbaar of onzichtbaar gezet (Sarah)
-            jb_addProduct.setVisible(true);
             jb_cancel.setVisible(true);
             jb_save.setVisible(true);
             jb_pick.setVisible(false);
@@ -145,7 +136,6 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
             jb_pick.setVisible(true);
             jb_save.setVisible(false);
             jb_cancel.setVisible(false);
-            jb_addProduct.setVisible(false);
 
             //Kruisje om producten uit lijst te verwijderen wordt onzichtbaar en aantal producten kan niet meer worden aangepast (wijzigingen worden opgeslagen) (Sarah)
             for (int i = 0; i < order.getProducts().size(); i++) {
@@ -176,7 +166,6 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
             jb_pick.setVisible(true);
             jb_save.setVisible(false);
             jb_cancel.setVisible(false);
-            jb_addProduct.setVisible(false);
 
             //Kruisje om producten uit lijst te verwijderen wordt onzichtbaar en aantal producten kan niet meer worden aangepast (wijzigingen worden niet opgeslagen)  (Sarah)
             for (int i = 0; i < order.getProducts().size(); i++) {
@@ -189,10 +178,6 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         //naar pick scherm, door Jason Joshua van der Kolk
         if (e.getSource() == jb_pick){
             FrameController.setActiveFrameVerwerken(this, order);
-        }
-
-        if(e.getSource() == jb_addProduct){
-            System.out.println("er is op de addproduct knop gedruklt");
         }
 
         if(e.getSource() == jb_back){

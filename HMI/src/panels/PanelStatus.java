@@ -10,11 +10,11 @@ import java.awt.*;
 public class PanelStatus extends JPanel {
     private JButton jb_verbonden = new JButton("Verbonden"); //melding voor verbonden
     private JButton jb_rust = new JButton("Rust"); //melding voor rust
-    private JButton jb_productOphalen = new JButton("Product Ophalen"); //melding voor product ophalen
-    private JButton jb_inBeweging = new JButton("In Beweging"); //melding voor in beweging
+    private JButton jb_productOphalen = new JButton("Product ophalen"); //melding voor product ophalen
+    private JButton jb_inBeweging = new JButton("In beweging"); //melding voor in beweging
     private JButton jb_nood = new JButton("NOOD"); //melding voor nood
-    private JButton jb_productAfgeven = new JButton("Product Afgeven"); //melding voor product afgeven
-    private JButton jb_productTerugzetten = new JButton("Product Terugzetten"); //melding voor terugzetten
+    private JButton jb_productAfgeven = new JButton("Product afgeven"); //melding voor product afgeven
+    private JButton jb_productTerugzetten = new JButton("Product terugzetten"); //melding voor terugzetten
     private JButton jb_handmatige = new JButton("Handmatig"); //melding voor handmatig besturing
     private JButton jb_empty2 = new JButton(""); //voor nu lege melding
 
