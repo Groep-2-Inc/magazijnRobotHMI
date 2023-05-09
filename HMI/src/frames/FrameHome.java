@@ -7,13 +7,14 @@ import panels.PanelPositie;
 import panels.PanelStatus;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class FrameHome extends FrameHeader{
     public FrameHome(){
         //initializeer het hoofd paneel
         JPanel f = new JPanel();
-        setPreferredSize(new Dimension(1920, 1080));
+        setPreferredSize(new Dimension(getScreenWidth(100f), getScreenHeight(20f)));
         f.setLayout(new GridLayout(2,2));
         closeProgram();
 

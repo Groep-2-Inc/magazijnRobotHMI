@@ -17,7 +17,7 @@ public class PanelOrder extends JPanel {
     public PanelOrder(Order order) {
         this.order = order; // het attribuut krijgt de meegegeven waarde
         //standaardinstelling: grootte, kleur en juiste layout(geen) meegegeven (Joëlle)
-        setPreferredSize(new Dimension(FrameHeader.getScreenWidth(98f), FrameHeader.getScreenHeight(6f))); // procenten toegevoegd (Joëlle)
+        setPreferredSize(new Dimension(FrameHeader.getScreenWidth(97f), FrameHeader.getScreenHeight(6f))); // procenten toegevoegd (Joëlle)
         setBackground(Color.white);
         setLayout(null);
 

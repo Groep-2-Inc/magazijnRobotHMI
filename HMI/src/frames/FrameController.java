@@ -157,14 +157,14 @@ public class FrameController {
         jf_FrameMakeOrder = new FrameMakeOrder(products, customers);
     }
 
-    public static void setActiveFrameHome(JFrame f){
+    public static void setActiveFrameHome(JFrame f){ //functie voor het aanzetten van het homeframe
         if(jf_home != f){
             jf_home.setVisible(true);
             f.setVisible(false);
         }
     }
 
-    public static void setActiveFrameVerwerken(JFrame f, Order o){
+    public static void setActiveFrameVerwerken(JFrame f, Order o){ //functie van het aanzetten van het verwerken frame
         if(jf_FrameVerwerken != f){
             jf_FrameVerwerken = new FrameVerwerken(o);
             jf_FrameVerwerken.setVisible(true);
@@ -172,7 +172,7 @@ public class FrameController {
         }
     }
 
-    public static void setActiveFramePackingList(JFrame f, Order o){
+    public static void setActiveFramePackingList(JFrame f, Order o){ //functie voor het aanzetten van de framepackinglist
         if(jf_FramePackingList != f){
             jf_FramePackingList = new FramePackingList(o);
             jf_FramePackingList.setVisible(true);
@@ -180,35 +180,35 @@ public class FrameController {
         }
     }
 
-    public static void setActiveFrameJournal(JFrame f){
+    public static void setActiveFrameJournal(JFrame f){ //functie voor het aanzetten van het journal
         if(jf_FrameJournal != f){
             jf_FrameJournal.setVisible(true);
             f.setVisible(false);
         }
     }
 
-    public static void setActiveFrameProducts(JFrame f){
+    public static void setActiveFrameProducts(JFrame f){ //functie voor het aanzetten van de products frame
         if(jf_FrameProducts != f){
             jf_FrameProducts.setVisible(true);
             f.setVisible(false);
         }
     }
 
-    public static void setActiveFrameOrders(JFrame f){
+    public static void setActiveFrameOrders(JFrame f){ //functie voor het aanzetten van de ordersframe
         if(jf_FrameOrders != f){
             jf_FrameOrders.setVisible(true);
             f.setVisible(false);
         }
     }
 
-    public static void setActiveViewingOrder(JFrame f, Order o){
+    public static void setActiveViewingOrder(JFrame f, Order o){ //functie voor het aanzetten van de viewingorder frame
         if(jf_FrameViewingOrder != f){
             jf_FrameViewingOrder = new FrameViewingOrder(o);
             jf_FrameViewingOrder.setVisible(true);
             f.setVisible(false);
         }
     }
-    public static void setActiveFrameMakeOrder(JFrame f){
+    public static void setActiveFrameMakeOrder(JFrame f){ //functie voor het aanzetten van het make order frame
         if(jf_FrameMakeOrder != f){
             jf_FrameMakeOrder.setVisible(true);
             f.setVisible(false);

@@ -24,7 +24,7 @@ public class Product {
     }
 
     public int getProductID() {
-        return productID;
+        return  productID;
     }
 
     public int getStock() {
