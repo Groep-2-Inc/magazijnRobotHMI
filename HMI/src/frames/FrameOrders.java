@@ -50,7 +50,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
     // Door Martijn
     private void getOrderData(){
         // Haalt alle orders op en zet het in een JSONArray
-        JSONArray allOrders = Database.getDbData("SELECT orders.OrderID, orders.CustomerID, orders.OrderDate, customers.CustomerName FROM orders JOIN customers ON orders.CustomerID = customers.CustomerID", new String[]{});
+        JSONArray allOrders = Database.getDbData("SELECT orders.OrderID, orders.CustomerID, orders.OrderDate, customers.CustomerName FROM orders JOIN customers ON orders.CustomerID = customers.CustomerID ORDER BY orders.OrderID DESC", new String[]{});
         // Voor elke order
         for(Object singelOrderData: allOrders){
             // Zet het Object om naar een JSON-object
