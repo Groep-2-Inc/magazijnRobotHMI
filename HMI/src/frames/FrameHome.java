@@ -1,4 +1,5 @@
 package frames;
+//Door Jason Joshua
 
 import panels.PanelLogboek;
 import panels.PanelOrderStatus;
@@ -9,14 +10,13 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
-//door Jason Joshua van der Kolk
 public class FrameHome extends FrameHeader{
-
     public FrameHome(){
         //initializeer het hoofd paneel
         JPanel f = new JPanel();
         setPreferredSize(new Dimension(getScreenWidth(100f), getScreenHeight(20f)));
         f.setLayout(new GridLayout(2,2));
+        closeProgram();
 
         //voeg de panelen toe
         f.add(new PanelPositie());

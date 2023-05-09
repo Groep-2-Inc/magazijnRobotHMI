@@ -14,8 +14,6 @@ void setup() {
 	motorSetup();
 	commsSetup();
 	positionSetup();
-	pinMode(6, INPUT_PULLUP);
-	
 }
 
 // Herhaald de volgende code meerder keren
@@ -27,7 +25,7 @@ void loop() {
 	}
 
 	// readXposition();
-	readEndStop();
+	// readEndStop();
 
     fromJava();
 }

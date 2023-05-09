@@ -29,7 +29,6 @@ void setup() {
   Serial.begin(9600);
 }
 
-
 // Zorgt ervoor dat de z-as naar voren kan bewegen.
 void moveForward(){
   digitalWrite(directionPinZ, LOW);
@@ -47,7 +46,19 @@ void moveBackward(){
 // Stopt de z-as van bewegen.
 void stopMovement(){
   digitalWrite(brakePinZ, HIGH);
-  analogWrite(pwmPinZ, 0);
+  analogWrite(pwmPinZ, 255);
+}
+
+void toMasterArduino(int value){
+  Wire.beginTransmission(9);
+	Wire.write(value);
+	Wire.endTransmission();
+}
+
+void toMasterArduino(int value){
+  Wire.beginTransmission(9);
+	Wire.write(value);
+	Wire.endTransmission();
 }
 
 void loop() {

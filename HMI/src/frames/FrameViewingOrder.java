@@ -20,6 +20,9 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
 
         //Informatie voor het hele frame (Sarah)
         super.setTitle("JavaApplication/FrameViewingOrder");
+
+        closeProgram();
+
         setLayout(null);
 
         //Pijltje terug (naar FrameOrders) aanmaken en stylen (Sarah)
