@@ -187,8 +187,13 @@ public class FrameOrders extends FrameHeader implements ActionListener {
     }
 
     private void ordersPanelTabel(){
-        //Panel aanmaken, waar het scrollpanel inkomt (Joëlle)
-        JPanel panelTabel = new JPanel();
+        drawOrdersPanelTabel();
+    }
+
+    //Panel aanmaken, waar het scrollpanel inkomt (Joëlle)
+    JPanel panelTabel = new JPanel();
+    JScrollPane scrollPane = new JScrollPane(panelTabel);
+    private void drawOrdersPanelTabel(){
         panelTabel.setLayout(new FlowLayout());
         panelTabel.setPreferredSize(new Dimension(getScreenWidth(98f), FrameHeader.getScreenHeight(7.45f) * orders.size())); // procenten toegevoegd( Joëlle)
 
@@ -211,7 +216,6 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         }
 
         //Aanmaken scrollPane, juiste grootte meegeven en de vertical scrollbar en toevoegen aan het scherm (Joëlle)
-        JScrollPane scrollPane = new JScrollPane(panelTabel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.getVerticalScrollBar().setUnitIncrement(14);
@@ -238,19 +242,23 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         //kijken of er op de search knop gedrukt is
         if(e.getSource() == jb_search){
             if(String.valueOf(jcb_sort.getSelectedItem()).equals("Ordernummer oplopend")){
-                for(Order order: orders){
-                    System.out.println(order.getOrderID());
-                }
+//                for(Order order: orders){
+//                    System.out.println(order.getOrderID());
+//                }
 
                 orders.sort(new sortByOrderID());
+                panelTabel.removeAll();
+                scrollPane.removeAll();
+                panelTabel.revalidate();
+                scrollPane.revalidate();
+                panelTabel.repaint();
+                scrollPane.repaint();
+                drawOrdersPanelTabel();
 
-                for(Order order: orders){
-                    System.out.println(order.getOrderID());
-                }
+//                for(Order order: orders){
+//                    System.out.println(order.getOrderID());
+//                }
             }
-
-
-            System.out.println("gedrukt op search knop in orders frame");
         }
     }
 }
