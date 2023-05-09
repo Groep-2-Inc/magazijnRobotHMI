@@ -253,26 +253,32 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         // Als de zoekknop is ingedrukt
         // Door Martijn
         if(e.getSource() == jb_search){
-            // Als de waarde van de combo box gelijk is aan ordernummer aflopend sorteren
-            if(String.valueOf(jcb_sort.getSelectedItem()).equals("Ordernummer aflopend")){
-                // Sorteert de orders aflopend
-                orders.sort(new sortByOrderIDDesc());
+            // Haalt de waarde van de combobox op en zet hem om naar een String
+            String selectedSortOption = String.valueOf(jcb_sort.getSelectedItem());
+            // Maakt een lege comperator aan
+            Comparator<Order> comparator;
+
+            // Loopt door de verschillende opties heen
+            // Als een conditie true is, maakt hij de comparator aan en slaat hem op in de var
+            switch (selectedSortOption) {
+                case "Ordernummer aflopend":
+                    comparator = new sortByOrderIDDesc();
+                    break;
+                case "Ordernummer oplopend":
+                    comparator = new sortByOrderIDAsc();
+                    break;
+                case "Datum aflopend":
+                    comparator = new sortByOrderDateDesc();
+                    break;
+                case "Datum oplopend":
+                    comparator = new sortByOrderDateAsc();
+                    break;
+                default:
+                    return;
             }
-            // Als de waarde van de combo box gelijk is aan ordernummer oplopend sorteren
-            else if(String.valueOf(jcb_sort.getSelectedItem()).equals("Ordernummer oplopend")){
-                // Sorteert de orders oplopend
-                orders.sort(new sortByOrderIDAsc());
-            }
-            // Als de waarde van de combo box gelijk is aan datum oplopend sorteren
-            else if(String.valueOf(jcb_sort.getSelectedItem()).equals("Datum aflopend")){
-                // Sorteert de orders oplopend
-                orders.sort(new sortByOrderDateDesc());
-            }
-            // Als de waarde van de combo box gelijk is aan datum oplopend sorteren
-            else if(String.valueOf(jcb_sort.getSelectedItem()).equals("Datum oplopend")){
-                // Sorteert de orders oplopend
-                orders.sort(new sortByOrderDateAsc());
-            }
+
+            // Sorteert de orders op basis van de comparator
+            orders.sort(comparator);
 
             // Verwijder de huidge panelTabel en scrollPane
             super.remove(panelTabel);
