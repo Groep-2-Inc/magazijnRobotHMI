@@ -6,9 +6,9 @@ import frames.FrameController;
 public class Main {
     public static void main(String[] args) {
         new GetEnv();
+        new Database();
         new FrameController();
         new Communication();
-        new Database();
 
 //        System.out.println(Database.updateDatabase("INSERT INTO colors (ColorID, ColorName, LastEditedBy, ValidFrom, ValidTo) VALUES (?, ?, ?, ?, ?)", new String[]{"38", "Test", "2", "2023-05-01 14:37:02.000000", "2023-05-01 14:37:02.000000"}));
 //

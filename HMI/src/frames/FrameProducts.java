@@ -2,7 +2,7 @@ package frames;
 // Door Sarah
 
 import panels.PanelProductOverview;
-import testClasses.*;
+import classes.*;
 
 import javax.swing.*;
 import java.awt.*;

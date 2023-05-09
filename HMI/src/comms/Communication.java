@@ -104,7 +104,6 @@ public class Communication {
         return hasComms;
     }
 
-
     // Verstuurd een status naar de Arduino
     public static void sendComms(int value) {
         if(hasComms()){

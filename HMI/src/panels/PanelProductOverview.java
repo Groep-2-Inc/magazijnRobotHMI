@@ -1,8 +1,7 @@
 package panels;
 
+import classes.*;
 import frames.FrameHeader;
-import testClasses.*;
-
 import javax.imageio.*;
 import javax.swing.*;
 import javax.swing.border.*;
@@ -64,7 +63,7 @@ public class PanelProductOverview extends JPanel {
         g.drawLine(0, FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 149)), FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 1720)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 149)));
 
         //Productnaam opvragen en stylen (Sarah)
-        JLabel jl_productname = new JLabel(products.get(index).getProductname());
+        JLabel jl_productname = new JLabel(products.get(index).getProductName());
         jl_productname.setFont(new Font("Arial", Font.PLAIN, 20));
         Dimension sizeProductname = jl_productname.getPreferredSize();
         jl_productname.setBounds(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 200)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 30)), sizeProductname.width + FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 10)), sizeProductname.height);
