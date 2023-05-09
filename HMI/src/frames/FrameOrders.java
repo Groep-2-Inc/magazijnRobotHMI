@@ -9,6 +9,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import comparator.sortByOrderDateAsc;
+import comparator.sortByOrderDateDesc;
 import comparator.sortByOrderIDAsc;
 import comparator.sortByOrderIDDesc;
 import database.Database;
@@ -251,16 +253,25 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         // Als de zoekknop is ingedrukt
         // Door Martijn
         if(e.getSource() == jb_search){
-            // Als de waarde van de combo box gelijk is aan aflopend sorteren
+            // Als de waarde van de combo box gelijk is aan ordernummer aflopend sorteren
             if(String.valueOf(jcb_sort.getSelectedItem()).equals("Ordernummer aflopend")){
                 // Sorteert de orders aflopend
                 orders.sort(new sortByOrderIDDesc());
             }
-
-            // Als de waarde van de combo box gelijk is aan oplopend sorteren
-            if(String.valueOf(jcb_sort.getSelectedItem()).equals("Ordernummer oplopend")){
+            // Als de waarde van de combo box gelijk is aan ordernummer oplopend sorteren
+            else if(String.valueOf(jcb_sort.getSelectedItem()).equals("Ordernummer oplopend")){
                 // Sorteert de orders oplopend
                 orders.sort(new sortByOrderIDAsc());
+            }
+            // Als de waarde van de combo box gelijk is aan datum oplopend sorteren
+            else if(String.valueOf(jcb_sort.getSelectedItem()).equals("Datum aflopend")){
+                // Sorteert de orders oplopend
+                orders.sort(new sortByOrderDateDesc());
+            }
+            // Als de waarde van de combo box gelijk is aan datum oplopend sorteren
+            else if(String.valueOf(jcb_sort.getSelectedItem()).equals("Datum oplopend")){
+                // Sorteert de orders oplopend
+                orders.sort(new sortByOrderDateAsc());
             }
 
             // Verwijder de huidge panelTabel en scrollPane
