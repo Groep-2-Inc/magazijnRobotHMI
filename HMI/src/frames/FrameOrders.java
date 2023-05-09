@@ -186,23 +186,25 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         super.add(panelTitles); //Panel van de titels toevoegen aan het hoofdscherm (Joëlle)
     }
 
-    private void ordersPanelTabel(){
-        drawOrdersPanelTabel();
-    }
+    // Sorteren door Martijn
+    // Maakt de variabelen hier omdat ze gelijk hieronder en in meerdere methodes worden gebruikt.
+    private JScrollPane scrollPane;
+    private JPanel panelTabel = new JPanel();
+    private JPanel panelOrderRow;
 
-    //Panel aanmaken, waar het scrollpanel inkomt (Joëlle)
-    JPanel panelTabel = new JPanel();
-    JScrollPane scrollPane = new JScrollPane(panelTabel);
-    private void drawOrdersPanelTabel(){
+    // Maakt de orders tabel
+    private void ordersPanelTabel() {
+        // Maakt de JPanel aan met juiste params
+        JPanel panelTabel = new JPanel();
         panelTabel.setLayout(new FlowLayout());
-        panelTabel.setPreferredSize(new Dimension(getScreenWidth(98f), FrameHeader.getScreenHeight(7.45f) * orders.size())); // procenten toegevoegd( Joëlle)
+        panelTabel.setPreferredSize(new Dimension(getScreenWidth(98f), FrameHeader.getScreenHeight(7.45f) * orders.size()));
 
         // For loop waar eerst een button toegevoegd wordt aan de arraylist, dan wordt in deze button een panel toegevoegd (Joëlle)
         // en wordt de juiste grootte meegegeven (Joëlle)
         for (int i = 0; i < orders.size(); i++) {
             buttons.add(new JButton());
 
-            JPanel panelOrderRow = new PanelOrder(orders.get(i));
+            panelOrderRow = new PanelOrder(orders.get(i));
             buttons.get(i).add(panelOrderRow);
             buttons.get(i).setBackground(Color.white);
             Dimension sizeOrderPanel = panelOrderRow.getPreferredSize();
@@ -212,21 +214,27 @@ public class FrameOrders extends FrameHeader implements ActionListener {
             Dimension sizeButtonOrder = buttons.get(i).getPreferredSize();
             buttons.get(i).setBounds(getScreenHeight(0f), sizeButtonOrder.height * i, sizeButtonOrder.width, sizeButtonOrder.height);
 
-            buttons.get(i).addActionListener(this); //aangepast door Jason Joshua van der Kolk
+            buttons.get(i).addActionListener(this);
         }
 
         //Aanmaken scrollPane, juiste grootte meegeven en de vertical scrollbar en toevoegen aan het scherm (Joëlle)
+        scrollPane = new JScrollPane(panelTabel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.getVerticalScrollBar().setUnitIncrement(14);
-        scrollPane.setPreferredSize(new Dimension(getScreenWidth(98f), getScreenHeight(70f))); // procenten toegevoegd( Joëlle)
+        scrollPane.setPreferredSize(new Dimension(getScreenWidth(98f), getScreenHeight(70f)));
+        scrollPane.setViewportView(panelTabel);
         super.add(scrollPane);
+
+        // Update de frame met nieuwe data
+        revalidate();
+        repaint();
     }
 
-    //aangepast door Jason Joshua van der Kolk
     public void actionPerformed(ActionEvent e){
         super.actionPerformed(e);
 
+        //aangepast door Jason Joshua van der Kolk
         //als op een knop wordt gedrukt
         for (int i = 0; i < orders.size(); i++) {
             if(e.getSource() == buttons.get(i)){
@@ -239,25 +247,20 @@ public class FrameOrders extends FrameHeader implements ActionListener {
             FrameController.setActiveFrameMakeOrder(this);
         }
 
-        //kijken of er op de search knop gedrukt is
+        // Als de zoek knop is ingedrukt
+        // Door Martijn
         if(e.getSource() == jb_search){
+            // Als de waarde van de combo box gelijk is aan oplopend sorteren
             if(String.valueOf(jcb_sort.getSelectedItem()).equals("Ordernummer oplopend")){
-//                for(Order order: orders){
-//                    System.out.println(order.getOrderID());
-//                }
-
+                // Sorteert de orders
                 orders.sort(new sortByOrderID());
-                panelTabel.removeAll();
-                scrollPane.removeAll();
-                panelTabel.revalidate();
-                scrollPane.revalidate();
-                panelTabel.repaint();
-                scrollPane.repaint();
-                drawOrdersPanelTabel();
-
-//                for(Order order: orders){
-//                    System.out.println(order.getOrderID());
-//                }
+                // Verwijder de huidge panelTabel en scrollPane
+                super.remove(panelTabel);
+                super.remove(scrollPane);
+                // Maakt de buttons array leeg zodat deze opnieuw kan worden gevuld
+                buttons.clear();
+                // Tekent het paneel opnieuw
+                ordersPanelTabel();
             }
         }
     }
