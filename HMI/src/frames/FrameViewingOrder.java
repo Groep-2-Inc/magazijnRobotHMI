@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.text.*;
 import java.util.*;
+
+import database.Database;
 import testClasses.*;
 import panels.*;
 public class FrameViewingOrder extends FrameHeader implements ActionListener {
@@ -32,6 +34,7 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         jb_back.setOpaque(false);
         jb_back.setContentAreaFilled(false);
         jb_back.setBorderPainted(false);
+        jb_back.addActionListener(this);
         add(jb_back);
 
         //Ordernummer opvragen en stylen (Sarah)
@@ -154,20 +157,19 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
                 productPanels.get(i).removeAll();
                 productPanels.get(i).editAmount(Color.white, null, false);
 
-                //Aanpassingen aan aantal producten worden opgeslagen, errors worden afgevangen (Sarah)
+                //Aanpassingen aan aantal producten worden opgeslagen, errors worden afgevangen (Sarah), try en catch samengevoegd naar één (Joëlle)
                 try {
-                    try {
-                        order.getProducts().get(i).setStock(Integer.parseInt(productPanels.get(i).getJtf_amount().getText()));
-                    } catch (NumberFormatException NFE) {
-                        //Foutmelding als er geen nummer wordt ingevoerd (Sarah)
-                        JLabel jl_invalid = new JLabel("Ongeldige waarde");
-                        jl_invalid.setFont(new Font("Arial", Font.BOLD, 20));
-                        jl_invalid.setForeground(Color.red);
-                        jl_invalid.setBounds(500, 670, 250, 40);
-                        add(jl_invalid);
-                    }
-                } catch (NullPointerException NPE) {}
+                    order.getProducts().get(i).setStock(Integer.parseInt(productPanels.get(i).getJtf_amount().getText()));
+                } catch (NumberFormatException | NullPointerException NPE) {
+                    //Foutmelding als er geen nummer wordt ingevoerd (Sarah)
+                    JLabel jl_invalid = new JLabel("Ongeldige waarde");
+                    jl_invalid.setFont(new Font("Arial", Font.BOLD, 20));
+                    jl_invalid.setForeground(Color.red);
+                    jl_invalid.setBounds(500, 670, 250, 40);
+                    add(jl_invalid);
+                }
             }
+            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Order ... is bijgewerkt"}); //!! werkt nog niet, bij foute gegevens wordt er ook teogevoegd aan database, in het logbook wordt opgeslagen dat de order is bijgewerkt (Joëlle)
         }
 
         //Als op "Annuleren" wordt gedrukt: (Sarah)
@@ -188,9 +190,14 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         }
 
         //naar pick scherm, door Jason Joshua van der Kolk
-        if (e.getSource() == jb_pick){
+        if (e.getSource() == jb_pick) {
             FrameController.setActiveFrameVerwerken(this, order);
+            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "TSP en BPM wordt berekend"}); // in het logbook wordt opgeslagen dat de TSP en BPM worden berekend(Joëlle)
         }
 
+        //terug naar het order scherm (Joëlle)
+        if (e.getSource() == jb_back) {
+            FrameController.setActiveFrameOrders(this);
+        }
     }
 }

@@ -1,6 +1,7 @@
 package frames;
 // Door Sarah
 
+import database.Database;
 import panels.PanelProductOverview;
 import testClasses.*;
 
@@ -102,21 +103,19 @@ public class FrameProducts extends FrameHeader implements ActionListener {
                 productPanels.get(i).removeAll();
                 productPanels.get(i).editAmount(Color.white, null, false);
 
-                //Aanpassingen aan aantal producten worden opgeslagen, errors worden afgevangen (Sarah)
+                //Aanpassingen aan aantal producten worden opgeslagen, errors worden afgevangen (Sarah), try en catch samengevoegd naar één (Joëlle)
                 try {
-                    try {
-                        products.get(i).setStock(Integer.parseInt(productPanels.get(i).getJtf_amount().getText()));
-                    } catch (NumberFormatException NFE) {
-                        //Foutmelding als er geen nummer wordt ingevoerd (Sarah)
-                        JLabel jl_invalid = new JLabel("Ongeldige waarde");
-                        jl_invalid.setFont(new Font("Arial", Font.BOLD, 20));
-                        jl_invalid.setForeground(Color.red);
-                        jl_invalid.setBounds(300, 870, 250, 40);
-                        add(jl_invalid);
-                    }
-                } catch (NullPointerException NPE) {
+                    products.get(i).setStock(Integer.parseInt(productPanels.get(i).getJtf_amount().getText()));
+                } catch (NumberFormatException | NullPointerException NFE) {
+                    //Foutmelding als er geen nummer wordt ingevoerd (Sarah)
+                    JLabel jl_invalid = new JLabel("Ongeldige waarde");
+                    jl_invalid.setFont(new Font("Arial", Font.BOLD, 20));
+                    jl_invalid.setForeground(Color.red);
+                    jl_invalid.setBounds(300, 870, 250, 40);
+                    add(jl_invalid);
                 }
             }
+            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Hoeveelheid product met nummer … is aangepast"}); //!! werkt nog niet, bij foute gegevens wordt er ook teogevoegd aan database, in het logboek wordt opgeslagen dat de order is bijgewerkt (Joëlle)
         }
 
         //Als op "Annuleren" wordt gedrukt: (Sarah)

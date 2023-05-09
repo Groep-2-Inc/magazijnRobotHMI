@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.Date;
+
+import database.Database;
 import panels.PanelPositie;
 import testClasses.Order;
 
@@ -295,6 +297,10 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         super.actionPerformed(e);
+        //als er op de knop gedrukt wordt, dan wordt een actie toegevoegd aan de database
+        if(e.getSource() == jb_go){
+           Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Heeft op Go gedrukt!"}); // in het logboek wordt opgeslagen dat er op Go gedrukt is (Joëlle)
+        }
         if(e.getSource() == jb_pakbonnenMaken){
             FrameController.setActiveFramePackingList(this, o_order);
         }

@@ -109,6 +109,7 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
         //als de noodstop wordt ingedrukt open het noodstopframe
         if(e.getSource() == jb_noodstop){
             noodStop();
+            System.out.println(Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "De noodstop is ingedrukt"})); // in het logbook wordt opgeslagen dat de noodstop is ingedrukt(Joëlle)
         }
 
         //als de noodstopSluiten knop wordt ingedrukt sluit het noodstopFrame
@@ -147,8 +148,10 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
         if (jtb_darkMode.isSelected()){
             jtb_darkMode.setIcon(ii_switchOn);
             b_darkMode = true;
+            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Dark mode is ingesteld!"}); // in het logboek wordt opgeslagen dat dark mode wordt ingesteld (Joëlle)
         } else {
             b_darkMode = false;
+            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Light mode is ingesteld!"}); // in het logboek wordt opgeslagen dat light mode wordt ingesteld (Joëlle)
             jtb_darkMode.setIcon(ii_switchOff);
         }
     }
