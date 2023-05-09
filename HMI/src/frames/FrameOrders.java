@@ -7,15 +7,13 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 
 import database.Database;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import classes.*;
 import panels.*;
-
 
 public class FrameOrders extends FrameHeader implements ActionListener {
     private JLabel jl_orderLabel = new JLabel("Orders"); // label voor titel Orders(Joëlle)
@@ -40,8 +38,17 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         //standaard instellingen (Joëlle)
         setTitle("Java-application/Orders"); // moet nog een betere naam hebben (Joëlle)
 
-        // Dynamisch opbouwen uit de database
-        // Door Martijn
+        getOrderData();
+
+        // Verplaats naar eigen methode om code overzichtelijker te maken
+        ordersPanelHeader();
+        ordersPanelTabelHeader();
+        ordersPanelTabel();
+    }
+
+    // Dynamisch opbouwen uit de database
+    // Door Martijn
+    private void getOrderData(){
         // Haalt alle orders op en zet het in een JSONArray
         JSONArray allOrders = Database.getDbData("SELECT orders.OrderID, orders.CustomerID, orders.OrderDate, customers.CustomerName FROM orders JOIN customers ON orders.CustomerID = customers.CustomerID", new String[]{});
         // Voor elke order
@@ -79,13 +86,8 @@ public class FrameOrders extends FrameHeader implements ActionListener {
             }
 
             //Maak een nieuwe order object aan en voeg hem toe aan de orders arrayList
-            this.orders.add(new Order(Integer.parseInt((String) orderData.get("OrderID")), customer, products, orderDate));
+            orders.add(new Order(Integer.parseInt((String) orderData.get("OrderID")), customer, products, orderDate));
         }
-
-        // Verplaats naar eigen methode om code overzichtelijker te maken
-        ordersPanelHeader();
-        ordersPanelTabelHeader();
-        ordersPanelTabel();
     }
 
     // Verplaats naar eigen methode om code overzichtelijker te maken
@@ -197,10 +199,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
 
             Dimension sizeButtonOrder = buttons.get(i).getPreferredSize();
             buttons.get(i).setBounds(getScreenHeight(0f), sizeButtonOrder.height * i, sizeButtonOrder.width, sizeButtonOrder.height);
-        }
 
-        //For loop die controleerd die elke knop in de arrayList langsgaat en checkt of die gedrukt is (Joëlle)
-        for (int i = 0; i < orders.size(); i++) {
             buttons.get(i).addActionListener(this); //aangepast door Jason Joshua van der Kolk
         }
 
@@ -217,7 +216,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
     public void actionPerformed(ActionEvent e){
         super.actionPerformed(e);
 
-        //als op een knop wordt gedrukt print debug
+        //als op een knop wordt gedrukt
         for (int i = 0; i < orders.size(); i++) {
             if(e.getSource() == buttons.get(i)){
                 FrameController.setActiveViewingOrder(this, orders.get(i));
@@ -233,8 +232,5 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         if(e.getSource() == jb_search){
             System.out.println("gedrukt op search knop in orders frame");
         }
-
     }
-
-
 }

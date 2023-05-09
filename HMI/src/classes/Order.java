@@ -2,7 +2,7 @@ package classes;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Order {
+public class Order{
     private int orderID;
     private Customer customer;
     private ArrayList<Product> products;

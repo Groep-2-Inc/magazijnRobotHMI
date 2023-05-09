@@ -69,7 +69,6 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
 
         //zet de default close operation en laat het scherm zien.
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        setVisible(true);
 
         //initializeer de darkmode button
         jtb_darkMode = new JToggleButton(ii_switchOff);
@@ -94,7 +93,6 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
         p_settings = pf.getPopup(this, p2, getScreenWidth(93.75f), getScreenHeight(5.555f));
     }
 
-
     public void itemStateChanged(ItemEvent eve) {
         //switch van dark/light mode
         if (jtb_darkMode.isSelected()){
@@ -105,6 +103,7 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
             jtb_darkMode.setIcon(ii_switchOff);
         }
     }
+
     public void noodStop(){
         //initializeer de noodstopframe
         jf_noodstopFrame = new JFrame("NOODSTOP");
@@ -149,16 +148,12 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
     //Methode die de grootte van het scherm bepaald en berekend met procenten naar de juiste waarde (Joëlle)
     public static int getScreenWidth(Float percentage){
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = (int) (screenSize.getWidth() /100 * percentage);
-         System.out.println(width); // voor het debuggen
-        return width;
+        return (int) (screenSize.getWidth() /100 * percentage);
     }
     //Methode die de grootte van het scherm bepaald en berekend met procenten naar de juiste waarde (Joëlle)
     public static int getScreenHeight(Float percentage){
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int height = (int) (screenSize.getHeight() /100 * percentage);
-         System.out.println(height);// voor het debuggen
-        return height;
+        return (int) (screenSize.getHeight() /100 * percentage);
     }
 
     public static float getPercentage(int main, int size){
@@ -223,13 +218,13 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                // Sluit Serial verbinding
-                Communication.closeComms();
-                //Stopt connectie met de database
-                Database.stopConnection();
+            // Sluit Serial verbinding
+            Communication.closeComms();
+            //Stopt connectie met de database
+            Database.stopConnection();
 
-                // Sluit de applicatie
-                dispose();
+            // Sluit de applicatie
+            dispose();
             }
         });
     }

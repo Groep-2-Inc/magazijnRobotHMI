@@ -64,11 +64,6 @@ public class PanelProduct extends JPanel implements ActionListener{
 
         //Achtergrondkleur geven en lijnen om panel heen zetten (Sarah)
         setBackground(Color.white);
-        // g.drawImage(productImg, 50, 25, 135, 110, null);
-        // g.drawRect(50, 25, 135, 110);
-        // g.drawLine(0, 0, 1720, 0);
-        // g.drawLine(0, 149, 1720, 149);
-
         g.drawImage(productImg, FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 50)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 25)), FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 135)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 110)), null);
         g.drawRect(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 50)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 25)), FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 135)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 110)));
         g.drawLine(0, 0, FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 1720)), 0);
