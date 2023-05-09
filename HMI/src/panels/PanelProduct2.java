@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import static java.lang.String.valueOf;
 
-import testClasses.*;
+import classes.*;
 
 public class PanelProduct2 extends JPanel{
     private BufferedImage productImg; // plaatje in de vorm van BufferedImage (Joëlle)

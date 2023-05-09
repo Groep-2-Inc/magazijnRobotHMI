@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.Date;
 import panels.PanelPositie;
-import testClasses.Order;
+import classes.Order;
 
 //door Jason Joshua van der Kolk
 public class FrameVerwerken extends FrameHeader implements ActionListener {

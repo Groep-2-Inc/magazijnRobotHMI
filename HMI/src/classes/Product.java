@@ -1,4 +1,4 @@
-package testClasses;
+package classes;
 // Bijgewerkt door Martijn tijdens orders uit DB
 
 public class Product {

@@ -1,7 +1,6 @@
 package frames;
 
 import javax.swing.*;
-import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,8 +13,7 @@ import java.util.Date;
 import database.Database;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import testClasses.*;
+import classes.*;
 import panels.*;
 
 
@@ -44,30 +42,43 @@ public class FrameOrders extends FrameHeader implements ActionListener {
 
         // Dynamisch opbouwen uit de database
         // Door Martijn
+        // Haalt alle orders op en zet het in een JSONArray
         JSONArray allOrders = Database.getDbData("SELECT orders.OrderID, orders.CustomerID, orders.OrderDate, customers.CustomerName FROM orders JOIN customers ON orders.CustomerID = customers.CustomerID", new String[]{});
+        // Voor elke order
         for(Object singelOrderData: allOrders){
+            // Zet het Object om naar een JSON-object
             JSONObject orderData = (JSONObject) singelOrderData;
 
+            // Maak een nieuwe customer aan met data uit de order
             Customer customer = new Customer(Integer.parseInt((String) orderData.get("CustomerID")), String.valueOf(orderData.get("CustomerName")));
 
+            // Haalt de orderlines van deze order op
             JSONArray orderLinesData = Database.getDbData("SELECT orderlines.StockitemID, orderlines.Quantity, stockitems.StockItemName, stockitemimages.ImagePath FROM orderlines JOIN stockitems ON orderlines.StockitemID = stockitems.StockItemID JOIN stockitemimages ON orderlines.StockItemID = stockitemimages.StockItemID WHERE orderlines.OrderID = ?", new String[]{(String) orderData.get("OrderID")});
+            // Maak een lege products arrayList aan
+            // Deze wordt later gevuld met products
             ArrayList<Product> products = new ArrayList<>();
 
+            // VOor elke orderline
             for(Object singleOrderLine: orderLinesData){
+                // Zet het Object om naar een JSON-object
                 JSONObject orderLineData = (JSONObject) singleOrderLine;
-
-                products.add(new Product(Integer.parseInt((String) orderLineData.get("StockItemID")), (String) orderData.get("StockItemName"), (String) orderLineData.get("ImagePath"), Integer.parseInt((String) orderLineData.get("Quantity"))));
+                // Maak een nieuw product aan op basis van data uit de orderline
+                // En zet deze in de products arraylist
+                products.add(new Product(Integer.parseInt((String) orderLineData.get("StockItemID")), (String) orderLineData.get("StockItemName"), (String) orderLineData.get("ImagePath"), Integer.parseInt((String) orderLineData.get("Quantity"))));
             }
 
+            // Maak een nieuwe default date aan
             Date orderDate = new Date(2013, 1, 1);
             try{
+                // Probeer een nieuwe date format aan te maken
                 DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                // Zet de String uit de order om naar een Date object
                 orderDate = sdf.parse(String.valueOf(orderData.get("OrderDate")));
-                System.out.println(orderDate);
             }catch (ParseException pe){
                 System.out.println(getClass() + "FrameOrders(): " + pe);
             }
 
+            //Maak een nieuwe order object aan en voeg hem toe aan de orders arrayList
             this.orders.add(new Order(Integer.parseInt((String) orderData.get("OrderID")), customer, products, orderDate));
         }
 
@@ -170,7 +181,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         //Panel aanmaken, waar het scrollpanel inkomt (Joëlle)
         JPanel panelTabel = new JPanel();
         panelTabel.setLayout(new FlowLayout());
-        panelTabel.setPreferredSize(new Dimension(getScreenWidth(98f), 116 * orders.size())); // procenten toegevoegd( Joëlle)
+        panelTabel.setPreferredSize(new Dimension(getScreenWidth(98f), FrameHeader.getScreenHeight(7.45f) * orders.size())); // procenten toegevoegd( Joëlle)
 
         // For loop waar eerst een button toegevoegd wordt aan de arraylist, dan wordt in deze button een panel toegevoegd (Joëlle)
         // en wordt de juiste grootte meegegeven (Joëlle)
@@ -197,6 +208,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         JScrollPane scrollPane = new JScrollPane(panelTabel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(14);
         scrollPane.setPreferredSize(new Dimension(getScreenWidth(98f), getScreenHeight(70f))); // procenten toegevoegd( Joëlle)
         super.add(scrollPane);
     }

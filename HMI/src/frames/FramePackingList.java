@@ -1,7 +1,7 @@
 package frames;
 
 import panels.ProductsInBoxPanel;
-import testClasses.*;
+import classes.*;
 
 import javax.swing.*;
 import java.awt.*;

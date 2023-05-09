@@ -8,7 +8,7 @@ import java.io.*;
 import java.util.Objects;
 import javax.swing.*;
 import javax.swing.border.*;
-import testClasses.*;
+import classes.*;
 
 public class PanelProduct extends JPanel implements ActionListener{
     private Order order; //Order waarvan hij de producten laat zien
@@ -32,7 +32,8 @@ public class PanelProduct extends JPanel implements ActionListener{
 
         //Productafbeelding wordt toegevoegd, error bij ontbrekende afbeelding wordt opgevangen (Sarah)
         try {
-            productImg = ImageIO.read(new File(this.order.getProducts().get(index).getImgPath()));
+            String imgPath = this.order.getProducts().get(index).getImgPath();
+            productImg = ImageIO.read(new File("src/images/products/" + imgPath));
         } catch (IOException ex) {
             System.out.println(getClass() + ": no image available");
         }
@@ -62,8 +63,8 @@ public class PanelProduct extends JPanel implements ActionListener{
 
         //Achtergrondkleur geven en lijnen om panel heen zetten (Sarah)
         setBackground(Color.white);
-        g.drawImage(productImg, 50, 25, null);
-        g.drawRect(50, 25, 135, 100);
+        g.drawImage(productImg, 50, 25, 135, 110, null);
+        g.drawRect(50, 25, 135, 110);
         g.drawLine(0, 0, 1720, 0);
         g.drawLine(0, 149, 1720, 149);
 

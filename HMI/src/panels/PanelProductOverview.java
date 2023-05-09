@@ -1,6 +1,6 @@
 package panels;
 
-import testClasses.*;
+import classes.*;
 
 import javax.imageio.*;
 import javax.swing.*;

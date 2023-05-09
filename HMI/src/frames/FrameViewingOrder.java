@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.text.*;
 import java.util.*;
-import testClasses.*;
+import classes.*;
 import panels.*;
 public class FrameViewingOrder extends FrameHeader implements ActionListener {
     private Order order; //Order waarvan het frame is

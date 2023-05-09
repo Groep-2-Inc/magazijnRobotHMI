@@ -7,7 +7,7 @@ import java.util.Date;
 import javax.swing.*;
 
 import frames.FrameHeader;
-import testClasses.*;
+import classes.*;
 
 import static java.lang.String.valueOf;
 
@@ -28,9 +28,9 @@ public class PanelOrder extends JPanel {
         jlOrderID.setFont(arial20);
         add(jlOrderID);
         Dimension sizeOrderID = jlOrderID.getPreferredSize();
-        jlOrderID.setBounds(FrameHeader.getScreenWidth(3.255208333f), FrameHeader.getScreenHeight(2f), sizeOrderID.width, sizeOrderID.height); // x = 50 pixels, y = 40 pixels
+        jlOrderID.setBounds(FrameHeader.getScreenWidth(3.255208333f), FrameHeader.getScreenHeight(2f), sizeOrderID.width + 10, sizeOrderID.height); // x = 50 pixels, y = 40 pixels
 
-        //label aanmaken voor de  naam en juiste lettertype, grootte en plaats meegegeven (Joëlle)
+        //label aanmaken voor de naam en juiste lettertype, grootte en plaats meegegeven (Joëlle)
         JLabel jlCustomerName = new JLabel(this.order.getCustomer().getCustomerName());
         jlCustomerName.setFont(arial20);
         add(jlCustomerName);

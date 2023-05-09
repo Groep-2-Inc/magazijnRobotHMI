@@ -2,13 +2,11 @@ package frames;
 
 import java.awt.*;
 import javax.swing.*;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import testClasses.*;
+import classes.*;
 
 public class FrameJournal extends FrameHeader {
     private ArrayList<Activity> activities; // lijst met activeiten (Joëlle)

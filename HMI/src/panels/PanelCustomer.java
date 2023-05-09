@@ -1,12 +1,9 @@
 package panels;
 import javax.swing.*;
 import java.awt.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import static java.lang.String.valueOf;
-import testClasses.*;
+import classes.*;
 
 public class PanelCustomer extends JPanel {
     private Customer customer; // een klant (Joëlle)

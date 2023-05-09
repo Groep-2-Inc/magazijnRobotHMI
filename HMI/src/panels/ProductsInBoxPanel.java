@@ -1,6 +1,6 @@
 package panels;
 
-import testClasses.*;
+import classes.*;
 
 import javax.swing.*;
 import java.awt.*;
