@@ -28,7 +28,7 @@ public class FrameProducts extends FrameHeader implements ActionListener {
         JLabel jl_products = new JLabel("Producten");
         jl_products.setFont(new Font("Arial", Font.BOLD, 30));
         Dimension sizeOrder = jl_products.getPreferredSize();
-        jl_products.setBounds(getScreenWidth(getPercentage(1536, 25)), getScreenHeight(getPercentage(864, 5)), sizeOrder.width + getScreenWidth(getPercentage(1536, 10)), sizeOrder.height);
+        jl_products.setBounds(getScreenWidth(1.1f), getScreenHeight(0.8f), sizeOrder.width, sizeOrder.height + 10);
         add(jl_products);
 
         //JPanel die lijst van producten laat zien (om doorheen te scrollen) aanmaken en stylen en scrollPane van maken (Sarah)
@@ -38,7 +38,7 @@ public class FrameProducts extends FrameHeader implements ActionListener {
         Dimension sizeProductListPanel = jp_productListPanel.getPreferredSize();
         JScrollPane jsp_productList = new JScrollPane(jp_productListPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         jsp_productList.getVerticalScrollBar().setUnitIncrement(14);
-        jsp_productList.setBounds(getScreenWidth(getPercentage(1536, 25)), getScreenHeight(getPercentage(864, 50)), sizeProductListPanel.width + getScreenWidth(getPercentage(1536, 10)), getScreenHeight(getPercentage(864, 800)));
+        jsp_productList.setBounds(getScreenWidth(1f), getScreenHeight(getPercentage(864, 50)), sizeProductListPanel.width + getScreenWidth(getPercentage(1536, 30)), getScreenHeight(getPercentage(864, 700)));
         add(jsp_productList);
 
 

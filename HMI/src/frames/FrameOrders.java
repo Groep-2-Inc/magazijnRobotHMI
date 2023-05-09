@@ -15,7 +15,8 @@ public class FrameOrders extends FrameHeader implements ActionListener {
     private JLabel jl_orderLabel = new JLabel("Orders"); // label voor titel Orders(Joëlle)
     private JLabel jl_sortLabel = new JLabel("Sortering:"); // label voor titel sortering (Joëlle)
     private JLabel jl_orderText = new JLabel("Order"); // label voor in het titel panel van de scrollpanel: tekst producten (Joëlle)
-    private JLabel jl_customerText = new JLabel("Naam, klantnummer"); // label voor in het titel panel van de scrollpanel: tekst producten (Joëlle)
+    private JLabel jl_customerText = new JLabel("Naam"); // label voor in het titel panel van de scrollpanel: tekst producten (Joëlle)
+    private JLabel jl_customerTextNumber = new JLabel("(klantnummer)"); // label voor in het titel panel van de scrollpanel: tekst producten
     private JLabel jl_productsText = new JLabel("Producten"); // label voor in het titel panel van de scrollpanel: tekst producten (Joëlle)
     private JLabel jl_productsQuantityText = new JLabel("(aantal)"); // label voor in het titel panel van de scrollpanel: tekst aantal (Joëlle)
     private JLabel jlDateText = new JLabel("Datum");  // label voor in het titel panel van de scrollpanel: tekst datum (Joëlle)
@@ -111,6 +112,11 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         Dimension sizeCustomerText = jl_customerText.getPreferredSize();
         jl_customerText.setBounds(getScreenWidth(26.04166667f), getScreenHeight(1.157407407f), sizeCustomerText.width +10, sizeCustomerText.height);
         panelTitles.add(jl_customerText);
+
+        jl_customerTextNumber.setFont(arial15);
+        Dimension sizeCustomerTextNumber = jl_customerTextNumber.getPreferredSize();
+        jl_customerTextNumber.setBounds(getScreenWidth(24.5f) +sizeCustomerTextNumber.width, getScreenHeight(1.736111111f), sizeCustomerTextNumber.width +10, sizeCustomerTextNumber.height);
+        panelTitles.add(jl_customerTextNumber);
 
         //Label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jl_productsText.setFont(arial22);

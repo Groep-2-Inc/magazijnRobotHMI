@@ -11,7 +11,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
+
 
 //door Jason Joshua van der Kolk
 public class PanelStatus extends JPanel implements ActionListener {
@@ -43,15 +43,15 @@ public class PanelStatus extends JPanel implements ActionListener {
         Font Arial20 = new Font("Arial", Font.PLAIN, 20);
         //zet het font voor alle meldingen
 
-        jb_robotVerbinding.setFont(new Font("Arial", Font.PLAIN, 27));
-        jb_productTerugzetten.setFont(new Font("Arial", Font.PLAIN, 27));
-        jb_rust.setFont(new Font("Arial", Font.PLAIN, 27));
-        jb_productOphalen.setFont(new Font("Arial", Font.PLAIN, 27));
-        jb_inBeweging.setFont(new Font("Arial", Font.PLAIN, 27));
-        jb_nood.setFont(new Font("Arial", Font.PLAIN, 27));
-        jb_productAfgeven.setFont(new Font("Arial", Font.PLAIN, 27));
-        jb_handmatige.setFont(new Font("Arial", Font.PLAIN, 27));
-        jb_databaseVerbinding.setFont(new Font("Arial", Font.PLAIN, 27));
+        jb_robotVerbinding.setFont(new Font("Arial", Font.PLAIN, 24));
+        jb_productTerugzetten.setFont(new Font("Arial", Font.PLAIN, 24));
+        jb_rust.setFont(new Font("Arial", Font.PLAIN, 24));
+        jb_productOphalen.setFont(new Font("Arial", Font.PLAIN, 24));
+        jb_inBeweging.setFont(new Font("Arial", Font.PLAIN, 24));
+        jb_nood.setFont(new Font("Arial", Font.PLAIN, 24));
+        jb_productAfgeven.setFont(new Font("Arial", Font.PLAIN, 24));
+        jb_handmatige.setFont(new Font("Arial", Font.PLAIN, 24));
+        jb_databaseVerbinding.setFont(new Font("Arial", Font.PLAIN, 24));
 
         //Update de status van de robot
         PanelStatus.updateStatus();
