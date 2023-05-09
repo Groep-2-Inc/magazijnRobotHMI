@@ -9,7 +9,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import comparator.sortByOrderID;
+import comparator.sortByOrderIDAsc;
+import comparator.sortByOrderIDDesc;
 import database.Database;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -113,7 +114,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         headerPanel.add(jl_sortLabel);
 
         //Combobox aanmaken en waarde toekennen, toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
-        jcb_sort = new JComboBox(new String[]{"Ordernummer oplopend", "Ordernummer aflopend", "Datum oplopend", "Datum aflopend", "Voltooid", "Onvoltooid"});
+        jcb_sort = new JComboBox(new String[]{"Ordernummer aflopend", "Ordernummer oplopend", "Datum oplopend", "Datum aflopend", "Voltooid", "Onvoltooid"});
         jcb_sort.setBackground(Color.white);
         jcb_sort.setBounds(getScreenWidth(42f) + sizeSortLabel.width +10, getScreenHeight(1.1f), getScreenWidth(11.39322917f), getScreenHeight(3f));
         headerPanel.add(jcb_sort);
@@ -247,21 +248,28 @@ public class FrameOrders extends FrameHeader implements ActionListener {
             FrameController.setActiveFrameMakeOrder(this);
         }
 
-        // Als de zoek knop is ingedrukt
+        // Als de zoekknop is ingedrukt
         // Door Martijn
         if(e.getSource() == jb_search){
+            // Als de waarde van de combo box gelijk is aan aflopend sorteren
+            if(String.valueOf(jcb_sort.getSelectedItem()).equals("Ordernummer aflopend")){
+                // Sorteert de orders aflopend
+                orders.sort(new sortByOrderIDDesc());
+            }
+
             // Als de waarde van de combo box gelijk is aan oplopend sorteren
             if(String.valueOf(jcb_sort.getSelectedItem()).equals("Ordernummer oplopend")){
-                // Sorteert de orders
-                orders.sort(new sortByOrderID());
-                // Verwijder de huidge panelTabel en scrollPane
-                super.remove(panelTabel);
-                super.remove(scrollPane);
-                // Maakt de buttons array leeg zodat deze opnieuw kan worden gevuld
-                buttons.clear();
-                // Tekent het paneel opnieuw
-                ordersPanelTabel();
+                // Sorteert de orders oplopend
+                orders.sort(new sortByOrderIDAsc());
             }
+
+            // Verwijder de huidge panelTabel en scrollPane
+            super.remove(panelTabel);
+            super.remove(scrollPane);
+            // Maakt de buttons array leeg zodat deze opnieuw kan worden gevuld
+            buttons.clear();
+            // Tekent het paneel opnieuw
+            ordersPanelTabel();
         }
     }
 }

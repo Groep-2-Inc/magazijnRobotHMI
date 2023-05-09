@@ -62,8 +62,4 @@ public class PanelOrder extends JPanel {
         Dimension sizeDate = jlDate.getPreferredSize();
         jlDate.setBounds(FrameHeader.getScreenWidth(71.61458333f), FrameHeader.getScreenHeight(2f), sizeDate.width +15, sizeDate.height); // x = 1100 pixels, y = 40 pixels
     }
-
-    public Order getOrder() {
-        return order;
-    }
 }
