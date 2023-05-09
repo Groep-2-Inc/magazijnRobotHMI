@@ -14,35 +14,15 @@
 int globalSpeed = 255;
 const int directionPinX = 13;
 const int pwmPinX = 11;
-const int directionPinY = 12;
-const int pwmPinY = 3;
+
 const int brakePinX = 8;
-const int brakePinY = 9;
+
 
 // Zet de pinmode van de bovenstaande variabelen.
 void motorSetup() {
     pinMode(directionPinX, OUTPUT);
     pinMode(pwmPinX, OUTPUT);
-    pinMode(directionPinY, OUTPUT);
-    pinMode(pwmPinY, OUTPUT);
     pinMode(brakePinX, OUTPUT);
-    pinMode(brakePinY, OUTPUT);
-}
-
-// Zorgt ervoor dat de robot omhoog beweegt wanneer deze functie wordt aangeroepen.
-void moveUp(){
-    digitalWrite(directionPinY, LOW);
-    digitalWrite(brakePinY, LOW);
-
-    analogWrite(pwmPinY, globalSpeed);
-}
-
-// Zorgt ervoor dat de robot omlaag beweegt wanneer deze functie wordt aangeroepen.
-void moveDown(){
-    digitalWrite(directionPinY, HIGH);
-    digitalWrite(brakePinY, LOW);
-
-    analogWrite(pwmPinY, globalSpeed);
 }
 
 // Zorgt ervoor dat de robot naar links beweegt wanneer deze functie wordt aangeroepen.
@@ -64,9 +44,8 @@ void moveRight(){
 // Zorgt ervoor dat de robot direct stop wanneer deze functie wordt aangeroepen.
 void stopMovement(){
     digitalWrite(brakePinX, HIGH);
-    digitalWrite(brakePinY, HIGH);
     analogWrite(pwmPinX, 255);
-    analogWrite(pwmPinY, 255);
+
 }
 
 // Deze functie zorgt ervoor dat de robot manueel gebruikt kan worden.
@@ -88,30 +67,30 @@ void manualControl(){
     // Wanner de waarde 0.1.0 is
     }else if (dir == "0.1.0"){
         // Beweeg omhoog
-        moveUp();
+        toSlaveArduino(3);
     // Wanneer de waarde 0.2.0 is
     }else if (dir == "0.2.0"){
         // Beweeg omlaag
-        moveDown();
+        toSlaveArduino(4);
     //Wanneer de waarde 1.1.0 is
     }else if (dir == "1.1.0"){
         // Beweeg naar linksboven
-        moveUp();
+        toSlaveArduino(3);
         moveLeft();
     // Wanneer de waarde 1.2.0 is
     }else if (dir == "1.2.0"){
         // Beweeg naar linksonder
-        moveDown();
+        toSlaveArduino(4);
         moveLeft();
     // Wanneer de waarde 2.1.0 is
     }else if (dir == "2.1.0"){
         // Beweeg naar rechtsboven
-        moveUp();
+        toSlaveArduino(3);
         moveRight();
     // Wanneer de waarde 2.2.0 is
     }else if (dir == "2.2.0"){
         // Beweeg naar rechtsonder
-        moveDown();
+        toSlaveArduino(4);
         moveRight();
     // Wanneer de waarde 0.0.1 is
     }else if (dir == "0.0.1"){

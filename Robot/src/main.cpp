@@ -6,6 +6,7 @@
 #include <joystick.h>
 #include <positionController.h>
 #include <endStop.h>
+#include <currentPositionController.h>
 
 // Sets correct pinmodes
 void setup() {  
@@ -13,12 +14,17 @@ void setup() {
 	joystickSetup();
 	motorSetup();
 	commsSetup();
+	encoderSetup();
 	// positionSetup();
 }
 
 // Herhaald de volgende code meerder keren
 void loop() {
     checkStop();
+	
+	
+	Serial.println(readX());
+	
 
 	if(!isEmergency()){
 		manualControl();
