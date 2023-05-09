@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import comparator.sortByOrderID;
 import database.Database;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -236,6 +237,19 @@ public class FrameOrders extends FrameHeader implements ActionListener {
 
         //kijken of er op de search knop gedrukt is
         if(e.getSource() == jb_search){
+            if(String.valueOf(jcb_sort.getSelectedItem()).equals("Ordernummer oplopend")){
+                for(Order order: orders){
+                    System.out.println(order.getOrderID());
+                }
+
+                orders.sort(new sortByOrderID());
+
+                for(Order order: orders){
+                    System.out.println(order.getOrderID());
+                }
+            }
+
+
             System.out.println("gedrukt op search knop in orders frame");
         }
     }
