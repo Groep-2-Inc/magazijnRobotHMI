@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+//door Jason Joshua van der Kolk
 public class PanelStatus extends JPanel implements ActionListener {
     // Static door Martijn
     private static JButton jb_robotVerbinding = new JButton("Robot verbinding"); //melding voor robot verbinding
@@ -27,7 +28,7 @@ public class PanelStatus extends JPanel implements ActionListener {
 
     public PanelStatus(){
         //initialiseer het hoofd paneel
-        setPreferredSize(new Dimension(960,540));
+        setPreferredSize(new Dimension(FrameHeader.getScreenWidth(50f),FrameHeader.getScreenHeight(50f)));
         setBackground(new Color(236, 236, 236));
         setBorder(new LineBorder(Color.black, 1));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -35,9 +36,9 @@ public class PanelStatus extends JPanel implements ActionListener {
         //voeg kleiner paneel voor de meldingen
         JPanel p = new JPanel();
         p.setLayout(new GridLayout(3, 3, 20, 20));
-        p.setMaximumSize(new Dimension(900,480));
-        p.setMinimumSize(new Dimension(900,480));
-        p.setPreferredSize(new Dimension(900,480));
+        p.setMaximumSize(new Dimension(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1920, 900)),FrameHeader.getScreenHeight(FrameHeader.getPercentage(1080, 480))));
+        p.setMinimumSize(new Dimension(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1920, 900)),FrameHeader.getScreenHeight(FrameHeader.getPercentage(1080, 480))));
+        p.setPreferredSize(new Dimension(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1920, 900)),FrameHeader.getScreenHeight(FrameHeader.getPercentage(1080, 480))));
 
         Font Arial20 = new Font("Arial", Font.PLAIN, 20);
         //zet het font voor alle meldingen
