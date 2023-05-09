@@ -23,7 +23,7 @@ public class ProductsInBoxPanel extends JPanel {
         add(jl_productID);
 
         //Productnaam opvragen en stylen (Sarah)
-        JLabel jl_productname = new JLabel(this.order.getProducts().get(index).getProductname());
+        JLabel jl_productname = new JLabel(this.order.getProducts().get(index).getProductName());
         jl_productname.setFont(new Font("Arial", Font.PLAIN, 17));
         Dimension sizeProductname = jl_productname.getPreferredSize();
         jl_productname.setBounds(200, 30, sizeProductname.width + 10, sizeProductname.height);

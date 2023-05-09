@@ -30,8 +30,8 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
         o_order = order;
         this.i_orderID = order.getOrderID();
         this.i_customerID = order.getCustomer().getCustomerID();
-        this.i_totaalAantalProducten = order.getProductAmount();
-        this.s_customerName = order.getCustomer().getCustomername();
+        this.i_totaalAantalProducten = order.getProductCount();
+        this.s_customerName = order.getCustomer().getCustomerName();
         this.d_date = order.getDate();
 
         //nieuwe pannel aanmaken voor alle informatie

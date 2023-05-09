@@ -1,12 +1,20 @@
 package frames;
 
 import javax.swing.*;
+import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import database.Database;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import testClasses.*;
 import panels.*;
 
@@ -19,25 +27,51 @@ public class FrameOrders extends FrameHeader implements ActionListener {
     private JLabel jl_productsText = new JLabel("Producten"); // label voor in het titel panel van de scrollpanel: tekst producten (Joëlle)
     private JLabel jl_productsQuantityText = new JLabel("(aantal)"); // label voor in het titel panel van de scrollpanel: tekst aantal (Joëlle)
     private JLabel jlDateText = new JLabel("Datum");  // label voor in het titel panel van de scrollpanel: tekst datum (Joëlle)
-    private ArrayList<Order> orders;// arraylist waarin alle orders staan (Joëlle)
     private JButton jb_search = new JButton("Zoeken"); // butten voor het zoeken (Joëlle)
     private JButton jb_ordersAanmaken = new JButton("Order aanmaken"); //button voor orders aanmaken (Jason Joshua)
     private JTextField jtf_customerNumber = new JTextField("Klantnummer", 10); // tekstveld voor het klantnummer (Joëlle)
     private JTextField jtf_orderNumber = new JTextField("Ordernummer", 10); // tekstveld voor het ordernummer (Joëlle)
     private JComboBox jcb_sort; //combobox voor het sorteren (Joëlle)
     private Font arial22 = new Font("Arial", Font.PLAIN, 22);
-    private Font arial20 = new Font("Arial", Font.PLAIN, 20);
     private Font arial17 = new Font("Arial", Font.PLAIN, 17);
     private Font arial15 = new Font("Arial", Font.PLAIN, 15);
     private ArrayList<JButton> buttons = new ArrayList<>(); // alle buttons uit het panel komen in deze lijst (Joëlle)
+    private ArrayList<Order> orders = new ArrayList<>(); // arraylist waarin alle orders staan (Joëlle)
 
-    public FrameOrders(ArrayList<Order> orders){
+    public FrameOrders(){
         //standaard instellingen (Joëlle)
         setTitle("Java-application/Orders"); // moet nog een betere naam hebben (Joëlle)
-        this.orders = orders; // Het attribuut de meegegeven waarde geven (Joëlle)
+
+        // Dynamisch opbouwen uit de database
+        // Door Martijn
+        JSONArray allOrders = Database.getDbData("SELECT orders.OrderID, orders.CustomerID, orders.OrderDate, customers.CustomerName FROM orders JOIN customers ON orders.CustomerID = customers.CustomerID", new String[]{});
+        for(Object singelOrderData: allOrders){
+            JSONObject orderData = (JSONObject) singelOrderData;
+
+            Customer customer = new Customer(Integer.parseInt((String) orderData.get("CustomerID")), String.valueOf(orderData.get("CustomerName")));
+
+            JSONArray orderLinesData = Database.getDbData("SELECT orderlines.StockitemID, orderlines.Quantity, stockitems.StockItemName, stockitemimages.ImagePath FROM orderlines JOIN stockitems ON orderlines.StockitemID = stockitems.StockItemID JOIN stockitemimages ON orderlines.StockItemID = stockitemimages.StockItemID WHERE orderlines.OrderID = ?", new String[]{(String) orderData.get("OrderID")});
+            ArrayList<Product> products = new ArrayList<>();
+
+            for(Object singleOrderLine: orderLinesData){
+                JSONObject orderLineData = (JSONObject) singleOrderLine;
+
+                products.add(new Product(Integer.parseInt((String) orderLineData.get("StockItemID")), (String) orderData.get("StockItemName"), (String) orderLineData.get("ImagePath"), Integer.parseInt((String) orderLineData.get("Quantity"))));
+            }
+
+            Date orderDate = new Date(2013, 1, 1);
+            try{
+                DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                orderDate = sdf.parse(String.valueOf(orderData.get("OrderDate")));
+                System.out.println(orderDate);
+            }catch (ParseException pe){
+                System.out.println(getClass() + "FrameOrders(): " + pe);
+            }
+
+            this.orders.add(new Order(Integer.parseInt((String) orderData.get("OrderID")), customer, products, orderDate));
+        }
 
         // Verplaats naar eigen methode om code overzichtelijker te maken
-        // Door Martijn
         ordersPanelHeader();
         ordersPanelTabelHeader();
         ordersPanelTabel();
@@ -50,7 +84,6 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         JPanel headerPanel = new JPanel();
         headerPanel.setLayout(null);
         headerPanel.setPreferredSize(new Dimension(getScreenWidth(98f), getScreenHeight(5.5f))); // procenten toegevoegd (Joëlle)
-//        headerPanel.setBackground(Color.yellow); // voor het debuggen
 
         //label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jl_orderLabel.setFont(new Font("Arial", Font.BOLD, 30));
@@ -155,9 +188,8 @@ public class FrameOrders extends FrameHeader implements ActionListener {
             buttons.get(i).setBounds(getScreenHeight(0f), sizeButtonOrder.height * i, sizeButtonOrder.width, sizeButtonOrder.height);
         }
 
-        //For loop die controleerd die elke knop in de arrayList langsgaat en checkt of die gedrukt is, bij het indrukken, wordt er een regel geprint, dat is alleen voor het debuggen (Joëlle)
+        //For loop die controleerd die elke knop in de arrayList langsgaat en checkt of die gedrukt is (Joëlle)
         for (int i = 0; i < orders.size(); i++) {
-            final int buttonNumber = i + 1;
             buttons.get(i).addActionListener(this); //aangepast door Jason Joshua van der Kolk
         }
 
@@ -174,9 +206,8 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         super.actionPerformed(e);
 
         for (int i = 0; i < orders.size(); i++) {
-            if(e.getSource() ==buttons.get(i)){
+            if(e.getSource() == buttons.get(i)){
                 FrameController.setActiveViewingOrder(this, orders.get(i));
-                System.out.println("Gedrukt op knop nummer " + i );
             }
         }
 

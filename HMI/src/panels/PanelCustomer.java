@@ -20,7 +20,7 @@ public class PanelCustomer extends JPanel {
         setLayout(null);
 
         //aanmaken en toevoegen label en de juiste grootte en locatie meegeven (Joëlle)
-        JLabel jl_customerName = new JLabel(customer.getCustomername());
+        JLabel jl_customerName = new JLabel(customer.getCustomerName());
         jl_customerName.setFont(arial12);
         add(jl_customerName);
         Dimension sizeCustomerName = jl_customerName.getPreferredSize();

@@ -68,7 +68,7 @@ public class PanelProduct extends JPanel implements ActionListener{
         g.drawLine(0, 149, 1720, 149);
 
         //Productnaam opvragen en stylen (Sarah)
-        JLabel jl_productname = new JLabel(this.order.getProducts().get(index).getProductname());
+        JLabel jl_productname = new JLabel(this.order.getProducts().get(index).getProductName());
         jl_productname.setFont(new Font("Arial", Font.PLAIN, 20));
         Dimension sizeProductname = jl_productname.getPreferredSize();
         jl_productname.setBounds(200, 30, sizeProductname.width + 10, sizeProductname.height);
@@ -87,7 +87,8 @@ public class PanelProduct extends JPanel implements ActionListener{
         Dimension sizeJLAmount = jl_amount.getPreferredSize();
         jl_amount.setBounds(1000, 60, sizeJLAmount.width + 10, sizeJLAmount.height);
         add(jl_amount);
-        jtf_amount = new JTextField(String.valueOf(order.getProducts().get(index).getStock()));
+
+        jtf_amount = new JTextField(String.valueOf(order.getProducts().get(index).getAmountOrdered()));
         jtf_amount.setBackground(setBackground);
         jtf_amount.setBorder(setBorder);
         jtf_amount.setFont(new Font("Arial", Font.PLAIN, 20));

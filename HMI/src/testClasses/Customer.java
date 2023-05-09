@@ -3,20 +3,18 @@ package testClasses;
 
 public class Customer {
     private int customerID;
-    private static int amountOfCustomers = 0;
-    private String customername;
+    private String customerName;
 
-    public Customer(String customername){
-        this.customername = customername;
-        this.customerID = amountOfCustomers +1;
-        amountOfCustomers++;
+    public Customer(int customerID, String customerName){
+        this.customerID = customerID;
+        this.customerName = customerName;
     }
 
     public int getCustomerID() {
         return customerID;
     }
 
-    public String getCustomername() {
-        return customername;
+    public String getCustomerName() {
+        return customerName;
     }
 }

@@ -63,7 +63,7 @@ public class PanelProductOverview extends JPanel {
         g.drawLine(0, 149, 1720, 149);
 
         //Productnaam opvragen en stylen (Sarah)
-        JLabel jl_productname = new JLabel(products.get(index).getProductname());
+        JLabel jl_productname = new JLabel(products.get(index).getProductName());
         jl_productname.setFont(new Font("Arial", Font.PLAIN, 20));
         Dimension sizeProductname = jl_productname.getPreferredSize();
         jl_productname.setBounds(200, 30, sizeProductname.width + 10, sizeProductname.height);

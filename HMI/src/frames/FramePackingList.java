@@ -39,7 +39,7 @@ public class FramePackingList extends FrameHeader implements ActionListener {
         jl_date.setBounds(250, 5, sizeDate.width + 10, sizeDate.height);
 
         //Naam en nummer van klant opvragen en stylen (Sarah)
-        JLabel jl_customer = new JLabel("Klant: " + order.getCustomer().getCustomername() + ", " + order.getCustomer().getCustomerID());
+        JLabel jl_customer = new JLabel("Klant: " + order.getCustomer().getCustomerName() + ", " + order.getCustomer().getCustomerID());
         add(jl_customer);
         jl_customer.setFont(new Font("Arial", Font.PLAIN, 27));
         Dimension sizeCustomer = jl_customer.getPreferredSize();
