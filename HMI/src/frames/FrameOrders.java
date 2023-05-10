@@ -4,15 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import comparator.sortByOrderDateAsc;
-import comparator.sortByOrderDateDesc;
-import comparator.sortByOrderIDAsc;
-import comparator.sortByOrderIDDesc;
+import comparator.*;
 import database.Database;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -43,7 +41,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         //standaard instellingen (Joëlle)
         setTitle("Java-application/Orders"); // moet nog een betere naam hebben (Joëlle)
 
-        getOrderData();
+        getOrderData(null,null);
 
         // Verplaats naar eigen methode om code overzichtelijker te maken
         ordersPanelHeader();
@@ -53,9 +51,22 @@ public class FrameOrders extends FrameHeader implements ActionListener {
 
     // Dynamisch opbouwen uit de database
     // Door Martijn
-    private void getOrderData(){
-        // Haalt alle orders op en zet het in een JSONArray
-        JSONArray allOrders = Database.getDbData("SELECT orders.OrderID, orders.CustomerID, orders.OrderDate, customers.CustomerName FROM orders JOIN customers ON orders.CustomerID = customers.CustomerID ORDER BY orders.OrderID DESC", new String[]{});
+    private void getOrderData(String type, String searchValue){
+        JSONArray allOrders;
+        orders.clear();
+
+        // Als hij moet zoeken naar customers
+        if(type != null && type.equals("customers")){
+            // Haalt alle orders op waarbij klantnummer lijkt op zoekwaarde
+            allOrders = Database.getDbData("SELECT orders.OrderID, orders.CustomerID, orders.OrderDate, customers.CustomerName FROM orders JOIN customers ON orders.CustomerID = customers.CustomerID WHERE orders.CustomerID LIKE ? ORDER BY orders.OrderID DESC", new String[]{searchValue});
+        }else if(type != null && type.equals("orders")){
+            // Haalt alle orders op en zet het in een JSONArray
+            allOrders = Database.getDbData("SELECT orders.OrderID, orders.CustomerID, orders.OrderDate, customers.CustomerName FROM orders JOIN customers ON orders.CustomerID = customers.CustomerID WHERE orders.OrderID LIKE ? ORDER BY orders.OrderID DESC", new String[]{searchValue});
+        }else{
+            // Haalt alle orders op en zet het in een JSONArray
+            allOrders = Database.getDbData("SELECT orders.OrderID, orders.CustomerID, orders.OrderDate, customers.CustomerName FROM orders JOIN customers ON orders.CustomerID = customers.CustomerID ORDER BY orders.OrderID DESC", new String[]{});
+        }
+
         // Voor elke order
         for(Object singelOrderData: allOrders){
             // Zet het Object om naar een JSON-object
@@ -117,6 +128,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
 
         //Combobox aanmaken en waarde toekennen, toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jcb_sort = new JComboBox(new String[]{"Ordernummer aflopend", "Ordernummer oplopend", "Datum oplopend", "Datum aflopend", "Voltooid", "Onvoltooid"});
+        jcb_sort.addItemListener(this);
         jcb_sort.setBackground(Color.white);
         jcb_sort.setBounds(getScreenWidth(42f) + sizeSortLabel.width +10, getScreenHeight(1.1f), getScreenWidth(11.39322917f), getScreenHeight(3f));
         headerPanel.add(jcb_sort);
@@ -200,7 +212,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         // Maakt de JPanel aan met juiste params
         JPanel panelTabel = new JPanel();
         panelTabel.setLayout(new FlowLayout());
-        panelTabel.setPreferredSize(new Dimension(getScreenWidth(98f), FrameHeader.getScreenHeight(7.45f) * orders.size()));
+        panelTabel.setPreferredSize(new Dimension(getScreenWidth(98f), FrameHeader.getScreenHeight(7.45f) * orders.size())); // procenten toegevoegd( Joëlle)
 
         // For loop waar eerst een button toegevoegd wordt aan de arraylist, dan wordt in deze button een panel toegevoegd (Joëlle)
         // en wordt de juiste grootte meegegeven (Joëlle)
@@ -253,32 +265,22 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         // Als de zoekknop is ingedrukt
         // Door Martijn
         if(e.getSource() == jb_search){
-            // Haalt de waarde van de combobox op en zet hem om naar een String
-            String selectedSortOption = String.valueOf(jcb_sort.getSelectedItem());
-            // Maakt een lege comperator aan
-            Comparator<Order> comparator;
-
-            // Loopt door de verschillende opties heen
-            // Als een conditie true is, maakt hij de comparator aan en slaat hem op in de var
-            switch (selectedSortOption) {
-                case "Ordernummer aflopend":
-                    comparator = new sortByOrderIDDesc();
-                    break;
-                case "Ordernummer oplopend":
-                    comparator = new sortByOrderIDAsc();
-                    break;
-                case "Datum aflopend":
-                    comparator = new sortByOrderDateDesc();
-                    break;
-                case "Datum oplopend":
-                    comparator = new sortByOrderDateAsc();
-                    break;
-                default:
-                    return;
+            if(jtf_customerNumber.getText().equals("") && jtf_orderNumber.getText().equals("")){
+                System.out.println(1);
+                getOrderData(null,null);
+            }else if(jtf_customerNumber.getText().equals("") && !jtf_orderNumber.getText().equals("")){
+                System.out.println(2);
+                getOrderData("orders", jtf_orderNumber.getText());
+            }else if(!jtf_customerNumber.getText().equals("") && jtf_orderNumber.getText().equals("")){
+                System.out.println(3);
+                getOrderData("orders", jtf_customerNumber.getText());
+            }else if(!jtf_customerNumber.getText().equals("Klantnummer")){
+                System.out.println(4);
+                getOrderData("customers", jtf_customerNumber.getText());
+            }else if(!jtf_orderNumber.getText().equals("Ordernummer")){
+                System.out.println(5);
+                getOrderData("orders", jtf_orderNumber.getText());
             }
-
-            // Sorteert de orders op basis van de comparator
-            orders.sort(comparator);
 
             // Verwijder de huidge panelTabel en scrollPane
             super.remove(panelTabel);
@@ -288,5 +290,34 @@ public class FrameOrders extends FrameHeader implements ActionListener {
             // Tekent het paneel opnieuw
             ordersPanelTabel();
         }
+    }
+
+    public void itemStateChanged(ItemEvent e1) {
+        // Haalt de waarde van de combobox op en zet hem om naar een String
+        String selectedSortOption = String.valueOf(jcb_sort.getSelectedItem());
+        // Maakt een lege comperator aan
+        Comparator<Order> comparator;
+
+        // Loopt door de verschillende opties heen
+        // Als een conditie true is, maakt hij de comparator aan en slaat hem op in de var
+        switch (selectedSortOption) {
+            case "Ordernummer aflopend":
+                comparator = new sortByOrderIDDesc();
+                break;
+            case "Ordernummer oplopend":
+                comparator = new sortByOrderIDAsc();
+                break;
+            case "Datum aflopend":
+                comparator = new sortByOrderDateDesc();
+                break;
+            case "Datum oplopend":
+                comparator = new sortByOrderDateAsc();
+                break;
+            default:
+                return;
+        }
+
+        // Sorteert de orders op basis van de comparator
+        orders.sort(comparator);
     }
 }
