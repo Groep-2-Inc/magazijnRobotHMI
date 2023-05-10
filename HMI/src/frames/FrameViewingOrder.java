@@ -184,6 +184,7 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         }
 
         if(e.getSource() == jb_back){
+            FrameController.setActiveFrameOrders(this);
             System.out.println("er is op de terug knop gedrukt");
         }
 

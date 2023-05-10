@@ -7,7 +7,6 @@ import panels.PanelPositie;
 import panels.PanelStatus;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class FrameHome extends FrameHeader{
