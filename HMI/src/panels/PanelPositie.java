@@ -1,11 +1,8 @@
 package panels;
 
-import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import frames.FrameHeader;
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import javax.swing.border.MatteBorder;
 import java.awt.*;
 
 //door Jason Joshua van der Kolk

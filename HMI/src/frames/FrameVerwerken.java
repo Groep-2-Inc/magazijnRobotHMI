@@ -13,15 +13,15 @@ import classes.Order;
 //door Jason Joshua van der Kolk
 public class FrameVerwerken extends FrameHeader implements ActionListener {
     private int i_orderID = 1; //int voor order id
-    private Date d_date = new Date(2000, Calendar.JANUARY, 1); //date voor datum
-    private String s_customerName = "customerName"; // string voor de customer name
+    private Date d_date;
+    private String s_customerName; // string voor de customer name
     private int i_customerID = 1; //int voor de customer id
     private int i_totaalAantalProducten = 1; //int voor totaal aantal producten
     private int i_productenVerzameld = 1; //int voor het aantal producten dat al verzameld is
     private JButton jb_annuleer = new JButton("Annuleer"); //button voor het annuleeren
     private JButton jb_go = new JButton("GO!"); //button voor het starten van het pakken van de orders
     private JButton jb_pakbonnenMaken = new JButton("Pakbonnen maken"); //button voor het aanmaken van de pakbonnen
-    private Order o_order;
+    private static Order o_order;
 
 
     public FrameVerwerken(Order order){
@@ -58,7 +58,7 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
         //voeg het positie paneel toe aan het linker paneel
         p = new PanelPositie();
         p.setBorder(null);
-        p.setPreferredSize(new Dimension(getScreenWidth(41.66666666666f), getScreenHeight(46.3f)));
+        p.setPreferredSize(new Dimension(getScreenWidth(51f), getScreenHeight(46.3f)));
         p3.add(p);
 
         //voeg het bpp paneel toe aan het linker paneel
@@ -133,51 +133,33 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
 
         //voeg de tekst voor de order toe
         JPanel p2 = new JPanel();
-        Dimension d = new Dimension(getScreenWidth(7.8f), getScreenHeight(3.8f));
-        LineBorder b;
+        Dimension d = new Dimension(getScreenWidth(20.8f), getScreenHeight(3.8f));
 
         p2.setPreferredSize(d);
-        JLabel l = new JLabel("Order:");
+        JLabel l = new JLabel("Order " + i_orderID);
         l.setFont(new Font("Arial", Font.BOLD, 25));
-        p2.add(l);
-        p.add(p2);
-
-        //maak een paneel aan en definieer de dimension en border
-        p2 = new JPanel();
-        d = new Dimension(getScreenWidth(7.8f), getScreenHeight(3.8f));
-        b = new LineBorder(Color.BLACK, 1);
-
-        //voeg de order id toe aan het paneel en voeg vervolgens het poneel toe aan het subpaneel
-        p2.setPreferredSize(d);
-        l = new JLabel("" + i_orderID);
-        l.setFont(new Font("Arial", Font.PLAIN, 25));
-        p2.add(l);
-        p.add(p2);
-
-        //voeg een dubbele punt toe aan het paneel
-        p2 = new JPanel();
-        p2.setPreferredSize(d);
-        l = new JLabel(":");
-        l.setFont(new Font("Arial", Font.PLAIN, 25));
         p2.add(l);
         p.add(p2);
 
         //voeg de datum toe
         p2 = new JPanel();
         p2.setPreferredSize(d);
+        JLabel jlDate = new JLabel("Datum: ");
+        jlDate.setFont(new Font("Arial", Font.BOLD, 25));
         l = new JLabel("" + d_date.getDate() + "-" + (d_date.getMonth() + 1) + "-" + (d_date.getYear()+1900));
         l.setFont(new Font("Arial", Font.PLAIN, 25));
+        p2.add(jlDate);
         p2.add(l);
-//        p2.setBorder(b);
         p.add(p2);
 
         //voeg een leeg maneel toe voor de margin
         p2 = new JPanel();
-        p2.setPreferredSize(new Dimension(getScreenWidth(29f), getScreenHeight(2.8f)));
+        p2.setPreferredSize(new Dimension(getScreenWidth(11.82f), getScreenHeight(2.8f)));
+        p2.setBackground(new Color(236,236,236));
         p.add(p2);
 
         //voeg de tekst klant toe
-        l = new JLabel("Klant:");
+        l = new JLabel("Klant: ");
         l.setFont(new Font("Arial", Font.BOLD, 30));
         p.add(l);
 
@@ -185,9 +167,10 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
 
         //voeg een vakje voor de klantennaam toe
         p2 = new JPanel();
-        p2.setPreferredSize(d);
+        p2.setBounds(getScreenWidth(30f), getScreenHeight(3.8f), getScreenWidth(20f), getScreenHeight(3.8f));
         l = new JLabel(s_customerName + ", " + i_customerID);
         l.setFont(new Font("Arial", Font.PLAIN, 25));
+        l.setBounds(getScreenWidth(10f), getScreenHeight(2.8f), getScreenWidth(20f), getScreenHeight(2.8f));
         p2.add(l);
         p.add(p2);
 
@@ -283,7 +266,7 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
         p.setPreferredSize(new Dimension(getScreenWidth(41.7f), getScreenHeight(27.8f)));
 
         //voeg de boxjes toe
-        for(int i = 1; i < 4; i++){
+        for(int i = 1; i < 3; i++){
             //voeg een nieuw paneel toe
             JPanel p2 = new JPanel();
             p2.setPreferredSize(new Dimension(getScreenWidth(10.4f), getScreenHeight(27.8f)));
@@ -294,7 +277,7 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
             p3.setBorder(new LineBorder(Color.black, 1));
 
             //voeg een label toe aan het paneel
-            JLabel l = new JLabel("[Doos" + i + "]");
+            JLabel l = new JLabel("Doos " + i);
 
             //voeg vervolgens alles toe
             p2.add(p3);
@@ -325,5 +308,9 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
         if(e.getSource() == jb_go){
             System.out.println("er is op de go knop gedrukt");
         }
+    }
+
+    public static Order getO_order() {
+        return o_order;
     }
 }

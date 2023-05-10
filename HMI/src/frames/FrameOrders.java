@@ -28,7 +28,6 @@ public class FrameOrders extends FrameHeader implements ActionListener {
     private JLabel jl_productsQuantityText = new JLabel("(aantal)"); // label voor in het titel panel van de scrollpanel: tekst aantal (Joëlle)
     private JLabel jlDateText = new JLabel("Datum");  // label voor in het titel panel van de scrollpanel: tekst datum (Joëlle)
     private JButton jb_search = new JButton("Zoeken"); // butten voor het zoeken (Joëlle)
-    private JButton jb_ordersAanmaken = new JButton("Order aanmaken"); //button voor orders aanmaken (Jason Joshua)
     private JTextField jtf_customerNumber = new JTextField("Klantnummer", 10); // tekstveld voor het klantnummer (Joëlle)
     private JTextField jtf_orderNumber = new JTextField("Ordernummer", 10); // tekstveld voor het ordernummer (Joëlle)
     private JComboBox jcb_sort; //combobox voor het sorteren (Joëlle)
@@ -126,14 +125,14 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         //label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jl_sortLabel.setFont(arial17);
         Dimension sizeSortLabel = jl_sortLabel.getPreferredSize();
-        jl_sortLabel.setBounds(getScreenWidth(42f), getScreenHeight(1.4f), sizeSortLabel.width +10, sizeSortLabel.height);
+        jl_sortLabel.setBounds(getScreenWidth(54f), getScreenHeight(1.4f), sizeSortLabel.width +10, sizeSortLabel.height);
         headerPanel.add(jl_sortLabel);
 
         //Combobox aanmaken en waarde toekennen, toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jcb_sort = new JComboBox(new String[]{"Ordernummer aflopend", "Ordernummer oplopend", "Datum oplopend", "Datum aflopend", "Voltooid", "Onvoltooid"});
         jcb_sort.addItemListener(this);
         jcb_sort.setBackground(Color.white);
-        jcb_sort.setBounds(getScreenWidth(42f) + sizeSortLabel.width +10, getScreenHeight(1.1f), getScreenWidth(11.39322917f), getScreenHeight(3f));
+        jcb_sort.setBounds(getScreenWidth(54.4f) + sizeSortLabel.width +10, getScreenHeight(1.1f), getScreenWidth(11.39322917f), getScreenHeight(3f));
         headerPanel.add(jcb_sort);
 
         //Tekstveld toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
@@ -142,21 +141,15 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         headerPanel.add(jtf_customerNumber);
 
         //Tekstveld toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
-        jtf_orderNumber.setBounds(getScreenWidth(69f), getScreenHeight(1.1f), getScreenWidth(7.8125f), getScreenHeight(3f));
         jtf_orderNumber.setToolTipText("Ordernummer");
+        jtf_orderNumber.setBounds(getScreenWidth(79.5f), getScreenHeight(1.1f), getScreenWidth(7.8125f), getScreenHeight(3f));
         headerPanel.add(jtf_orderNumber);
 
         // Buttun toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jb_search.setFont(arial17);
         jb_search.addActionListener(this); // actionlistener toevoegen aan button (Joëlle)
-        jb_search.setBounds(getScreenWidth(77.5f), getScreenHeight(1.1f), getScreenWidth(10f), getScreenHeight(3f));
+        jb_search.setBounds(getScreenWidth(88f), getScreenHeight(1.1f), getScreenWidth(10f), getScreenHeight(3f));
         headerPanel.add(jb_search);
-
-        //button toevoegen voor order aanmaken, door Jason Joshua van der Kolk
-        jb_ordersAanmaken.setFont(arial17);
-        jb_ordersAanmaken.addActionListener(this);
-        jb_ordersAanmaken.setBounds(getScreenWidth(88f), getScreenHeight(1.1f), getScreenWidth(10f), getScreenHeight(3f));
-        headerPanel.add(jb_ordersAanmaken);
 
         super.add(headerPanel); // PanelButtons toevoegen aan het hoofdscherm (Joëlle)
     }
@@ -274,10 +267,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
             }
         }
 
-        //naar het ordersaanmaken frame
-        if(e.getSource() == jb_ordersAanmaken){
-            FrameController.setActiveFrameMakeOrder(this);
-        }
+
 
         // Als de zoekknop is ingedrukt
         // Door Martijn
