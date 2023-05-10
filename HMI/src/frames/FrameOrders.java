@@ -282,7 +282,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
             } else if (customerNumber.isEmpty()) {
                 getOrderData("orders", orderNumber);
             } else if (orderNumber.isEmpty()) {
-                getOrderData("orders", customerNumber);
+                getOrderData("customers", customerNumber);
             } else if (!customerNumber.equals("Klantnummer")) {
                 getOrderData("customers", customerNumber);
             } else if (!orderNumber.equals("Ordernummer")) {
