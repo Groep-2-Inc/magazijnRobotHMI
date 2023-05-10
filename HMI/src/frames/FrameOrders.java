@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
 import java.awt.event.ItemEvent;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -55,16 +56,18 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         JSONArray allOrders;
         orders.clear();
 
+        // Maakt de basis query, wat bij elke query hetzelfde is
+        String baseQuery = "SELECT orders.OrderID, orders.CustomerID, orders.OrderDate, customers.CustomerName, customers.DeliveryAddressLine2, customers.DeliveryPostalCode, cities.CityName, orders.OrderCompleted FROM orders JOIN customers ON orders.CustomerID = customers.CustomerID JOIN cities ON cities.CityID = customers.PostalCityID\n";
         // Als hij moet zoeken naar customers
         if(type != null && type.equals("customers")){
             // Haalt alle orders op waarbij klantnummer lijkt op zoekwaarde
-            allOrders = Database.getDbData("SELECT orders.OrderID, orders.CustomerID, orders.OrderDate, customers.CustomerName FROM orders JOIN customers ON orders.CustomerID = customers.CustomerID WHERE orders.CustomerID LIKE ? ORDER BY orders.OrderID DESC", new String[]{searchValue});
+            allOrders = Database.getDbData(baseQuery + " WHERE orders.CustomerID LIKE ? ORDER BY orders.OrderID DESC", new String[]{searchValue});
         }else if(type != null && type.equals("orders")){
             // Haalt alle orders op en zet het in een JSONArray
-            allOrders = Database.getDbData("SELECT orders.OrderID, orders.CustomerID, orders.OrderDate, customers.CustomerName FROM orders JOIN customers ON orders.CustomerID = customers.CustomerID WHERE orders.OrderID LIKE ? ORDER BY orders.OrderID DESC", new String[]{searchValue});
+            allOrders = Database.getDbData(baseQuery + " WHERE orders.OrderID LIKE ? ORDER BY orders.OrderID DESC", new String[]{searchValue});
         }else{
             // Haalt alle orders op en zet het in een JSONArray
-            allOrders = Database.getDbData("SELECT orders.OrderID, orders.CustomerID, orders.OrderDate, customers.CustomerName FROM orders JOIN customers ON orders.CustomerID = customers.CustomerID ORDER BY orders.OrderID DESC", new String[]{});
+            allOrders = Database.getDbData(baseQuery + " ORDER BY orders.OrderID DESC", new String[]{});
         }
 
         // Voor elke order
@@ -73,7 +76,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
             JSONObject orderData = (JSONObject) singelOrderData;
 
             // Maak een nieuwe customer aan met data uit de order
-            Customer customer = new Customer(Integer.parseInt((String) orderData.get("CustomerID")), String.valueOf(orderData.get("CustomerName")));
+            Customer customer = new Customer(Integer.parseInt((String) orderData.get("CustomerID")), String.valueOf(orderData.get("CustomerName")), (String) orderData.get("DeliveryAddressLine2"), (String) orderData.get("DeliveryPostalCode"), (String) orderData.get("CityName"));
 
             // Haalt de orderlines van deze order op
             JSONArray orderLinesData = Database.getDbData("SELECT orderlines.StockitemID, orderlines.Quantity, stockitems.StockItemName, stockitemimages.ImagePath FROM orderlines JOIN stockitems ON orderlines.StockitemID = stockitems.StockItemID JOIN stockitemimages ON orderlines.StockItemID = stockitemimages.StockItemID WHERE orderlines.OrderID = ?", new String[]{(String) orderData.get("OrderID")});
@@ -102,7 +105,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
             }
 
             //Maak een nieuwe order object aan en voeg hem toe aan de orders arrayList
-            orders.add(new Order(Integer.parseInt((String) orderData.get("OrderID")), customer, products, orderDate));
+            orders.add(new Order(Integer.parseInt((String) orderData.get("OrderID")), customer, products, orderDate, Integer.parseInt((String) orderData.get("OrderCompleted"))));
         }
     }
 
@@ -135,10 +138,12 @@ public class FrameOrders extends FrameHeader implements ActionListener {
 
         //Tekstveld toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jtf_customerNumber.setBounds(getScreenWidth(60f), getScreenHeight(1.1f), getScreenWidth(7.8125f), getScreenHeight(3f));
+        jtf_customerNumber.setToolTipText("Klantnummer");
         headerPanel.add(jtf_customerNumber);
 
         //Tekstveld toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jtf_orderNumber.setBounds(getScreenWidth(69f), getScreenHeight(1.1f), getScreenWidth(7.8125f), getScreenHeight(3f));
+        jtf_orderNumber.setToolTipText("Ordernummer");
         headerPanel.add(jtf_orderNumber);
 
         // Buttun toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
@@ -201,7 +206,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         super.add(panelTitles); //Panel van de titels toevoegen aan het hoofdscherm (Joëlle)
     }
 
-    // Sorteren door Martijn
+    // Sorteren / zoeken door Martijn
     // Maakt de variabelen hier omdat ze gelijk hieronder en in meerdere methodes worden gebruikt.
     private JScrollPane scrollPane;
     private JPanel panelTabel = new JPanel();
@@ -246,6 +251,18 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         repaint();
     }
 
+    // Verwijderd de elementen uit de JFrame en tekent ze opnieuw
+    // Door Martijn
+    public void redraw(){
+        // Verwijder de huidge panelTabel en scrollPane
+        super.remove(panelTabel);
+        super.remove(scrollPane);
+        // Maakt de buttons array leeg zodat deze opnieuw kan worden gevuld
+        buttons.clear();
+        // Tekent het paneel opnieuw
+        ordersPanelTabel();
+    }
+
     public void actionPerformed(ActionEvent e){
         super.actionPerformed(e);
 
@@ -265,33 +282,30 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         // Als de zoekknop is ingedrukt
         // Door Martijn
         if(e.getSource() == jb_search){
-            if(jtf_customerNumber.getText().equals("") && jtf_orderNumber.getText().equals("")){
-                System.out.println(1);
-                getOrderData(null,null);
-            }else if(jtf_customerNumber.getText().equals("") && !jtf_orderNumber.getText().equals("")){
-                System.out.println(2);
-                getOrderData("orders", jtf_orderNumber.getText());
-            }else if(!jtf_customerNumber.getText().equals("") && jtf_orderNumber.getText().equals("")){
-                System.out.println(3);
-                getOrderData("orders", jtf_customerNumber.getText());
-            }else if(!jtf_customerNumber.getText().equals("Klantnummer")){
-                System.out.println(4);
-                getOrderData("customers", jtf_customerNumber.getText());
-            }else if(!jtf_orderNumber.getText().equals("Ordernummer")){
-                System.out.println(5);
-                getOrderData("orders", jtf_orderNumber.getText());
+            // Haalt de waardes van de tekstvelden op
+            String customerNumber = jtf_customerNumber.getText();
+            String orderNumber = jtf_orderNumber.getText();
+
+            // Op basis van de waardes haal andere data uit de db
+            if ((customerNumber.isEmpty() && orderNumber.isEmpty()) || (customerNumber.isEmpty() && orderNumber.equals("Ordernummer")) || (customerNumber.equals("Klantnummer") && orderNumber.isEmpty())) {
+                getOrderData(null, null);
+            } else if (customerNumber.isEmpty()) {
+                getOrderData("orders", orderNumber);
+            } else if (orderNumber.isEmpty()) {
+                getOrderData("orders", customerNumber);
+            } else if (!customerNumber.equals("Klantnummer")) {
+                getOrderData("customers", customerNumber);
+            } else if (!orderNumber.equals("Ordernummer")) {
+                getOrderData("orders", orderNumber);
             }
 
-            // Verwijder de huidge panelTabel en scrollPane
-            super.remove(panelTabel);
-            super.remove(scrollPane);
-            // Maakt de buttons array leeg zodat deze opnieuw kan worden gevuld
-            buttons.clear();
-            // Tekent het paneel opnieuw
-            ordersPanelTabel();
+            // Ververst het venster met de nieuwe data
+            redraw();
         }
     }
 
+    // Als de waarde van de combobox is veranderd
+    // Door Martijn
     public void itemStateChanged(ItemEvent e1) {
         // Haalt de waarde van de combobox op en zet hem om naar een String
         String selectedSortOption = String.valueOf(jcb_sort.getSelectedItem());
@@ -313,11 +327,20 @@ public class FrameOrders extends FrameHeader implements ActionListener {
             case "Datum oplopend":
                 comparator = new sortByOrderDateAsc();
                 break;
+            case "Voltooid":
+                comparator = new sortByOrderCompletedTrue();
+                break;
+            case "Onvoltooid":
+                comparator = new sortByOrderCompletedFalse();
+                break;
             default:
                 return;
         }
 
         // Sorteert de orders op basis van de comparator
         orders.sort(comparator);
+
+        // Ververst het venster met de nieuwe data
+        redraw();
     }
 }
