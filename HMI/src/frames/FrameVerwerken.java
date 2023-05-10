@@ -133,7 +133,6 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
 
         //voeg de tekst voor de order toe
         JPanel p2 = new JPanel();
-        Dimension d = new Dimension(getScreenWidth(7.8f), getScreenHeight(3.8f));
         Dimension d = new Dimension(getScreenWidth(20.8f), getScreenHeight(3.8f));
 
         p2.setPreferredSize(d);
