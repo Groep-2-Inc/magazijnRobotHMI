@@ -1,6 +1,7 @@
 // Leest de waarde van de encoder voor de x-as uit en print dit op de seriele monitor.
 #include <Arduino.h>
 #include <Wire.h>
+#include <statusLights.h>
 
 // globalSpeed - Bepaald de snelheid van de robot.
 // directionPinZ -  Definieert de pinmode van de richting van de z-as.
@@ -21,6 +22,7 @@ void receiveEvent(int bytes){
 
 // Zet de pinmode van de bovenstaande variabelen en zorgt ervoor dat de data van de master arduino ontvangen wordt.
 void setup() {
+  statusLightsSetup();
   pinMode(directionPinZ, OUTPUT);
   pinMode(pwmPinZ, OUTPUT);
   pinMode(brakePinZ, OUTPUT);
@@ -50,6 +52,17 @@ void stopMovement(){
   analogWrite(pwmPinZ, 0);
 }
 
+//Ontvangt status van de Main Arduino en laat op basis hiervan lampjes branden (Sarah)
+void statusLightsOn(){
+  if(x == 21){
+    emergencyLEDOn();
+  } else if(x == 22){
+    manualLEDOn();
+  } else if(x == 23){
+    autoLEDOn();
+  }
+}
+
 void loop() {
   // Serial.println(x);
   // Als de waarde 0 is
@@ -65,4 +78,5 @@ void loop() {
     // Beweeg naar achter
     moveBackward();
   }
+  statusLightsOn();
 }

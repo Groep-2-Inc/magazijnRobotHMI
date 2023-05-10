@@ -71,6 +71,7 @@ void stopMovement(){
 
 // Deze functie zorgt ervoor dat de robot manueel gebruikt kan worden.
 void manualControl(){
+    toSlaveArduino(22);
     // resetEndStop();
     // Leest waarde van de joystick uit en maakt hier een string van.
     String dir = readJoystick();

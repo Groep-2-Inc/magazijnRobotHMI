@@ -4,7 +4,6 @@
 #include <emergencyStop.h>
 #include <motorController.h>
 #include <joystick.h>
-#include <positionController.h>
 #include <endStop.h>
 
 // Sets correct pinmodes
@@ -13,9 +12,7 @@ void setup() {
 	joystickSetup();
 	motorSetup();
 	commsSetup();
-	positionSetup();
 	pinMode(6, INPUT_PULLUP);
-	
 }
 
 // Herhaald de volgende code meerder keren
@@ -24,6 +21,9 @@ void loop() {
 
 	if(!isEmergency()){
 		manualControl();
+	} else{
+		//stuurt melding naar slave Arduino om noodstoplampje te laten branden (Sarah)
+		toSlaveArduino(21);
 	}
 
 	// readXposition();
