@@ -150,28 +150,27 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
         l.setFont(new Font("Arial", Font.PLAIN, 25));
         p2.add(jlDate);
         p2.add(l);
-//        p2.setBorder(b);
         p.add(p2);
 
         //voeg een leeg maneel toe voor de margin
         p2 = new JPanel();
-        p2.setPreferredSize(new Dimension(getScreenWidth(10f), getScreenHeight(2.8f)));
+        p2.setPreferredSize(new Dimension(getScreenWidth(11.82f), getScreenHeight(2.8f)));
+        p2.setBackground(new Color(236,236,236));
         p.add(p2);
 
         //voeg de tekst klant toe
         l = new JLabel("Klant: ");
         l.setFont(new Font("Arial", Font.BOLD, 30));
-        l.setPreferredSize(new Dimension(getScreenWidth(10f), getScreenHeight(2.8f)));
         p.add(l);
 
         d = new Dimension(getScreenWidth(15f), getScreenHeight(3.8f));
 
         //voeg een vakje voor de klantennaam toe
         p2 = new JPanel();
-        p2.setPreferredSize(d);
+        p2.setBounds(getScreenWidth(30f), getScreenHeight(3.8f), getScreenWidth(20f), getScreenHeight(3.8f));
         l = new JLabel(s_customerName + ", " + i_customerID);
         l.setFont(new Font("Arial", Font.PLAIN, 25));
-        l.setPreferredSize(new Dimension(getScreenWidth(15f), getScreenHeight(2.8f)));
+        l.setBounds(getScreenWidth(10f), getScreenHeight(2.8f), getScreenWidth(20f), getScreenHeight(2.8f));
         p2.add(l);
         p.add(p2);
 
