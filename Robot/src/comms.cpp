@@ -7,9 +7,16 @@ byte i2c_rcv;
 
 // Start serial zodat deze in elk ander bestand gebruikt kan worden.
 // Start de communicatie tussen de arduino's.
+int recieved = 0;
+
+void receiveEvent(int bytes){
+  recieved = Wire.read();
+}
+
 void commsSetup(){
   Serial.begin(9600);
-  Wire.begin();
+  Wire.begin(9);
+  Wire.onReceive(receiveEvent);
 }
 
 // Print een status- en waardetekst naar de Serial
@@ -39,4 +46,8 @@ void toSlaveArduino(int value){
   Wire.beginTransmission(9);
 	Wire.write(value);
 	Wire.endTransmission();
+}
+
+int getFromSlave(){
+  return recieved;
 }

@@ -28,6 +28,7 @@ unsigned long lastStopPressed = 0;
 bool checkEmergencyStop(){
 	// Leest de waarde van de noodstop uit
 	bool stopPressed = !digitalRead(stopButtton); 
+	// Serial.println(stopPressed);
 	if(stopPressed){
 		if(millis() - lastStopPressed > 250){
 			stopPressed = millis();

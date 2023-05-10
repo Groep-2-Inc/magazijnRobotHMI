@@ -11,7 +11,7 @@
 // x - Bepaald de waarde van de data van de master arduino.
 // int globalSpeed = 255;
 
-
+bool canMove = false;
 int x = 0;
 
 // Leest de waarde van de data van de master arduino.
@@ -29,6 +29,7 @@ void setup() {
 }
 
 void loop() {
+
   Serial.println(readY());
   // Als de waarde 0 is
   if (x == 0){
@@ -48,5 +49,20 @@ void loop() {
   }else if (x == 4){
     // Beweeg naar achter
     moveDown();
+  } else if (x == 5){
+    canMove = !canMove;
+  } else if (x == 6 || x == 7 || x == 8 || x == 9 || x == 10){
+    moveY(x-5);
+  } else if (x == 11){
+    resetHasMoved();
   }
+
+  if(getHasMoved() == true){
+  Wire.beginTransmission(9);
+  Wire.write(101);
+  Wire.endTransmission();
+  } else {
+    Wire.write(100);
+  }
+
 }
