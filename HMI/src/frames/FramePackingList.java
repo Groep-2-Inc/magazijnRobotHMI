@@ -1,7 +1,7 @@
 package frames;
 
 import panels.ProductsInBoxPanel;
-import testClasses.*;
+import classes.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,7 +39,7 @@ public class FramePackingList extends FrameHeader implements ActionListener {
         jl_date.setBounds(getScreenWidth(getPercentage(1536, 170)), getScreenHeight(getPercentage(864, 5)), sizeDate.width + getScreenWidth(getPercentage(1536, 10)), sizeDate.height);
 
         //Naam en nummer van klant opvragen en stylen (Sarah)
-        JLabel jl_customer = new JLabel("Klant: " + order.getCustomer().getCustomername() + ", " + order.getCustomer().getCustomerID());
+        JLabel jl_customer = new JLabel("Klant: " + order.getCustomer().getCustomerName() + ", " + order.getCustomer().getCustomerID());
         add(jl_customer);
         jl_customer.setFont(new Font("Arial", Font.PLAIN, 27));
         Dimension sizeCustomer = jl_customer.getPreferredSize();

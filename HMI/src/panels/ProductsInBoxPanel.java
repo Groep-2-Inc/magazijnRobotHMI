@@ -1,8 +1,7 @@
 package panels;
 
+import classes.*;
 import frames.FrameHeader;
-import testClasses.*;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -24,7 +23,7 @@ public class ProductsInBoxPanel extends JPanel {
         add(jl_productID);
 
         //Productnaam opvragen en stylen (Sarah)
-        JLabel jl_productname = new JLabel(this.order.getProducts().get(index).getProductname());
+        JLabel jl_productname = new JLabel(this.order.getProducts().get(index).getProductName());
         jl_productname.setFont(new Font("Arial", Font.PLAIN, 17));
         Dimension sizeProductname = jl_productname.getPreferredSize();
         jl_productname.setBounds(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 200)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 30)), sizeProductname.width + FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 10)), sizeProductname.height);

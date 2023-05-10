@@ -8,9 +8,8 @@ import java.io.*;
 import java.util.Objects;
 import javax.swing.*;
 import javax.swing.border.*;
-
+import classes.*;
 import frames.FrameHeader;
-import testClasses.*;
 
 public class PanelProduct extends JPanel implements ActionListener{
     private Order order; //Order waarvan hij de producten laat zien
@@ -34,7 +33,8 @@ public class PanelProduct extends JPanel implements ActionListener{
 
         //Productafbeelding wordt toegevoegd, error bij ontbrekende afbeelding wordt opgevangen (Sarah)
         try {
-            productImg = ImageIO.read(new File(this.order.getProducts().get(index).getImgPath()));
+            String imgPath = this.order.getProducts().get(index).getImgPath();
+            productImg = ImageIO.read(new File("src/images/products/" + imgPath));
         } catch (IOException ex) {
             System.out.println(getClass() + ": no image available");
         }
@@ -64,20 +64,20 @@ public class PanelProduct extends JPanel implements ActionListener{
 
         //Achtergrondkleur geven en lijnen om panel heen zetten (Sarah)
         setBackground(Color.white);
-        g.drawImage(productImg, FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 50)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 25)), null);
-        g.drawRect(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 50)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 25)), FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 135)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 100)));
+        g.drawImage(productImg, FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 50)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 25)), FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 135)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 110)), null);
+        g.drawRect(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 50)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 25)), FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 135)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 110)));
         g.drawLine(0, 0, FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 1720)), 0);
         g.drawLine(0, FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 149)), FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 1720)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 149)));
 
         //Productnaam opvragen en stylen (Sarah)
-        JLabel jl_productname = new JLabel(this.order.getProducts().get(index).getProductname());
+        JLabel jl_productname = new JLabel(this.order.getProducts().get(index).getProductName());
         jl_productname.setFont(new Font("Arial", Font.PLAIN, 20));
         Dimension sizeProductname = jl_productname.getPreferredSize();
         jl_productname.setBounds(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 200)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 30)), sizeProductname.width + FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 10)), sizeProductname.height);
         add(jl_productname);
 
         //ProductID opvragen en stylen (Sarah)
-        JLabel jl_productID = new JLabel(String.valueOf("Artikelnummer: " + this.order.getProducts().get(index).getProductID()));
+        JLabel jl_productID = new JLabel("Artikelnummer: " + this.order.getProducts().get(index).getProductID());
         jl_productID.setFont(new Font("Arial", Font.PLAIN, 20));
         Dimension sizeProductID = jl_productID.getPreferredSize();
         jl_productID.setBounds(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 200)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 60)), sizeProductID.width + FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 10)), sizeProductID.height);
@@ -89,7 +89,8 @@ public class PanelProduct extends JPanel implements ActionListener{
         Dimension sizeJLAmount = jl_amount.getPreferredSize();
         jl_amount.setBounds(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 1000)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 60)), sizeJLAmount.width + FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 10)), sizeJLAmount.height);
         add(jl_amount);
-        jtf_amount = new JTextField(String.valueOf(order.getProducts().get(index).getStock()));
+
+        jtf_amount = new JTextField(String.valueOf(order.getProducts().get(index).getAmountOrdered()));
         jtf_amount.setBackground(setBackground);
         jtf_amount.setBorder(setBorder);
         jtf_amount.setFont(new Font("Arial", Font.PLAIN, 20));

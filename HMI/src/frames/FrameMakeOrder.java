@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ import java.util.Date;
 import static java.lang.String.valueOf;
 
 import panels.*;
-import testClasses.*;
+import classes.*;
 
 public class FrameMakeOrder extends FrameHeader {
     // labels
@@ -68,7 +67,7 @@ public class FrameMakeOrder extends FrameHeader {
         panelLabels.setPreferredSize(new Dimension(getScreenWidth(98f), getScreenHeight(4.5f))); //procenten toevoegen (Joëlle)
 
         //label aanmaken en toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
-        String str_Ordernummer = valueOf(Order.getAmountOfOrders()+1);  // huidige ordernummer meegeven
+        String str_Ordernummer = "4";  // huidige ordernummer meegeven
         jl_orderNumber = new JLabel("Ordernummer: " + str_Ordernummer);
         jl_orderNumber.setFont(arial17);
         panelLabels.add(jl_orderNumber);
@@ -238,7 +237,7 @@ public class FrameMakeOrder extends FrameHeader {
                 //Er wordt een lijste met geselecteerde producten getoond en hierbij wordt de lijst met geslecteerde producten doorlopen (Joëlle)
                 System.out.println("Lijstje met geselecteerde producten:");
                 for(int i = 0; i< selectedProducts.size(); i++){
-                    System.out.println(selectedProducts.get(i).getProductname() + " " + selectedProducts.get(i).getProductID());
+                    System.out.println(selectedProducts.get(i).getProductName() + " " + selectedProducts.get(i).getProductID());
                 }
             }
         }); // actionlistener toevoegen (Joëlle)

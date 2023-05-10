@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.text.*;
 import java.util.*;
-import testClasses.*;
+import classes.*;
 import panels.*;
 public class FrameViewingOrder extends FrameHeader implements ActionListener {
     private Order order; //Order waarvan het frame is
@@ -45,7 +45,7 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
 
         //Datum opvragen, omzetten naar NL format en stylen (Sarah)
         Date date = order.getDate();
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String strDate = dateFormat.format(date);
         JLabel jl_date = new JLabel(strDate);
         jl_date.setFont(arial24);
@@ -54,7 +54,9 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         add(jl_date);
 
         //Naam en nummer van klant opvragen en stylen (Sarah)
-        JLabel jl_customer = new JLabel("Klant: " + order.getCustomer().getCustomername() + ", " + order.getCustomer().getCustomerID());
+        // JLabel jl_customer = new JLabel("Klant: " + order.getCustomer().getCustomerName() + ", " + order.getCustomer().getCustomerID());
+        // jl_customer.setFont(arial30B);
+        JLabel jl_customer = new JLabel("Klant: " + order.getCustomer().getCustomerName() + ", " + order.getCustomer().getCustomerID());
         jl_customer.setFont(arial24);
         Dimension sizeCustomer = jl_customer.getPreferredSize();
         jl_customer.setBounds(getScreenWidth(getPercentage(1536, 810)), getScreenHeight(getPercentage(864, 55)), sizeCustomer.width + + getScreenWidth(getPercentage(1536, 10)), sizeCustomer.height);

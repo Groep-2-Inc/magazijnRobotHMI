@@ -1,10 +1,10 @@
 package frames;
-// Jason Joshua
+// Door Jason Joshua
+// Demo data eruit door Martijn
 
-import testClasses.Activity;
-import testClasses.Customer;
-import testClasses.Order;
-import testClasses.Product;
+import classes.Activity;
+import classes.Order;
+import classes.Product;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -25,13 +25,13 @@ public class FrameController {
         jf_home.setVisible(true);
 
         //dummydata voor de orders pagina
-        Product product = new Product("Fiets", 4, "src/bicycle.jpg");
-        Product product2 = new Product("Auto", 100);
-        Product product3 = new Product("Boot", 11);
-        Product product4 = new Product("Hamer", 11);
-        Product product5 = new Product("Schrift", 11);
-        Product product6 = new Product("Geodriehoek", 11);
-        Product product7 = new Product("Microfoon", 11);
+        Product product = new Product(5, "Fiets", "src/images/bicycle.jpg", 0);
+        Product product2 = new Product(6, "Auto", "", 0);
+        Product product3 = new Product(7, "Boot", "", 0);
+        Product product4 = new Product(8, "Hamer", "", 0);
+        Product product5 = new Product(9, "Schrift", "", 0);
+        Product product6 = new Product(10, "Geodriehoek", "", 0);
+        Product product7 = new Product(11, "Microfoon", "", 0);
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
         products.add(product2);
@@ -40,41 +40,11 @@ public class FrameController {
         products.add(product5);
         products.add(product6);
         products.add(product7);
-        ArrayList<Product> products2 = new ArrayList<>();
-        products.add(product);
-        products.add(product2);
-        Customer customer = new Customer("Piet");
-        Customer customer2 = new Customer("Klaas");
-        Customer customer3 = new Customer("Annabel");
-        Customer customer4 = new Customer("Erik");
-        Order order = new Order(customer, products);
-        Order order2 = new Order(customer2, products);
-        Order order3 = new Order(customer3, products);
-        Order order4 = new Order(customer4, products2);
-        ArrayList<Order> orders= new ArrayList<>();
-        orders.add(order);
-        orders.add(order2);
-        orders.add(order3);
-        orders.add(order);
-        orders.add(order2);
-        orders.add(order3);
-        orders.add(order);
-        orders.add(order2);
-        orders.add(order3);
-        orders.add(order4);
 
         //initialiseer orders frame
-        jf_FrameOrders = new FrameOrders(orders);
+        jf_FrameOrders = new FrameOrders();
 
         //dummydata voor de FrameProducts
-        product = new Product("Fiets", 4, "src/images/bicycle.jpg");
-        product2 = new Product("Auto", 100);
-        product3 = new Product("Boot", 11);
-        product4 = new Product("Hamer", 11);
-        product5 = new Product("Schrift", 11);
-        product6 = new Product("Geodriehoek", 11);
-        product7 = new Product("Microfoon", 11);
-        Product product8 = new Product("Controller", 1456);
         products = new ArrayList<>();
         products.add(product);
         products.add(product2);
@@ -83,11 +53,6 @@ public class FrameController {
         products.add(product5);
         products.add(product6);
         products.add(product7);
-        products.add(product8);
-        customer = new Customer("Piet");
-        customer2 = new Customer("Klaas");
-        order = new Order(customer, products);
-        order2 = new Order(customer2, products);
 
         //initialiseer products frame
         jf_FrameProducts = new FrameProducts(products);
@@ -110,51 +75,44 @@ public class FrameController {
         jf_FrameJournal = new FrameJournal(activities);
 
         //dummydate voor de FrameMakeOrder
-        product = new Product("Fiets", 4);
-        product2 = new Product("Auto", 100);
-        product3 = new Product("Boot", 11);
-        product4 = new Product("Hamer", 11);
-        product5 = new Product("Schrift", 11);
-        product6 = new Product("Geodriehoek", 11);
-        product7 = new Product("Microfoon", 11);
-        products = new ArrayList<>();
-        products.add(product);
-        products.add(product2);
-        products.add(product3);
-        products.add(product4);
-        products.add(product5);
-        products.add(product6);
-        products.add(product7);
-
-        ArrayList<Customer> customers = new ArrayList<>();
-        customer = new Customer("Piet");
-        customer2 = new Customer("Klaas");
-        customer3 = new Customer("Annabel");
-        customer4 = new Customer("Rick");
-        customers.add(customer);
-        customers.add(customer2);
-        customers.add(customer3);
-        customers.add(customer);
-        customers.add(customer2);
-        customers.add(customer3);
-        customers.add(customer4);
-
-        order = new Order(customer, products);
-        order2 = new Order(customer2, products);
-        order3 = new Order(customer3, products);
-        orders= new ArrayList<>();
-        orders.add(order);
-        orders.add(order2);
-        orders.add(order3);
-        orders.add(order);
-        orders.add(order2);
-        orders.add(order3);
-        orders.add(order);
-        orders.add(order2);
-        orders.add(order3);
+//        products = new ArrayList<>();
+//        products.add(product);
+//        products.add(product2);
+//        products.add(product3);
+//        products.add(product4);
+//        products.add(product5);
+//        products.add(product6);
+//        products.add(product7);
+//
+//        ArrayList<Customer> customers = new ArrayList<>();
+//        Customer customer = new Customer(11, "Piet");
+//        Customer customer2 = new Customer(12, "Klaas");
+//        Customer customer3 = new Customer(13, "Annabel");
+//        Customer customer4 = new Customer(14, "Rick");
+//        customers.add(customer);
+//        customers.add(customer2);
+//        customers.add(customer3);
+//        customers.add(customer);
+//        customers.add(customer2);
+//        customers.add(customer3);
+//        customers.add(customer4);
+//
+//        order = new Order(customer, products);
+//        order2 = new Order(customer2, products);
+//        order3 = new Order(customer3, products);
+//        orders= new ArrayList<>();
+//        orders.add(order);
+//        orders.add(order2);
+//        orders.add(order3);
+//        orders.add(order);
+//        orders.add(order2);
+//        orders.add(order3);
+//        orders.add(order);
+//        orders.add(order2);
+//        orders.add(order3);
 
         //initialiseer framemakeorder
-        jf_FrameMakeOrder = new FrameMakeOrder(products, customers);
+//        jf_FrameMakeOrder = new FrameMakeOrder(products, customers);
     }
 
     public static void setActiveFrameHome(JFrame f){ //functie voor het aanzetten van het homeframe

@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.Date;
 import panels.PanelPositie;
-import testClasses.Order;
+import classes.Order;
 
 //door Jason Joshua van der Kolk
 public class FrameVerwerken extends FrameHeader implements ActionListener {
@@ -30,8 +30,8 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
         o_order = order;
         this.i_orderID = order.getOrderID();
         this.i_customerID = order.getCustomer().getCustomerID();
-        this.i_totaalAantalProducten = order.getProductAmount();
-        this.s_customerName = order.getCustomer().getCustomername();
+        this.i_totaalAantalProducten = order.getProductCount();
+        this.s_customerName = order.getCustomer().getCustomerName();
         this.d_date = order.getDate();
 
         //nieuwe pannel aanmaken voor alle informatie
