@@ -1,7 +1,9 @@
 package frames;
 
+import classes.Order;
 import comms.Communication;
 import database.Database;
+import frames.FrameVerwerken;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +18,7 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
     private JButton jb_home = new JButton("Home"); //button om naar het hoofdscherm te gaan
     private JButton jb_orders = new JButton("Orders"); //button om naar het order scherm te gaan
     private JButton jb_producten = new JButton("Producten"); //button om naar het scherm naar producten te gaan
+    private JButton jbProgressPicking = new JButton("Voortgang"); // Knop om naar het voortgangsscherm van het picken te gaan.
     private JButton jb_settings; //button om de settings te openen
     private JButton jb_noodstop; //button voor de noodstop
     private JFrame jf_noodstopFrame; //het noodstopframe
@@ -45,6 +48,8 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
         jmb_main.add(jb_orders);
         jb_producten.addActionListener(this);
         jmb_main.add(jb_producten);
+        jbProgressPicking.addActionListener(this);
+        jmb_main.add(jbProgressPicking);
 
         //zorg ervoor dat in plaats van links nu alles rechts wordt toegevoegd
         jmb_main.add(Box.createHorizontalGlue());
@@ -208,6 +213,14 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
             p_settings.hide();
             b_isShowingSettings = false;
             FrameController.setActiveFrameJournal(this);
+        }
+
+        if (FrameVerwerken.getO_order() != null){
+            if (e.getSource() == jbProgressPicking){
+                p_settings.hide();
+                b_isShowingSettings = false;
+                FrameController.setActiveFrameVerwerken(this, FrameVerwerken.getO_order());
+            }
         }
     }
   

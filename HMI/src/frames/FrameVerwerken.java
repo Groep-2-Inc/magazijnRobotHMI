@@ -21,7 +21,7 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
     private JButton jb_annuleer = new JButton("Annuleer"); //button voor het annuleeren
     private JButton jb_go = new JButton("GO!"); //button voor het starten van het pakken van de orders
     private JButton jb_pakbonnenMaken = new JButton("Pakbonnen maken"); //button voor het aanmaken van de pakbonnen
-    private Order o_order;
+    private static Order o_order;
 
 
     public FrameVerwerken(Order order){
@@ -308,5 +308,9 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
         if(e.getSource() == jb_go){
             System.out.println("er is op de go knop gedrukt");
         }
+    }
+
+    public static Order getO_order() {
+        return o_order;
     }
 }
