@@ -3,6 +3,8 @@
 #include <Wire.h>
 #include <motorController.h>
 #include <slaveCurPositionController.h>
+#include <statusLights.h>
+// #include <manualOrAutoButtons.h>
 
 // globalSpeed - Bepaald de snelheid van de robot.
 // directionPinZ -  Definieert de pinmode van de richting van de z-as.
@@ -23,9 +25,46 @@ void receiveEvent(int bytes){
 void setup() {
   motorSetup();
   encoderSetup();
+  statusLightsSetup();
+  // manualOrAutoButtonsSetup();
+  pinMode(directionPinZ, OUTPUT);
+  pinMode(pwmPinZ, OUTPUT);
+  pinMode(brakePinZ, OUTPUT);
   Wire.begin(9);
   Wire.onReceive(receiveEvent);
   Serial.begin(9600);
+}
+
+
+// Zorgt ervoor dat de z-as naar voren kan bewegen.
+void moveForward(){
+  digitalWrite(directionPinZ, LOW);
+  digitalWrite(brakePinZ, LOW);
+  analogWrite(pwmPinZ, globalSpeed);
+}
+
+// Zorgt ervoor dat de z-as naar achter kan bewegen.
+void moveBackward(){
+  digitalWrite(directionPinZ, HIGH);
+  digitalWrite(brakePinZ, LOW);
+  analogWrite(pwmPinZ, globalSpeed);
+}
+
+// Stopt de z-as van bewegen.
+void stopMovement(){
+  digitalWrite(brakePinZ, HIGH);
+  analogWrite(pwmPinZ, 0);
+}
+
+//Ontvangt status van de Main Arduino en laat op basis hiervan lampjes branden (Sarah)
+void statusLightsOn(){
+  if(x == 21){
+    emergencyLEDOn();
+  } else if(x == 22){
+    manualLEDOn();
+  } else if(x == 23){
+    autoLEDOn();
+  }
 }
 
 void loop() {
@@ -69,4 +108,15 @@ void loop() {
     Wire.endTransmission();
   }
 
+  statusLightsOn();
+
+  // if(isAutoMode()){
+  //   Wire.beginTransmission(9);
+  //   Wire.write(24);
+  //   Wire.endTransmission();
+  // } else if(!isAutoMode()){
+  //   Wire.beginTransmission(9);
+  //   Wire.write(25);
+  //   Wire.endTransmission();
+  // }
 }
