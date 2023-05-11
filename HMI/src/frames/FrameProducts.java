@@ -122,25 +122,25 @@ public class FrameProducts extends FrameHeader implements ActionListener {
             jb_cancel.setVisible(false);
 
             //Instellen dat aantal producten niet meer bewerkt kan worden (wijzigingen worden opgeslagen) (Sarah)
+            int NumberOfChangingProduct = 0;
             for (int i = 0; i < products.size(); i++) {
                 productPanels.get(i).removeAll();
                 productPanels.get(i).editAmount(Color.white, null, false);
 
-                //Aanpassingen aan aantal producten worden opgeslagen, errors worden afgevangen (Sarah)
+                //Aanpassingen aan aantal producten worden opgeslagen, errors worden afgevangen (Sarah), try en catch samengevoegd naar één (Joëlle)
                 try {
-                    try {
-                        products.get(i).setStock(Integer.parseInt(productPanels.get(i).getJtf_amount().getText()));
-                    } catch (NumberFormatException NFE) {
-                        //Foutmelding als er geen nummer wordt ingevoerd (Sarah)
-                        JLabel jl_invalid = new JLabel("Ongeldige waarde");
-                        jl_invalid.setFont(new Font("Arial", Font.BOLD, 20));
-                        jl_invalid.setForeground(Color.red);
-                        jl_invalid.setBounds(getScreenWidth(getPercentage(1536, 300)), getScreenHeight(getPercentage(864, 870)), getScreenWidth(getPercentage(1536, 150)), getScreenHeight(getPercentage(864, 40)));
-                        add(jl_invalid);
-                    }
-                } catch (NullPointerException NPE) {
+                    products.get(i).setStock(Integer.parseInt(productPanels.get(i).getJtf_amount().getText()));
+                    NumberOfChangingProduct = i;
+                } catch (NumberFormatException | NullPointerException ex) {
+                    //Foutmelding als er geen nummer wordt ingevoerd (Sarah)
+                    JLabel jl_invalid = new JLabel("Ongeldige waarde");
+                    jl_invalid.setFont(new Font("Arial", Font.BOLD, 20));
+                    jl_invalid.setForeground(Color.red);
+                    jl_invalid.setBounds(getScreenWidth(getPercentage(1536, 300)), getScreenHeight(getPercentage(864, 870)), getScreenWidth(getPercentage(1536, 150)), getScreenHeight(getPercentage(864, 40)));
+                    add(jl_invalid);
+                    System.out.println(getClass() + ": " + ex);
                 }
-            }
+            }Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Hoeveelheid product met nummer " + products.get(NumberOfChangingProduct).getProductID() + " is aangepast"}); //!! werkt nog niet, bij foute gegevens wordt er ook teogevoegd aan database, in het logboek wordt opgeslagen dat de order is bijgewerkt (Joëlle)
         }
 
         //Als op "Annuleren" wordt gedrukt: (Sarah)

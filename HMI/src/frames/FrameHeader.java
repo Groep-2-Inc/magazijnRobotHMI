@@ -98,17 +98,6 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
         p_settings = pf.getPopup(this, p2, getScreenWidth(93.75f), getScreenHeight(5.555f));
     }
 
-    public void itemStateChanged(ItemEvent eve) {
-        //switch van dark/light mode
-        if (jtb_darkMode.isSelected()){
-            jtb_darkMode.setIcon(ii_switchOn);
-            b_darkMode = true;
-        } else {
-            b_darkMode = false;
-            jtb_darkMode.setIcon(ii_switchOff);
-        }
-    }
-
     public void noodStop(){
         //initializeer de noodstopframe
         jf_noodstopFrame = new JFrame("NOODSTOP");
@@ -182,6 +171,7 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
         //als de noodstop wordt ingedrukt open het noodstopframe
         if(e.getSource() == jb_noodstop){
             noodStop();
+            System.out.println(Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "De noodstop is ingedrukt"})); // in het logbook wordt opgeslagen dat de noodstop is ingedrukt(Joëlle)
         }
 
         //als de noodstopSluiten knop wordt ingedrukt sluit het noodstopFrame
@@ -221,6 +211,19 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
                 b_isShowingSettings = false;
                 FrameController.setActiveFrameVerwerken(this, FrameVerwerken.getO_order());
             }
+        }
+    }
+
+    public void itemStateChanged(ItemEvent eve) {
+        //switch van dark/light mode
+        if (jtb_darkMode.isSelected()){
+            jtb_darkMode.setIcon(ii_switchOn);
+            b_darkMode = true;
+            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Dark mode is ingesteld!"}); // in het logboek wordt opgeslagen dat dark mode wordt ingesteld (Joëlle)
+        } else {
+            b_darkMode = false;
+            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Light mode is ingesteld!"}); // in het logboek wordt opgeslagen dat light mode wordt ingesteld (Joëlle)
+            jtb_darkMode.setIcon(ii_switchOff);
         }
     }
   

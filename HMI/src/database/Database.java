@@ -31,7 +31,8 @@ public class Database {
                 hasDbConnection = true;
                 // Werkt de status bij in de applicatie
                 PanelStatus.updateStatus();
-            // Als de try is mislukt worden twee foutmeldingen getoond.
+                Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Database verbinding gemaakt"});
+                // Als de try is mislukt worden twee foutmeldingen getoond.
             }catch (Exception e){
                 System.out.println(Database.class + ": " + e); // Foutmelding met details.
             }
@@ -46,6 +47,20 @@ public class Database {
         return hasDbConnection;
     }
 
+    // Controleert of een String omgezet kan worden naar een int
+    // Door Martijn
+    public static boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+
     // Methode die data ophaalt uit de database.
     public static JSONArray getDbData(String query, String[] placeholders){
         JSONArray data = new JSONArray();
@@ -58,7 +73,14 @@ public class Database {
                 PreparedStatement pstmt = con.prepareStatement(query);
                 // Voor elk vraagteken in de preparedstatement wordt een placeholder ingevuld.
                 for (int i = 0; i < placeholders.length; i++){
-                    pstmt.setObject(i + 1, placeholders[i]);
+                    // Als de placeholder een int is
+                    if(isNumeric(placeholders[i])){
+                        // Zet hem om naar een int
+                        pstmt.setObject(i + 1, Integer.parseInt(placeholders[i]));
+                    }else{
+                        // Anders gebruik de normale String
+                        pstmt.setObject(i + 1, placeholders[i]);
+                    }
                 }
                 // Voert de query uit.
                 ResultSet rs = pstmt.executeQuery();
@@ -118,6 +140,7 @@ public class Database {
 
     // Methode die de verbinding verbreekt met de database.
     public static boolean stopConnection(){
+        Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Database verbinding verbroken"});
         // Als er een verbinding is
         if(hasDbConnection){
             try {

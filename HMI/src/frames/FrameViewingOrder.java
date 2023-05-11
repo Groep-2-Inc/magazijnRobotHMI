@@ -5,8 +5,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.text.*;
 import java.util.*;
+import database.Database;
 import classes.*;
 import panels.*;
+
 public class FrameViewingOrder extends FrameHeader implements ActionListener {
     private Order order; //Order waarvan het frame is
     private JButton jb_change, jb_cancel, jb_pick, jb_save, jb_back; //Buttons die in het scherm gebruikt worden
@@ -26,7 +28,6 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         setLayout(null);
 
         //Pijltje terug (naar FrameOrders) aanmaken en stylen (Sarah)
-        //TODO pijltje terug moet nog werkend gemaakt worden
         ImageIcon arrowBack = new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/arrowLeft.png")));
         jb_back = new JButton(arrowBack);
         jb_back.setBounds(getScreenWidth(getPercentage(1536, 20)), getScreenHeight(getPercentage(864, 10)), getScreenWidth(getPercentage(1536, 40)), getScreenHeight(getPercentage(864, 28)));
@@ -54,8 +55,6 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         add(jl_date);
 
         //Naam en nummer van klant opvragen en stylen (Sarah)
-        // JLabel jl_customer = new JLabel("Klant: " + order.getCustomer().getCustomerName() + ", " + order.getCustomer().getCustomerID());
-        // jl_customer.setFont(arial30B);
         JLabel jl_customer = new JLabel("Klant: " + order.getCustomer().getCustomerName() + ", " + order.getCustomer().getCustomerID());
         jl_customer.setFont(arial24);
         Dimension sizeCustomer = jl_customer.getPreferredSize();
@@ -142,26 +141,27 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
             jb_save.setVisible(false);
             jb_cancel.setVisible(false);
 
+            int NumberOfChangingProduct = 0;
             //Kruisje om producten uit lijst te verwijderen wordt onzichtbaar en aantal producten kan niet meer worden aangepast (wijzigingen worden opgeslagen) (Sarah)
             for (int i = 0; i < order.getProducts().size(); i++) {
                 productPanels.get(i).editDelete(false);
                 productPanels.get(i).removeAll();
                 productPanels.get(i).editAmount(Color.white, null, false);
 
-                //Aanpassingen aan aantal producten worden opgeslagen, errors worden afgevangen (Sarah)
+                //Aanpassingen aan aantal producten worden opgeslagen, errors worden afgevangen (Sarah), try en catch samengevoegd naar één (Joëlle)
                 try {
-                    try {
-                        order.getProducts().get(i).setStock(Integer.parseInt(productPanels.get(i).getJtf_amount().getText()));
-                    } catch (NumberFormatException NFE) {
-                        //Foutmelding als er geen nummer wordt ingevoerd (Sarah)
-                        JLabel jl_invalid = new JLabel("Ongeldige waarde");
-                        jl_invalid.setFont(new Font("Arial", Font.BOLD, 20));
-                        jl_invalid.setForeground(Color.red);
-                        jl_invalid.setBounds(getScreenWidth(getPercentage(1536, 500)), getScreenHeight(getPercentage(864, 670)), getScreenWidth(getPercentage(1536, 250)), getScreenHeight(getPercentage(864, 40)));
-                        add(jl_invalid);
-                    }
-                } catch (NullPointerException NPE) {}
+                    order.getProducts().get(i).setStock(Integer.parseInt(productPanels.get(i).getJtf_amount().getText()));
+                    NumberOfChangingProduct = i;
+                } catch (NumberFormatException NFE) {
+                    //Foutmelding als er geen nummer wordt ingevoerd (Sarah)
+                    JLabel jl_invalid = new JLabel("Ongeldige waarde");
+                    jl_invalid.setFont(new Font("Arial", Font.BOLD, 20));
+                    jl_invalid.setForeground(Color.red);
+                    jl_invalid.setBounds(getScreenWidth(getPercentage(1536, 500)), getScreenHeight(getPercentage(864, 670)), getScreenWidth(getPercentage(1536, 250)), getScreenHeight(getPercentage(864, 40)));
+                    add(jl_invalid);
+                }
             }
+            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Order " +  order.getOrderID() +" is bijgewerkt"}); //!! werkt nog niet, bij foute gegevens wordt er ook teogevoegd aan database, in het logbook wordt opgeslagen dat de order is bijgewerkt (Joëlle)
         }
 
         //Als op "Annuleren" wordt gedrukt: (Sarah)
@@ -181,14 +181,14 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         }
 
         //naar pick scherm, door Jason Joshua van der Kolk
-        if (e.getSource() == jb_pick){
+        if (e.getSource() == jb_pick) {
             FrameController.setActiveFrameVerwerken(this, order);
+            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "TSP en BPM wordt berekend"}); // in het logbook wordt opgeslagen dat de TSP en BPM worden berekend(Joëlle)
         }
 
-        if(e.getSource() == jb_back){
+        //terug naar het order scherm (Joëlle)
+        if (e.getSource() == jb_back) {
             FrameController.setActiveFrameOrders(this);
-            System.out.println("er is op de terug knop gedrukt");
         }
-
     }
 }

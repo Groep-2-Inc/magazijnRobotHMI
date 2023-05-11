@@ -31,18 +31,18 @@ public class PanelOrder extends JPanel {
         jlOrderID.setBounds(FrameHeader.getScreenWidth(3.255208333f), FrameHeader.getScreenHeight(2f), sizeOrderID.width + 10, sizeOrderID.height); // x = 50 pixels, y = 40 pixels
 
         //label aanmaken voor de naam en juiste lettertype, grootte en plaats meegegeven (Joëlle)
-        JLabel jlCustomerName = new JLabel(this.order.getCustomer().getCustomerName());
-        jlCustomerName.setFont(arial20);
-        add(jlCustomerName);
-        Dimension sizeCustomerName = jlCustomerName.getPreferredSize();
-        jlCustomerName.setBounds(FrameHeader.getScreenWidth(26.04166667f), FrameHeader.getScreenHeight(2f), sizeCustomerName.width + 10, sizeCustomerName.height); // x = 400 pixels, y = 40 pixels
+        JLabel jlCustomerNameAndID = new JLabel(this.order.getCustomer().getCustomerName() + ", " + this.order.getCustomer().getCustomerID());
+        jlCustomerNameAndID.setFont(arial20);
+        add(jlCustomerNameAndID);
+        Dimension sizeCustomerName = jlCustomerNameAndID.getPreferredSize();
+        jlCustomerNameAndID.setBounds(FrameHeader.getScreenWidth(20f), FrameHeader.getScreenHeight(2f), sizeCustomerName.width + 10, sizeCustomerName.height); // x = 400 pixels, y = 40 pixels
 
-        //label aanmaken voor de custumerID, int waarde omgezet naar string en juiste lettertype, grootte en plaats meegegeven (Joëlle)
-        JLabel jlCustomerID = new JLabel(", " + this.order.getCustomer().getCustomerID());
-        jlCustomerID.setFont(arial20);
-        add(jlCustomerID);
-        Dimension sizeCustomerID = jlCustomerID.getPreferredSize();
-        jlCustomerID.setBounds(FrameHeader.getScreenWidth(26.171875f) + sizeCustomerName.width , FrameHeader.getScreenHeight(2f), sizeCustomerID.width + 10, sizeCustomerID.height); // x = 402 pixels + size customerName.width, y = 40 pixels
+//        //label aanmaken voor de custumerID, int waarde omgezet naar string en juiste lettertype, grootte en plaats meegegeven (Joëlle)
+//        JLabel jlCustomerID = new JLabel(", " + this.order.getCustomer().getCustomerID());
+//        jlCustomerID.setFont(arial20);
+//        add(jlCustomerID);
+//        Dimension sizeCustomerID = jlCustomerID.getPreferredSize();
+//        jlCustomerID.setBounds(FrameHeader.getScreenWidth(26.171875f) + sizeCustomerName.width , FrameHeader.getScreenHeight(2f), sizeCustomerID.width + 10, sizeCustomerID.height); // x = 402 pixels + size customerName.width, y = 40 pixels
 
         //label aanmaken voor de producten, int waarde omgezet naar string en juiste lettertype, grootte en plaats meegegeven (Joëlle)
         String stringProductAmount = valueOf(this.order.getProductCount());
@@ -60,6 +60,14 @@ public class PanelOrder extends JPanel {
         jlDate.setFont(arial20);
         add(jlDate);
         Dimension sizeDate = jlDate.getPreferredSize();
-        jlDate.setBounds(FrameHeader.getScreenWidth(71.61458333f), FrameHeader.getScreenHeight(2f), sizeDate.width +15, sizeDate.height); // x = 1100 pixels, y = 40 pixels
+        jlDate.setBounds(FrameHeader.getScreenWidth(67f), FrameHeader.getScreenHeight(2f), sizeDate.width +15, sizeDate.height); // x = 1100 pixels, y = 40 pixels
+
+        //label aanmaken voor de datum, datum converteren naar bepaald patroon en juiste lettertype, grootte en plaats meegeven (Joëlle)
+        JLabel jlOrderCompleted = new JLabel(this.order.getTextOrderCompleted());
+        jlOrderCompleted.setForeground(this.order.getColorTextOrderCompleted());
+        jlOrderCompleted.setFont(arial20);
+        add(jlOrderCompleted);
+        Dimension sizeOrderCompleted = jlOrderCompleted.getPreferredSize();
+        jlOrderCompleted.setBounds(FrameHeader.getScreenWidth(84f), FrameHeader.getScreenHeight(2f), sizeOrderCompleted.width +15, sizeOrderCompleted.height); // x = 1100 pixels, y = 40 pixels
     }
 }
