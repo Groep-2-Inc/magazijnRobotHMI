@@ -2,10 +2,7 @@ package frames;
 
 import java.awt.*;
 import javax.swing.*;
-<<<<<<< Updated upstream
 import javax.swing.border.LineBorder;
-=======
->>>>>>> Stashed changes
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -105,17 +102,11 @@ public class FrameJournal extends FrameHeader {
 
     private void getLogbookData() {
         JSONArray allActivities;
-<<<<<<< Updated upstream
-        activities.clear();
-
-        // Haalt alle data op en zet deze in de array (Joëlle)
-        allActivities = Database.getDbData("SELECT id, type, text, date FROM logbook ORDER BY id DESC", new String[]{});
-=======
 //        activities.clear();
 
         // Haalt alle data op en zet deze in de array (Joëlle)
         allActivities = Database.getDbData("SELECT id, type, text, date FROM logbook ORDER BY id desc \n", new String[]{});
->>>>>>> Stashed changes
+
 
         for(Object singelLogbookData: allActivities){
             // Zet het Object om naar een JSON-object (Joëlle)
