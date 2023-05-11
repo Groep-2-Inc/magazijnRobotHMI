@@ -2,14 +2,11 @@ package frames;
 // Door Jason Joshua
 // Demo data eruit door Martijn
 
-import classes.Activity;
 import classes.Order;
 import classes.Product;
 
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Date;
-
 
 public class FrameController {
     private static FrameHome jf_home = new FrameHome();

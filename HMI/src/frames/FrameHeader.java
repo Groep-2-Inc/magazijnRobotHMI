@@ -98,17 +98,6 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
         p_settings = pf.getPopup(this, p2, getScreenWidth(93.75f), getScreenHeight(5.555f));
     }
 
-    public void itemStateChanged(ItemEvent eve) {
-        //switch van dark/light mode
-        if (jtb_darkMode.isSelected()){
-            jtb_darkMode.setIcon(ii_switchOn);
-            b_darkMode = true;
-        } else {
-            b_darkMode = false;
-            jtb_darkMode.setIcon(ii_switchOff);
-        }
-    }
-
     public void noodStop(){
         //initializeer de noodstopframe
         jf_noodstopFrame = new JFrame("NOODSTOP");

@@ -13,13 +13,13 @@ import org.json.simple.JSONObject;
 import classes.*;
 
 public class FrameJournal extends FrameHeader {
-    private ArrayList<Activity> activities; // lijst met activeiten (Joëlle)
+    private ArrayList<Activity> activities = new ArrayList<>(); // lijst met activeiten (Joëlle)
     private JLabel jl_journal =new JLabel("Logboek");
 
     public FrameJournal() {
         getLogbookData();
-//        this.activities = activities;
         closeProgram();
+
         setTitle("Java-application/Logboek"); // moet nog een betere titel komen lijkt mij (Joëlle)
 
         //Panel toevoegen voor de titel (Joëlle)
@@ -63,10 +63,9 @@ public class FrameJournal extends FrameHeader {
 
     private void getLogbookData() {
         JSONArray allActivities;
-//        activities.clear();
 
         // Maakt de basis query, wat bij elke query hetzelfde is (Joëlle)
-        String baseQuery = "SELECT logbook.id, logbook.type, logbook.text, logbook.date FROM logbook ORDER BY id desc \n";
+        String baseQuery = "SELECT id, type, text, date FROM logbook ORDER BY id DESC";
 
         // Haalt alle data op en zet deze in de array (Joëlle)
         allActivities = Database.getDbData(baseQuery, new String[]{});
@@ -89,10 +88,8 @@ public class FrameJournal extends FrameHeader {
             // Maak een nieuwe Activiteit aan met data uit het logbook
             Activity activity = new Activity(Integer.parseInt((String) logbookData.get("id")), Integer.parseInt((String) logbookData.get("type")), logbookDate, String.valueOf(logbookData.get("text")));
 
-
-        //voeg de activiteit toe aan de activiteiten ArrayList
-        activities.add(activity);
+            //voeg de activiteit toe aan de activiteiten ArrayList
+            activities.add(activity);
+        }
     }
-}
-
 }
