@@ -305,6 +305,7 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
         //ga naar het pakbonnenmakenscherm
         if(e.getSource() == jb_pakbonnenMaken){
             FrameController.setActiveFramePackingList(this, o_order);
+            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Pakbon is gemaakt"}); // in het logboek wordt opgeslagen dat pakbon is gemaakt (Joëlle)
         }
 
         if(e.getSource() == jb_annuleer){

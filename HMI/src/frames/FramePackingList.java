@@ -1,5 +1,6 @@
 package frames;
 
+import database.Database;
 import panels.ProductsInBoxPanel;
 import classes.*;
 
@@ -86,6 +87,7 @@ public class FramePackingList extends FrameHeader implements ActionListener {
         super.actionPerformed(e);
         //Als er op "Exporteer als PDF" wordt gedrukt: (Sarah)
         if(e.getSource() == jb_export){
+            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "De pakbon is ge-exporteerd als PDF!"}); // in het logboek wordt opgeslagen dat pakbon is ge-exporteerd als PDF(Joëlle)
             //Melding die laat zien dat de download geslaagd is (Sarah)
             //TODO daadwerkelijk PDF-bestand aanmaken en downloaden
             JLabel jl_exported = new JLabel("Download is gelukt");
@@ -94,6 +96,7 @@ public class FramePackingList extends FrameHeader implements ActionListener {
             jl_exported.setBounds(getScreenWidth(getPercentage(1536, 1000)), getScreenHeight(getPercentage(864, 720)), getScreenWidth(getPercentage(1536, 250)), getScreenHeight(getPercentage(864, 40)));
             add(jl_exported);
             repaint();
+
         }
     }
 }

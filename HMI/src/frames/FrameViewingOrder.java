@@ -141,6 +141,7 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
             jb_save.setVisible(false);
             jb_cancel.setVisible(false);
 
+            int NumberOfChangingProduct = 0;
             //Kruisje om producten uit lijst te verwijderen wordt onzichtbaar en aantal producten kan niet meer worden aangepast (wijzigingen worden opgeslagen) (Sarah)
             for (int i = 0; i < order.getProducts().size(); i++) {
                 productPanels.get(i).editDelete(false);
@@ -150,6 +151,7 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
                 //Aanpassingen aan aantal producten worden opgeslagen, errors worden afgevangen (Sarah), try en catch samengevoegd naar één (Joëlle)
                 try {
                     order.getProducts().get(i).setStock(Integer.parseInt(productPanels.get(i).getJtf_amount().getText()));
+                    NumberOfChangingProduct = i;
                 } catch (NumberFormatException NFE) {
                     //Foutmelding als er geen nummer wordt ingevoerd (Sarah)
                     JLabel jl_invalid = new JLabel("Ongeldige waarde");
@@ -159,7 +161,7 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
                     add(jl_invalid);
                 }
             }
-            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Order ... is bijgewerkt"}); //!! werkt nog niet, bij foute gegevens wordt er ook teogevoegd aan database, in het logbook wordt opgeslagen dat de order is bijgewerkt (Joëlle)
+            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Order " +  order.getOrderID() +" is bijgewerkt"}); //!! werkt nog niet, bij foute gegevens wordt er ook teogevoegd aan database, in het logbook wordt opgeslagen dat de order is bijgewerkt (Joëlle)
         }
 
         //Als op "Annuleren" wordt gedrukt: (Sarah)
