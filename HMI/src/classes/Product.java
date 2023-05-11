@@ -4,6 +4,14 @@ package classes;
 public class Product {
     private int productID;
     private String productName;
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productID=" + productID +
+                '}';
+    }
+
     private String imgPath;
     private int amountOrdered; // New!
     private int stock;
@@ -16,8 +24,8 @@ public class Product {
         this.stock = 0;
     }
 
-    public Product(int productID, String productName, String imgPath, int stock, int amountOrdered){
-        this(productID, productName, imgPath, amountOrdered);
+    public Product(int productID, String productName, int stock, String imgPath){
+        this(productID, productName, imgPath, 0);
         this.stock = stock;
     }
 

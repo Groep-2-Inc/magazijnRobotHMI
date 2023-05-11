@@ -55,7 +55,7 @@ public class FrameController {
         products.add(product7);
 
         //initialiseer products frame
-        jf_FrameProducts = new FrameProducts(products);
+        jf_FrameProducts = new FrameProducts();
 
         //dummydata journal frame
         ArrayList<Activity> activities = new ArrayList<>();
