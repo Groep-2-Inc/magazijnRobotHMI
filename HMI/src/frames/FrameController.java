@@ -92,22 +92,22 @@ public class FrameController {
         //initialiseer products frame
         jf_FrameProducts = new FrameProducts(products);
 
-        //dummydata journal frame
-        ArrayList<Activity> activities = new ArrayList<>();
-        Date date = new Date();
-        Activity a1 = new Activity(date, "logboek openen");
-        Activity a2 = new Activity(date, "statis bekijken");
-        Activity a3 = new Activity(date, "darkmode ingesteld");
-        Activity a4 = new Activity(date, "einde bereikt");
-        for(int i = 0 ; i < 30; i++){
-            activities.add(a1);
-            activities.add(a2);
-            activities.add(a3);
-        }
-        activities.add(a4);
+//        //dummydata journal frame
+//        ArrayList<Activity> activities = new ArrayList<>();
+//        Date date = new Date();
+//        Activity a1 = new Activity(date, "logboek openen");
+//        Activity a2 = new Activity(date, "statis bekijken");
+//        Activity a3 = new Activity(date, "darkmode ingesteld");
+//        Activity a4 = new Activity(date, "einde bereikt");
+//        for(int i = 0 ; i < 30; i++){
+//            activities.add(a1);
+//            activities.add(a2);
+//            activities.add(a3);
+//        }
+//        activities.add(a4);
 
         //initialiseer journal frame
-        jf_FrameJournal = new FrameJournal(activities);
+        jf_FrameJournal = new FrameJournal();
 
         //dummydate voor de FrameMakeOrder
         product = new Product("Fiets", 4);

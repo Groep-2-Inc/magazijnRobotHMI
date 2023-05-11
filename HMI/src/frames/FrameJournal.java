@@ -5,18 +5,23 @@ import javax.swing.*;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import database.Database;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import testClasses.*;
 
 public class FrameJournal extends FrameHeader {
     private ArrayList<Activity> activities; // lijst met activeiten (Joëlle)
     private JLabel jl_journal =new JLabel("Logboek");
 
-
-    public FrameJournal(ArrayList<Activity> activities) {
-        this.activities = activities;
+    public FrameJournal() {
+        getLogbookData();
+//        this.activities = activities;
         closeProgram();
 
         //Panel toevoegen voor de titel (Joëlle)
@@ -49,7 +54,7 @@ public class FrameJournal extends FrameHeader {
             DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm");
             String strDate = dateFormat.format(date);
 
-            label.setText(strDate + " " + activities.get(i).getActivityDescription());
+            label.setText(strDate + " ID:" + activities.get(i).getId() + "type: " + activities.get(i).getTypeText() + " - " + activities.get(i).getActivityDescription());
             panel.add(label);
         }
 
@@ -64,4 +69,39 @@ public class FrameJournal extends FrameHeader {
         super.add(scrollPane); // scrollpane toevoegen aan de hoofdpagina (Joëlle)
 
     }
+
+    private void getLogbookData() {
+        JSONArray allActivities;
+//        activities.clear();
+
+        // Maakt de basis query, wat bij elke query hetzelfde is (Joëlle)
+        String baseQuery = "SELECT logbook.id, logbook.type, logbook.text, logbook.date FROM logbook ORDER BY id desc \n";
+
+        // Haalt alle data op en zet deze in de array (Joëlle)
+        allActivities = Database.getDbData(baseQuery, new String[]{});
+
+        for(Object singelLogbookData: allActivities){
+            // Zet het Object om naar een JSON-object
+            JSONObject logbookData = (JSONObject) singelLogbookData;
+
+            // Maak een nieuwe default date aan
+            Date logbookDate = new Date(2013, 1, 1);
+            try{
+                // Probeer een nieuwe date format aan te maken
+                DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                // Zet de String uit de order om naar een Date object
+                logbookDate = sdf.parse(String.valueOf(logbookData.get("date")));
+            }catch (ParseException pe){
+                System.out.println(getClass() + "Framelogbook(): " + pe);
+            }
+
+            // Maak een nieuwe Activiteit aan met data uit het logbook
+            Activity activity = new Activity(Integer.parseInt((String) logbookData.get("id")), Integer.parseInt((String) logbookData.get("type")), logbookDate, String.valueOf(logbookData.get("text")));
+
+
+        //voeg de activiteit toe aan de activiteiten ArrayList
+        activities.add(activity);
+    }
+}
+
 }
