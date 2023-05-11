@@ -102,9 +102,7 @@ public class FrameController {
 
     public static void setActiveFrameHome(JFrame f){ //functie voor het aanzetten van het homeframe
         if(jf_home != f){
-            Activity.getLogbookData(10);
-            jf_home.dispose();
-            jf_home = new FrameHome();
+            jf_home.updateLogbookPanel();
             jf_home.setVisible(true);
             f.setVisible(false);
         }

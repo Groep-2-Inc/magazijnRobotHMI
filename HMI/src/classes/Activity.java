@@ -48,6 +48,7 @@ public class Activity {
     // Eerste versie door Joëlle
     // Verplaats door Martijn
     public static void getLogbookData(int limit){
+        System.out.println("data bijgewerkt");
         activities.clear();
 
         // Haalt alle data op en zet deze in de array (Joëlle)

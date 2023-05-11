@@ -9,6 +9,8 @@ import classes.Activity;
 import frames.*;
 
 public class PanelLogbook extends JPanel{
+    JPanel table = tabel();
+    JScrollPane scrollPane;
     public PanelLogbook(){
         //initializeer het hoofd paneel
         setLayout(new FlowLayout());
@@ -26,7 +28,14 @@ public class PanelLogbook extends JPanel{
         titelPannel.setFont(new Font("Arial", Font.BOLD, 14));
         add(titelPannel);
 
+        // Voegt de scrollpane toe
+        scrollPane();
+    }
+
+    // Maakt de tabel en returnt hem
+    public JPanel tabel(){
         Activity.getLogbookData(10);
+
         //nieuw paneel voor alle informatie
         JPanel table = new JPanel();
         table.setLayout(new FlowLayout());
@@ -43,10 +52,23 @@ public class PanelLogbook extends JPanel{
             table.add(tableRow);
         }
 
+        return table;
+    }
+
+    // Maakt het paneel
+    public void scrollPane(){
         //maar het scrollpane en voeg uiteindelijk het scrollpane toe.
-        JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.getVerticalScrollBar().setUnitIncrement(14);
         scrollPane.setPreferredSize(new Dimension(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1920, 896)),FrameHeader.getScreenHeight(FrameHeader.getPercentage(1080, 358))));
         add(scrollPane);
+    }
+
+    // Updates the panel
+    public void updatePanel(){
+        super.remove(table);
+        super.remove(scrollPane);
+        table = tabel();
+        scrollPane();
     }
 }
