@@ -52,7 +52,9 @@ void loop() {
   } else if (x == 5){
     canMove = !canMove;
   } else if (x == 6 || x == 7 || x == 8 || x == 9 || x == 10){
-    moveY(x-5);
+    if(getHasMoved() == false){
+      moveY(x-5);
+    }
   } else if (x == 11){
     resetHasMoved();
   }
@@ -62,7 +64,9 @@ void loop() {
   Wire.write(101);
   Wire.endTransmission();
   } else {
+    Wire.beginTransmission(9);
     Wire.write(100);
+    Wire.endTransmission();
   }
 
 }

@@ -10,8 +10,8 @@
 
 bool hasHomed = false;
 bool moved = false;
-int x = 2;
-int y = 5;
+int x = 0;
+int y = 0;
 
 // Sets correct pinmodes
 void setup() {  
@@ -33,9 +33,13 @@ void loop() {
 		hasHomed = true;
 	}
 
+
+	x = getCorX(fromJava());
+	y = getCorY(fromJava());
 	
 
-	
+	// x = getCorX(424);
+	// y = getCorY(424);
 
     checkStop();
 	// // checkEndStopX();
@@ -47,18 +51,22 @@ void loop() {
 
 	if(!isEmergency()){
 		manualControl();
-		if(moved == false && moveXY(x, y) == true){
+
+		if(x != 0 && y != 0){
+			if(moved == false && moveXY(x, y) == true){
 			moved = true;
-		}else if (moved == true){
-			moved = false;
-			x = 7;
-			y = 1;
-			moveXY(x, y);
-			resetHasMoved();
-			toSlaveArduino(11);
-			resetBoolXY();
-			
+			}
 		}
+		
+		// }else if (moved == true){
+		// 	x = 7;
+		// 	y = 1;
+		// 	// moveXY(x, y);
+		// 	toSlaveArduino(11);
+		// 	resetHasMoved();
+		// 	resetBoolXY();
+		// 	moved = false;
+		// }
 	}
 
 	Serial.println(getFromSlave());

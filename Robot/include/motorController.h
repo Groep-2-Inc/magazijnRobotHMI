@@ -14,3 +14,5 @@ void resetHasMoved();
 void moveY (int);
 bool moveXY(int, int);
 void resetBoolXY();
+int getCorX(int);
+int getCorY(int);

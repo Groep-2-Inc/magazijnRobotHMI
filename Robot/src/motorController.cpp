@@ -120,6 +120,52 @@ bool returnHasMoved(){
     return hasMoved;
 }
 
+int getCorX(int serialmessage){
+    switch(serialmessage){
+        case 401: case 411: case 421: case 431: case 441:
+            return 1;
+            break;
+        case 402: case 412: case 422: case 432: case 442:
+            return 2;
+            break;
+        case 403: case 413: case 423: case 433: case 443:
+            return 3;
+            break;
+        case 404: case 414: case 424: case 434: case 444:
+            return 4;
+            break;
+        case 405: case 415: case 425: case 435: case 445:
+            return 5;
+            break;
+        default:
+            return 0;
+            break;
+    }
+}
+
+int getCorY(int serialmessage){
+    switch(serialmessage){
+        case 401: case 402: case 403: case 404: case 405:
+            return 1;
+            break;
+        case 411: case 412: case 413: case 414: case 415:
+            return 2;
+            break;
+        case 421: case 422: case 423: case 424: case 425:
+            return 3;
+            break;
+        case 431: case 432: case 433: case 434: case 435:
+            return 4;
+            break;
+        case 441: case 442: case 443: case 444: case 445:
+            return 5;
+            break;
+        default:
+            return 0;
+            break;
+    }
+}
+
 // Deze functie zorgt ervoor dat de robot manueel gebruikt kan worden.
 void manualControl(){
     // resetEndStop();
