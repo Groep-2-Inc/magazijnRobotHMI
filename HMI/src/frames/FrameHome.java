@@ -1,7 +1,7 @@
 package frames;
 //Door Jason Joshua
 
-import panels.PanelLogboek;
+import panels.PanelLogbook;
 import panels.PanelOrderStatus;
 import panels.PanelPositie;
 import panels.PanelStatus;
@@ -21,10 +21,9 @@ public class FrameHome extends FrameHeader{
         f.add(new PanelPositie());
         f.add(new PanelStatus());
         f.add(new PanelOrderStatus());
-        f.add(new PanelLogboek());
+        f.add(new PanelLogbook());
 
         //voeg het hoofd paneel toe
         add(f);
-//        setVisible(true);
     }
 }

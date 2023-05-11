@@ -28,7 +28,6 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         setLayout(null);
 
         //Pijltje terug (naar FrameOrders) aanmaken en stylen (Sarah)
-        //TODO pijltje terug moet nog werkend gemaakt worden
         ImageIcon arrowBack = new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/arrowLeft.png")));
         jb_back = new JButton(arrowBack);
         jb_back.setBounds(getScreenWidth(getPercentage(1536, 20)), getScreenHeight(getPercentage(864, 10)), getScreenWidth(getPercentage(1536, 40)), getScreenHeight(getPercentage(864, 28)));
@@ -56,8 +55,6 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         add(jl_date);
 
         //Naam en nummer van klant opvragen en stylen (Sarah)
-        // JLabel jl_customer = new JLabel("Klant: " + order.getCustomer().getCustomerName() + ", " + order.getCustomer().getCustomerID());
-        // jl_customer.setFont(arial30B);
         JLabel jl_customer = new JLabel("Klant: " + order.getCustomer().getCustomerName() + ", " + order.getCustomer().getCustomerID());
         jl_customer.setFont(arial24);
         Dimension sizeCustomer = jl_customer.getPreferredSize();

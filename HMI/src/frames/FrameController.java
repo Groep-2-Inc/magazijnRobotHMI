@@ -2,6 +2,7 @@ package frames;
 // Door Jason Joshua
 // Demo data eruit door Martijn
 
+import classes.Activity;
 import classes.Order;
 import classes.Product;
 
@@ -13,12 +14,13 @@ public class FrameController {
     private static FrameVerwerken jf_FrameVerwerken;
     private static FrameOrders jf_FrameOrders;
     private static FrameProducts jf_FrameProducts;
-    private static FrameJournal jf_FrameJournal;
+    private static FrameLogbook jf_FrameJournal;
     private static FrameViewingOrder jf_FrameViewingOrder;
     private static FramePackingList jf_FramePackingList;
     private static FrameMakeOrder jf_FrameMakeOrder;
 
     public FrameController(){
+        Activity.getLogbookData(10);
         jf_home.setVisible(true);
 
         //dummydata voor de orders pagina
@@ -54,22 +56,8 @@ public class FrameController {
         //initialiseer products frame
         jf_FrameProducts = new FrameProducts(products);
 
-//        //dummydata journal frame
-//        ArrayList<Activity> activities = new ArrayList<>();
-//        Date date = new Date();
-//        Activity a1 = new Activity(date, "logboek openen");
-//        Activity a2 = new Activity(date, "statis bekijken");
-//        Activity a3 = new Activity(date, "darkmode ingesteld");
-//        Activity a4 = new Activity(date, "einde bereikt");
-//        for(int i = 0 ; i < 30; i++){
-//            activities.add(a1);
-//            activities.add(a2);
-//            activities.add(a3);
-//        }
-//        activities.add(a4);
-
         //initialiseer journal frame
-        jf_FrameJournal = new FrameJournal();
+        jf_FrameJournal = new FrameLogbook();
 
         //dummydate voor de FrameMakeOrder
 //        products = new ArrayList<>();
@@ -114,6 +102,9 @@ public class FrameController {
 
     public static void setActiveFrameHome(JFrame f){ //functie voor het aanzetten van het homeframe
         if(jf_home != f){
+            Activity.getLogbookData(10);
+            jf_home.dispose();
+            jf_home = new FrameHome();
             jf_home.setVisible(true);
             f.setVisible(false);
         }
@@ -137,6 +128,9 @@ public class FrameController {
 
     public static void setActiveFrameJournal(JFrame f){ //functie voor het aanzetten van het journal
         if(jf_FrameJournal != f){
+            Activity.getLogbookData(10);
+            jf_FrameJournal.dispose();
+            jf_FrameJournal = new FrameLogbook();
             jf_FrameJournal.setVisible(true);
             f.setVisible(false);
         }
