@@ -2,6 +2,7 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <statusLights.h>
+// #include <manualOrAutoButtons.h>
 
 // globalSpeed - Bepaald de snelheid van de robot.
 // directionPinZ -  Definieert de pinmode van de richting van de z-as.
@@ -23,6 +24,7 @@ void receiveEvent(int bytes){
 // Zet de pinmode van de bovenstaande variabelen en zorgt ervoor dat de data van de master arduino ontvangen wordt.
 void setup() {
   statusLightsSetup();
+  // manualOrAutoButtonsSetup();
   pinMode(directionPinZ, OUTPUT);
   pinMode(pwmPinZ, OUTPUT);
   pinMode(brakePinZ, OUTPUT);
@@ -79,4 +81,14 @@ void loop() {
     moveBackward();
   }
   statusLightsOn();
+
+  // if(isAutoMode()){
+  //   Wire.beginTransmission(9);
+  //   Wire.write(24);
+  //   Wire.endTransmission();
+  // } else if(!isAutoMode()){
+  //   Wire.beginTransmission(9);
+  //   Wire.write(25);
+  //   Wire.endTransmission();
+  // }
 }

@@ -18,9 +18,12 @@ void setup() {
 // Herhaald de volgende code meerder keren
 void loop() {
     checkStop();
-
 	if(!isEmergency()){
-		manualControl();
+		// if(getFromSlave() == 24){
+			// toSlaveArduino(23);
+		// } else if(getFromSlave() == 25){
+			manualControl();
+		// }
 	} else{
 		//stuurt melding naar slave Arduino om noodstoplampje te laten branden (Sarah)
 		toSlaveArduino(21);

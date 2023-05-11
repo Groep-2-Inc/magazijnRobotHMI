@@ -4,3 +4,4 @@ void commsSetup();
 void toJava(int status);
 int fromJava();
 void toSlaveArduino(int value);
+int getFromSlave();
