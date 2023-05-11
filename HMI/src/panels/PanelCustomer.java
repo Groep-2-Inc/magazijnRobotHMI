@@ -1,12 +1,9 @@
 package panels;
 import javax.swing.*;
 import java.awt.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import static java.lang.String.valueOf;
-import testClasses.*;
+import classes.*;
 
 public class PanelCustomer extends JPanel {
     private Customer customer; // een klant (Joëlle)
@@ -20,7 +17,7 @@ public class PanelCustomer extends JPanel {
         setLayout(null);
 
         //aanmaken en toevoegen label en de juiste grootte en locatie meegeven (Joëlle)
-        JLabel jl_customerName = new JLabel(customer.getCustomername());
+        JLabel jl_customerName = new JLabel(customer.getCustomerName());
         jl_customerName.setFont(arial12);
         add(jl_customerName);
         Dimension sizeCustomerName = jl_customerName.getPreferredSize();

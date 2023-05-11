@@ -4,43 +4,108 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.awt.event.FocusEvent;
+import java.awt.event.ItemEvent;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
+import comparator.*;
 import database.Database;
-import testClasses.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import classes.*;
 import panels.*;
-
 
 public class FrameOrders extends FrameHeader implements ActionListener {
     private JLabel jl_orderLabel = new JLabel("Orders"); // label voor titel Orders(Joëlle)
     private JLabel jl_sortLabel = new JLabel("Sortering:"); // label voor titel sortering (Joëlle)
     private JLabel jl_orderText = new JLabel("Order"); // label voor in het titel panel van de scrollpanel: tekst producten (Joëlle)
     private JLabel jl_customerText = new JLabel("Naam"); // label voor in het titel panel van de scrollpanel: tekst producten (Joëlle)
+    private JLabel jl_customerTextNumber = new JLabel("(klantnummer)"); // label voor in het titel panel van de scrollpanel: tekst producten
     private JLabel jl_productsText = new JLabel("Producten"); // label voor in het titel panel van de scrollpanel: tekst producten (Joëlle)
     private JLabel jl_productsQuantityText = new JLabel("(aantal)"); // label voor in het titel panel van de scrollpanel: tekst aantal (Joëlle)
     private JLabel jlDateText = new JLabel("Datum");  // label voor in het titel panel van de scrollpanel: tekst datum (Joëlle)
-    private ArrayList<Order> orders;// arraylist waarin alle orders staan (Joëlle)
     private JButton jb_search = new JButton("Zoeken"); // butten voor het zoeken (Joëlle)
-    private JButton jb_ordersAanmaken = new JButton("Order aanmaken"); //button voor orders aanmaken (Jason Joshua)
     private JTextField jtf_customerNumber = new JTextField("Klantnummer", 10); // tekstveld voor het klantnummer (Joëlle)
     private JTextField jtf_orderNumber = new JTextField("Ordernummer", 10); // tekstveld voor het ordernummer (Joëlle)
     private JComboBox jcb_sort; //combobox voor het sorteren (Joëlle)
     private Font arial22 = new Font("Arial", Font.PLAIN, 22);
-    private Font arial20 = new Font("Arial", Font.PLAIN, 20);
     private Font arial17 = new Font("Arial", Font.PLAIN, 17);
     private Font arial15 = new Font("Arial", Font.PLAIN, 15);
     private ArrayList<JButton> buttons = new ArrayList<>(); // alle buttons uit het panel komen in deze lijst (Joëlle)
+    private ArrayList<Order> orders = new ArrayList<>(); // arraylist waarin alle orders staan (Joëlle)
 
-    public FrameOrders(ArrayList<Order> orders){
+    public FrameOrders(){
         //standaard instellingen (Joëlle)
         setTitle("Java-application/Orders"); // moet nog een betere naam hebben (Joëlle)
-        this.orders = orders; // Het attribuut de meegegeven waarde geven (Joëlle)
+
+        getOrderData(null,null);
 
         // Verplaats naar eigen methode om code overzichtelijker te maken
-        // Door Martijn
         ordersPanelHeader();
         ordersPanelTabelHeader();
         ordersPanelTabel();
+    }
+
+    // Dynamisch opbouwen uit de database
+    // Door Martijn
+    private void getOrderData(String type, String searchValue){
+        JSONArray allOrders;
+        orders.clear();
+
+        // Maakt de basis query, wat bij elke query hetzelfde is
+        String baseQuery = "SELECT orders.OrderID, orders.CustomerID, orders.OrderDate, customers.CustomerName, customers.DeliveryAddressLine2, customers.DeliveryPostalCode, cities.CityName, orders.OrderCompleted FROM orders JOIN customers ON orders.CustomerID = customers.CustomerID JOIN cities ON cities.CityID = customers.PostalCityID\n";
+        // Als hij moet zoeken naar customers
+        if(type != null && type.equals("customers")){
+            // Haalt alle orders op waarbij klantnummer lijkt op zoekwaarde
+            allOrders = Database.getDbData(baseQuery + " WHERE orders.CustomerID LIKE ? ORDER BY orders.OrderID DESC", new String[]{searchValue});
+        }else if(type != null && type.equals("orders")){
+            // Haalt alle orders op en zet het in een JSONArray
+            allOrders = Database.getDbData(baseQuery + " WHERE orders.OrderID LIKE ? ORDER BY orders.OrderID DESC", new String[]{searchValue});
+        }else{
+            // Haalt alle orders op en zet het in een JSONArray
+            allOrders = Database.getDbData(baseQuery + " ORDER BY orders.OrderID DESC", new String[]{});
+        }
+
+        // Voor elke order
+        for(Object singelOrderData: allOrders){
+            // Zet het Object om naar een JSON-object
+            JSONObject orderData = (JSONObject) singelOrderData;
+
+            // Maak een nieuwe customer aan met data uit de order
+            Customer customer = new Customer(Integer.parseInt((String) orderData.get("CustomerID")), String.valueOf(orderData.get("CustomerName")), (String) orderData.get("DeliveryAddressLine2"), (String) orderData.get("DeliveryPostalCode"), (String) orderData.get("CityName"));
+
+            // Haalt de orderlines van deze order op
+            JSONArray orderLinesData = Database.getDbData("SELECT orderlines.StockitemID, orderlines.Quantity, stockitems.StockItemName, stockitemimages.ImagePath FROM orderlines JOIN stockitems ON orderlines.StockitemID = stockitems.StockItemID JOIN stockitemimages ON orderlines.StockItemID = stockitemimages.StockItemID WHERE orderlines.OrderID = ?", new String[]{(String) orderData.get("OrderID")});
+            // Maak een lege products arrayList aan
+            // Deze wordt later gevuld met products
+            ArrayList<Product> products = new ArrayList<>();
+
+            // VOor elke orderline
+            for(Object singleOrderLine: orderLinesData){
+                // Zet het Object om naar een JSON-object
+                JSONObject orderLineData = (JSONObject) singleOrderLine;
+                // Maak een nieuw product aan op basis van data uit de orderline
+                // En zet deze in de products arraylist
+                products.add(new Product(Integer.parseInt((String) orderLineData.get("StockItemID")), (String) orderLineData.get("StockItemName"), (String) orderLineData.get("ImagePath"), Integer.parseInt((String) orderLineData.get("Quantity"))));
+            }
+
+            // Maak een nieuwe default date aan
+            Date orderDate = new Date(2013, 1, 1);
+            try{
+                // Probeer een nieuwe date format aan te maken
+                DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                // Zet de String uit de order om naar een Date object
+                orderDate = sdf.parse(String.valueOf(orderData.get("OrderDate")));
+            }catch (ParseException pe){
+                System.out.println(getClass() + "FrameOrders(): " + pe);
+            }
+
+            //Maak een nieuwe order object aan en voeg hem toe aan de orders arrayList
+            orders.add(new Order(Integer.parseInt((String) orderData.get("OrderID")), customer, products, orderDate, Integer.parseInt((String) orderData.get("OrderCompleted"))));
+        }
     }
 
     // Verplaats naar eigen methode om code overzichtelijker te maken
@@ -50,7 +115,6 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         JPanel headerPanel = new JPanel();
         headerPanel.setLayout(null);
         headerPanel.setPreferredSize(new Dimension(getScreenWidth(98f), getScreenHeight(5.5f))); // procenten toegevoegd (Joëlle)
-//        headerPanel.setBackground(Color.yellow); // voor het debuggen
 
         //label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jl_orderLabel.setFont(new Font("Arial", Font.BOLD, 30));
@@ -61,34 +125,31 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         //label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jl_sortLabel.setFont(arial17);
         Dimension sizeSortLabel = jl_sortLabel.getPreferredSize();
-        jl_sortLabel.setBounds(getScreenWidth(42f), getScreenHeight(1.4f), sizeSortLabel.width +10, sizeSortLabel.height);
+        jl_sortLabel.setBounds(getScreenWidth(54f), getScreenHeight(1.4f), sizeSortLabel.width +10, sizeSortLabel.height);
         headerPanel.add(jl_sortLabel);
 
         //Combobox aanmaken en waarde toekennen, toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
-        jcb_sort = new JComboBox(new String[]{"Ordernummer oplopend", "Ordernummer aflopend", "Datum oplopend", "Datum aflopend", "Voltooid", "Onvoltooid"});
+        jcb_sort = new JComboBox(new String[]{"Ordernummer aflopend", "Ordernummer oplopend", "Datum oplopend", "Datum aflopend", "Voltooid", "Onvoltooid"});
+        jcb_sort.addItemListener(this);
         jcb_sort.setBackground(Color.white);
-        jcb_sort.setBounds(getScreenWidth(42f) + sizeSortLabel.width +10, getScreenHeight(1.1f), getScreenWidth(11.39322917f), getScreenHeight(3f));
+        jcb_sort.setBounds(getScreenWidth(54.4f) + sizeSortLabel.width +10, getScreenHeight(1.1f), getScreenWidth(11.39322917f), getScreenHeight(3f));
         headerPanel.add(jcb_sort);
 
         //Tekstveld toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
-        jtf_customerNumber.setBounds(getScreenWidth(60f), getScreenHeight(1.1f), getScreenWidth(7.8125f), getScreenHeight(3f));
+        jtf_customerNumber.setBounds(getScreenWidth(71f), getScreenHeight(1.1f), getScreenWidth(7.8125f), getScreenHeight(3f));
+        jtf_customerNumber.setToolTipText("Klantnummer");
         headerPanel.add(jtf_customerNumber);
 
         //Tekstveld toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
-        jtf_orderNumber.setBounds(getScreenWidth(69f), getScreenHeight(1.1f), getScreenWidth(7.8125f), getScreenHeight(3f));
+        jtf_orderNumber.setBounds(getScreenWidth(79.5f), getScreenHeight(1.1f), getScreenWidth(7.8125f), getScreenHeight(3f));
+        jtf_orderNumber.setToolTipText("Ordernummer");
         headerPanel.add(jtf_orderNumber);
 
         // Buttun toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jb_search.setFont(arial17);
         jb_search.addActionListener(this); // actionlistener toevoegen aan button (Joëlle)
-        jb_search.setBounds(getScreenWidth(77.5f), getScreenHeight(1.1f), getScreenWidth(10f), getScreenHeight(3f));
+        jb_search.setBounds(getScreenWidth(88f), getScreenHeight(1.1f), getScreenWidth(10f), getScreenHeight(3f));
         headerPanel.add(jb_search);
-
-        //button toevoegen voor order aanmaken, door Jason Joshua van der Kolk
-        jb_ordersAanmaken.setFont(arial17);
-        jb_ordersAanmaken.addActionListener(this);
-        jb_ordersAanmaken.setBounds(getScreenWidth(88f), getScreenHeight(1.1f), getScreenWidth(10f), getScreenHeight(3f));
-        headerPanel.add(jb_ordersAanmaken);
 
         super.add(headerPanel); // PanelButtons toevoegen aan het hoofdscherm (Joëlle)
     }
@@ -112,6 +173,11 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         jl_customerText.setBounds(getScreenWidth(26.04166667f), getScreenHeight(1.157407407f), sizeCustomerText.width +10, sizeCustomerText.height);
         panelTitles.add(jl_customerText);
 
+        jl_customerTextNumber.setFont(arial15);
+        Dimension sizeCustomerTextNumber = jl_customerTextNumber.getPreferredSize();
+        jl_customerTextNumber.setBounds(getScreenWidth(24.5f) +sizeCustomerTextNumber.width, getScreenHeight(1.736111111f), sizeCustomerTextNumber.width +10, sizeCustomerTextNumber.height);
+        panelTitles.add(jl_customerTextNumber);
+
         //Label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jl_productsText.setFont(arial22);
         Dimension sizeProductenText = jl_productsText.getPreferredSize();
@@ -133,18 +199,25 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         super.add(panelTitles); //Panel van de titels toevoegen aan het hoofdscherm (Joëlle)
     }
 
-    private void ordersPanelTabel(){
-        //Panel aanmaken, waar het scrollpanel inkomt (Joëlle)
+    // Sorteren / zoeken door Martijn
+    // Maakt de variabelen hier omdat ze gelijk hieronder en in meerdere methodes worden gebruikt.
+    private JScrollPane scrollPane;
+    private JPanel panelTabel = new JPanel();
+    private JPanel panelOrderRow;
+
+    // Maakt de orders tabel
+    private void ordersPanelTabel() {
+        // Maakt de JPanel aan met juiste params
         JPanel panelTabel = new JPanel();
         panelTabel.setLayout(new FlowLayout());
-        panelTabel.setPreferredSize(new Dimension(getScreenWidth(98f), 116 * orders.size())); // procenten toegevoegd( Joëlle)
+        panelTabel.setPreferredSize(new Dimension(getScreenWidth(98f), FrameHeader.getScreenHeight(7.45f) * orders.size())); // procenten toegevoegd( Joëlle)
 
         // For loop waar eerst een button toegevoegd wordt aan de arraylist, dan wordt in deze button een panel toegevoegd (Joëlle)
         // en wordt de juiste grootte meegegeven (Joëlle)
         for (int i = 0; i < orders.size(); i++) {
             buttons.add(new JButton());
 
-            JPanel panelOrderRow = new PanelOrder(orders.get(i));
+            panelOrderRow = new PanelOrder(orders.get(i));
             buttons.get(i).add(panelOrderRow);
             buttons.get(i).setBackground(Color.white);
             Dimension sizeOrderPanel = panelOrderRow.getPreferredSize();
@@ -153,37 +226,111 @@ public class FrameOrders extends FrameHeader implements ActionListener {
 
             Dimension sizeButtonOrder = buttons.get(i).getPreferredSize();
             buttons.get(i).setBounds(getScreenHeight(0f), sizeButtonOrder.height * i, sizeButtonOrder.width, sizeButtonOrder.height);
-        }
 
-        //For loop die controleerd die elke knop in de arrayList langsgaat en checkt of die gedrukt is, bij het indrukken, wordt er een regel geprint, dat is alleen voor het debuggen (Joëlle)
-        for (int i = 0; i < orders.size(); i++) {
-            final int buttonNumber = i + 1;
-            buttons.get(i).addActionListener(this); //aangepast door Jason Joshua van der Kolk
+            buttons.get(i).addActionListener(this);
         }
 
         //Aanmaken scrollPane, juiste grootte meegeven en de vertical scrollbar en toevoegen aan het scherm (Joëlle)
-        JScrollPane scrollPane = new JScrollPane(panelTabel);
+        scrollPane = new JScrollPane(panelTabel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setPreferredSize(new Dimension(getScreenWidth(98f), getScreenHeight(70f))); // procenten toegevoegd( Joëlle)
+        scrollPane.getVerticalScrollBar().setUnitIncrement(14);
+        scrollPane.setPreferredSize(new Dimension(getScreenWidth(98f), getScreenHeight(70f)));
+        scrollPane.setViewportView(panelTabel);
         super.add(scrollPane);
+
+        // Update de frame met nieuwe data
+        revalidate();
+        repaint();
     }
 
-    //aangepast door Jason Joshua van der Kolk
+    // Verwijderd de elementen uit de JFrame en tekent ze opnieuw
+    // Door Martijn
+    public void redraw(){
+        // Verwijder de huidge panelTabel en scrollPane
+        super.remove(panelTabel);
+        super.remove(scrollPane);
+        // Maakt de buttons array leeg zodat deze opnieuw kan worden gevuld
+        buttons.clear();
+        // Tekent het paneel opnieuw
+        ordersPanelTabel();
+    }
+
     public void actionPerformed(ActionEvent e){
         super.actionPerformed(e);
 
+        //aangepast door Jason Joshua van der Kolk
+        //als op een knop wordt gedrukt
         for (int i = 0; i < orders.size(); i++) {
-            if(e.getSource() ==buttons.get(i)){
+            if(e.getSource() == buttons.get(i)){
                 FrameController.setActiveViewingOrder(this, orders.get(i));
-                System.out.println("Gedrukt op knop nummer " + i );
             }
         }
 
-        if(e.getSource() == jb_ordersAanmaken){
-            FrameController.setActiveFrameMakeOrder(this);
+
+
+        // Als de zoekknop is ingedrukt
+        // Door Martijn
+        if(e.getSource() == jb_search){
+            // Haalt de waardes van de tekstvelden op
+            String customerNumber = jtf_customerNumber.getText();
+            String orderNumber = jtf_orderNumber.getText();
+
+            // Op basis van de waardes haal andere data uit de db
+            if ((customerNumber.isEmpty() && orderNumber.isEmpty()) || (customerNumber.isEmpty() && orderNumber.equals("Ordernummer")) || (customerNumber.equals("Klantnummer") && orderNumber.isEmpty())) {
+                getOrderData(null, null);
+            } else if (customerNumber.isEmpty()) {
+                getOrderData("orders", orderNumber);
+            } else if (orderNumber.isEmpty()) {
+                getOrderData("customers", customerNumber);
+            } else if (!customerNumber.equals("Klantnummer")) {
+                getOrderData("customers", customerNumber);
+            } else if (!orderNumber.equals("Ordernummer")) {
+                getOrderData("orders", orderNumber);
+            }
+
+            // Ververst het venster met de nieuwe data
+            redraw();
         }
     }
 
+    // Als de waarde van de combobox is veranderd
+    // Door Martijn
+    public void itemStateChanged(ItemEvent e1) {
+        // Haalt de waarde van de combobox op en zet hem om naar een String
+        String selectedSortOption = String.valueOf(jcb_sort.getSelectedItem());
+        // Maakt een lege comperator aan
+        Comparator<Order> comparator;
 
+        // Loopt door de verschillende opties heen
+        // Als een conditie true is, maakt hij de comparator aan en slaat hem op in de var
+        switch (selectedSortOption) {
+            case "Ordernummer aflopend":
+                comparator = new sortByOrderIDDesc();
+                break;
+            case "Ordernummer oplopend":
+                comparator = new sortByOrderIDAsc();
+                break;
+            case "Datum aflopend":
+                comparator = new sortByOrderDateDesc();
+                break;
+            case "Datum oplopend":
+                comparator = new sortByOrderDateAsc();
+                break;
+            case "Voltooid":
+                comparator = new sortByOrderCompletedTrue();
+                break;
+            case "Onvoltooid":
+                comparator = new sortByOrderCompletedFalse();
+                break;
+            default:
+                return;
+        }
+
+        // Sorteert de orders op basis van de comparator
+        orders.sort(comparator);
+
+        // Ververst het venster met de nieuwe data
+        redraw();
+    }
 }

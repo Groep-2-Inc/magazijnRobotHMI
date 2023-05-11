@@ -1,4 +1,4 @@
-package testClasses;
+package classes;
 
 import java.util.Date;
 // (Joëlle)

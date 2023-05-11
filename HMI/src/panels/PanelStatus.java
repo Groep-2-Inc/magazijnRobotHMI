@@ -11,8 +11,9 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
+
+//door Jason Joshua van der Kolk
 public class PanelStatus extends JPanel implements ActionListener {
     // Static door Martijn
     private static JButton jb_robotVerbinding = new JButton("Robot verbinding"); //melding voor robot verbinding
@@ -27,7 +28,7 @@ public class PanelStatus extends JPanel implements ActionListener {
 
     public PanelStatus(){
         //initialiseer het hoofd paneel
-        setPreferredSize(new Dimension(960,540));
+        setPreferredSize(new Dimension(FrameHeader.getScreenWidth(50f),FrameHeader.getScreenHeight(50f)));
         setBackground(new Color(236, 236, 236));
         setBorder(new LineBorder(Color.black, 1));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -35,22 +36,22 @@ public class PanelStatus extends JPanel implements ActionListener {
         //voeg kleiner paneel voor de meldingen
         JPanel p = new JPanel();
         p.setLayout(new GridLayout(3, 3, 20, 20));
-        p.setMaximumSize(new Dimension(900,480));
-        p.setMinimumSize(new Dimension(900,480));
-        p.setPreferredSize(new Dimension(900,480));
+        p.setMaximumSize(new Dimension(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1920, 900)),FrameHeader.getScreenHeight(FrameHeader.getPercentage(1080, 480))));
+        p.setMinimumSize(new Dimension(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1920, 900)),FrameHeader.getScreenHeight(FrameHeader.getPercentage(1080, 480))));
+        p.setPreferredSize(new Dimension(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1920, 900)),FrameHeader.getScreenHeight(FrameHeader.getPercentage(1080, 480))));
 
         Font Arial20 = new Font("Arial", Font.PLAIN, 20);
         //zet het font voor alle meldingen
 
-        jb_robotVerbinding.setFont(new Font("Arial", Font.PLAIN, 27));
-        jb_productTerugzetten.setFont(new Font("Arial", Font.PLAIN, 27));
-        jb_rust.setFont(new Font("Arial", Font.PLAIN, 27));
-        jb_productOphalen.setFont(new Font("Arial", Font.PLAIN, 27));
-        jb_inBeweging.setFont(new Font("Arial", Font.PLAIN, 27));
-        jb_nood.setFont(new Font("Arial", Font.PLAIN, 27));
-        jb_productAfgeven.setFont(new Font("Arial", Font.PLAIN, 27));
-        jb_handmatige.setFont(new Font("Arial", Font.PLAIN, 27));
-        jb_databaseVerbinding.setFont(new Font("Arial", Font.PLAIN, 27));
+        jb_robotVerbinding.setFont(new Font("Arial", Font.PLAIN, 24));
+        jb_productTerugzetten.setFont(new Font("Arial", Font.PLAIN, 24));
+        jb_rust.setFont(new Font("Arial", Font.PLAIN, 24));
+        jb_productOphalen.setFont(new Font("Arial", Font.PLAIN, 24));
+        jb_inBeweging.setFont(new Font("Arial", Font.PLAIN, 24));
+        jb_nood.setFont(new Font("Arial", Font.PLAIN, 24));
+        jb_productAfgeven.setFont(new Font("Arial", Font.PLAIN, 24));
+        jb_handmatige.setFont(new Font("Arial", Font.PLAIN, 24));
+        jb_databaseVerbinding.setFont(new Font("Arial", Font.PLAIN, 24));
 
         //Update de status van de robot
         PanelStatus.updateStatus();

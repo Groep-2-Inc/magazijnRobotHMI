@@ -6,9 +6,9 @@ import frames.FrameController;
 public class Main {
     public static void main(String[] args) {
         new GetEnv();
+        new Database();
         new FrameController();
         new Communication();
-        new Database();
 
 //        System.out.println(Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "0", "Heeft op Go gedrukt!"}));
 

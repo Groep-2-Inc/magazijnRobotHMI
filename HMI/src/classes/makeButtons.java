@@ -1,4 +1,4 @@
-package testClasses;
+package classes;
 
 public class makeButtons {
     private boolean pressed;
