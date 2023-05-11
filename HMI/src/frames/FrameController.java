@@ -54,7 +54,7 @@ public class FrameController {
         products.add(product7);
 
         //initialiseer products frame
-        jf_FrameProducts = new FrameProducts(products);
+        jf_FrameProducts = new FrameProducts();
 
         //initialiseer journal frame
         jf_FrameJournal = new FrameLogbook();

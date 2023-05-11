@@ -2,6 +2,8 @@ package frames;
 // Door Sarah
 
 import database.Database;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import panels.PanelProductOverview;
 import classes.*;
 
@@ -13,18 +15,39 @@ import java.util.ArrayList;
 public class FrameProducts extends FrameHeader implements ActionListener {
     private JButton jb_change, jb_save, jb_cancel; //Buttons die gebruikt worden in het scherm
     private ArrayList<PanelProductOverview> productPanels = new ArrayList<>(); //Arraylist van de afzonderlijke productPanels
-    private ArrayList<Product> products; //Arraylist waarin de producten worden opgeslagen
+    private ArrayList<Product> products = new ArrayList<>(); //Arraylist waarin de producten worden opgeslagen
     private Font arial17 = new Font("Arial", Font.PLAIN, 17);
 
-    public FrameProducts(ArrayList<Product> products) {
-        this.products = products;
-
+    public FrameProducts() {
         //Informatie voor het hele frame (Sarah)
         super.setTitle("JavaApplication/viewingProducts");
-        closeProgram();
 
         setLayout(null);
 
+        getProductData();
+        // Verplaats naar eigen methode om code overzichtelijker te maken
+        productPanel();
+
+        closeProgram();
+    }
+
+    //Dynamisch opbouwen uit de database
+    // Door Daan
+    private void getProductData(){
+        // Haalt alle products op en zet het in een JSONArray
+        JSONArray allProducts = Database.getDbData("select si.StockItemID, si.StockItemName, siHoldings.QuantityOnHand, siImg.ImagePath from stockitems si JOIN stockitemholdings siHoldings ON si.StockItemID = siHoldings.StockItemID JOIN stockitemimages siImg ON si.StockItemID = siImg.StockItemID", new String[]{});
+        // Voor elk product
+        for(Object singleProductData : allProducts){
+            // Zet het Object om naar een JSON-object
+            JSONObject productData = (JSONObject) singleProductData;
+
+            // Maak een nieuw product object aan een voegt hem toe aan de products arraylist
+            products.add(new Product(Integer.parseInt((String) productData.get("StockItemID")), (String) productData.get("StockItemName"), Integer.parseInt((String) productData.get("QuantityOnHand")), (String) productData.get("ImagePath")));
+        }
+
+    }
+
+    private void productPanel(){
         //Titel aanmaken en stylen (Sarah)
         JLabel jl_products = new JLabel("Producten");
         jl_products.setFont(new Font("Arial", Font.BOLD, 30));
@@ -42,10 +65,9 @@ public class FrameProducts extends FrameHeader implements ActionListener {
         jsp_productList.setBounds(getScreenWidth(1f), getScreenHeight(getPercentage(864, 50)), sizeProductListPanel.width + getScreenWidth(getPercentage(1536, 30)), getScreenHeight(getPercentage(864, 700)));
         add(jsp_productList);
 
-
         //productListPanel voorzien van panels die de productinformatie weergeven (Sarah)
         for (int i = 0; i < products.size(); i++) {
-            PanelProductOverview jp_productsPanel = new PanelProductOverview(products, i);
+            PanelProductOverview jp_productsPanel = new PanelProductOverview(products.get(i));
             jp_productListPanel.add(jp_productsPanel);
             Dimension sizeProductsPanel = jp_productsPanel.getPreferredSize();
             jp_productsPanel.setBounds(0, sizeProductsPanel.height * i, sizeProductsPanel.width + sizeProductListPanel.width + getScreenWidth(getPercentage(1536, 10)), sizeProductsPanel.height);
