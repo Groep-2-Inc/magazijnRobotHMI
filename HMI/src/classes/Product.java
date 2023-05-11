@@ -4,16 +4,8 @@ package classes;
 public class Product {
     private int productID;
     private String productName;
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "productID=" + productID +
-                '}';
-    }
-
     private String imgPath;
-    private int amountOrdered; // New!
+    private int amountOrdered;
     private int stock;
 
     public Product(int productID, String productName, String imgPath, int amountOrdered) {
