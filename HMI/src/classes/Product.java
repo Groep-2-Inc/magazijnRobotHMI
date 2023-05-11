@@ -5,7 +5,7 @@ public class Product {
     private int productID;
     private String productName;
     private String imgPath;
-    private int amountOrdered; // New!
+    private int amountOrdered;
     private int stock;
 
     public Product(int productID, String productName, String imgPath, int amountOrdered) {
@@ -16,8 +16,8 @@ public class Product {
         this.stock = 0;
     }
 
-    public Product(int productID, String productName, String imgPath, int stock, int amountOrdered){
-        this(productID, productName, imgPath, amountOrdered);
+    public Product(int productID, String productName, int stock, String imgPath){
+        this(productID, productName, imgPath, 0);
         this.stock = stock;
     }
 

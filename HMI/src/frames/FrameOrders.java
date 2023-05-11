@@ -70,9 +70,9 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         }
 
         // Voor elke order
-        for(Object singelOrderData: allOrders){
+        for(Object singleOrderData: allOrders){
             // Zet het Object om naar een JSON-object
-            JSONObject orderData = (JSONObject) singelOrderData;
+            JSONObject orderData = (JSONObject) singleOrderData;
 
             // Maak een nieuwe customer aan met data uit de order
             Customer customer = new Customer(Integer.parseInt((String) orderData.get("CustomerID")), String.valueOf(orderData.get("CustomerName")), (String) orderData.get("DeliveryAddressLine2"), (String) orderData.get("DeliveryPostalCode"), (String) orderData.get("CityName"));
