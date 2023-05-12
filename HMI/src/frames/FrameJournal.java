@@ -10,7 +10,7 @@ import classes.*;
 
 public class FrameJournal extends FrameHeader {
     private ArrayList<Activity> activities; // lijst met activeiten (Joëlle)
-    private JLabel jl_journal =new JLabel("Logboek");
+    private JLabel jlJournal =new JLabel("Logboek");
 
 
     public FrameJournal(ArrayList<Activity> activities) {
@@ -24,10 +24,10 @@ public class FrameJournal extends FrameHeader {
         panelJournalTitle.setPreferredSize(new Dimension(getScreenWidth(98f), getScreenHeight(5f))); //procenten toegevoegd (Joëlle)
 
         //Label toevoegen aan het panel en juiste plek en grootte toekennen (Joëlle)
-        jl_journal.setFont(new Font("Arial", Font.BOLD, 30));
-        panelJournalTitle.add(jl_journal);
-        Dimension sizeJournalText = jl_journal.getPreferredSize();
-        jl_journal.setBounds(getScreenWidth(0f), getScreenHeight(1.157407407f), sizeJournalText.width +10, sizeJournalText.height);
+        jlJournal.setFont(new Font("Arial", Font.BOLD, 30));
+        panelJournalTitle.add(jlJournal);
+        Dimension sizeJournalText = jlJournal.getPreferredSize();
+        jlJournal.setBounds(getScreenWidth(0f), getScreenHeight(1.157407407f), sizeJournalText.width +10, sizeJournalText.height);
 
         super.add(panelJournalTitle);
 

@@ -19,18 +19,18 @@ import classes.*;
 import panels.*;
 
 public class FrameOrders extends FrameHeader implements ActionListener {
-    private JLabel jl_orderLabel = new JLabel("Orders"); // label voor titel Orders(Joëlle)
-    private JLabel jl_sortLabel = new JLabel("Sortering:"); // label voor titel sortering (Joëlle)
-    private JLabel jl_orderText = new JLabel("Order"); // label voor in het titel panel van de scrollpanel: tekst producten (Joëlle)
-    private JLabel jl_customerText = new JLabel("Naam"); // label voor in het titel panel van de scrollpanel: tekst producten (Joëlle)
-    private JLabel jl_customerTextNumber = new JLabel("(klantnummer)"); // label voor in het titel panel van de scrollpanel: tekst producten
-    private JLabel jl_productsText = new JLabel("Producten"); // label voor in het titel panel van de scrollpanel: tekst producten (Joëlle)
-    private JLabel jl_productsQuantityText = new JLabel("(aantal)"); // label voor in het titel panel van de scrollpanel: tekst aantal (Joëlle)
+    private JLabel jlOrderLabel = new JLabel("Orders"); // label voor titel Orders(Joëlle)
+    private JLabel jlSortLabel = new JLabel("Sortering:"); // label voor titel sortering (Joëlle)
+    private JLabel jlOrderText = new JLabel("Order"); // label voor in het titel panel van de scrollpanel: tekst producten (Joëlle)
+    private JLabel jlCustomerText = new JLabel("Naam"); // label voor in het titel panel van de scrollpanel: tekst producten (Joëlle)
+    private JLabel jlCustomerTextNumber = new JLabel("(klantnummer)"); // label voor in het titel panel van de scrollpanel: tekst producten
+    private JLabel jlProductsText = new JLabel("Producten"); // label voor in het titel panel van de scrollpanel: tekst producten (Joëlle)
+    private JLabel jlProductsQuantityText = new JLabel("(aantal)"); // label voor in het titel panel van de scrollpanel: tekst aantal (Joëlle)
     private JLabel jlDateText = new JLabel("Datum");  // label voor in het titel panel van de scrollpanel: tekst datum (Joëlle)
-    private JButton jb_search = new JButton("Zoeken"); // butten voor het zoeken (Joëlle)
-    private JTextField jtf_customerNumber = new JTextField("Klantnummer", 10); // tekstveld voor het klantnummer (Joëlle)
-    private JTextField jtf_orderNumber = new JTextField("Ordernummer", 10); // tekstveld voor het ordernummer (Joëlle)
-    private JComboBox jcb_sort; //combobox voor het sorteren (Joëlle)
+    private JButton jbSearch = new JButton("Zoeken"); // butten voor het zoeken (Joëlle)
+    private JTextField jtfCustomerNumber = new JTextField("Klantnummer", 10); // tekstveld voor het klantnummer (Joëlle)
+    private JTextField jtfOrderNumber = new JTextField("Ordernummer", 10); // tekstveld voor het ordernummer (Joëlle)
+    private JComboBox jcbSort; //combobox voor het sorteren (Joëlle)
     private Font arial22 = new Font("Arial", Font.PLAIN, 22);
     private Font arial17 = new Font("Arial", Font.PLAIN, 17);
     private Font arial15 = new Font("Arial", Font.PLAIN, 15);
@@ -117,39 +117,39 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         headerPanel.setPreferredSize(new Dimension(getScreenWidth(98f), getScreenHeight(5.5f))); // procenten toegevoegd (Joëlle)
 
         //label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
-        jl_orderLabel.setFont(new Font("Arial", Font.BOLD, 30));
-        Dimension sizeOrder = jl_orderLabel.getPreferredSize();
-        jl_orderLabel.setBounds(0, getScreenHeight(0.8f), sizeOrder.width + 10, sizeOrder.height);
-        headerPanel.add(jl_orderLabel);
+        jlOrderLabel.setFont(new Font("Arial", Font.BOLD, 30));
+        Dimension sizeOrder = jlOrderLabel.getPreferredSize();
+        jlOrderLabel.setBounds(0, getScreenHeight(0.8f), sizeOrder.width + 10, sizeOrder.height);
+        headerPanel.add(jlOrderLabel);
 
         //label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
-        jl_sortLabel.setFont(arial17);
-        Dimension sizeSortLabel = jl_sortLabel.getPreferredSize();
-        jl_sortLabel.setBounds(getScreenWidth(54f), getScreenHeight(1.4f), sizeSortLabel.width +10, sizeSortLabel.height);
-        headerPanel.add(jl_sortLabel);
+        jlSortLabel.setFont(arial17);
+        Dimension sizeSortLabel = jlSortLabel.getPreferredSize();
+        jlSortLabel.setBounds(getScreenWidth(54f), getScreenHeight(1.4f), sizeSortLabel.width +10, sizeSortLabel.height);
+        headerPanel.add(jlSortLabel);
 
         //Combobox aanmaken en waarde toekennen, toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
-        jcb_sort = new JComboBox(new String[]{"Ordernummer aflopend", "Ordernummer oplopend", "Datum oplopend", "Datum aflopend", "Voltooid", "Onvoltooid"});
-        jcb_sort.addItemListener(this);
-        jcb_sort.setBackground(Color.white);
-        jcb_sort.setBounds(getScreenWidth(54.4f) + sizeSortLabel.width +10, getScreenHeight(1.1f), getScreenWidth(11.39322917f), getScreenHeight(3f));
-        headerPanel.add(jcb_sort);
+        jcbSort = new JComboBox(new String[]{"Ordernummer aflopend", "Ordernummer oplopend", "Datum oplopend", "Datum aflopend", "Voltooid", "Onvoltooid"});
+        jcbSort.addItemListener(this);
+        jcbSort.setBackground(Color.white);
+        jcbSort.setBounds(getScreenWidth(54.4f) + sizeSortLabel.width +10, getScreenHeight(1.1f), getScreenWidth(11.39322917f), getScreenHeight(3f));
+        headerPanel.add(jcbSort);
 
         //Tekstveld toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
-        jtf_customerNumber.setBounds(getScreenWidth(71f), getScreenHeight(1.1f), getScreenWidth(7.8125f), getScreenHeight(3f));
-        jtf_customerNumber.setToolTipText("Klantnummer");
-        headerPanel.add(jtf_customerNumber);
+        jtfCustomerNumber.setBounds(getScreenWidth(71f), getScreenHeight(1.1f), getScreenWidth(7.8125f), getScreenHeight(3f));
+        jtfCustomerNumber.setToolTipText("Klantnummer");
+        headerPanel.add(jtfCustomerNumber);
 
         //Tekstveld toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
-        jtf_orderNumber.setBounds(getScreenWidth(79.5f), getScreenHeight(1.1f), getScreenWidth(7.8125f), getScreenHeight(3f));
-        jtf_orderNumber.setToolTipText("Ordernummer");
-        headerPanel.add(jtf_orderNumber);
+        jtfOrderNumber.setBounds(getScreenWidth(79.5f), getScreenHeight(1.1f), getScreenWidth(7.8125f), getScreenHeight(3f));
+        jtfOrderNumber.setToolTipText("Ordernummer");
+        headerPanel.add(jtfOrderNumber);
 
         // Buttun toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
-        jb_search.setFont(arial17);
-        jb_search.addActionListener(this); // actionlistener toevoegen aan button (Joëlle)
-        jb_search.setBounds(getScreenWidth(88f), getScreenHeight(1.1f), getScreenWidth(10f), getScreenHeight(3f));
-        headerPanel.add(jb_search);
+        jbSearch.setFont(arial17);
+        jbSearch.addActionListener(this); // actionlistener toevoegen aan button (Joëlle)
+        jbSearch.setBounds(getScreenWidth(88f), getScreenHeight(1.1f), getScreenWidth(10f), getScreenHeight(3f));
+        headerPanel.add(jbSearch);
 
         super.add(headerPanel); // PanelButtons toevoegen aan het hoofdscherm (Joëlle)
     }
@@ -162,33 +162,33 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         panelTitles.setBackground(Color.lightGray);
 
         //Label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
-        jl_orderText.setFont(arial22);
-        Dimension sizeOrderText = jl_orderText.getPreferredSize();
-        jl_orderText.setBounds(getScreenWidth(3.255208333f), getScreenHeight(1.157407407f), sizeOrderText.width +10, sizeOrderText.height);
-        panelTitles.add(jl_orderText);
+        jlOrderText.setFont(arial22);
+        Dimension sizeOrderText = jlOrderText.getPreferredSize();
+        jlOrderText.setBounds(getScreenWidth(3.255208333f), getScreenHeight(1.157407407f), sizeOrderText.width +10, sizeOrderText.height);
+        panelTitles.add(jlOrderText);
 
         //Label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
-        jl_customerText.setFont(arial22);
-        Dimension sizeCustomerText = jl_customerText.getPreferredSize();
-        jl_customerText.setBounds(getScreenWidth(26.04166667f), getScreenHeight(1.157407407f), sizeCustomerText.width +10, sizeCustomerText.height);
-        panelTitles.add(jl_customerText);
+        jlCustomerText.setFont(arial22);
+        Dimension sizeCustomerText = jlCustomerText.getPreferredSize();
+        jlCustomerText.setBounds(getScreenWidth(26.04166667f), getScreenHeight(1.157407407f), sizeCustomerText.width +10, sizeCustomerText.height);
+        panelTitles.add(jlCustomerText);
 
-        jl_customerTextNumber.setFont(arial15);
-        Dimension sizeCustomerTextNumber = jl_customerTextNumber.getPreferredSize();
-        jl_customerTextNumber.setBounds(getScreenWidth(24.5f) +sizeCustomerTextNumber.width, getScreenHeight(1.736111111f), sizeCustomerTextNumber.width +10, sizeCustomerTextNumber.height);
-        panelTitles.add(jl_customerTextNumber);
-
-        //Label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
-        jl_productsText.setFont(arial22);
-        Dimension sizeProductenText = jl_productsText.getPreferredSize();
-        jl_productsText.setBounds(getScreenWidth(48.828125f), getScreenHeight(1.157407407f), sizeProductenText.width +10, sizeProductenText.height);
-        panelTitles.add(jl_productsText);
+        jlCustomerTextNumber.setFont(arial15);
+        Dimension sizeCustomerTextNumber = jlCustomerTextNumber.getPreferredSize();
+        jlCustomerTextNumber.setBounds(getScreenWidth(24.5f) +sizeCustomerTextNumber.width, getScreenHeight(1.736111111f), sizeCustomerTextNumber.width +10, sizeCustomerTextNumber.height);
+        panelTitles.add(jlCustomerTextNumber);
 
         //Label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
-        jl_productsQuantityText.setFont(arial15);
-        Dimension sizeProductsQuantityText = jl_productsQuantityText.getPreferredSize();
-        jl_productsQuantityText.setBounds(getScreenWidth(49.47916667f) +sizeProductenText.width, getScreenHeight(1.736111111f), sizeProductsQuantityText.width +10, sizeProductsQuantityText.height);
-        panelTitles.add(jl_productsQuantityText);
+        jlProductsText.setFont(arial22);
+        Dimension sizeProductsText = jlProductsText.getPreferredSize();
+        jlProductsText.setBounds(getScreenWidth(48.828125f), getScreenHeight(1.157407407f), sizeProductsText.width +10, sizeProductsText.height);
+        panelTitles.add(jlProductsText);
+
+        //Label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
+        jlProductsQuantityText.setFont(arial15);
+        Dimension sizeProductsQuantityText = jlProductsQuantityText.getPreferredSize();
+        jlProductsQuantityText.setBounds(getScreenWidth(49.47916667f) +sizeProductsText.width, getScreenHeight(1.736111111f), sizeProductsQuantityText.width +10, sizeProductsQuantityText.height);
+        panelTitles.add(jlProductsQuantityText);
 
         //Label voor Datum aanmaken, toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jlDateText.setFont(arial22);
@@ -271,10 +271,10 @@ public class FrameOrders extends FrameHeader implements ActionListener {
 
         // Als de zoekknop is ingedrukt
         // Door Martijn
-        if(e.getSource() == jb_search){
+        if(e.getSource() == jbSearch){
             // Haalt de waardes van de tekstvelden op
-            String customerNumber = jtf_customerNumber.getText();
-            String orderNumber = jtf_orderNumber.getText();
+            String customerNumber = jtfCustomerNumber.getText();
+            String orderNumber = jtfOrderNumber.getText();
 
             // Op basis van de waardes haal andere data uit de db
             if ((customerNumber.isEmpty() && orderNumber.isEmpty()) || (customerNumber.isEmpty() && orderNumber.equals("Ordernummer")) || (customerNumber.equals("Klantnummer") && orderNumber.isEmpty())) {
@@ -298,7 +298,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
     // Door Martijn
     public void itemStateChanged(ItemEvent e1) {
         // Haalt de waarde van de combobox op en zet hem om naar een String
-        String selectedSortOption = String.valueOf(jcb_sort.getSelectedItem());
+        String selectedSortOption = String.valueOf(jcbSort.getSelectedItem());
         // Maakt een lege comperator aan
         Comparator<Order> comparator;
 
