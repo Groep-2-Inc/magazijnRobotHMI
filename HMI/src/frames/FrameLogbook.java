@@ -2,21 +2,28 @@ package frames;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import database.Database;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import classes.*;
 
-public class FrameJournal extends FrameHeader {
+public class FrameLogbook extends FrameHeader {
     private ArrayList<Activity> activities; // lijst met activeiten (Joëlle)
     private JLabel jlJournal =new JLabel("Logboek");
+    private JScrollPane scrollPane;
+    private JPanel panel;
 
 
-    public FrameJournal(ArrayList<Activity> activities) {
-        this.activities = activities;
+    public FrameLogbook() {
         closeProgram();
         setTitle("Java-application/Logboek"); // moet nog een betere titel komen lijkt mij (Joëlle)
+        Activity.getLogbookData(0);
 
         //Panel toevoegen voor de titel (Joëlle)
         JPanel panelJournalTitle = new JPanel();
@@ -32,23 +39,23 @@ public class FrameJournal extends FrameHeader {
         super.add(panelJournalTitle);
 
         //Panel aanmaken voor waar de scrollpane inkomt (Joëlle)
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setPreferredSize(new Dimension(getScreenWidth(98f), 16 * activities.size())); //procenten toegevoegd, bij height mist nog, kan later evt. toegevoegd worden(Joëlle)
+        panel = new JPanel();
+        panel.setLayout(new FlowLayout());
+        panel.setPreferredSize(new Dimension(getScreenWidth(98f), 46 * Activity.getActivities().size())); //procenten toegevoegd, bij height mist nog, kan later evt. toegevoegd worden(Joëlle)
 
         //Een for-loop, doorloopt de activiteiten en print de datum en beschrijving (Joëlle)
-        for (int i = 0; i < activities.size(); i++) {
-            JLabel label = new JLabel();
-            Date date = activities.get(i).getDate(); // converteren van de datum naar string
-            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm");
-            String strDate = dateFormat.format(date);
+        for (int i = 0; i < Activity.getActivities().size(); i++) {
+            JPanel panelLogging = new JPanel();
+            panelLogging.setLayout(new GridLayout(1, 1));
+            panelLogging.setPreferredSize(new Dimension(getScreenWidth(98f), 40));
+            panelLogging.setBorder(new LineBorder(Color.BLACK));
 
-            label.setText(strDate + " " + activities.get(i).getActivityDescription());
-            panel.add(label);
+            panelLogging.add(new JLabel(Activity.getActivities().get(i).getDate() + " #:" + Activity.getActivities().get(i).getId() + " type: " + Activity.getActivities().get(i).getTypeText() + " - " + Activity.getActivities().get(i).getActivityDescription()));
+            panel.add(panelLogging);
         }
 
         //Aanmaken scrollpane, met vertical scrollbar plus juiste grootte meegegeven (Joëlle)
-        JScrollPane scrollPane = new JScrollPane(panel); // aanmaken scrollPane
+        scrollPane = new JScrollPane(panel); // aanmaken scrollPane
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.getVerticalScrollBar().setUnitIncrement(14);

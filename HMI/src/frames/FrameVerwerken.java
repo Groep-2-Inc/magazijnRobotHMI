@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.Date;
+
+import database.Database;
 import panels.PanelPositie;
 import classes.Order;
 
@@ -123,7 +125,6 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
 
         //voeg het frame toe aan het scherm
         add(f);
-//        setVisible(true);
     }
 
     public JPanel GetHeaderPanel(){
@@ -296,17 +297,19 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         super.actionPerformed(e);
+        //als er op de knop gedrukt wordt, dan wordt een actie toegevoegd aan de database
+        if(e.getSource() == jb_go){
+           Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Heeft op Go gedrukt!"}); // in het logboek wordt opgeslagen dat er op Go gedrukt is (Joëlle)
+        }
+        
         //ga naar het pakbonnenmakenscherm
         if(e.getSource() == jb_pakbonnenMaken){
             FrameController.setActiveFramePackingList(this, o_order);
+            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Pakbon is gemaakt"}); // in het logboek wordt opgeslagen dat pakbon is gemaakt (Joëlle)
         }
 
         if(e.getSource() == jb_annuleer){
             System.out.println("er is op de annuleerknop gedrukt");
-        }
-
-        if(e.getSource() == jb_go){
-            System.out.println("er is op de go knop gedrukt");
         }
     }
 

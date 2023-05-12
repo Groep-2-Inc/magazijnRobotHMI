@@ -26,6 +26,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
     private JLabel jlCustomerTextNumber = new JLabel("(klantnummer)"); // label voor in het titel panel van de scrollpanel: tekst producten
     private JLabel jlProductsText = new JLabel("Producten"); // label voor in het titel panel van de scrollpanel: tekst producten (Joëlle)
     private JLabel jlProductsQuantityText = new JLabel("(aantal)"); // label voor in het titel panel van de scrollpanel: tekst aantal (Joëlle)
+    private JLabel jlStatusText = new JLabel("Status"); // label voor in het titel panel van de scrollpane: tekst status (Joëlle)
     private JLabel jlDateText = new JLabel("Datum");  // label voor in het titel panel van de scrollpanel: tekst datum (Joëlle)
     private JButton jbSearch = new JButton("Zoeken"); // butten voor het zoeken (Joëlle)
     private JTextField jtfCustomerNumber = new JTextField("Klantnummer", 10); // tekstveld voor het klantnummer (Joëlle)
@@ -70,9 +71,9 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         }
 
         // Voor elke order
-        for(Object singelOrderData: allOrders){
+        for(Object singleOrderData: allOrders){
             // Zet het Object om naar een JSON-object
-            JSONObject orderData = (JSONObject) singelOrderData;
+            JSONObject orderData = (JSONObject) singleOrderData;
 
             // Maak een nieuwe customer aan met data uit de order
             Customer customer = new Customer(Integer.parseInt((String) orderData.get("CustomerID")), String.valueOf(orderData.get("CustomerName")), (String) orderData.get("DeliveryAddressLine2"), (String) orderData.get("DeliveryPostalCode"), (String) orderData.get("CityName"));
@@ -193,8 +194,14 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         //Label voor Datum aanmaken, toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jlDateText.setFont(arial22);
         Dimension sizeDateText = jlDateText.getPreferredSize();
-        jlDateText.setBounds(getScreenWidth(71.61458333f), getScreenHeight(1.157407407f), sizeDateText.width +10, sizeDateText.height);
+        jlDateText.setBounds(getScreenWidth(67f), getScreenHeight(1.16f), sizeDateText.width +10, sizeDateText.height);
         panelTitles.add(jlDateText);
+
+        //label voor Status aanmaken, toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
+        jlStatusText.setFont(arial22);
+        Dimension sizeStatusText = jlStatusText.getPreferredSize();
+        jlStatusText.setBounds(getScreenWidth(84f), getScreenHeight(1.16f), sizeStatusText.width +10, sizeStatusText.height);
+        panelTitles.add(jlStatusText);
 
         super.add(panelTitles); //Panel van de titels toevoegen aan het hoofdscherm (Joëlle)
     }
