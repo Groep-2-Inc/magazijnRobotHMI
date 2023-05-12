@@ -14,7 +14,7 @@ public class FrameController {
     private static FrameVerwerken jf_FrameVerwerken;
     private static FrameOrders jf_FrameOrders;
     private static FrameProducts jf_FrameProducts;
-    private static FrameLogbook jf_FrameJournal;
+    private static FrameLogbook jf_FrameLogbook;
     private static FrameViewingOrder jf_FrameViewingOrder;
     private static FramePackingList jf_FramePackingList;
     private static FrameMakeOrder jf_FrameMakeOrder;
@@ -57,7 +57,7 @@ public class FrameController {
         jf_FrameProducts = new FrameProducts();
 
         //initialiseer journal frame
-        jf_FrameJournal = new FrameLogbook();
+        jf_FrameLogbook = new FrameLogbook();
 
         //dummydate voor de FrameMakeOrder
 //        products = new ArrayList<>();
@@ -125,11 +125,11 @@ public class FrameController {
     }
 
     public static void setActiveFrameJournal(JFrame f){ //functie voor het aanzetten van het journal
-        if(jf_FrameJournal != f){
+        if(jf_FrameLogbook != f){
             Activity.getLogbookData(10);
-            jf_FrameJournal.dispose();
-            jf_FrameJournal = new FrameLogbook();
-            jf_FrameJournal.setVisible(true);
+            jf_FrameLogbook.dispose();
+            jf_FrameLogbook = new FrameLogbook();
+            jf_FrameLogbook.setVisible(true);
             f.setVisible(false);
         }
     }

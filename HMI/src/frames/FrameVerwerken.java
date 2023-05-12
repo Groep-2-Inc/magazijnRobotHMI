@@ -302,7 +302,7 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Heeft op Go gedrukt!"}); // in het logboek wordt opgeslagen dat er op Go gedrukt is (Joëlle)
         }
         
-        //ga naar het pakbonnenmakenscherm
+        //ga naar het pakbonnenmakenschermUPDATE orders SET OrderCompleted = RAND(1)
         if(e.getSource() == jb_pakbonnenMaken){
             FrameController.setActiveFramePackingList(this, o_order);
             Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Pakbon is gemaakt"}); // in het logboek wordt opgeslagen dat pakbon is gemaakt (Joëlle)

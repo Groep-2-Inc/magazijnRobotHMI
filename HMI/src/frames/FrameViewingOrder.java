@@ -183,7 +183,7 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         //naar pick scherm, door Jason Joshua van der Kolk
         if (e.getSource() == jb_pick) {
             FrameController.setActiveFrameVerwerken(this, order);
-            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "TSP en BPM wordt berekend"}); // in het logbook wordt opgeslagen dat de TSP en BPM worden berekend(Joëlle)
+            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "TSP en BPP wordt berekend"}); // in het logbook wordt opgeslagen dat de TSP en BPM worden berekend(Joëlle)
         }
 
         //terug naar het order scherm (Joëlle)
