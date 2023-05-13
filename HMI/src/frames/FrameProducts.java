@@ -143,7 +143,8 @@ public class FrameProducts extends FrameHeader implements ActionListener {
                     add(jl_invalid);
                     System.out.println(getClass() + ": " + ex);
                 }
-            }Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Hoeveelheid product met nummer " + products.get(numberOfChangingProduct).getProductID() + " is aangepast"}); //!! werkt nog niet, bij foute gegevens wordt er ook teogevoegd aan database, in het logboek wordt opgeslagen dat de order is bijgewerkt (Joëlle)
+            }
+            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Hoeveelheid product met nummer " + products.get(numberOfChangingProduct).getProductID() + " is aangepast"}); //!! werkt nog niet, bij foute gegevens wordt er ook teogevoegd aan database, in het logboek wordt opgeslagen dat de order is bijgewerkt (Joëlle)
         }
 
         //Als op "Annuleren" wordt gedrukt: (Sarah)
