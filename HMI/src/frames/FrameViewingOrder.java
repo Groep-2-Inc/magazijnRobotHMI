@@ -12,7 +12,7 @@ import panels.*;
 public class FrameViewingOrder extends FrameHeader implements ActionListener {
     private Order order; //Order waarvan het frame is
     private JButton jb_change, jb_cancel, jb_pick, jb_save, jb_back; //Buttons die in het scherm gebruikt worden
-    private ArrayList<PanelProduct> productPanels = new ArrayList<>(); //Arraylist van de afzonderlijke productPanels
+    private ArrayList<PanelOrderSingleProduct> productPanels = new ArrayList<>(); //Arraylist van de afzonderlijke productPanels
     private Font arial30B = new Font("Arial", Font.BOLD, 30);
     private Font arial17 = new Font("Arial", Font.PLAIN, 17);
     private Font arial24 = new Font("Arial", Font.PLAIN, 24);
@@ -73,7 +73,7 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
 
         //productListPanel voorzien van panels die de productinformatie weergeven (Sarah)
         for (int i = 0; i < order.getProducts().size(); i++) {
-            PanelProduct jp_productsPanel = new PanelProduct(order, i);
+            PanelOrderSingleProduct jp_productsPanel = new PanelOrderSingleProduct(order, i);
             Dimension sizeProductsPanel = jp_productsPanel.getPreferredSize();
             jp_productsPanel.setBounds(0, sizeProductsPanel.height * i, sizeProductsPanel.width + getScreenWidth(getPercentage(1536, 200)), sizeProductsPanel.height);
             productPanels.add(jp_productsPanel);
