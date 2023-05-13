@@ -171,24 +171,24 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         //Label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jlCustomerText.setFont(arial22);
         Dimension sizeCustomerText = jlCustomerText.getPreferredSize();
-        jlCustomerText.setBounds(getScreenWidth(26.04166667f), getScreenHeight(1.157407407f), sizeCustomerText.width +10, sizeCustomerText.height);
+        jlCustomerText.setBounds(getScreenWidth(20f), getScreenHeight(1.157407407f), sizeCustomerText.width +10, sizeCustomerText.height);
         panelTitles.add(jlCustomerText);
 
         jlCustomerTextNumber.setFont(arial15);
         Dimension sizeCustomerTextNumber = jlCustomerTextNumber.getPreferredSize();
-        jlCustomerTextNumber.setBounds(getScreenWidth(24.5f) +sizeCustomerTextNumber.width, getScreenHeight(1.736111111f), sizeCustomerTextNumber.width +10, sizeCustomerTextNumber.height);
+        jlCustomerTextNumber.setBounds(getScreenWidth(20.65f) +sizeCustomerText.width, getScreenHeight(1.736111111f), sizeCustomerTextNumber.width +10, sizeCustomerTextNumber.height);
         panelTitles.add(jlCustomerTextNumber);
 
         //Label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jlProductsText.setFont(arial22);
         Dimension sizeProductsText = jlProductsText.getPreferredSize();
-        jlProductsText.setBounds(getScreenWidth(48.828125f), getScreenHeight(1.157407407f), sizeProductsText.width +10, sizeProductsText.height);
+        jlProductsText.setBounds(getScreenWidth(48.83f), getScreenHeight(1.157407407f), sizeProductsText.width +10, sizeProductsText.height);
         panelTitles.add(jlProductsText);
 
         //Label toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)
         jlProductsQuantityText.setFont(arial15);
         Dimension sizeProductsQuantityText = jlProductsQuantityText.getPreferredSize();
-        jlProductsQuantityText.setBounds(getScreenWidth(49.47916667f) +sizeProductsText.width, getScreenHeight(1.736111111f), sizeProductsQuantityText.width +10, sizeProductsQuantityText.height);
+        jlProductsQuantityText.setBounds(getScreenWidth(49.48f) +sizeProductsText.width, getScreenHeight(1.736111111f), sizeProductsQuantityText.width +10, sizeProductsQuantityText.height);
         panelTitles.add(jlProductsQuantityText);
 
         //Label voor Datum aanmaken, toevoegen aan panel en de juiste plek, grootte en lettertype meegeven (Joëlle)

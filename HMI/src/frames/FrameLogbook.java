@@ -23,7 +23,7 @@ public class FrameLogbook extends FrameHeader {
     public FrameLogbook() {
         closeProgram();
         setTitle("Java-application/Logboek"); // moet nog een betere titel komen lijkt mij (Joëlle)
-        Activity.getLogbookData(0);
+        Activity.getLogbookData(1000);
 
         //Panel toevoegen voor de titel (Joëlle)
         JPanel panelJournalTitle = new JPanel();
