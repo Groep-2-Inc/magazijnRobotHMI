@@ -53,11 +53,7 @@ public class Activity {
 
         // Haalt alle data op en zet deze in de array (Joëlle)
         JSONArray allActivities;
-        if(limit != 0){
-            allActivities = Database.getDbData("SELECT id, type, text, date FROM logbook ORDER BY id DESC LIMIT ?", new String[]{String.valueOf(limit)});
-        }else{
-            allActivities = Database.getDbData("SELECT id, type, text, date FROM logbook ORDER BY id DESC", new String[]{});
-        }
+        allActivities = Database.getDbData("SELECT id, type, text, date FROM logbook ORDER BY id DESC LIMIT ?", new String[]{String.valueOf(limit)});
 
         for (Object singelLogbookData : allActivities) {
             // Zet het Object om naar een JSON-object (Joëlle)
