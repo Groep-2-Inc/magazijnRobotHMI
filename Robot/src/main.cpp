@@ -21,7 +21,7 @@ void setup() {
 	encoderSetup();
 	endStopSetup();
 	// positionSetup();
-	}
+}
 
 // Herhaald de volgende code meerder keren
 void loop() {

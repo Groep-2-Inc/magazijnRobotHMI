@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import static java.lang.String.valueOf;
 
-import testClasses.*;
+import classes.*;
 
 public class PanelProduct2 extends JPanel{
     private BufferedImage productImg; // plaatje in de vorm van BufferedImage (Joëlle)
@@ -33,11 +33,11 @@ public class PanelProduct2 extends JPanel{
             productImg = ImageIO.read(new File(this.product.getImgPath()));
             image = productImg.getScaledInstance(100, 65, Image.SCALE_DEFAULT);
         } catch (IOException ex) {
-            System.out.println("no image available");
+//            System.out.println(getClass() + ": no image available");
         }
 
         // label aanmaken plus waarde toekennen, toevoegen aan het panel en juiste grootte en locatie toevoegen (Joëlle)
-        JLabel jl_productName = new JLabel(product.getProductname());
+        JLabel jl_productName = new JLabel(product.getProductName());
         jl_productName.setFont(arial15);
         add(jl_productName);
         Dimension sizeProductName = jl_productName.getPreferredSize();

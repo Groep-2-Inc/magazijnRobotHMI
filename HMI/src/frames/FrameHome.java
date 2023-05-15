@@ -1,6 +1,7 @@
 package frames;
+//Door Jason Joshua
 
-import panels.PanelLogboek;
+import panels.PanelLogbook;
 import panels.PanelOrderStatus;
 import panels.PanelPositie;
 import panels.PanelStatus;
@@ -8,23 +9,27 @@ import panels.PanelStatus;
 import javax.swing.*;
 import java.awt.*;
 
-//door Jason Joshua van der Kolk
 public class FrameHome extends FrameHeader{
+    private PanelLogbook panelLogboek = new PanelLogbook();
 
     public FrameHome(){
         //initializeer het hoofd paneel
         JPanel f = new JPanel();
-        setPreferredSize(new Dimension(1920, 1080));
+        setPreferredSize(new Dimension(getScreenWidth(100f), getScreenHeight(20f)));
         f.setLayout(new GridLayout(2,2));
+        closeProgram();
 
         //voeg de panelen toe
         f.add(new PanelPositie());
         f.add(new PanelStatus());
         f.add(new PanelOrderStatus());
-        f.add(new PanelLogboek());
+        f.add(panelLogboek);
 
         //voeg het hoofd paneel toe
         add(f);
-//        setVisible(true);
+    }
+
+    public void updateLogbookPanel(){
+        panelLogboek.updatePanel();
     }
 }

@@ -30,7 +30,6 @@ void setup() {
   Serial.begin(9600);
 }
 
-<<<<<<< HEAD:RobotSlave/RobotSlave/src/main.cpp
 void statusLightsOn(){
   if(x == 21){
     emergencyLEDOn();
@@ -39,38 +38,6 @@ void statusLightsOn(){
   } else if(x == 23){
     autoLEDOn();
   }
-=======
-// Zorgt ervoor dat de z-as naar voren kan bewegen.
-void moveForward(){
-  digitalWrite(directionPinZ, LOW);
-  digitalWrite(brakePinZ, LOW);
-  analogWrite(pwmPinZ, globalSpeed);
-}
-
-// Zorgt ervoor dat de z-as naar achter kan bewegen.
-void moveBackward(){
-  digitalWrite(directionPinZ, HIGH);
-  digitalWrite(brakePinZ, LOW);
-  analogWrite(pwmPinZ, globalSpeed);
-}
-
-// Stopt de z-as van bewegen.
-void stopMovement(){
-  digitalWrite(brakePinZ, HIGH);
-  analogWrite(pwmPinZ, 255);
->>>>>>> development:RobotSlave/src/main.cpp
-}
-
-void toMasterArduino(int value){
-  Wire.beginTransmission(9);
-	Wire.write(value);
-	Wire.endTransmission();
-}
-
-void toMasterArduino(int value){
-  Wire.beginTransmission(9);
-	Wire.write(value);
-	Wire.endTransmission();
 }
 
 void loop() {
@@ -107,7 +74,6 @@ void loop() {
   } else if (x == 11){
     resetHasMoved();
   }
-<<<<<<< HEAD:RobotSlave/RobotSlave/src/main.cpp
 
   statusLightsOn();
 
@@ -122,6 +88,3 @@ void loop() {
   }
 
 }
-=======
-}
->>>>>>> development:RobotSlave/src/main.cpp

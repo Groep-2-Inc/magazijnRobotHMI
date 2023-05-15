@@ -1,8 +1,11 @@
 package frames;
 // Door Sarah
 
+import database.Database;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import panels.PanelProductOverview;
-import testClasses.*;
+import classes.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,53 +15,76 @@ import java.util.ArrayList;
 public class FrameProducts extends FrameHeader implements ActionListener {
     private JButton jb_change, jb_save, jb_cancel; //Buttons die gebruikt worden in het scherm
     private ArrayList<PanelProductOverview> productPanels = new ArrayList<>(); //Arraylist van de afzonderlijke productPanels
-    private ArrayList<Product> products; //Arraylist waarin de producten worden opgeslagen
+    private ArrayList<Product> products = new ArrayList<>(); //Arraylist waarin de producten worden opgeslagen
     private Font arial17 = new Font("Arial", Font.PLAIN, 17);
 
-    public FrameProducts(ArrayList<Product> products) {
-        this.products = products;
-
+    public FrameProducts() {
         //Informatie voor het hele frame (Sarah)
         super.setTitle("JavaApplication/viewingProducts");
+
         setLayout(null);
 
+        getProductData();
+        // Verplaats naar eigen methode om code overzichtelijker te maken
+        productPanel();
+
+        closeProgram();
+    }
+
+    //Dynamisch opbouwen uit de database
+    // Door Daan
+    private void getProductData(){
+        // Haalt alle products op en zet het in een JSONArray
+        JSONArray allProducts = Database.getDbData("select si.StockItemID, si.StockItemName, siHoldings.QuantityOnHand, siImg.ImagePath from stockitems si JOIN stockitemholdings siHoldings ON si.StockItemID = siHoldings.StockItemID JOIN stockitemimages siImg ON si.StockItemID = siImg.StockItemID", new String[]{});
+        // Voor elk product
+        for(Object singleProductData : allProducts){
+            // Zet het Object om naar een JSON-object
+            JSONObject productData = (JSONObject) singleProductData;
+
+            // Maak een nieuw product object aan een voegt hem toe aan de products arraylist
+            products.add(new Product(Integer.parseInt((String) productData.get("StockItemID")), (String) productData.get("StockItemName"), Integer.parseInt((String) productData.get("QuantityOnHand")), (String) productData.get("ImagePath")));
+        }
+
+    }
+
+    private void productPanel(){
         //Titel aanmaken en stylen (Sarah)
         JLabel jl_products = new JLabel("Producten");
         jl_products.setFont(new Font("Arial", Font.BOLD, 30));
         Dimension sizeOrder = jl_products.getPreferredSize();
-        jl_products.setBounds(25, 5, sizeOrder.width + 10, sizeOrder.height);
+        jl_products.setBounds(getScreenWidth(1.1f), getScreenHeight(0.8f), sizeOrder.width, sizeOrder.height + 10);
         add(jl_products);
 
         //JPanel die lijst van producten laat zien (om doorheen te scrollen) aanmaken en stylen en scrollPane van maken (Sarah)
         JPanel jp_productListPanel = new JPanel();
-        jp_productListPanel.setPreferredSize(new Dimension(1320, 150 * products.size()));
+        jp_productListPanel.setPreferredSize(new Dimension(getScreenWidth(getPercentage(1536, 1475)), getScreenHeight(getPercentage(864, 150)) * products.size()));
         jp_productListPanel.setLayout(null);
         Dimension sizeProductListPanel = jp_productListPanel.getPreferredSize();
         JScrollPane jsp_productList = new JScrollPane(jp_productListPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jsp_productList.setBounds(25, 50, sizeProductListPanel.width + 10, 800);
+        jsp_productList.getVerticalScrollBar().setUnitIncrement(14);
+        jsp_productList.setBounds(getScreenWidth(1f), getScreenHeight(getPercentage(864, 50)), sizeProductListPanel.width + getScreenWidth(getPercentage(1536, 30)), getScreenHeight(getPercentage(864, 700)));
         add(jsp_productList);
-
 
         //productListPanel voorzien van panels die de productinformatie weergeven (Sarah)
         for (int i = 0; i < products.size(); i++) {
-            PanelProductOverview jp_productsPanel = new PanelProductOverview(products, i);
+            PanelProductOverview jp_productsPanel = new PanelProductOverview(products.get(i));
             jp_productListPanel.add(jp_productsPanel);
             Dimension sizeProductsPanel = jp_productsPanel.getPreferredSize();
-            jp_productsPanel.setBounds(0, sizeProductsPanel.height * i, sizeProductsPanel.width + 10, sizeProductsPanel.height);
+            jp_productsPanel.setBounds(0, sizeProductsPanel.height * i, sizeProductsPanel.width + sizeProductListPanel.width + getScreenWidth(getPercentage(1536, 10)), sizeProductsPanel.height);
             productPanels.add(jp_productsPanel);
         }
 
         //Button om productlijst te bewerken aanmaken en stylen (zichtbaar totdat op "bewerken" wordt gedrukt) (Sarah)
         jb_change = new JButton("Bewerken");
         jb_change.setFont(arial17);
-        jb_change.setBounds(25, 870, 150, 40);
+        jb_change.setBounds(sizeProductListPanel.width + getScreenWidth(getPercentage(1536, 25)), getScreenHeight(getPercentage(864, 870)), sizeProductListPanel.width + getScreenWidth(getPercentage(1536, 150)), getScreenHeight(getPercentage(864, 40)));
         jb_change.addActionListener(this);
         add(jb_change);
 
         //Button om aanpassingen in productlijst op te slaan aanmaken en stylen (onzichtbaar totdat op "bewerken" wordt gedrukt) (Sarah)
         jb_save = new JButton("Opslaan");
         jb_save.setFont(arial17);
-        jb_save.setBounds(25, 870, 150, 40);
+        jb_save.setBounds(getScreenWidth(getPercentage(1536, 25)), getScreenHeight(getPercentage(864, 870)), sizeProductListPanel.width + getScreenWidth(getPercentage(1536, 150)), getScreenHeight(getPercentage(864, 40)));
         jb_save.addActionListener(this);
         jb_save.setVisible(false);
         add(jb_save);
@@ -66,7 +92,7 @@ public class FrameProducts extends FrameHeader implements ActionListener {
         //Button om aanpassingen in productlijst te annuleren aanmaken en stylen (onzichtbaar totdat op "bewerken" wordt gedrukt) (Sarah)
         jb_cancel = new JButton("Annuleren");
         jb_cancel.setFont(arial17);
-        jb_cancel.setBounds(225, 870, 150, 40);
+        jb_cancel.setBounds(getScreenWidth(getPercentage(1536, 225)), getScreenHeight(getPercentage(864, 870)), getScreenWidth(getPercentage(1536, 150)), getScreenHeight(getPercentage(864, 40)));
         jb_cancel.addActionListener(this);
         jb_cancel.setVisible(false);
         add(jb_cancel);
@@ -96,25 +122,25 @@ public class FrameProducts extends FrameHeader implements ActionListener {
             jb_cancel.setVisible(false);
 
             //Instellen dat aantal producten niet meer bewerkt kan worden (wijzigingen worden opgeslagen) (Sarah)
+            int NumberOfChangingProduct = 0;
             for (int i = 0; i < products.size(); i++) {
                 productPanels.get(i).removeAll();
                 productPanels.get(i).editAmount(Color.white, null, false);
 
-                //Aanpassingen aan aantal producten worden opgeslagen, errors worden afgevangen (Sarah)
+                //Aanpassingen aan aantal producten worden opgeslagen, errors worden afgevangen (Sarah), try en catch samengevoegd naar één (Joëlle)
                 try {
-                    try {
-                        products.get(i).setStock(Integer.parseInt(productPanels.get(i).getJtf_amount().getText()));
-                    } catch (NumberFormatException NFE) {
-                        //Foutmelding als er geen nummer wordt ingevoerd (Sarah)
-                        JLabel jl_invalid = new JLabel("Ongeldige waarde");
-                        jl_invalid.setFont(new Font("Arial", Font.BOLD, 20));
-                        jl_invalid.setForeground(Color.red);
-                        jl_invalid.setBounds(300, 870, 250, 40);
-                        add(jl_invalid);
-                    }
-                } catch (NullPointerException NPE) {
+                    products.get(i).setStock(Integer.parseInt(productPanels.get(i).getJtf_amount().getText()));
+                    NumberOfChangingProduct = i;
+                } catch (NumberFormatException | NullPointerException ex) {
+                    //Foutmelding als er geen nummer wordt ingevoerd (Sarah)
+                    JLabel jl_invalid = new JLabel("Ongeldige waarde");
+                    jl_invalid.setFont(new Font("Arial", Font.BOLD, 20));
+                    jl_invalid.setForeground(Color.red);
+                    jl_invalid.setBounds(getScreenWidth(getPercentage(1536, 300)), getScreenHeight(getPercentage(864, 870)), getScreenWidth(getPercentage(1536, 150)), getScreenHeight(getPercentage(864, 40)));
+                    add(jl_invalid);
+                    System.out.println(getClass() + ": " + ex);
                 }
-            }
+            }Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Hoeveelheid product met nummer " + products.get(NumberOfChangingProduct).getProductID() + " is aangepast"}); //!! werkt nog niet, bij foute gegevens wordt er ook teogevoegd aan database, in het logboek wordt opgeslagen dat de order is bijgewerkt (Joëlle)
         }
 
         //Als op "Annuleren" wordt gedrukt: (Sarah)

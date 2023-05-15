@@ -60,7 +60,6 @@ bool checkGoButton(){
 // stopButton -> pin waar de noodstop op is aangesloten
 void checkStop(){
 	if(checkEmergencyStop()){
-		Serial.println("STOP!");
 		stop();
 	} else if(checkGoButton()){
 		Serial.println("go");
