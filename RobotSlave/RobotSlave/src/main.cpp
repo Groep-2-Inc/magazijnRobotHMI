@@ -4,6 +4,7 @@
 #include <motorController.h>
 #include <slaveCurPositionController.h>
 #include <statusLights.h>
+// #include <manualOrAutoButtons.h>
 
 // globalSpeed - Bepaald de snelheid van de robot.
 // directionPinZ -  Definieert de pinmode van de richting van de z-as.

@@ -21,7 +21,8 @@ void setup() {
 	encoderSetup();
 	endStopSetup();
 	// positionSetup();
-	}
+	pinMode(6, INPUT_PULLUP);
+}
 
 // Herhaald de volgende code meerder keren
 void loop() {
@@ -72,7 +73,7 @@ void loop() {
 		toSlaveArduino(0);
 	}
 
-	Serial.println(getFromSlave());
+	// Serial.println(getFromSlave());
 	
 	
 	
