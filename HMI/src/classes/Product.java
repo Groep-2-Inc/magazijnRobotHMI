@@ -43,6 +43,10 @@ public class Product {
         return amountOrdered;
     }
 
+    public void setAmountOrdered(int amountOrdered) {
+        this.amountOrdered = amountOrdered;
+    }
+
     public void setStock(int stock) {
         this.stock = stock;
     }

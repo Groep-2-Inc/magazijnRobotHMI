@@ -43,6 +43,7 @@ public class PanelOrderSingleProduct extends JPanel implements ActionListener{
     public JTextField getJtf_amount() {
         return jtf_amount;
     }
+    public void setJtf_amount(int value){jtf_amount.setText(String.valueOf(value));}
 
     //Method om jtf_amount wel of niet bewerkbaar te maken vanuit ViewingOrder (Sarah)
     public void editAmount(Color background, Border border, boolean editable) {

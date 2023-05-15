@@ -11,9 +11,9 @@ public class Order{
     private ArrayList<Product> products;
     private int productCount;
     private Date date;
-    private int orderCompleted;
-    private String TextOrderCompleted;
-    private Color ColorTextOrderCompleted;
+    private boolean orderCompleted;
+    private String textOrderCompleted;
+    private Color clorTextOrderCompleted;
 
     public Order(int orderID, Customer customer, ArrayList<Product> products, Date orderDate, int orderCompleted){
         this.orderID = orderID;
@@ -21,13 +21,15 @@ public class Order{
         this.products = products;
         this.productCount = products.size();
         this.date = orderDate;
-        this.orderCompleted = orderCompleted;
+
         if(orderCompleted == 1){
-            TextOrderCompleted = "Voltooid";
-            ColorTextOrderCompleted = Color.green;
+            textOrderCompleted = "Voltooid";
+            clorTextOrderCompleted = Color.green;
+            this.orderCompleted = true;
         }else{
-            TextOrderCompleted = "Niet voltooid";
-            ColorTextOrderCompleted = Color.red;
+            textOrderCompleted = "Niet voltooid";
+            clorTextOrderCompleted = Color.red;
+            this.orderCompleted = false;
         }
     }
 
@@ -46,11 +48,10 @@ public class Order{
     public Date getDate() {
         return date;
     }
-    public int isOrderCompleted() {
+    public boolean isOrderCompleted() {
         return orderCompleted;
     }
+    public String getTextOrderCompleted() {return textOrderCompleted;}
 
-    public String getTextOrderCompleted() {return TextOrderCompleted;}
-
-    public Color getColorTextOrderCompleted() {return ColorTextOrderCompleted;}
+    public Color getColorTextOrderCompleted() {return clorTextOrderCompleted;}
 }

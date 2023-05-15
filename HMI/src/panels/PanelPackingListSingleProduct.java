@@ -5,10 +5,10 @@ import frames.FrameHeader;
 import javax.swing.*;
 import java.awt.*;
 
-public class PanelPackingListSingleProduct extends JPanel {
+public class PanelPackinglistSingleProduct extends JPanel {
     private Order order; //Order waarvan hij de producten laat zien
 
-    public PanelPackingListSingleProduct(Order order, int index) {
+    public PanelPackinglistSingleProduct(Order order, int index) {
         this.order = order;
 
         //Informatie voor het hele panel (Sarah)
