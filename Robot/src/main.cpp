@@ -30,8 +30,8 @@ void loop() {
 	// y = getCorY(fromJava());
 	
 
-	// x = getCorX(424);
-	// y = getCorY(424);
+	x = getCorX(424);
+	y = getCorY(424);
 
     checkStop();
 	// // checkEndStopX();
@@ -72,7 +72,8 @@ void loop() {
 		toSlaveArduino(0);
 	}
 
-	Serial.println(getFromSlave());
+	// Serial.println(getFromSlave());
+	Serial.println(readJoystick());
 	
 	
 	
