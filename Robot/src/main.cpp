@@ -4,14 +4,13 @@
 #include <emergencyStop.h>
 #include <motorController.h>
 #include <joystick.h>
-#include <positionController.h>
 #include <endStop.h>
 #include <currentPositionController.h>
 
 bool hasHomed = false;
 bool moved = false;
-int x = 0;
-int y = 0;
+int x = 5;
+int y = 5;
 
 // Sets correct pinmodes
 void setup() {  
@@ -22,20 +21,13 @@ void setup() {
 	encoderSetup();
 	endStopSetup();
 	// positionSetup();
-}
+	}
 
 // Herhaald de volgende code meerder keren
 void loop() {
-	if(!hasHomed){
-		resetHasMoved();
-		toSlaveArduino(11);
-		moveToHome();
-		hasHomed = true;
-	}
-
-
-	x = getCorX(fromJava());
-	y = getCorY(fromJava());
+	
+	// x = getCorX(fromJava());
+	// y = getCorY(fromJava());
 	
 
 	// x = getCorX(424);
@@ -50,6 +42,13 @@ void loop() {
 	
 
 	if(!isEmergency()){
+		if(!hasHomed){
+		resetHasMoved();
+		toSlaveArduino(11);
+		moveToHome();
+		hasHomed = true;
+		}
+
 		manualControl();
 
 		if(x != 0 && y != 0){
@@ -67,6 +66,10 @@ void loop() {
 		// 	resetBoolXY();
 		// 	moved = false;
 		// }
+	}else{
+		//stuurt melding naar slave Arduino om noodstoplampje te laten branden (Sarah)
+		toSlaveArduino(21);
+		toSlaveArduino(0);
 	}
 
 	Serial.println(getFromSlave());
