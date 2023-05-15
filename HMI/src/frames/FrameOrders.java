@@ -57,7 +57,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         orders.clear();
 
         // Maakt de basis query, wat bij elke query hetzelfde is
-        String baseQuery = "SELECT orders.OrderID, orders.CustomerID, orders.OrderDate, customers.CustomerName, customers.DeliveryAddressLine2, customers.DeliveryPostalCode, cities.CityName, orders.OrderCompleted FROM orders JOIN customers ON orders.CustomerID = customers.CustomerID JOIN cities ON cities.CityID = customers.PostalCityID\n";
+        String baseQuery = "SELECT orders.OrderID, orders.CustomerID, orders.OrderDate, customers.CustomerName, customers.DeliveryAddressLine2, customers.DeliveryPostalCode, cities.CityName, orders.OrderCompleted FROM orders JOIN customers ON orders.CustomerID = customers.CustomerID JOIN cities ON cities.CityID = customers.PostalCityID";
         // Als hij moet zoeken naar customers
         if(type != null && type.equals("customers")){
             // Haalt alle orders op waarbij klantnummer lijkt op zoekwaarde
