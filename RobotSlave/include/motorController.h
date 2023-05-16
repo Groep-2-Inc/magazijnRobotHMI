@@ -9,3 +9,5 @@ void moveBackward();
 void moveY(int);
 void resetHasMoved();
 bool getHasMoved();
+void pickUpProduct();
+bool getProductPicked();

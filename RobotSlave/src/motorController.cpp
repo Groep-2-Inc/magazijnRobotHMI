@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <slaveCurPositionController.h>
+#include <IRSensor.h>
 
 const int directionPinY = 12;
 const int pwmPinY = 3;
@@ -11,6 +12,10 @@ const int pwmPinZ = 11;
 const int brakePinZ = 8;
 
 const int yCor[5]{150, 1200, 2250, 3300, 4350};
+
+int curY = 0;
+bool hasProduct = false;
+bool productPicked = false;
 
 void motorSetup(){
     pinMode(directionPinZ, OUTPUT);
@@ -50,16 +55,61 @@ void moveDown(){
 
 // Zorgt ervoor dat de z-as naar voren kan bewegen.
 void moveForward(){
-  digitalWrite(directionPinZ, LOW);
-  digitalWrite(brakePinZ, LOW);
-  analogWrite(pwmPinZ, globalSpeed);
+  if(measureZas() < 8.80){
+    digitalWrite(directionPinZ, LOW);
+    digitalWrite(brakePinZ, LOW);
+    analogWrite(pwmPinZ, globalSpeed);
+  } else {
+    stopMovement();
+  }
+ 
 }
 
 // Zorgt ervoor dat de z-as naar achter kan bewegen.
 void moveBackward(){
-  digitalWrite(directionPinZ, HIGH);
-  digitalWrite(brakePinZ, LOW);
-  analogWrite(pwmPinZ, globalSpeed);
+  if (measureZas() > 4.16){
+    digitalWrite(directionPinZ, HIGH);
+    digitalWrite(brakePinZ, LOW);
+    analogWrite(pwmPinZ, globalSpeed);
+  } else {
+    stopMovement();
+  }
+ 
+}
+
+void pickUpProduct(){
+  if(!productPicked){
+    if (curY == 0){
+    curY = readY();
+    }
+
+    if(!hasProduct){
+      if(measureZas() < 9){
+        moveForward();
+      }else if (readY() < curY + 300){
+        moveUp();
+      }else{
+        stopMovement();
+        hasProduct = true;
+      }
+    } else {
+      if(measureZas() > 4.17){
+        moveBackward();
+      }else if (readY() > curY){
+        moveDown();
+      }else{
+        hasProduct = false;
+        productPicked = true;
+      }
+    }
+  } else {
+    stopMovement();
+  }
+  
+}
+
+bool getProductPicked(){
+  return productPicked;
 }
 
 bool hasMoved = false;

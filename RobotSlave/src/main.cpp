@@ -77,6 +77,8 @@ void loop() {
     }
   } else if (x == 11){
     resetHasMoved();
+  } else if (x == 12){
+    pickUpProduct();
   }
 
   statusLightsOn();

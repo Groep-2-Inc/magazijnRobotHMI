@@ -12,6 +12,7 @@ bool moved = false;
 int curdata = 0;
 int x = 0;
 int y = 0;
+bool pickingProduct = false;
 
 // Sets correct pinmodes
 void setup() {  
@@ -56,23 +57,27 @@ void loop() {
 		}
 		
 
-		if(x != 0 && y != 0){
+		if(x != 0 && y != 0 && !pickingProduct){
 			if(moved == false && moveXY(x, y) == true){
 				moved = true;
 			} else if (moved == true) {
 				stopMovement();
 				toSlaveArduino(0);
+				pickingProduct = true;
 			}
+		} else if (pickingProduct){
+			pickUpProduct();
 		}
 		
  		
-		// manualControl();
 		
 	}else if (getConection()){
 		//stuurt melding naar slave Arduino om noodstoplampje te laten branden (Sarah)
 		toSlaveArduino(21);
 		toSlaveArduino(0);
 	} 
+
+	// manualControl();
 
 	// Serial.println(getFromSlave());
 	

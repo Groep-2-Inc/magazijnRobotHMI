@@ -67,6 +67,10 @@ void moveDown(){
     }
 }
 
+bool pickUpProduct(){
+    toSlaveArduino(12);
+}
+
 bool hasMoved = false;
 bool moveX (int coordinate){
     coordinate = coordinate - 1;
@@ -85,7 +89,7 @@ bool moveX (int coordinate){
 bool moveY (int coordinate){
     toSlaveArduino(coordinate + 5);
     if(getFromSlave() == 101){
-        // toSlaveArduino(0);
+        toSlaveArduino(0);
         return true;
     } else {
         return false;
