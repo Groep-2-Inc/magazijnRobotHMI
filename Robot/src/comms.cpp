@@ -9,6 +9,7 @@ byte i2c_rcv;
 // Start de communicatie tussen de arduino's.
 int recieved = 0;
 bool hasConection = false;
+int incomingData = 0;
 
 void receiveEvent(int bytes){
   recieved = Wire.read();
@@ -28,7 +29,6 @@ void toJava(int status){
 }
 
 int fromJava() {
-	int incomingData = 0;
 	if(Serial.available() > 0) {
 		incomingData = Serial.readString().toInt();
 
@@ -46,8 +46,13 @@ int fromJava() {
 		}
 	}
 
-  // Als er geen nieuwe data is return dan 
+  // Als er geen nieuwe data is return dan
   return incomingData;
+}
+
+int getData(){
+	fromJava();
+	return incomingData;
 }
 
 // // Haalt status codes uit de Serial.
