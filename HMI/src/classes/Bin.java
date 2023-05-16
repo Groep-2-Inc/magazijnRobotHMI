@@ -35,9 +35,13 @@ public class Bin {
         for(int i = 0; i< binsFirstFit.size(); i++){
             System.out.println(Bin.class + ": doos: " + (i + 1) + " ");
             for(int j = 0; j< binsFirstFit.get(i).producten.size(); j++){
-                System.out.println("Gewicht: " + binsFirstFit.get(i).producten.get(j).getWeight() + " - " + binsFirstFit.get(i).producten.get(j).getProductName());
+                System.out.println("Gewicht: " + binsFirstFit.get(i).producten.get(j).getWeight() + " - " + binsFirstFit.get(i).producten.get(j).getProductName() + " - " + binsFirstFit.get(i).producten.get(j).getProductID() );
             }
         }
         return binsFirstFit;
     }
+    public static void reset(){
+        binsFirstFit.clear();
+    }
+
 }
