@@ -199,12 +199,12 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
         //maak nog een paneel aan voor het aantal producten en voeg deze toe aan de informatiepaneel
         JPanel p3 = new JPanel();
         p3.setPreferredSize(new Dimension(getScreenWidth(26f), getScreenHeight(2.8f)));
-        p3.add(new JLabel("          Totaal aantal producten: " + i_totaalAantalProducten + "          "));
+        p3.add(new JLabel("          Totaal aantal producten: " + o_order.getProducts().size() + "          "));
         p2.add(p3);
         //maak een nieuw paneel aan voor de producten verzameld en voeg deze ook toe aan de informatiepaneel
         p3 = new JPanel();
         p3.setPreferredSize(new Dimension(getScreenWidth(26f), getScreenHeight(2.8f)));
-        p3.add(new JLabel("          Producten verzameld " + i_productenVerzameld + "          "));
+        p3.add(new JLabel("          Producten verzameld: " + i_productenVerzameld + "          "));
         p2.add(p3);
 
         //voeg een lijntje toe
@@ -214,34 +214,36 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
         p2.add(p3);
 
         //voeg de informatie toe aan het paneel
-        for(int i = 0; i<6; i++){
+        for(int i = 0; i<o_order.getProducts().size(); i++){
             //maak nieuwe paneeltjes aan
             JPanel p4 = new JPanel();
             JPanel p5 = new JPanel();
+            JPanel p6 = new JPanel();
 
             //verander de border en size voor het hoofdpaneeltje van de informatie
+            p4.setLayout(new FlowLayout());
             p4.setBorder(new LineBorder(Color.black));
-            p4.setPreferredSize(new Dimension(getScreenWidth(31.25f), getScreenHeight(4.6f)));
+            p4.setPreferredSize(new Dimension(getScreenWidth(31.25f), getScreenHeight(10f)));
+            p4.setBackground(Color.green);
 
-            //voeg een paneeltje toe voor de afbeeldingen
-            p5.setBorder(new LineBorder(Color.black));
-            p5.setPreferredSize(new Dimension(getScreenWidth(2f), getScreenHeight(3.7f)));
-            p4.add(p5);
+//            //voeg een paneeltje toe voor de afbeeldingen
+//            p5.setBorder(new LineBorder(Color.black));
+//            p5.setPreferredSize(new Dimension(getScreenWidth(5f), getScreenHeight(8.7f)));
+//            p4.add(p5);
 
-            //voeg paneeltje toe voor de product naam en code
-            p5 = new JPanel();
-            p5.setLayout(new GridLayout(2,1));
-            p5.setPreferredSize(new Dimension(getScreenWidth(15.6f), getScreenHeight(3.7f)));
-            p5.add(new JLabel("[ProductNaam]"));
-            p5.add(new JLabel("[ProductCode]"));
+            //voeg paneeltje toe voor de product naam
+//            p5.setPreferredSize(new Dimension(getScreenWidth(25f), getScreenHeight(3.7f)));
+            p5.setBounds(getScreenWidth(0f), getScreenHeight(10f), getScreenWidth(25f), getScreenHeight(3.7f));
+            p5.add(new JLabel(o_order.getProducts().get(i).getProductName()));
+            p5.setBackground(Color.pink);
             p4.add(p5);
 
             //voeg een paneeltje toe voor de locatie
             p5 = new JPanel();
             p5.setLayout(new GridLayout(2,1));
-            p5.setPreferredSize(new Dimension(getScreenWidth(5.2f), getScreenHeight(3.7f)));
+            p5.setPreferredSize(new Dimension(getScreenWidth(5f), getScreenHeight(3.7f)));
             p5.add(new JLabel("Stelling:"));
-            p5.add(new JLabel("[locatie]"));
+            p5.add(new JLabel(String.valueOf(o_order.getProducts().get(i).getProductID())));
             p4.add(p5);
 
             //voeg een paneeltje toe voor of het product gepicked is of niet

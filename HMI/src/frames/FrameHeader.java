@@ -1,9 +1,7 @@
 package frames;
 
-import classes.Order;
 import comms.Communication;
 import database.Database;
-import frames.FrameVerwerken;
 
 import javax.swing.*;
 import java.awt.*;
