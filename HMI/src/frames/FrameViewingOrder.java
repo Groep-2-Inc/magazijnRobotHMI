@@ -87,6 +87,7 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         jb_pick.setFont(arial17);
         jb_pick.setBounds(getScreenWidth(getPercentage(1536, 210)), getScreenHeight(getPercentage(864, 700)), getScreenWidth(10f), getScreenHeight(3f));
         jb_pick.addActionListener(this);
+        add(jb_pick);
 
         // Als order nog niet completed is kan je hem nog bewerken
         // Door Martijn
