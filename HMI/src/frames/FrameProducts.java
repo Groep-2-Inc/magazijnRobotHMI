@@ -35,14 +35,14 @@ public class FrameProducts extends FrameHeader implements ActionListener {
     // Door Daan
     private void getProductData(){
         // Haalt alle products op en zet het in een JSONArray
-        JSONArray allProducts = Database.getDbData("select si.StockItemID, si.StockItemName, siHoldings.QuantityOnHand, siImg.ImagePath from stockitems si JOIN stockitemholdings siHoldings ON si.StockItemID = siHoldings.StockItemID JOIN stockitemimages siImg ON si.StockItemID = siImg.StockItemID", new String[]{});
+        JSONArray allProducts = Database.getDbData("select si.StockItemID, si.StockItemName, siHoldings.QuantityOnHand, siImg.ImagePath, si.Size from stockitems si JOIN stockitemholdings siHoldings ON si.StockItemID = siHoldings.StockItemID JOIN stockitemimages siImg ON si.StockItemID = siImg.StockItemID", new String[]{});
         // Voor elk product
         for(Object singleProductData : allProducts){
             // Zet het Object om naar een JSON-object
             JSONObject productData = (JSONObject) singleProductData;
 
             // Maak een nieuw product object aan een voegt hem toe aan de products arraylist
-            products.add(new Product(Integer.parseInt((String) productData.get("StockItemID")), (String) productData.get("StockItemName"), Integer.parseInt((String) productData.get("QuantityOnHand")), (String) productData.get("ImagePath")));
+            products.add(new Product(Integer.parseInt((String) productData.get("StockItemID")), (String) productData.get("StockItemName"), Integer.parseInt((String) productData.get("QuantityOnHand")), (String) productData.get("ImagePath"),Integer.parseInt((String) productData.get("Size"))));
         }
 
     }

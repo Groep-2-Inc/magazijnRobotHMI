@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import database.Database;
+import panels.PanelBins;
 import panels.PanelPositie;
 import classes.Order;
 
@@ -268,30 +269,43 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
         JPanel p = new JPanel();
         p.setPreferredSize(new Dimension(getScreenWidth(41.7f), getScreenHeight(27.8f)));
 
+        PanelBins panelBins = new PanelBins();
+        p.add(panelBins);
+
+//        JPanel p3 = new JPanel();
+//        p3.setPreferredSize(new Dimension(getScreenWidth(21.8f), getScreenHeight(27.8f)));
+//        p3.setBackground(Color.blue);
+//        p.add(p3);
+
+//        for(int i = 1; i < 3; i++){
+//            PanelBins panelBins = new PanelBins();
+//            p3.add(panelBins);
+//        }
         //voeg de boxjes toe
-        for(int i = 1; i < 3; i++){
-            //voeg een nieuw paneel toe
-            JPanel p2 = new JPanel();
-            p2.setPreferredSize(new Dimension(getScreenWidth(10.4f), getScreenHeight(27.8f)));
-
-            //zet een boxje in het paneel
-            JPanel p3 = new JPanel();
-            p3.setPreferredSize(new Dimension(getScreenWidth(9.9f), getScreenHeight(23.15f)));
-            p3.setBorder(new LineBorder(Color.black, 1));
-
-            //voeg een label toe aan het paneel
-            JLabel l = new JLabel("Doos " + i);
-
-            //voeg vervolgens alles toe
-            p2.add(p3);
-            p2.add(l);
-            //maak een nieuw paneel aan voor de maregin
-            JPanel p4 = new JPanel();
-            p4.setPreferredSize(new Dimension(getScreenWidth(5.2f), 1));
-            //voeg de rest toe
-            p2.add(p4);
-            p.add(p2);
-        }
+//        for(int i = 1; i < 3; i++){
+//            //voeg een nieuw paneel toe
+////            JPanel p2 = new JPanel();
+////            p2.setPreferredSize(new Dimension(getScreenWidth(10.4f), getScreenHeight(27.8f)));
+////            p2.setBackground(Color.pink);
+//
+//            //zet een boxje in het paneel
+//            PanelBins panelBins = new PanelBins();
+////            p3.setPreferredSize(new Dimension(getScreenWidth(9.9f), getScreenHeight(23.15f)));
+////            p3.setBorder(new LineBorder(Color.black, 1));
+//
+//            //voeg een label toe aan het paneel
+//            JLabel l = new JLabel("Doos " + i);
+//
+//            //voeg vervolgens alles toe
+//            p3.add(panelBins);
+//            p3.add(l);
+//            //maak een nieuw paneel aan voor de maregin
+//            JPanel p4 = new JPanel();
+//            p4.setPreferredSize(new Dimension(getScreenWidth(5.2f), 1));
+//            //voeg de rest toe
+//            p3.add(p4);
+//            p.add(p3);
+//        }
         //return het subpaneel
         return p;
     }

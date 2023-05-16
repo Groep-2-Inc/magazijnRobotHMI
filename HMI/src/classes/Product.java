@@ -7,17 +7,19 @@ public class Product {
     private String imgPath;
     private int amountOrdered;
     private int stock;
+    private int weight;
 
-    public Product(int productID, String productName, String imgPath, int amountOrdered) {
+    public Product(int productID, String productName, String imgPath, int amountOrdered, int weight) {
         this.productID = productID;
         this.productName = productName;
         this.imgPath = imgPath;
         this.amountOrdered = amountOrdered;
         this.stock = 0;
+        this.weight = weight;
     }
 
-    public Product(int productID, String productName, int stock, String imgPath){
-        this(productID, productName, imgPath, 0);
+    public Product(int productID, String productName, int stock, String imgPath, int weight){
+        this(productID, productName, imgPath, 0, weight);
         this.stock = stock;
     }
 
@@ -44,5 +46,7 @@ public class Product {
     public void setStock(int stock) {
         this.stock = stock;
     }
+
+    public int getWeight() {return weight;}
 }
 
