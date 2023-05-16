@@ -4,33 +4,37 @@ import classes.*;
 import frames.FrameHeader;
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class ProductsInBoxPanel extends JPanel {
     private Order order; //Order waarvan hij de producten laat zien
+    private Product product1;
 
-    public ProductsInBoxPanel(Order order, int index) {
+    public ProductsInBoxPanel(Product p) {
         this.order = order;
+        this.product1 = p;
+
 
         //Informatie voor het hele panel (Sarah)
         setPreferredSize(new Dimension(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 1496)),FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 75))));
         setLayout(null);
 
         //ProductID opvragen en stylen (Sarah)
-        JLabel jl_productID = new JLabel(String.valueOf(this.order.getProducts().get(index).getProductID()));
+        JLabel jl_productID = new JLabel(String.valueOf(product1.getProductID()));
         jl_productID.setFont(new Font("Arial", Font.PLAIN, 17));
         Dimension sizeProductID = jl_productID.getPreferredSize();
         jl_productID.setBounds(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 50)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 30)), sizeProductID.width + FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 10)), sizeProductID.height);
         add(jl_productID);
 
         //Productnaam opvragen en stylen (Sarah)
-        JLabel jl_productname = new JLabel(this.order.getProducts().get(index).getProductName());
+        JLabel jl_productname = new JLabel(String.valueOf(product1.getProductName()));
         jl_productname.setFont(new Font("Arial", Font.PLAIN, 17));
         Dimension sizeProductname = jl_productname.getPreferredSize();
         jl_productname.setBounds(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 200)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 30)), sizeProductname.width + FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 10)), sizeProductname.height);
         add(jl_productname);
 
         //Producthoeveelheid opvragen en stylen (Sarah)
-        JLabel jl_amount = new JLabel("Hoeveelheid in doos: " + order.getProducts().get(index).getStock());
+        JLabel jl_amount = new JLabel("Hoeveelheid in doos: " + product1.getAmountOrdered());
         jl_amount.setFont(new Font("Arial", Font.PLAIN, 17));
         Dimension sizeJLAmount = jl_amount.getPreferredSize();
         jl_amount.setBounds(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 1100)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 30)), sizeJLAmount.width + FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 10)), sizeJLAmount.height);
