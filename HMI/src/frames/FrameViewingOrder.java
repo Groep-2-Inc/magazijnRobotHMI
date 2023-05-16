@@ -13,6 +13,7 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
     private Order order; //Order waarvan het frame is
     private JButton jb_change, jb_cancel, jb_pick, jb_save, jb_back; //Buttons die in het scherm gebruikt worden
     private ArrayList<PanelOrderSingleProduct> productPanels = new ArrayList<>(); //Arraylist van de afzonderlijke productPanels
+    private JLabel jl_invalid = new JLabel("Ongeldige waarde");
     private Font arial30B = new Font("Arial", Font.BOLD, 30);
     private Font arial17 = new Font("Arial", Font.PLAIN, 17);
     private Font arial24 = new Font("Arial", Font.PLAIN, 24);
@@ -114,6 +115,14 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
             add(jb_cancel);
         }
 
+        //Foutmelding als er geen nummer wordt ingevoerd (Sarah)
+        //Verplaatst door Martijn
+        jl_invalid.setFont(new Font("Arial", Font.BOLD, 20));
+        jl_invalid.setForeground(Color.red);
+        jl_invalid.setBounds(getScreenWidth(getPercentage(1536, 1250)), getScreenHeight(5.5f), getScreenWidth(getPercentage(1536, 250)), getScreenHeight(getPercentage(864, 40)));
+        add(jl_invalid);
+        jl_invalid.setVisible(false);
+
         setVisible(true);
     }
 
@@ -155,13 +164,10 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
                     order.getProducts().get(i).setAmountOrdered(newStock);
                     Database.updateDatabase("UPDATE orderlines SET Quantity = ? WHERE OrderID = ? AND StockItemID = ?", new String[]{String.valueOf(newStock), String.valueOf(order.getOrderID()), String.valueOf(order.getProducts().get(i).getProductID())}); // (Martijn)
                     Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Order " +  order.getOrderID() +" is bijgewerkt"}); // (Joëlle)
+                    jl_invalid.setVisible(false);
                 } catch (NumberFormatException NFE) {
                     //Foutmelding als er geen nummer wordt ingevoerd (Sarah)
-                    JLabel jl_invalid = new JLabel("Ongeldige waarde");
-                    jl_invalid.setFont(new Font("Arial", Font.BOLD, 20));
-                    jl_invalid.setForeground(Color.red);
-                    jl_invalid.setBounds(getScreenWidth(getPercentage(1536, 500)), getScreenHeight(getPercentage(864, 670)), getScreenWidth(getPercentage(1536, 250)), getScreenHeight(getPercentage(864, 40)));
-                    add(jl_invalid);
+                    jl_invalid.setVisible(true);
                 }
 
                 productPanels.get(i).editAmount(Color.white, null, false);
