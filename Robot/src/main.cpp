@@ -13,6 +13,7 @@ int curdata = 0;
 int x = 0;
 int y = 0;
 bool pickingProduct = false;
+bool manual = true;
 
 // Sets correct pinmodes
 void setup() {  
@@ -42,36 +43,39 @@ void loop() {
 		fromJava();
 	}
 
-	if(!isEmergency() && getConection()){
-		if(!hasHomed){
-			resetHasMoved();
-			toSlaveArduino(11);
-			moveToHome();
-			hasHomed = true;
-		}
+	if(!isEmergency()){
+		if(!manual){
+			if(getConection()){
+				if(!hasHomed){
+					resetHasMoved();
+					toSlaveArduino(11);
+					moveToHome();
+					hasHomed = true;
+				}
 
-		if(curdata != getData()){
-			curdata = getData();
-			x = getCorX(curdata);
-			y = getCorY(curdata);
-		}
-		
+				if(curdata != getData()){
+					curdata = getData();
+					x = getCorX(curdata);
+					y = getCorY(curdata);
+				}
+				
 
-		if(x != 0 && y != 0 && !pickingProduct){
-			if(moved == false && moveXY(x, y) == true){
-				moved = true;
-			} else if (moved == true) {
-				stopMovement();
-				toSlaveArduino(0);
-				pickingProduct = true;
+				if(x != 0 && y != 0 && !pickingProduct){
+					if(moved == false && moveXY(x, y) == true){
+						moved = true;
+					} else if (moved == true) {
+						stopMovement();
+						toSlaveArduino(0);
+						pickingProduct = true;
+					}
+				} else if (pickingProduct){
+					pickUpProduct();
+				}
 			}
-		} else if (pickingProduct){
-			pickUpProduct();
+		} else {
+			manualControl();
 		}
-		
- 		
-		
-	}else if (getConection()){
+	}else {
 		//stuurt melding naar slave Arduino om noodstoplampje te laten branden (Sarah)
 		toSlaveArduino(21);
 		toSlaveArduino(0);

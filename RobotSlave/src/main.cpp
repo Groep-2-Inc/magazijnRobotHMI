@@ -81,7 +81,7 @@ void loop() {
     pickUpProduct();
   }
 
-  // statusLightsOn();
+  statusLightsOn();
 
   measureZas();
 
