@@ -1,4 +1,7 @@
 package frames;
+//door Jason Joshua van der Kolk
+//styling bijgewerkt door Daan
+//bpp gedaan door Joëlle
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -11,9 +14,7 @@ import database.Database;
 import panels.PanelBins;
 import panels.PanelPositie;
 import classes.Order;
-//import panels.PanelProductOverview;
 
-//door Jason Joshua van der Kolk
 public class FrameVerwerken extends FrameHeader implements ActionListener {
     private int i_orderID = 1; //int voor order id
     private Date d_date;
