@@ -8,18 +8,20 @@ public class Product {
     private int amountOrdered;
     private int stock;
     private int weight;
+    private String binLocation;
 
-    public Product(int productID, String productName, String imgPath, int amountOrdered, int weight) {
+    public Product(int productID, String productName, String imgPath, int amountOrdered, int weight, String binLocation) {
         this.productID = productID;
         this.productName = productName;
         this.imgPath = imgPath;
         this.amountOrdered = amountOrdered;
-        this.stock = 0;
+        this.binLocation = binLocation;
         this.weight = weight;
+        this.stock = 0;
     }
 
-    public Product(int productID, String productName, int stock, String imgPath, int weight){
-        this(productID, productName, imgPath, 0, weight);
+    public Product(int productID, String productName, String imgPath, int stock, String binLocation, int weight){
+        this(productID, productName, imgPath, 0, weight, binLocation);
         this.stock = stock;
     }
 
@@ -43,10 +45,20 @@ public class Product {
         return amountOrdered;
     }
 
+    public void setAmountOrdered(int amountOrdered) {
+        this.amountOrdered = amountOrdered;
+    }
+
     public void setStock(int stock) {
         this.stock = stock;
     }
 
-    public int getWeight() {return weight;}
+    public int getWeight() {
+        return weight;
+    }
+
+    public String getBinLocation() {
+        return binLocation;
+    }
 }
 

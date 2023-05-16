@@ -12,7 +12,8 @@ import panels.*;
 public class FrameViewingOrder extends FrameHeader implements ActionListener {
     private Order order; //Order waarvan het frame is
     private JButton jb_change, jb_cancel, jb_pick, jb_save, jb_back; //Buttons die in het scherm gebruikt worden
-    private ArrayList<PanelProduct> productPanels = new ArrayList<>(); //Arraylist van de afzonderlijke productPanels
+    private ArrayList<PanelOrderSingleProduct> productPanels = new ArrayList<>(); //Arraylist van de afzonderlijke productPanels
+    private JLabel jl_invalid = new JLabel("Ongeldige waarde");
     private Font arial30B = new Font("Arial", Font.BOLD, 30);
     private Font arial17 = new Font("Arial", Font.PLAIN, 17);
     private Font arial24 = new Font("Arial", Font.PLAIN, 24);
@@ -74,19 +75,12 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
 
         //productListPanel voorzien van panels die de productinformatie weergeven (Sarah)
         for (int i = 0; i < order.getProducts().size(); i++) {
-            PanelProduct jp_productsPanel = new PanelProduct(order, i);
+            PanelOrderSingleProduct jp_productsPanel = new PanelOrderSingleProduct(order, i);
             Dimension sizeProductsPanel = jp_productsPanel.getPreferredSize();
             jp_productsPanel.setBounds(0, sizeProductsPanel.height * i, sizeProductsPanel.width + getScreenWidth(getPercentage(1536, 200)), sizeProductsPanel.height);
             productPanels.add(jp_productsPanel);
             jp_productListPanel.add(jp_productsPanel);
         }
-
-        //Button om productlijst te bewerken aanmaken en stylen (zichtbaar totdat op "bewerken" wordt gedrukt) (Sarah)
-        jb_change = new JButton("Bewerken");
-        jb_change.setFont(arial17);
-        jb_change.setBounds(getScreenWidth(getPercentage(1536, 20)), getScreenHeight(getPercentage(864, 700)), getScreenWidth(10f), getScreenHeight(3f));
-        jb_change.addActionListener(this);
-        add(jb_change);
 
         //Button om order te picken aanmaken en stylen (zichtbaar totdat op "bewerken" wordt gedrukt) (Sarah)
         //TODO knop om order te picken moet nog werkend gemaakt worden
@@ -96,21 +90,40 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         jb_pick.addActionListener(this);
         add(jb_pick);
 
-        //Button om aanpassingen in productlijst op te slaan aanmaken en stylen (onzichtbaar totdat op "bewerken" wordt gedrukt) (Sarah)
-        jb_save = new JButton("Opslaan");
-        jb_save.setFont(arial17);
-        jb_save.setBounds(getScreenWidth(getPercentage(1536, 20)), getScreenHeight(getPercentage(864, 700)), getScreenWidth(10f), getScreenHeight(3f));
-        jb_save.addActionListener(this);
-        jb_save.setVisible(false);
-        add(jb_save);
+        // Als order nog niet completed is kan je hem nog bewerken
+        // Door Martijn
+        if(!order.isOrderCompleted()){
+            //Button om productlijst te bewerken aanmaken en stylen (zichtbaar totdat op "bewerken" wordt gedrukt) (Sarah)
+            jb_change = new JButton("Bewerken");
+            jb_change.setFont(arial17);
+            jb_change.setBounds(getScreenWidth(getPercentage(1536, 20)), getScreenHeight(getPercentage(864, 700)), getScreenWidth(10f), getScreenHeight(3f));
+            jb_change.addActionListener(this);
+            add(jb_change);
 
-        //Button om aanpassingen in productlijst te annuleren aanmaken en stylen (onzichtbaar totdat op "bewerken" wordt gedrukt) (Sarah)
-        jb_cancel = new JButton("Annuleren");
-        jb_cancel.setFont(arial17);
-        jb_cancel.setBounds(getScreenWidth(getPercentage(1536, 210)), getScreenHeight(getPercentage(864, 700)), getScreenWidth(10f), getScreenHeight(3f));
-        jb_cancel.addActionListener(this);
-        jb_cancel.setVisible(false);
-        add(jb_cancel);
+            //Button om aanpassingen in productlijst op te slaan aanmaken en stylen (onzichtbaar totdat op "bewerken" wordt gedrukt) (Sarah)
+            jb_save = new JButton("Opslaan");
+            jb_save.setFont(arial17);
+            jb_save.setBounds(getScreenWidth(getPercentage(1536, 20)), getScreenHeight(getPercentage(864, 700)), getScreenWidth(10f), getScreenHeight(3f));
+            jb_save.addActionListener(this);
+            jb_save.setVisible(false);
+            add(jb_save);
+
+            //Button om aanpassingen in productlijst te annuleren aanmaken en stylen (onzichtbaar totdat op "bewerken" wordt gedrukt) (Sarah)
+            jb_cancel = new JButton("Annuleren");
+            jb_cancel.setFont(arial17);
+            jb_cancel.setBounds(getScreenWidth(getPercentage(1536, 210)), getScreenHeight(getPercentage(864, 700)), getScreenWidth(10f), getScreenHeight(3f));
+            jb_cancel.addActionListener(this);
+            jb_cancel.setVisible(false);
+            add(jb_cancel);
+        }
+
+        //Foutmelding als er geen nummer wordt ingevoerd (Sarah)
+        //Verplaatst door Martijn
+        jl_invalid.setFont(new Font("Arial", Font.BOLD, 20));
+        jl_invalid.setForeground(Color.red);
+        jl_invalid.setBounds(getScreenWidth(getPercentage(1536, 1250)), getScreenHeight(5.5f), getScreenWidth(getPercentage(1536, 250)), getScreenHeight(getPercentage(864, 40)));
+        add(jl_invalid);
+        jl_invalid.setVisible(false);
 
         setVisible(true);
     }
@@ -142,27 +155,25 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
             jb_save.setVisible(false);
             jb_cancel.setVisible(false);
 
-            int NumberOfChangingProduct = 0;
             //Kruisje om producten uit lijst te verwijderen wordt onzichtbaar en aantal producten kan niet meer worden aangepast (wijzigingen worden opgeslagen) (Sarah)
             for (int i = 0; i < order.getProducts().size(); i++) {
                 productPanels.get(i).editDelete(false);
                 productPanels.get(i).removeAll();
-                productPanels.get(i).editAmount(Color.white, null, false);
 
                 //Aanpassingen aan aantal producten worden opgeslagen, errors worden afgevangen (Sarah), try en catch samengevoegd naar één (Joëlle)
                 try {
-                    order.getProducts().get(i).setStock(Integer.parseInt(productPanels.get(i).getJtf_amount().getText()));
-                    NumberOfChangingProduct = i;
+                    int newStock = Integer.parseInt(productPanels.get(i).getJtf_amount().getText());
+                    order.getProducts().get(i).setAmountOrdered(newStock);
+                    Database.updateDatabase("UPDATE orderlines SET Quantity = ? WHERE OrderID = ? AND StockItemID = ?", new String[]{String.valueOf(newStock), String.valueOf(order.getOrderID()), String.valueOf(order.getProducts().get(i).getProductID())}); // (Martijn)
+                    Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Order " +  order.getOrderID() +" is bijgewerkt"}); // (Joëlle)
+                    jl_invalid.setVisible(false);
                 } catch (NumberFormatException NFE) {
                     //Foutmelding als er geen nummer wordt ingevoerd (Sarah)
-                    JLabel jl_invalid = new JLabel("Ongeldige waarde");
-                    jl_invalid.setFont(new Font("Arial", Font.BOLD, 20));
-                    jl_invalid.setForeground(Color.red);
-                    jl_invalid.setBounds(getScreenWidth(getPercentage(1536, 500)), getScreenHeight(getPercentage(864, 670)), getScreenWidth(getPercentage(1536, 250)), getScreenHeight(getPercentage(864, 40)));
-                    add(jl_invalid);
+                    jl_invalid.setVisible(true);
                 }
+
+                productPanels.get(i).editAmount(Color.white, null, false);
             }
-            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Order " +  order.getOrderID() +" is bijgewerkt"}); //!! werkt nog niet, bij foute gegevens wordt er ook teogevoegd aan database, in het logbook wordt opgeslagen dat de order is bijgewerkt (Joëlle)
         }
 
         //Als op "Annuleren" wordt gedrukt: (Sarah)

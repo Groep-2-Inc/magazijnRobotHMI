@@ -1,7 +1,7 @@
 package frames;
 
 import database.Database;
-import panels.ProductsInBoxPanel;
+import panels.PanelPackinglistSingleProduct;
 import classes.*;
 
 import javax.swing.*;
@@ -66,7 +66,7 @@ public class FramePackingList extends FrameHeader implements ActionListener {
 
         //productListPanel voorzien van panels die de productinformatie weergeven (Sarah)
         for (int i = 0; i < order.getProducts().size(); i++) {
-            ProductsInBoxPanel jp_productsInBoxPanel = new ProductsInBoxPanel(order, i);
+            PanelPackinglistSingleProduct jp_productsInBoxPanel = new PanelPackinglistSingleProduct(order, i);
             jp_productListPanel.add(jp_productsInBoxPanel);
             Dimension sizeProductsPanel = jp_productsInBoxPanel.getPreferredSize();
             jp_productsInBoxPanel.setBounds(0, sizeProductsPanel.height * i, sizeProductsPanel.width + getScreenWidth(getPercentage(1536, 10)), sizeProductsPanel.height);

@@ -57,7 +57,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
         orders.clear();
 
         // Maakt de basis query, wat bij elke query hetzelfde is
-        String baseQuery = "SELECT orders.OrderID, orders.CustomerID, orders.OrderDate, customers.CustomerName, customers.DeliveryAddressLine2, customers.DeliveryPostalCode, cities.CityName, orders.OrderCompleted FROM orders JOIN customers ON orders.CustomerID = customers.CustomerID JOIN cities ON cities.CityID = customers.PostalCityID\n";
+        String baseQuery = "SELECT orders.OrderID, orders.CustomerID, orders.OrderDate, customers.CustomerName, customers.DeliveryAddressLine2, customers.DeliveryPostalCode, cities.CityName, orders.OrderCompleted FROM orders JOIN customers ON orders.CustomerID = customers.CustomerID JOIN cities ON cities.CityID = customers.PostalCityID";
         // Als hij moet zoeken naar customers
         if(type != null && type.equals("customers")){
             // Haalt alle orders op waarbij klantnummer lijkt op zoekwaarde
@@ -79,7 +79,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
             Customer customer = new Customer(Integer.parseInt((String) orderData.get("CustomerID")), String.valueOf(orderData.get("CustomerName")), (String) orderData.get("DeliveryAddressLine2"), (String) orderData.get("DeliveryPostalCode"), (String) orderData.get("CityName"));
 
             // Haalt de orderlines van deze order op
-            JSONArray orderLinesData = Database.getDbData("SELECT orderlines.StockitemID, orderlines.Quantity, stockitems.StockItemName, stockitemimages.ImagePath, stockitems.Size FROM orderlines JOIN stockitems ON orderlines.StockitemID = stockitems.StockItemID JOIN stockitemimages ON orderlines.StockItemID = stockitemimages.StockItemID WHERE orderlines.OrderID = ?", new String[]{(String) orderData.get("OrderID")});
+            JSONArray orderLinesData = Database.getDbData("SELECT orderlines.StockitemID, orderlines.Quantity, stockitems.StockItemName, stockitemimages.ImagePath, stockitemholdings.Size, stockitemholdings.BinLocation FROM orderlines JOIN stockitems ON orderlines.StockitemID = stockitems.StockItemID JOIN stockitemimages ON orderlines.StockItemID = stockitemimages.StockItemID JOIN stockitemholdings ON orderlines.StockItemID = stockitemholdings.StockItemID WHERE orderlines.OrderID = ?", new String[]{(String) orderData.get("OrderID")});
             // Maak een lege products arrayList aan
             // Deze wordt later gevuld met products
             ArrayList<Product> products = new ArrayList<>();
@@ -90,7 +90,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
                 JSONObject orderLineData = (JSONObject) singleOrderLine;
                 // Maak een nieuw product aan op basis van data uit de orderline
                 // En zet deze in de products arraylist
-                products.add(new Product(Integer.parseInt((String) orderLineData.get("StockItemID")), (String) orderLineData.get("StockItemName"), (String) orderLineData.get("ImagePath"), Integer.parseInt((String) orderLineData.get("Quantity")),Integer.parseInt((String) orderLineData.get("Size")) ));
+                products.add(new Product(Integer.parseInt((String) orderLineData.get("StockItemID")), (String) orderLineData.get("StockItemName"), (String) orderLineData.get("ImagePath"), Integer.parseInt((String) orderLineData.get("Quantity")),Integer.parseInt((String) orderLineData.get("Size")), String.valueOf(orderLineData.get("BinLocation")) ));
             }
 
             // Maak een nieuwe default date aan

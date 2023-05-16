@@ -5,13 +5,12 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
 import java.io.*;
-import java.util.Objects;
 import javax.swing.*;
 import javax.swing.border.*;
 import classes.*;
 import frames.FrameHeader;
 
-public class PanelProduct extends JPanel implements ActionListener{
+public class PanelOrderSingleProduct extends JPanel implements ActionListener{
     private Order order; //Order waarvan hij de producten laat zien
     private BufferedImage productImg; //Productafbeelding
     private JTextField jtf_amount; //Textfield dat aantal producten weergeeft en aanpassen mogelijk maakt
@@ -23,7 +22,7 @@ public class PanelProduct extends JPanel implements ActionListener{
     private boolean isEditable, isDeleteVisible = false;
     private Color setBackground = Color.white;
 
-    public PanelProduct(Order order, int index) {
+    public PanelOrderSingleProduct(Order order, int index) {
         this.index = index;
         this.order = order;
 
@@ -84,7 +83,7 @@ public class PanelProduct extends JPanel implements ActionListener{
         add(jl_productID);
 
         //Producthoeveelheid toevoegen en stylen (Sarah)
-        JLabel jl_amount = new JLabel("Hoeveelheid besteld: ");
+        JLabel jl_amount = new JLabel("Aantal besteld: ");
         jl_amount.setFont(new Font("Arial", Font.PLAIN, 20));
         Dimension sizeJLAmount = jl_amount.getPreferredSize();
         jl_amount.setBounds(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 1000)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 60)), sizeJLAmount.width + FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 10)), sizeJLAmount.height);
@@ -99,23 +98,24 @@ public class PanelProduct extends JPanel implements ActionListener{
         jtf_amount.setEditable(isEditable);
         add(jtf_amount);
 
+        // Naar commentaar gezet door Martijn
         //Kruisje om product te verwijderen toevoegen en stylen (Sarah)
-        ImageIcon deleteIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/deleteIcon.png")));
-        jb_deleteProduct = new JButton(deleteIcon);
-        jb_deleteProduct.setBounds(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 5)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 15)), FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 30)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 30)));
-        jb_deleteProduct.setOpaque(false);
-        jb_deleteProduct.setContentAreaFilled(false);
-        jb_deleteProduct.setBorderPainted(false);
-        jb_deleteProduct.setVisible(isDeleteVisible);
-        jb_deleteProduct.addActionListener(this);
-        add(jb_deleteProduct);
+//        ImageIcon deleteIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/deleteIcon.png")));
+//        jb_deleteProduct = new JButton(deleteIcon);
+//        jb_deleteProduct.setBounds(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 5)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 15)), FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 30)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 30)));
+//        jb_deleteProduct.setOpaque(false);
+//        jb_deleteProduct.setContentAreaFilled(false);
+//        jb_deleteProduct.setBorderPainted(false);
+//        jb_deleteProduct.setVisible(isDeleteVisible);
+//        jb_deleteProduct.addActionListener(this);
+//        add(jb_deleteProduct);
     }
 
     //TODO knop om producten uit productlijst te verwijderen moet nog werkend gemaakt worden
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == jb_deleteProduct) {
-            System.out.println("er is op de delete knop gedrukt bij " + order.getProducts().get(index).getProductID());
-        }
+//        if (e.getSource() == jb_deleteProduct) {
+//            System.out.println("er is op de delete knop gedrukt bij " + order.getProducts().get(index).getProductID());
+//        }
     }
 }
