@@ -18,7 +18,7 @@ public class FramePackingList extends FrameHeader implements ActionListener {
         this.order = order;
 
         //Informatie voor het hele frame (Sarah)
-        super.setTitle("JavaApplication/CreatePackingList");
+        super.setTitle("HMI-applicatie");
         closeProgram();
         setLayout(null);
 

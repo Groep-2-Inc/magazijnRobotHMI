@@ -20,7 +20,7 @@ public class FrameProducts extends FrameHeader implements ActionListener {
 
     public FrameProducts() {
         //Informatie voor het hele frame (Sarah)
-        super.setTitle("JavaApplication/viewingProducts");
+        super.setTitle("HMI-applicatie");
 
         setLayout(null);
 

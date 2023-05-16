@@ -200,12 +200,17 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
         //maak nog een paneel aan voor het aantal producten en voeg deze toe aan de informatiepaneel
         JPanel p3 = new JPanel();
         p3.setPreferredSize(new Dimension(getScreenWidth(26f), getScreenHeight(2.8f)));
-        p3.add(new JLabel("          Totaal aantal producten: " + o_order.getProducts().size() + "          "));
+        JLabel jlTotalProducts = new JLabel("          Totaal aantal producten: " + o_order.getProducts().size() + "          ");
+        jlTotalProducts.setFont(new Font("Arial", Font.BOLD, 16));
+        p3.add(jlTotalProducts);
+//        p3.setFont(new Font("Arial", Font.BOLD, 12));
         p2.add(p3);
         //maak een nieuw paneel aan voor de producten verzameld en voeg deze ook toe aan de informatiepaneel
         p3 = new JPanel();
         p3.setPreferredSize(new Dimension(getScreenWidth(26f), getScreenHeight(2.8f)));
-        p3.add(new JLabel("          Producten verzameld: " + i_productenVerzameld + "          "));
+        JLabel jlTotalCollected = new JLabel("          Producten verzameld: 0 " +  "          ");
+        jlTotalCollected.setFont(new Font("Arial", Font.PLAIN, 14));
+        p3.add(jlTotalCollected);
         p2.add(p3);
 
         //voeg een lijntje toe
@@ -220,7 +225,9 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
             JLabel jlNameAndNumberText = new JLabel("Naam, artikelnr: ");
             JLabel jlNameAndNumber = new JLabel(o_order.getProducts().get(i).getProductName() + ", " + o_order.getProducts().get(i).getProductID());
             JLabel jlLocationText = new JLabel("Stelling: ");
-            JLabel jlLocation = new JLabel(String.valueOf(o_order.getProducts().get(i).getProductID()));
+            JLabel jlLocation = new JLabel(String.valueOf(o_order.getProducts().get(i).getBinLocation()));
+            JLabel jlWeightText = new JLabel("Gewicht: ");
+            JLabel jlWeight = new JLabel(String.valueOf(o_order.getProducts().get(i).getWeight()));
 
             jpProductInfo.setLayout(null);
             jpProductInfo.setPreferredSize(new Dimension(getScreenWidth(31.25f), getScreenHeight(10f)));
@@ -228,20 +235,28 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
             jpProductInfo.setBackground(Color.pink);
 
             jlNameAndNumberText.setFont(new Font("Arial", Font.BOLD, 15));
-            jlNameAndNumberText.setBounds(getScreenWidth(1f), getScreenHeight(2.7f), getScreenWidth(29f), getScreenHeight(2f));
+            jlNameAndNumberText.setBounds(getScreenWidth(1f), getScreenHeight(2f), getScreenWidth(29f), getScreenHeight(2f));
             jpProductInfo.add(jlNameAndNumberText);
 
             jlNameAndNumber.setFont(new Font("Arial", Font.PLAIN, 14));
-            jlNameAndNumber.setBounds(getScreenWidth(7.5f), getScreenHeight(2.7f), getScreenWidth(29f), getScreenHeight(2f));
+            jlNameAndNumber.setBounds(getScreenWidth(7.5f), getScreenHeight(2f), getScreenWidth(29f), getScreenHeight(2f));
             jpProductInfo.add(jlNameAndNumber);
 
             jlLocationText.setFont(new Font("Arial", Font.BOLD, 15));
-            jlLocationText.setBounds(getScreenWidth(1f), getScreenHeight(4.7f), getScreenWidth(29f), getScreenHeight(2f));
+            jlLocationText.setBounds(getScreenWidth(1f), getScreenHeight(4f), getScreenWidth(29f), getScreenHeight(2f));
             jpProductInfo.add(jlLocationText);
 
             jlLocation.setFont(new Font("Arial", Font.PLAIN, 14));
-            jlLocation.setBounds(getScreenWidth(4.5f), getScreenHeight(4.7f), getScreenWidth(29f), getScreenHeight(2f));
+            jlLocation.setBounds(getScreenWidth(4.5f), getScreenHeight(4f), getScreenWidth(29f), getScreenHeight(2f));
             jpProductInfo.add(jlLocation);
+
+            jlWeightText.setFont(new Font("Arial", Font.BOLD, 15));
+            jlWeightText.setBounds(getScreenWidth(1f), getScreenHeight(6f), getScreenWidth(29f), getScreenHeight(2f));
+            jpProductInfo.add(jlWeightText);
+
+            jlWeight.setFont(new Font("Arial", Font.PLAIN, 15));
+            jlWeight.setBounds(getScreenWidth(4.8f), getScreenHeight(6f), getScreenWidth(29f), getScreenHeight(2f));
+            jpProductInfo.add(jlWeight);
 
             p2.add(jpProductInfo);
         }

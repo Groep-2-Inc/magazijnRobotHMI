@@ -40,7 +40,7 @@ public class FrameOrders extends FrameHeader implements ActionListener {
 
     public FrameOrders(){
         //standaard instellingen (Joëlle)
-        setTitle("Java-application/Orders"); // moet nog een betere naam hebben (Joëlle)
+        setTitle("HMI-applicatie"); // moet nog een betere naam hebben (Joëlle)
 
         getOrderData(null,null);
 
