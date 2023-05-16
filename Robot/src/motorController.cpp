@@ -36,6 +36,7 @@ void motorSetup() {
 
 // Zorgt ervoor dat de robot naar links beweegt wanneer deze functie wordt aangeroepen. aangepast met ifstatement door Jason Joshua
 void moveLeft(){
+    // Serial.println("Links");
     if(checkEndStopX() != true){
     digitalWrite(directionPinX, LOW);
     digitalWrite(brakePinX, LOW);
@@ -47,6 +48,7 @@ void moveLeft(){
 
 // Zorgt ervoor dat de robot naar rechts beweegt wanneer deze functie wordt aangeroepen. aangepast met ifstatement door Jason Joshua
 void moveRight(){
+    // Serial.println("Rechts");
     if(readX() < 9000){
     digitalWrite(directionPinX, HIGH);
     digitalWrite(brakePinX, LOW);
@@ -174,6 +176,52 @@ void manualControl(){
     String dir = readJoystick();
 
     // Serial.println(dir);
+
+    // switch (dir)
+    // {
+    //     case "1.0.0":
+    //         moveLeft();
+    //         break;
+    //     case "2.0.0":
+    //         moveRight();
+    //         break;
+    //     case "0.1.0":
+    //         toSlaveArduino(3);
+    //         break;
+    //     case "0.2.0":
+    //         // Beweeg omlaag
+    //         moveDown();
+    //         break;
+    //     case "1.1.0":
+    //         // Beweeg naar linksboven
+    //         toSlaveArduino(3);
+    //         moveLeft();
+    //         break;
+    //     case "1.2.0":
+    //         // Beweeg naar linksonder
+    //         moveDown();
+    //         moveLeft();
+    //         break;
+    //     case "2.2.0":
+    //          // Beweeg naar rechtsonder
+    //         moveDown();
+    //         moveRight();
+    //         break;
+    //     case "0.0.1":
+    //         // Beweeg de z-as naar voren en stopt andere bewegingen
+    //         toSlaveArduino(1);
+    //         stopMovement();
+    //         break;
+    //     case "0.0.2":
+    //         // Beweeg de z-as naar achter en stopt andere bewegingen
+    //         toSlaveArduino(2);
+    //         stopMovement();
+    //         break;
+    //     default:
+    //         toSlaveArduino(0);
+    //         stopMovement();
+    //         break;
+    // }
 
     // Wanneer de waarde 1.0.0 is
     if (dir == "1.0.0"){

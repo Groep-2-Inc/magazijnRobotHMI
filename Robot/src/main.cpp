@@ -9,8 +9,8 @@
 
 bool hasHomed = false;
 bool moved = false;
-int x = 5;
-int y = 5;
+int x = 0;
+int y = 0;
 
 // Sets correct pinmodes
 void setup() {  
@@ -21,17 +21,13 @@ void setup() {
 	encoderSetup();
 	endStopSetup();
 	// positionSetup();
-}
+	}
 
 // Herhaald de volgende code meerder keren
 void loop() {
 	
-	// x = getCorX(fromJava());
-	// y = getCorY(fromJava());
-	
-
-	x = getCorX(424);
-	y = getCorY(424);
+	// x = getCorX(424);
+	// y = getCorY(424);
 
     checkStop();
 	// // checkEndStopX();
@@ -41,43 +37,38 @@ void loop() {
 	// Serial.println(readX());
 	
 
-	if(!isEmergency()){
+	if(!isEmergency() ){//&& getConection()){
 		if(!hasHomed){
-		resetHasMoved();
-		toSlaveArduino(11);
-		moveToHome();
-		hasHomed = true;
+			resetHasMoved();
+			toSlaveArduino(11);
+			moveToHome();
+			hasHomed = true;
 		}
 
-		manualControl();
-
-		if(x != 0 && y != 0){
-			if(moved == false && moveXY(x, y) == true){
-			moved = true;
-			}
-		}
 		
-		// }else if (moved == true){
-		// 	x = 7;
-		// 	y = 1;
-		// 	// moveXY(x, y);
-		// 	toSlaveArduino(11);
-		// 	resetHasMoved();
-		// 	resetBoolXY();
-		// 	moved = false;
+		// x = getCorX(fromJava());
+		// y = getCorY(fromJava());
+
+		// if(x != 0 && y != 0){
+		// 	if(moved == false && moveXY(x, y) == true){
+		// 	moved = true;
+		// 	}
 		// }
-	}else{
+		
+ 		
+		manualControl();
+		
+	}else {//if (getConection()){
 		//stuurt melding naar slave Arduino om noodstoplampje te laten branden (Sarah)
 		toSlaveArduino(21);
 		toSlaveArduino(0);
-	}
+	} 
 
 	// Serial.println(getFromSlave());
-	Serial.println(readJoystick());
 	
+	// Serial.println(readJoystick());
 	
-	
-	
+	delay(10);
 	
 	// readXposition();
 	// readEndStop();
