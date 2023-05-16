@@ -218,11 +218,12 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
         for(int i = 0; i<o_order.getProducts().size(); i++){
             //maak nieuwe paneeltjes aan
             JPanel p4 = new JPanel();
-            JPanel p5 = new JPanel();
+            JLabel jlProductNameAndNumber = new JLabel(o_order.getProducts().get(i).getProductName() + ", " + o_order.getProducts().get(i).getProductID());
+//            JPanel p5 = new JPanel();
             JPanel p6 = new JPanel();
+            JPanel p7 = new JPanel();
 
             //verander de border en size voor het hoofdpaneeltje van de informatie
-            p4.setLayout(new FlowLayout());
             p4.setBorder(new LineBorder(Color.black));
             p4.setPreferredSize(new Dimension(getScreenWidth(31.25f), getScreenHeight(10f)));
             p4.setBackground(Color.green);
@@ -234,25 +235,31 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
 
             //voeg paneeltje toe voor de product naam
 //            p5.setPreferredSize(new Dimension(getScreenWidth(25f), getScreenHeight(3.7f)));
-            p5.setBounds(getScreenWidth(0f), getScreenHeight(10f), getScreenWidth(25f), getScreenHeight(3.7f));
-            p5.add(new JLabel(o_order.getProducts().get(i).getProductName()));
-            p5.setBackground(Color.pink);
-            p4.add(p5);
+//            p5.setLayout(new FlowLayout());
+//            p5.setBounds(getScreenWidth(0f), getScreenHeight(10f), getScreenWidth(20f), getScreenHeight(3.7f));
+//            p5.add(new JLabel(o_order.getProducts().get(i).getProductName() + ", " + o_order.getProducts().get(i).getProductID()));
+//            p5.setBackground(Color.pink);
+//            p4.add(p5);
+            jlProductNameAndNumber.setBounds(getScreenWidth(10f), getScreenHeight(10f), getScreenWidth(20f), getScreenHeight(3.7f));
+            jlProductNameAndNumber.setBackground(Color.pink);
+            p4.add(jlProductNameAndNumber);
+
+
 
             //voeg een paneeltje toe voor de locatie
-            p5 = new JPanel();
-            p5.setLayout(new GridLayout(2,1));
-            p5.setPreferredSize(new Dimension(getScreenWidth(5f), getScreenHeight(3.7f)));
-            p5.add(new JLabel("Stelling:"));
-            p5.add(new JLabel(String.valueOf(o_order.getProducts().get(i).getProductID())));
-            p4.add(p5);
+//            p5 = new JPanel();
+//            p5.setLayout(new GridLayout(2,1));
+            p6.setBounds(getScreenWidth(0f), getScreenHeight(50f), getScreenWidth(20f), getScreenHeight(3.7f));
+            p6.add(new JLabel("Stelling:"));
+            p6.add(new JLabel(String.valueOf(o_order.getProducts().get(i).getProductID())));
+            p4.add(p6);
 
             //voeg een paneeltje toe voor of het product gepicked is of niet
-            p5 = new JPanel();
-            p5.setBorder(new LineBorder(Color.black));
-            p5.setPreferredSize(new Dimension(getScreenWidth(1f), getScreenHeight(2f)));
-            p5.setBackground(Color.red);
-            p4.add(p5);
+//            p5 = new JPanel();
+            p7.setBorder(new LineBorder(Color.black));
+            p7.setPreferredSize(new Dimension(getScreenWidth(1f), getScreenHeight(2f)));
+            p7.setBackground(Color.red);
+            p4.add(p7);
 
             //voeg de panelen toe aan het informatiepaneel
             p2.add(p4);
