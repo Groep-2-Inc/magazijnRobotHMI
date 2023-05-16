@@ -76,6 +76,7 @@ bool moveX (int coordinate){
         moveLeft();
     } else {
         hasMoved = true;
+        stopMovement();
         return true;
     }
     return false;
@@ -84,6 +85,7 @@ bool moveX (int coordinate){
 bool moveY (int coordinate){
     toSlaveArduino(coordinate + 5);
     if(getFromSlave() == 101){
+        // toSlaveArduino(0);
         return true;
     } else {
         return false;
@@ -177,52 +179,7 @@ void manualControl(){
 
     // Serial.println(dir);
 
-    // switch (dir)
-    // {
-    //     case "1.0.0":
-    //         moveLeft();
-    //         break;
-    //     case "2.0.0":
-    //         moveRight();
-    //         break;
-    //     case "0.1.0":
-    //         toSlaveArduino(3);
-    //         break;
-    //     case "0.2.0":
-    //         // Beweeg omlaag
-    //         moveDown();
-    //         break;
-    //     case "1.1.0":
-    //         // Beweeg naar linksboven
-    //         toSlaveArduino(3);
-    //         moveLeft();
-    //         break;
-    //     case "1.2.0":
-    //         // Beweeg naar linksonder
-    //         moveDown();
-    //         moveLeft();
-    //         break;
-    //     case "2.2.0":
-    //          // Beweeg naar rechtsonder
-    //         moveDown();
-    //         moveRight();
-    //         break;
-    //     case "0.0.1":
-    //         // Beweeg de z-as naar voren en stopt andere bewegingen
-    //         toSlaveArduino(1);
-    //         stopMovement();
-    //         break;
-    //     case "0.0.2":
-    //         // Beweeg de z-as naar achter en stopt andere bewegingen
-    //         toSlaveArduino(2);
-    //         stopMovement();
-    //         break;
-    //     default:
-    //         toSlaveArduino(0);
-    //         stopMovement();
-    //         break;
-    // }
-
+   
     // Wanneer de waarde 1.0.0 is
     if (dir == "1.0.0"){
         // Beweeg naar links

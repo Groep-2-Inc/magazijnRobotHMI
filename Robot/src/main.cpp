@@ -9,6 +9,7 @@
 
 bool hasHomed = false;
 bool moved = false;
+int curdata = 0;
 int x = 0;
 int y = 0;
 
@@ -35,9 +36,12 @@ void loop() {
 	
 	
 	// Serial.println(readX());
-	
 
-	if(!isEmergency() ){//&& getConection()){
+	if(!getConection()){
+		fromJava();
+	}
+
+	if(!isEmergency() && getConection()){
 		if(!hasHomed){
 			resetHasMoved();
 			toSlaveArduino(11);
@@ -45,20 +49,26 @@ void loop() {
 			hasHomed = true;
 		}
 
+		if(curdata != getData()){
+			curdata = getData();
+			x = getCorX(curdata);
+			y = getCorY(curdata);
+		}
 		
-		// x = getCorX(fromJava());
-		// y = getCorY(fromJava());
 
-		// if(x != 0 && y != 0){
-		// 	if(moved == false && moveXY(x, y) == true){
-		// 	moved = true;
-		// 	}
-		// }
+		if(x != 0 && y != 0){
+			if(moved == false && moveXY(x, y) == true){
+				moved = true;
+			} else if (moved == true) {
+				stopMovement();
+				toSlaveArduino(0);
+			}
+		}
 		
  		
-		manualControl();
+		// manualControl();
 		
-	}else {//if (getConection()){
+	}else if (getConection()){
 		//stuurt melding naar slave Arduino om noodstoplampje te laten branden (Sarah)
 		toSlaveArduino(21);
 		toSlaveArduino(0);
@@ -73,5 +83,5 @@ void loop() {
 	// readXposition();
 	// readEndStop();
 
-    fromJava();
+    // fromJava();
 }
