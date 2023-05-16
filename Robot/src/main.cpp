@@ -74,6 +74,7 @@ void loop() {
 			}
 		} else {
 			manualControl();
+			delay(20);
 		}
 	}else {
 		//stuurt melding naar slave Arduino om noodstoplampje te laten branden (Sarah)
@@ -87,7 +88,7 @@ void loop() {
 	
 	// Serial.println(readJoystick());
 	
-	delay(10);
+	
 	
 	// readXposition();
 	// readEndStop();
