@@ -5,7 +5,7 @@
 #include <slaveCurPositionController.h>
 #include <statusLights.h>
 #include <IRSensor.h>
-// #include <manualOrAutoButtons.h>
+#include <manualOrAutoButtons.h>
 
 // globalSpeed - Bepaald de snelheid van de robot.
 // directionPinZ -  Definieert de pinmode van de richting van de z-as.
@@ -28,7 +28,7 @@ void setup() {
   motorSetup();
   encoderSetup();
   IRSensorSetup();
-  // manualOrAutoButtonsSetup();
+  manualOrAutoButtonsSetup();
   Wire.begin(9);
   Wire.onReceive(receiveEvent);
   Serial.begin(9600);
@@ -81,9 +81,11 @@ void loop() {
     pickUpProduct();
   }
 
-  statusLightsOn();
+  // statusLightsOn();
 
-  Serial.println(measureZas());
+  measureZas();
+
+  checkBtns();
 
   if(getHasMoved() == true){
   Wire.beginTransmission(9);

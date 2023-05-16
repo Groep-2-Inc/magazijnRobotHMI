@@ -1,3 +1,3 @@
-// void manualOrAutoButtonsSetup();
-// void checkBtns();
-// int isAutoMode();
+void manualOrAutoButtonsSetup();
+void checkBtns();
+bool isAutoMode();
