@@ -83,7 +83,7 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
         jtb_darkMode.addItemListener(this);
 
         //initializeer het paneel.
-        p2.setPreferredSize(new Dimension(getScreenWidth(10.4f), getScreenHeight(18.5f)));
+        p2.setPreferredSize(new Dimension(getScreenWidth(10.4f), getScreenHeight(20f)));
         p2.setBorder(new LineBorder(Color.BLACK));
         p2.add(new JLabel("          Instellingen          "));
         p2.add(new JLabel("                                "));

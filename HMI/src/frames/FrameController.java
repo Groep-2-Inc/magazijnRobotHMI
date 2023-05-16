@@ -23,35 +23,8 @@ public class FrameController {
         Activity.getLogbookData(10);
         jf_home.setVisible(true);
 
-        //dummydata voor de orders pagina
-        Product product = new Product(5, "Fiets", "src/images/bicycle.jpg", 0);
-        Product product2 = new Product(6, "Auto", "", 0);
-        Product product3 = new Product(7, "Boot", "", 0);
-        Product product4 = new Product(8, "Hamer", "", 0);
-        Product product5 = new Product(9, "Schrift", "", 0);
-        Product product6 = new Product(10, "Geodriehoek", "", 0);
-        Product product7 = new Product(11, "Microfoon", "", 0);
-        ArrayList<Product> products = new ArrayList<>();
-        products.add(product);
-        products.add(product2);
-        products.add(product3);
-        products.add(product4);
-        products.add(product5);
-        products.add(product6);
-        products.add(product7);
-
         //initialiseer orders frame
         jf_FrameOrders = new FrameOrders();
-
-        //dummydata voor de FrameProducts
-        products = new ArrayList<>();
-        products.add(product);
-        products.add(product2);
-        products.add(product3);
-        products.add(product4);
-        products.add(product5);
-        products.add(product6);
-        products.add(product7);
 
         //initialiseer products frame
         jf_FrameProducts = new FrameProducts();

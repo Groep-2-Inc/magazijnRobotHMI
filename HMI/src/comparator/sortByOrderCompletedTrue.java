@@ -6,12 +6,12 @@ import java.util.Comparator;
 
 public class sortByOrderCompletedTrue implements Comparator<Order> {
     public int compare(Order a, Order b) {
-        int orderCompletedA = a.isOrderCompleted();
-        int orderCompletedB = b.isOrderCompleted();
+        boolean orderCompletedA = a.isOrderCompleted();
+        boolean orderCompletedB = b.isOrderCompleted();
 
         if (orderCompletedA == orderCompletedB) {
             return 0;
-        } else if (orderCompletedA == 0) {
+        } else if (!orderCompletedA) {
             return 1;
         } else {
             return -1;
