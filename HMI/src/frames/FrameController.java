@@ -22,7 +22,7 @@ public class FrameController {
     public FrameController(){
         Activity.getLogbookData(10);
         jf_home.setVisible(true);
-        
+
         //initialiseer orders frame
         jf_FrameOrders = new FrameOrders();
 
