@@ -82,17 +82,16 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
             jp_productListPanel.add(jp_productsPanel);
         }
 
-        //Button om order te picken aanmaken en stylen (zichtbaar totdat op "bewerken" wordt gedrukt) (Sarah)
-        //TODO knop om order te picken moet nog werkend gemaakt worden
-        jb_pick = new JButton("Pick");
-        jb_pick.setFont(arial17);
-        jb_pick.setBounds(getScreenWidth(getPercentage(1536, 210)), getScreenHeight(getPercentage(864, 700)), getScreenWidth(10f), getScreenHeight(3f));
-        jb_pick.addActionListener(this);
-        add(jb_pick);
-
         // Als order nog niet completed is kan je hem nog bewerken
         // Door Martijn
         if(!order.isOrderCompleted()){
+            //Button om order te picken aanmaken en stylen (zichtbaar totdat op "bewerken" wordt gedrukt) (Sarah)
+            jb_pick = new JButton("Pick");
+            jb_pick.setFont(arial17);
+            jb_pick.setBounds(getScreenWidth(getPercentage(1536, 210)), getScreenHeight(getPercentage(864, 700)), getScreenWidth(10f), getScreenHeight(3f));
+            jb_pick.addActionListener(this);
+            add(jb_pick);
+
             //Button om productlijst te bewerken aanmaken en stylen (zichtbaar totdat op "bewerken" wordt gedrukt) (Sarah)
             jb_change = new JButton("Bewerken");
             jb_change.setFont(arial17);

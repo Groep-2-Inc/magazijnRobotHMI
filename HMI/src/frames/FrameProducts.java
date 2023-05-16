@@ -42,7 +42,7 @@ public class FrameProducts extends FrameHeader implements ActionListener {
             JSONObject productData = (JSONObject) singleProductData;
 
             // Maak een nieuw product object aan een voegt hem toe aan de products arraylist
-            products.add(new Product(Integer.parseInt((String) productData.get("StockItemID")), (String) productData.get("StockItemName"), (String) productData.get("ImagePath"), Integer.parseInt((String) productData.get("QuantityOnHand")), String.valueOf(productData.get("BinLocation"))Integer.parseInt((String) productData.get("Size"))));
+            products.add(new Product(Integer.parseInt((String) productData.get("StockItemID")), (String) productData.get("StockItemName"), (String) productData.get("ImagePath"), Integer.parseInt((String) productData.get("QuantityOnHand")), String.valueOf(productData.get("BinLocation")), Integer.parseInt((String) productData.get("Size"))));
         }
     }
 

@@ -5,14 +5,13 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Calendar;
 import java.util.Date;
 
 import database.Database;
 import panels.PanelBins;
 import panels.PanelPositie;
 import classes.Order;
-import panels.PanelProductOverview;
+//import panels.PanelProductOverview;
 
 //door Jason Joshua van der Kolk
 public class FrameVerwerken extends FrameHeader implements ActionListener {
