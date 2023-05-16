@@ -19,10 +19,11 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
     private Font arial24 = new Font("Arial", Font.PLAIN, 24);
 
     public FrameViewingOrder(Order order) {
+        Bin.reset();
         this.order = order;
 
         //Informatie voor het hele frame (Sarah)
-        super.setTitle("JavaApplication/FrameViewingOrder");
+        super.setTitle("HMI-applicatie");
 
         closeProgram();
 
@@ -56,7 +57,7 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         add(jl_date);
 
         //Naam en nummer van klant opvragen en stylen (Sarah)
-        JLabel jl_customer = new JLabel("Klant: " + order.getCustomer().getCustomerName() + ", " + order.getCustomer().getCustomerID());
+        JLabel jl_customer = new JLabel("Klant: " + order.getCustomer().getCustomerName() + ", #" + order.getCustomer().getCustomerID());
         jl_customer.setFont(arial24);
         Dimension sizeCustomer = jl_customer.getPreferredSize();
         jl_customer.setBounds(getScreenWidth(getPercentage(1536, 810)), getScreenHeight(getPercentage(864, 55)), sizeCustomer.width + + getScreenWidth(getPercentage(1536, 10)), sizeCustomer.height);
@@ -81,17 +82,16 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
             jp_productListPanel.add(jp_productsPanel);
         }
 
-        //Button om order te picken aanmaken en stylen (zichtbaar totdat op "bewerken" wordt gedrukt) (Sarah)
-        //TODO knop om order te picken moet nog werkend gemaakt worden
-        jb_pick = new JButton("Pick");
-        jb_pick.setFont(arial17);
-        jb_pick.setBounds(getScreenWidth(getPercentage(1536, 210)), getScreenHeight(getPercentage(864, 700)), getScreenWidth(10f), getScreenHeight(3f));
-        jb_pick.addActionListener(this);
-        add(jb_pick);
-
         // Als order nog niet completed is kan je hem nog bewerken
         // Door Martijn
         if(!order.isOrderCompleted()){
+            //Button om order te picken aanmaken en stylen (zichtbaar totdat op "bewerken" wordt gedrukt) (Sarah)
+            jb_pick = new JButton("Pick");
+            jb_pick.setFont(arial17);
+            jb_pick.setBounds(getScreenWidth(getPercentage(1536, 210)), getScreenHeight(getPercentage(864, 700)), getScreenWidth(10f), getScreenHeight(3f));
+            jb_pick.addActionListener(this);
+            add(jb_pick);
+
             //Button om productlijst te bewerken aanmaken en stylen (zichtbaar totdat op "bewerken" wordt gedrukt) (Sarah)
             jb_change = new JButton("Bewerken");
             jb_change.setFont(arial17);
@@ -195,7 +195,17 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         if (e.getSource() == jb_pick) {
             FrameController.setActiveFrameVerwerken(this, order);
             Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "TSP en BPP wordt berekend"}); // in het logbook wordt opgeslagen dat de TSP en BPM worden berekend(Joëlle)
+            //>>> FIRST FIT algoritme (Daan, Sarah )
+            Bin startBinFirstFit = new Bin(); // Er wordt een eerste bin aangemaakt om te gebruiken (Daan, Sarah)
+            Bin.binsFirstFit.add(startBinFirstFit); //De startBin wordt toegevoegd aan de arrayList 'binsFirstFit' (Daan, Sarah)
+            //Onderstaand: bij elke index wordt opvolgorde van de arrayList 'binsFirstFit' gekeken of het object in de bin kan, anders wordt er een nieuwe bin aangemaakt (zie Bin.java) (Joëlle)
+            for(int i = 0; i < order.getProducts().size(); i++){
+                Bin.binsFirstFit.get(Bin.indexBinsFirstFit).objectInBinFirstFit(order.getProducts().get(i));
+            }
+            Bin.getBins("First Fit");
+
         }
+
 
         //terug naar het order scherm (Joëlle)
         if (e.getSource() == jb_back) {

@@ -17,7 +17,6 @@ public class FrameController {
     private static FrameLogbook jf_FrameLogbook;
     private static FrameViewingOrder jf_FrameViewingOrder;
     private static FramePackingList jf_FramePackingList;
-    private static FrameMakeOrder jf_FrameMakeOrder;
 
     public FrameController(){
         Activity.getLogbookData(10);
@@ -125,12 +124,6 @@ public class FrameController {
         if(jf_FrameViewingOrder != f){
             jf_FrameViewingOrder = new FrameViewingOrder(o);
             jf_FrameViewingOrder.setVisible(true);
-            f.setVisible(false);
-        }
-    }
-    public static void setActiveFrameMakeOrder(JFrame f){ //functie voor het aanzetten van het make order frame
-        if(jf_FrameMakeOrder != f){
-            jf_FrameMakeOrder.setVisible(true);
             f.setVisible(false);
         }
     }

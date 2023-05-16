@@ -1,9 +1,7 @@
 package frames;
 
-import classes.Order;
 import comms.Communication;
 import database.Database;
-import frames.FrameVerwerken;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,7 +33,7 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
 
     public FrameHeader(){
         //Het uiterlijk van het paneel regelen
-        setTitle("JavaAplication/Home");
+        setTitle("HMI-applicatie");
         setSize(getScreenWidth(100.00f), getScreenHeight(100.00f));
         setLayout(new FlowLayout());
         setExtendedState(JFrame.MAXIMIZED_BOTH);

@@ -20,7 +20,7 @@ public class FrameProducts extends FrameHeader implements ActionListener {
 
     public FrameProducts() {
         //Informatie voor het hele frame (Sarah)
-        super.setTitle("JavaApplication/viewingProducts");
+        super.setTitle("HMI-applicatie");
 
         setLayout(null);
 
@@ -35,14 +35,14 @@ public class FrameProducts extends FrameHeader implements ActionListener {
     // Door Daan
     private void getProductData(){
         // Haalt alle products op en zet het in een JSONArray
-        JSONArray allProducts = Database.getDbData("SELECT si.StockItemID, si.StockItemName, siHoldings.QuantityOnHand, siHoldings.BinLocation, siImg.ImagePath FROM stockitems si JOIN stockitemholdings siHoldings ON si.StockItemID = siHoldings.StockItemID JOIN stockitemimages siImg ON si.StockItemID = siImg.StockItemID", new String[]{});
+        JSONArray allProducts = Database.getDbData("SELECT si.StockItemID, si.StockItemName, siHoldings.QuantityOnHand, siHoldings.BinLocation, siImg.ImagePath, si.Size FROM stockitems si JOIN stockitemholdings siHoldings ON si.StockItemID = siHoldings.StockItemID JOIN stockitemimages siImg ON si.StockItemID = siImg.StockItemID", new String[]{});
         // Voor elk product
         for(Object singleProductData : allProducts){
             // Zet het Object om naar een JSON-object
             JSONObject productData = (JSONObject) singleProductData;
 
             // Maak een nieuw product object aan een voegt hem toe aan de products arraylist
-            products.add(new Product(Integer.parseInt((String) productData.get("StockItemID")), (String) productData.get("StockItemName"), (String) productData.get("ImagePath"), String.valueOf(productData.get("BinLocation")), Integer.parseInt((String) productData.get("QuantityOnHand"))));
+            products.add(new Product(Integer.parseInt((String) productData.get("StockItemID")), (String) productData.get("StockItemName"), (String) productData.get("ImagePath"), Integer.parseInt((String) productData.get("QuantityOnHand")), String.valueOf(productData.get("BinLocation")), Integer.parseInt((String) productData.get("Size"))));
         }
     }
 

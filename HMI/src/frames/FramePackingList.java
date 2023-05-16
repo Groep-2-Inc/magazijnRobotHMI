@@ -18,7 +18,7 @@ public class FramePackingList extends FrameHeader implements ActionListener {
         this.order = order;
 
         //Informatie voor het hele frame (Sarah)
-        super.setTitle("JavaApplication/CreatePackingList");
+        super.setTitle("HMI-applicatie");
         closeProgram();
         setLayout(null);
 
@@ -87,7 +87,7 @@ public class FramePackingList extends FrameHeader implements ActionListener {
         super.actionPerformed(e);
         //Als er op "Exporteer als PDF" wordt gedrukt: (Sarah)
         if(e.getSource() == jb_export){
-            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "De pakbon is ge-exporteerd als PDF!"}); // in het logboek wordt opgeslagen dat pakbon is ge-exporteerd als PDF(Joëlle)
+            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "De pakbon is geëxporteerd als PDF!"}); // in het logboek wordt opgeslagen dat pakbon is ge-exporteerd als PDF(Joëlle)
             //Melding die laat zien dat de download geslaagd is (Sarah)
             //TODO daadwerkelijk PDF-bestand aanmaken en downloaden
             JLabel jl_exported = new JLabel("Download is gelukt");
