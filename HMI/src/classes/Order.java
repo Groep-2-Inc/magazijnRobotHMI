@@ -13,7 +13,7 @@ public class Order{
     private Date date;
     private boolean orderCompleted;
     private String textOrderCompleted;
-    private Color clorTextOrderCompleted;
+    private Color colorTextOrderCompleted;
 
     public Order(int orderID, Customer customer, ArrayList<Product> products, Date orderDate, int orderCompleted){
         this.orderID = orderID;
@@ -24,11 +24,11 @@ public class Order{
 
         if(orderCompleted == 1){
             textOrderCompleted = "Voltooid";
-            clorTextOrderCompleted = Color.green;
+            colorTextOrderCompleted = Color.green;
             this.orderCompleted = true;
         }else{
             textOrderCompleted = "Niet voltooid";
-            clorTextOrderCompleted = Color.red;
+            colorTextOrderCompleted = Color.red;
             this.orderCompleted = false;
         }
     }
@@ -53,5 +53,5 @@ public class Order{
     }
     public String getTextOrderCompleted() {return textOrderCompleted;}
 
-    public Color getColorTextOrderCompleted() {return clorTextOrderCompleted;}
+    public Color getColorTextOrderCompleted() {return colorTextOrderCompleted;}
 }
