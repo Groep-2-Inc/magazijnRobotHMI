@@ -83,9 +83,9 @@ void loop() {
 
   statusLightsOn();
 
-  measureZas();
-
   checkBtns();
+
+  measureZas();
 
   if(getHasMoved() == true){
   Wire.beginTransmission(9);
