@@ -61,6 +61,12 @@ bool checkEndStopY(){
 	return boolSendY;
 }
 
+void updateAtHome(){
+	if(boolSendX == true && boolSendY == true){
+		atHome = true;
+	}
+}
+
 // Onderstaande code werkt nog niet optimaal, maar zou ervoor moeten zorgen dat er wordt uitgelezen of de robot zich op home bevindt.
 // Als dit true is worden de encoders gereset, nu is dit nog een bericht. Ook moet er nog gefixt worden dat dit bericht maar een keer geprint wordt.
 

@@ -113,11 +113,20 @@ void resetBoolXY(){
     boolX = false;
 }
 
-void moveToHome(){
-    while(!checkEndStopY() || !checkEndStopX()){
-        moveLeft();
+bool moveToHome(){
+    if(checkEndStopY() != true){
         moveDown();
+    } else if (checkEndStopY() == true){
+        toSlaveArduino(0);
     }
+    if(checkEndStopX() != true){
+        moveLeft();
+    } else  if (checkEndStopX() == true){
+        stopMovement();
+    }  
+
+    updateAtHome();
+    return(getEndHome());
 }
 
 void resetHasMoved(){

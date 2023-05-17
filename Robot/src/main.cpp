@@ -13,7 +13,7 @@ int curdata = 0;
 int x = 0;
 int y = 0;
 bool pickingProduct = false;
-bool manual = true;
+bool manual = false;
 
 // Sets correct pinmodes
 void setup() {  
@@ -47,30 +47,34 @@ void loop() {
 		if(!manual){
 			if(getConection()){
 				if(!hasHomed){
-					resetHasMoved();
-					toSlaveArduino(11);
-					moveToHome();
-					hasHomed = true;
-				}
-
-				if(curdata != getData()){
-					curdata = getData();
-					x = getCorX(curdata);
-					y = getCorY(curdata);
+					// resetHasMoved();
+					// toSlaveArduino(11);
+					hasHomed = moveToHome();
+					
 				}
 				
+				if(hasHomed){
 
-				if(x != 0 && y != 0 && !pickingProduct){
-					if(moved == false && moveXY(x, y) == true){
-						moved = true;
-					} else if (moved == true) {
-						stopMovement();
-						toSlaveArduino(0);
-						pickingProduct = true;
+					if(curdata != getData()){
+						curdata = getData();
+						x = getCorX(curdata);
+						y = getCorY(curdata);
 					}
-				} else if (pickingProduct){
-					pickUpProduct();
+					
+
+					if(x != 0 && y != 0 && !pickingProduct){
+						if(moved == false && moveXY(x, y) == true){
+							moved = true;
+						} else if (moved == true) {
+							stopMovement();
+							toSlaveArduino(0);
+							pickingProduct = true;
+						}
+					} else if (pickingProduct){
+						pickUpProduct();
+					}
 				}
+				
 			}
 		} else {
 			manualControl();

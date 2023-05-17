@@ -96,4 +96,7 @@ void loop() {
     Wire.write(100);
     Wire.endTransmission();
   }
+
+  delay(10);
+  // Serial.print(readY());
 }

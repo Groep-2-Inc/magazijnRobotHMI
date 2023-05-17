@@ -9,7 +9,7 @@ void motorSetup();
 void manualControl();
 void moveX(int);
 bool returnHasMoved();
-void moveToHome();
+bool moveToHome();
 void resetHasMoved();
 void moveY (int);
 bool moveXY(int, int);
