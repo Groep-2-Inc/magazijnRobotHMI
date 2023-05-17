@@ -99,6 +99,7 @@ void pickUpProduct(){
       }else if (readY() > curY){
         moveDown();
       }else{
+        stopMovement();
         hasProduct = false;
         productPicked = true;
       }
