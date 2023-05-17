@@ -1,3 +1,3 @@
 void manualOrAutoButtonsSetup();
-void checkBtns();
+int checkBtns();
 bool isAutoMode();
