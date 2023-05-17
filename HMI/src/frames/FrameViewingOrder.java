@@ -194,7 +194,7 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         //naar pick scherm, door Jason Joshua van der Kolk
         if (e.getSource() == jb_pick) {
             FrameController.setActiveFrameVerwerken(this, order);
-            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "TSP en BPP wordt berekend"}); // in het logbook wordt opgeslagen dat de TSP en BPM worden berekend(Joëlle)
+            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "TSP en BPP wordt berekend van order " + order.getOrderID()}); // in het logbook wordt opgeslagen dat de TSP en BPM worden berekend(Joëlle)
             //>>> FIRST FIT algoritme (Daan, Sarah )
             Bin startBinFirstFit = new Bin(); // Er wordt een eerste bin aangemaakt om te gebruiken (Daan, Sarah)
             Bin.binsFirstFit.add(startBinFirstFit); //De startBin wordt toegevoegd aan de arrayList 'binsFirstFit' (Daan, Sarah)
