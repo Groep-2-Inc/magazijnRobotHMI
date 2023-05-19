@@ -11,6 +11,7 @@ int recieved = 0;
 bool hasConection = false;
 int incomingData = 0;
 
+//voeg een recieve event toe voor de wire  (Door Jason Joshua)
 void receiveEvent(int bytes){
   recieved = Wire.read();
 }
@@ -55,19 +56,6 @@ int getData(){
 	return incomingData;
 }
 
-// // Haalt status codes uit de Serial.
-// int fromJava() {
-//   int status = 0;
-//   if (Serial.available() > 0) {
-// 		// Leest de bytes van de seriële poort
-// 		status = Serial.readString().toInt();
-
-// 		return status;
-//   }
-
-//   // Als er geen nieuwe data is return dan 
-//   return status;
-// }
 
 // Zorgt ervoor dat data vanuit de master arduino naar de slave arduino gestuurd wordt
 void toSlaveArduino(int value){
@@ -77,6 +65,7 @@ void toSlaveArduino(int value){
 	Wire.endTransmission();
 }
 
+//return de recieved int van de slave (Door Jason Joshua)
 int getFromSlave(){
   return recieved;
 }

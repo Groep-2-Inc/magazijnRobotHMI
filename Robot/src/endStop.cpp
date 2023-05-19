@@ -35,7 +35,6 @@ bool checkEndStopX(){
 	else if(millis() - previousPressedX > 300){
 		boolSendX = false;
 	}
-	// Serial.println(endStopXPressed);
 	return boolSendX;
 }
 
@@ -45,8 +44,6 @@ unsigned long previousPressedY = 0;
 bool boolSendY = false;
 bool checkEndStopY(){
 	bool endStopYPressed = digitalRead(endStopPinY); 
-	// Serial.println(endStopYPressed);
-
 	if(endStopYPressed){
 		if(millis() - previousPressedY > 250){
 			previousPressedY = millis();
@@ -57,37 +54,17 @@ bool checkEndStopY(){
 	else if(millis() - previousPressedY > 300){
 		boolSendY = false;
 	}
-	// Serial.println(endStopYPressed);
 	return boolSendY;
 }
 
+//update de athome bool (door Jason Joshua)
 void updateAtHome(){
 	if(boolSendX == true && boolSendY == true){
 		atHome = true;
 	}
 }
 
-// Onderstaande code werkt nog niet optimaal, maar zou ervoor moeten zorgen dat er wordt uitgelezen of de robot zich op home bevindt.
-// Als dit true is worden de encoders gereset, nu is dit nog een bericht. Ook moet er nog gefixt worden dat dit bericht maar een keer geprint wordt.
-
-//niet nodig, weggeslashed door jason
-// void resetEndStop(){
-// 	atHome = false;
-// }
-
-// void readEndStop(){
-//     if (checkEndStopX() && checkEndStopY() && !atHome){
-//         atHome = true;
-//         stopMovement();
-//         Serial.println("De encoders zijn gereset");
-// 	}
-//     // } else if (!checkEndStopX() || !checkEndStopY()){
-// 	// 	atHome = false;
-// 	// }
-// }
-
 //getEndHome toegevoegd door Jason Joshua voor het stoppen van de robot
-
 bool getEndHome(){
 	return atHome;
 }

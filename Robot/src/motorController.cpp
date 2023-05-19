@@ -67,10 +67,12 @@ void moveDown(){
     }
 }
 
+//functie voor het oppakken van een product (Door Jason Joshua)
 bool pickUpProduct(){
     toSlaveArduino(12);
 }
 
+//move x naar een specefieke coordinaat, returned true als die naar het coordinaat is en stopt dan met bewegen  (Door Jason Joshua)
 bool hasMoved = false;
 bool moveX (int coordinate){
     coordinate = coordinate - 1;
@@ -86,6 +88,7 @@ bool moveX (int coordinate){
     return false;
 }
 
+//move y naar een specefieke coordinaat, returned true als die naar het coordinaat is en stopt dan met bewegen  (Door Jason Joshua)
 bool moveY (int coordinate){
     toSlaveArduino(coordinate + 5);
     if(getFromSlave() == 101){
@@ -96,6 +99,7 @@ bool moveY (int coordinate){
     }
 }
 
+//kijk of de robot bij de y en x positie is  (Door Jason Joshua)
 bool boolY = false;
 bool boolX = false;
 bool moveXY(int x, int y){
@@ -108,11 +112,13 @@ bool moveXY(int x, int y){
     return boolY && boolX;
 }
 
+//reset de bools  (Door Jason Joshua) (alvast voor het resetten van de robot voor het oppakken van meerdere producten)
 void resetBoolXY(){
     boolY = false;
     boolX = false;
 }
 
+//functie waarmee de robot homed   (Door Jason Joshua)
 bool moveToHome(){
     if(checkEndStopY() != true){
         moveDown();
@@ -129,14 +135,17 @@ bool moveToHome(){
     return(getEndHome());
 }
 
+//reset de hasmoved, alvast voor het resetten voor het pakken van meerdere producten   (Door Jason Joshua)
 void resetHasMoved(){
   hasMoved = false;
 }
 
+//return de hasmoved bool   (Door Jason Joshua)
 bool returnHasMoved(){
     return hasMoved;
 }
 
+//krijg de x coordinaat door middel van de statuscode  (Door Jason Joshua)
 int getCorX(int serialmessage){
     switch(serialmessage){
         case 401: case 411: case 421: case 431: case 441:
@@ -160,6 +169,7 @@ int getCorX(int serialmessage){
     }
 }
 
+//krijg de y coordinaat door middel van de statuscode  (Door Jason Joshua)
 int getCorY(int serialmessage){
     switch(serialmessage){
         case 401: case 402: case 403: case 404: case 405:

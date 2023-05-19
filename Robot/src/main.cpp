@@ -28,41 +28,33 @@ void setup() {
 
 // Herhaald de volgende code meerder keren
 void loop() {
+	//check de noodstop
+    checkStop();	
 	
-	// x = getCorX(424);
-	// y = getCorY(424);
-
-    checkStop();
-	// // checkEndStopX();
-	// checkEndStopY();
-	
-	
-	// Serial.println(readX());
-
+	//als er nog geen conectie is check voor een conectie (Door Jason Joshua)
 	if(!getConection()){
 		fromJava();
 	}
 
+	//als er geen emergency is beweeg, als er wel een is zet de breakpins aan (Door Jason Joshua)
 	if(!isEmergency()){
+		//als de robot niet op de manuele stand staat, beweeg dan automatisch (Door Jason Joshua)
 		if(!manual){
+			//als er een connectie is, ga verder
 			if(getConection()){
+				//als de robot nog niet home is, ga dan naar home, als die wel home is, beweeg dan automatisch (Door Jason Joshua)
 				if(!hasHomed){
-					// resetHasMoved();
-					// toSlaveArduino(11);
 					hasHomed = moveToHome();
-					
-				}
-				
-				if(hasHomed){
-
+				}else if(hasHomed){
+					//als de curdata niet gelijk is aan de data die gekregen is van java, stel deze dan gelijk en zet de x en y op de coordinaten die bij deze data horen (Door Jason Joshua)
 					if(curdata != getData()){
 						curdata = getData();
 						x = getCorX(curdata);
 						y = getCorY(curdata);
 					}
-					
-
+					//als x en y niet 0 is en de robot is geen product aan het pakken, beweeg dan naar de coordinaten, anders pak het product op  (Door Jason Joshua)
 					if(x != 0 && y != 0 && !pickingProduct){
+						//zodra moved false is en move xy true is dan is de robot op de plek waar die moet zijn, zorg dan dat de robot stopt en begint met het pakken van een product (Door Jason Joshua)
 						if(moved == false && moveXY(x, y) == true){
 							moved = true;
 						} else if (moved == true) {
@@ -77,25 +69,14 @@ void loop() {
 				
 			}
 		} else {
+			//als de robot op de manuele stand sta roep de manual control functie aan, delay voor het gelijk laten lopen van de arduinos (Door Jason Joshua)
 			manualControl();
 			delay(20);
 		}
 	}else {
 		//stuurt melding naar slave Arduino om noodstoplampje te laten branden (Sarah)
 		toSlaveArduino(21);
+		//zet de breakpin aan (Door Jason Joshua)
 		toSlaveArduino(0);
 	} 
-
-	// manualControl();
-
-	// Serial.println(getFromSlave());
-	
-	// Serial.println(readJoystick());
-	
-	
-	
-	// readXposition();
-	// readEndStop();
-
-    // fromJava();
 }

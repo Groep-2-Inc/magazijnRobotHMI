@@ -70,14 +70,18 @@ void loop() {
     if(canMove)
       moveDown();
   } else if (x == 5){
+    //verander de canmove bool (door Jason Joshua)
     canMove = !canMove;
   } else if (x == 6 || x == 7 || x == 8 || x == 9 || x == 10){
+    //als je kan bewegen, ga dan naar een specefieke y coordinaat (door Jason Joshua)
     if(getHasMoved() == false && canMove){
       moveY(x-5);
     }
   } else if (x == 11){
+    //reset de hasmoved (door Jason Joshua)
     resetHasMoved();
   } else if (x == 12){
+    //pak een product op (door Jason Joshua)
     pickUpProduct();
   }
 
@@ -87,6 +91,7 @@ void loop() {
 
   measureZas();
 
+  // als hasmoved true is, return een statuscode naar de hoofdarduino, zo niet return dan een andere statuscode  (door Jason Joshua)
   if(getHasMoved() == true){
   Wire.beginTransmission(9);
   Wire.write(101);
@@ -97,6 +102,7 @@ void loop() {
     Wire.endTransmission();
   }
 
+  //delay voor het zorgen dat de arduinos meer gelijk lopen.
   delay(10);
   // Serial.print(readY());
 }
