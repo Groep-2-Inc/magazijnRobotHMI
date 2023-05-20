@@ -117,6 +117,9 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
         jb_noodstopSluiten = new JButton("Verder");
         jb_noodstopSluiten.addActionListener(this);
 
+        // Verstuurd code 500 naar de robot
+        Communication.sendComms(500);
+
         //nieuw paneel voor de maregin
         p = new JPanel();
         p.setPreferredSize(new Dimension(getScreenWidth(52f), getScreenHeight(13.9f)));
