@@ -28,10 +28,11 @@ unsigned long lastStopPressed = 0;
 bool checkEmergencyStop(){
 	// Leest de waarde van de noodstop uit
 	bool stopPressed = !digitalRead(stopButtton); 
+	// Als de knop is ingedrukt
 	if(stopPressed){
+		// Controleert voor debouch
 		if(millis() - lastStopPressed > 250){
-			stopPressed = millis();
-            lastStopPressed = stopPressed;
+			lastStopPressed = millis();
 			return true;
 		}
 	}
