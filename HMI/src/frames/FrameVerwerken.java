@@ -1,18 +1,20 @@
 package frames;
+//door Jason Joshua van der Kolk
+//styling bijgewerkt door Daan
+//bpp gedaan door Joëlle
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Calendar;
 import java.util.Date;
 
 import database.Database;
+import panels.PanelBins;
 import panels.PanelPositie;
 import classes.Order;
 
-//door Jason Joshua van der Kolk
 public class FrameVerwerken extends FrameHeader implements ActionListener {
     private int i_orderID = 1; //int voor order id
     private Date d_date;
@@ -199,12 +201,17 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
         //maak nog een paneel aan voor het aantal producten en voeg deze toe aan de informatiepaneel
         JPanel p3 = new JPanel();
         p3.setPreferredSize(new Dimension(getScreenWidth(26f), getScreenHeight(2.8f)));
-        p3.add(new JLabel("          Totaal aantal producten: " + i_totaalAantalProducten + "          "));
+        JLabel jlTotalProducts = new JLabel("          Totaal aantal producten: " + o_order.getProducts().size() + "          ");
+        jlTotalProducts.setFont(new Font("Arial", Font.BOLD, 16));
+        p3.add(jlTotalProducts);
+//        p3.setFont(new Font("Arial", Font.BOLD, 12));
         p2.add(p3);
         //maak een nieuw paneel aan voor de producten verzameld en voeg deze ook toe aan de informatiepaneel
         p3 = new JPanel();
         p3.setPreferredSize(new Dimension(getScreenWidth(26f), getScreenHeight(2.8f)));
-        p3.add(new JLabel("          Producten verzameld " + i_productenVerzameld + "          "));
+        JLabel jlTotalCollected = new JLabel("          Producten verzameld: 0 " +  "          ");
+        jlTotalCollected.setFont(new Font("Arial", Font.PLAIN, 14));
+        p3.add(jlTotalCollected);
         p2.add(p3);
 
         //voeg een lijntje toe
@@ -214,45 +221,45 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
         p2.add(p3);
 
         //voeg de informatie toe aan het paneel
-        for(int i = 0; i<6; i++){
-            //maak nieuwe paneeltjes aan
-            JPanel p4 = new JPanel();
-            JPanel p5 = new JPanel();
+        for(int i = 0; i<o_order.getProducts().size(); i++){
+            JPanel jpProductInfo = new JPanel();
+            JLabel jlNameAndNumberText = new JLabel("Naam, artikelnr: ");
+            JLabel jlNameAndNumber = new JLabel(o_order.getProducts().get(i).getProductName() + ", " + o_order.getProducts().get(i).getProductID());
+            JLabel jlLocationText = new JLabel("Stelling: ");
+            JLabel jlLocation = new JLabel(String.valueOf(o_order.getProducts().get(i).getBinLocation()));
+            JLabel jlWeightText = new JLabel("Gewicht: ");
+            JLabel jlWeight = new JLabel(String.valueOf(o_order.getProducts().get(i).getWeight()));
 
-            //verander de border en size voor het hoofdpaneeltje van de informatie
-            p4.setBorder(new LineBorder(Color.black));
-            p4.setPreferredSize(new Dimension(getScreenWidth(31.25f), getScreenHeight(4.6f)));
+            jpProductInfo.setLayout(null);
+            jpProductInfo.setPreferredSize(new Dimension(getScreenWidth(31.25f), getScreenHeight(10f)));
+            jpProductInfo.setBorder(new LineBorder(Color.black));
+            jpProductInfo.setBackground(Color.pink);
 
-            //voeg een paneeltje toe voor de afbeeldingen
-            p5.setBorder(new LineBorder(Color.black));
-            p5.setPreferredSize(new Dimension(getScreenWidth(2f), getScreenHeight(3.7f)));
-            p4.add(p5);
+            jlNameAndNumberText.setFont(new Font("Arial", Font.BOLD, 15));
+            jlNameAndNumberText.setBounds(getScreenWidth(1f), getScreenHeight(2f), getScreenWidth(29f), getScreenHeight(2f));
+            jpProductInfo.add(jlNameAndNumberText);
 
-            //voeg paneeltje toe voor de product naam en code
-            p5 = new JPanel();
-            p5.setLayout(new GridLayout(2,1));
-            p5.setPreferredSize(new Dimension(getScreenWidth(15.6f), getScreenHeight(3.7f)));
-            p5.add(new JLabel("[ProductNaam]"));
-            p5.add(new JLabel("[ProductCode]"));
-            p4.add(p5);
+            jlNameAndNumber.setFont(new Font("Arial", Font.PLAIN, 14));
+            jlNameAndNumber.setBounds(getScreenWidth(7.5f), getScreenHeight(2f), getScreenWidth(29f), getScreenHeight(2f));
+            jpProductInfo.add(jlNameAndNumber);
 
-            //voeg een paneeltje toe voor de locatie
-            p5 = new JPanel();
-            p5.setLayout(new GridLayout(2,1));
-            p5.setPreferredSize(new Dimension(getScreenWidth(5.2f), getScreenHeight(3.7f)));
-            p5.add(new JLabel("Stelling:"));
-            p5.add(new JLabel("[locatie]"));
-            p4.add(p5);
+            jlLocationText.setFont(new Font("Arial", Font.BOLD, 15));
+            jlLocationText.setBounds(getScreenWidth(1f), getScreenHeight(4f), getScreenWidth(29f), getScreenHeight(2f));
+            jpProductInfo.add(jlLocationText);
 
-            //voeg een paneeltje toe voor of het product gepicked is of niet
-            p5 = new JPanel();
-            p5.setBorder(new LineBorder(Color.black));
-            p5.setPreferredSize(new Dimension(getScreenWidth(1f), getScreenHeight(2f)));
-            p5.setBackground(Color.red);
-            p4.add(p5);
+            jlLocation.setFont(new Font("Arial", Font.PLAIN, 14));
+            jlLocation.setBounds(getScreenWidth(4.5f), getScreenHeight(4f), getScreenWidth(29f), getScreenHeight(2f));
+            jpProductInfo.add(jlLocation);
 
-            //voeg de panelen toe aan het informatiepaneel
-            p2.add(p4);
+            jlWeightText.setFont(new Font("Arial", Font.BOLD, 15));
+            jlWeightText.setBounds(getScreenWidth(1f), getScreenHeight(6f), getScreenWidth(29f), getScreenHeight(2f));
+            jpProductInfo.add(jlWeightText);
+
+            jlWeight.setFont(new Font("Arial", Font.PLAIN, 15));
+            jlWeight.setBounds(getScreenWidth(4.8f), getScreenHeight(6f), getScreenWidth(29f), getScreenHeight(2f));
+            jpProductInfo.add(jlWeight);
+
+            p2.add(jpProductInfo);
         }
 
         //voeg het informatiepaneel toe aan het subpaneel
@@ -266,30 +273,43 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
         JPanel p = new JPanel();
         p.setPreferredSize(new Dimension(getScreenWidth(41.7f), getScreenHeight(27.8f)));
 
+        PanelBins panelBins = new PanelBins();
+        p.add(panelBins);
+
+//        JPanel p3 = new JPanel();
+//        p3.setPreferredSize(new Dimension(getScreenWidth(21.8f), getScreenHeight(27.8f)));
+//        p3.setBackground(Color.blue);
+//        p.add(p3);
+
+//        for(int i = 1; i < 3; i++){
+//            PanelBins panelBins = new PanelBins();
+//            p3.add(panelBins);
+//        }
         //voeg de boxjes toe
-        for(int i = 1; i < 3; i++){
-            //voeg een nieuw paneel toe
-            JPanel p2 = new JPanel();
-            p2.setPreferredSize(new Dimension(getScreenWidth(10.4f), getScreenHeight(27.8f)));
-
-            //zet een boxje in het paneel
-            JPanel p3 = new JPanel();
-            p3.setPreferredSize(new Dimension(getScreenWidth(9.9f), getScreenHeight(23.15f)));
-            p3.setBorder(new LineBorder(Color.black, 1));
-
-            //voeg een label toe aan het paneel
-            JLabel l = new JLabel("Doos " + i);
-
-            //voeg vervolgens alles toe
-            p2.add(p3);
-            p2.add(l);
-            //maak een nieuw paneel aan voor de maregin
-            JPanel p4 = new JPanel();
-            p4.setPreferredSize(new Dimension(getScreenWidth(5.2f), 1));
-            //voeg de rest toe
-            p2.add(p4);
-            p.add(p2);
-        }
+//        for(int i = 1; i < 3; i++){
+//            //voeg een nieuw paneel toe
+////            JPanel p2 = new JPanel();
+////            p2.setPreferredSize(new Dimension(getScreenWidth(10.4f), getScreenHeight(27.8f)));
+////            p2.setBackground(Color.pink);
+//
+//            //zet een boxje in het paneel
+//            PanelBins panelBins = new PanelBins();
+////            p3.setPreferredSize(new Dimension(getScreenWidth(9.9f), getScreenHeight(23.15f)));
+////            p3.setBorder(new LineBorder(Color.black, 1));
+//
+//            //voeg een label toe aan het paneel
+//            JLabel l = new JLabel("Doos " + i);
+//
+//            //voeg vervolgens alles toe
+//            p3.add(panelBins);
+//            p3.add(l);
+//            //maak een nieuw paneel aan voor de maregin
+//            JPanel p4 = new JPanel();
+//            p4.setPreferredSize(new Dimension(getScreenWidth(5.2f), 1));
+//            //voeg de rest toe
+//            p3.add(p4);
+//            p.add(p3);
+//        }
         //return het subpaneel
         return p;
     }
@@ -305,7 +325,7 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
         //ga naar het pakbonnenmakenschermUPDATE orders SET OrderCompleted = RAND(1)
         if(e.getSource() == jb_pakbonnenMaken){
             FrameController.setActiveFramePackingList(this, o_order);
-            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Pakbon is gemaakt"}); // in het logboek wordt opgeslagen dat pakbon is gemaakt (Joëlle)
+            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Pakbon is gemaakt van order " + o_order.getOrderID()}); // in het logboek wordt opgeslagen dat pakbon is gemaakt (Joëlle)
         }
 
         if(e.getSource() == jb_annuleer){

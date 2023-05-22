@@ -17,41 +17,13 @@ public class FrameController {
     private static FrameLogbook jf_FrameLogbook;
     private static FrameViewingOrder jf_FrameViewingOrder;
     private static FramePackingList jf_FramePackingList;
-    private static FrameMakeOrder jf_FrameMakeOrder;
 
     public FrameController(){
         Activity.getLogbookData(10);
         jf_home.setVisible(true);
 
-        //dummydata voor de orders pagina
-        Product product = new Product(5, "Fiets", "src/images/bicycle.jpg", 0);
-        Product product2 = new Product(6, "Auto", "", 0);
-        Product product3 = new Product(7, "Boot", "", 0);
-        Product product4 = new Product(8, "Hamer", "", 0);
-        Product product5 = new Product(9, "Schrift", "", 0);
-        Product product6 = new Product(10, "Geodriehoek", "", 0);
-        Product product7 = new Product(11, "Microfoon", "", 0);
-        ArrayList<Product> products = new ArrayList<>();
-        products.add(product);
-        products.add(product2);
-        products.add(product3);
-        products.add(product4);
-        products.add(product5);
-        products.add(product6);
-        products.add(product7);
-
         //initialiseer orders frame
         jf_FrameOrders = new FrameOrders();
-
-        //dummydata voor de FrameProducts
-        products = new ArrayList<>();
-        products.add(product);
-        products.add(product2);
-        products.add(product3);
-        products.add(product4);
-        products.add(product5);
-        products.add(product6);
-        products.add(product7);
 
         //initialiseer products frame
         jf_FrameProducts = new FrameProducts();
@@ -152,12 +124,6 @@ public class FrameController {
         if(jf_FrameViewingOrder != f){
             jf_FrameViewingOrder = new FrameViewingOrder(o);
             jf_FrameViewingOrder.setVisible(true);
-            f.setVisible(false);
-        }
-    }
-    public static void setActiveFrameMakeOrder(JFrame f){ //functie voor het aanzetten van het make order frame
-        if(jf_FrameMakeOrder != f){
-            jf_FrameMakeOrder.setVisible(true);
             f.setVisible(false);
         }
     }

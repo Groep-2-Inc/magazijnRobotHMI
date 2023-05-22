@@ -1,9 +1,7 @@
 package frames;
 
-import classes.Order;
 import comms.Communication;
 import database.Database;
-import frames.FrameVerwerken;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,7 +33,7 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
 
     public FrameHeader(){
         //Het uiterlijk van het paneel regelen
-        setTitle("JavaAplication/Home");
+        setTitle("HMI-applicatie");
         setSize(getScreenWidth(100.00f), getScreenHeight(100.00f));
         setLayout(new FlowLayout());
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -83,7 +81,7 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
         jtb_darkMode.addItemListener(this);
 
         //initializeer het paneel.
-        p2.setPreferredSize(new Dimension(getScreenWidth(10.4f), getScreenHeight(18.5f)));
+        p2.setPreferredSize(new Dimension(getScreenWidth(10.4f), getScreenHeight(20f)));
         p2.setBorder(new LineBorder(Color.BLACK));
         p2.add(new JLabel("          Instellingen          "));
         p2.add(new JLabel("                                "));
@@ -118,6 +116,9 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
         l2.setFont(new Font("Arial", Font.PLAIN, 80));
         jb_noodstopSluiten = new JButton("Verder");
         jb_noodstopSluiten.addActionListener(this);
+
+        // Verstuurd code 500 naar de robot
+        Communication.sendComms(500);
 
         //nieuw paneel voor de maregin
         p = new JPanel();

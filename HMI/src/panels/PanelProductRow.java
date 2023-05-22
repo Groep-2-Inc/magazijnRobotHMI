@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
-public class PanelProductOverview extends JPanel {
+public class PanelProductRow extends JPanel {
     private BufferedImage productImg; //Productafbeelding
     private JTextField jtf_amount; //Textfield dat aantal producten weergeeft en aanpassen mogelijk maakt
     private Product product; //Arraylist waarin de producten worden opgeslagen
@@ -19,7 +19,7 @@ public class PanelProductOverview extends JPanel {
     private boolean isEditable = false;
     private Color setBackground = Color.white;
 
-    public PanelProductOverview(Product product) {
+    public PanelProductRow(Product product) {
         this.product = product;
 
         //Informatie voor het hele panel (Sarah)
