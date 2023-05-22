@@ -11,3 +11,4 @@ void resetHasMoved();
 bool getHasMoved();
 void pickUpProduct();
 bool getProductPicked();
+int returnYCor(int);

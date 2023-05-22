@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <slaveCurPositionController.h>
 #include <IRSensor.h>
+#include <checkManualMove.h>
 
 //ints voor de pins en de global speed
 const int directionPinY = 12;
@@ -15,10 +16,15 @@ const int brakePinZ = 8;
 //array met de y coordinaten aan de hand van de value die de encoder teruggeeft (door Jason Joshua)
 const int yCor[5]{150, 1200, 2250, 3300, 4350};
 
+
 //int om bij te houden wat de huidige y is, en 2 bools. wordt gebruikt bij het oppakken van de producten (door Jason Joshua)
 int curY = 0;
 bool hasProduct = false;
 bool productPicked = false;
+
+int returnYCor(int number){
+    return yCor[number];
+}
 
 //motor setup om te zorgen dat alle pins juist gedefinieerd worden.
 void motorSetup(){
@@ -59,7 +65,7 @@ void moveDown(){
 
 // Zorgt ervoor dat de z-as naar voren kan bewegen.
 void moveForward(){
-  if(measureZas() < 8.80){
+  if(measureZas() < 8.80 && checkManualMove()){
     digitalWrite(directionPinZ, LOW);
     digitalWrite(brakePinZ, LOW);
     analogWrite(pwmPinZ, globalSpeed);

@@ -13,7 +13,7 @@ int curdata = 0;
 int x = 0;
 int y = 0;
 bool pickingProduct = false;
-bool manual = false;
+bool manual = true;
 
 // Sets correct pinmodes
 void setup() {  
@@ -78,5 +78,6 @@ void loop() {
 		toSlaveArduino(21);
 		//zet de breakpin aan (Door Jason Joshua)
 		toSlaveArduino(0);
-	} 
+	}
+	Serial.println(readX());
 }

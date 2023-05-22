@@ -106,5 +106,6 @@ void loop() {
 
   //delay voor het zorgen dat de arduinos meer gelijk lopen.
   delay(10);
-  // Serial.print(readY());
+  Serial.println(readY());
+
 }

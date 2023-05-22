@@ -5,6 +5,7 @@
 #include <endStop.h>
 #include <currentPositionController.h>
 #include <endStop.h>
+#include <checkManualMove.h>
 
 // globalSpeed - Definieert de snelheid van de robot.
 // directionPinX - Definieerd de pinmode van de beweging op de x-as.
@@ -19,7 +20,11 @@ const int pwmPinX = 11;
 
 const int brakePinX = 8;
 
-const int xCor[7]{0, 1400, 2800, 4055, 5550, 7600, 8600};
+const int xCor[7]{0, 1420, 2820, 4075, 5570, 7620, 8620};
+
+int returnXCor(int number){
+    return xCor[number];
+}
 
 // Zorgt ervoor dat de robot direct stop wanneer deze functie wordt aangeroepen.
 void stopMovement(){
@@ -242,8 +247,10 @@ void manualControl(){
     // Wanneer de waarde 0.0.1 is
     }else if (dir == "0.0.1"){
         // Beweeg de z-as naar voren en stopt andere bewegingen
-        toSlaveArduino(1);
-        stopMovement();
+        if(checkManualMove()){
+            toSlaveArduino(1);
+            stopMovement();
+        }
     // Wanneer de waarde 0.0.2 is
     }else if (dir == "0.0.2"){
         // Beweeg de z-as naar achter en stopt andere bewegingen
