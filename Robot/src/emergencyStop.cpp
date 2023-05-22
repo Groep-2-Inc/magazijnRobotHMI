@@ -6,11 +6,13 @@
 // stopButton - Definieert de pin van de noodstop.
 // emergency - Slaat op of er een noodgeval is.
 const int stopButtton = 10;
+const int goButton = 7;
 bool emergency = false;
 
 // Zet de pinmode voor noodstop
 void emergyStopSetup(){
 	pinMode(stopButtton, INPUT_PULLUP);
+	pinMode(goButton, INPUT_PULLUP);
 }
 
 // Stopt de robot en stuurt melding naar HMI
@@ -28,7 +30,6 @@ unsigned long lastStopPressed = 0;
 bool checkEmergencyStop(){
 	// Leest de waarde van de noodstop uit
 	bool stopPressed = !digitalRead(stopButtton); 
-	// Als de knop is ingedrukt
 	if(stopPressed){
 		// Controleert voor debouch
 		if(millis() - lastStopPressed > 250){
@@ -39,11 +40,30 @@ bool checkEmergencyStop(){
 	return false;
 }
 
+// Kijkt of de go-knop is ingedrukt en geeft deze lezing een debounce mee (Sarah)
+unsigned long lastGoPressed = 0;
+bool checkGoButton(){
+	// Leest de waarde van de go-knop uit
+	bool goPressed = !digitalRead(goButton); 
+	if(goPressed){
+		if(millis() - lastStopPressed > 250){
+			goPressed = millis();
+            lastGoPressed = goPressed;
+			return true;
+		}
+	}
+	return false;
+}
+
 // Controleert of de stopknop is ingedrukt
 // stopButton -> pin waar de noodstop op is aangesloten
 void checkStop(){
 	if(checkEmergencyStop()){
+		// Serial.println("STOP!");
 		stop();
+	} else if(checkGoButton()){
+		// Serial.println("go");
+		emergency = false;
 	}
 }
 
