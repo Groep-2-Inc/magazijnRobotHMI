@@ -166,21 +166,6 @@ public class PanelStatus extends JPanel implements ActionListener {
                 jb_productTerugzetten.setBackground(Color.lightGray);
                 break;
         }
-
-//        resetPanelStatusColors();
-    }
-
-    // Verplaats naar losse methode zodat die efficient kan worden aangeroepen
-    // Door Martijn
-    public static void resetPanelStatusColors(){
-        //zet de background voor alle meldingen
-        // Door Jason Joshua
-        jb_rust.setBackground(Color.lightGray);
-        jb_productOphalen.setBackground(Color.lightGray);
-        jb_inBeweging.setBackground(Color.lightGray);
-        jb_productAfgeven.setBackground(Color.lightGray);
-        jb_handmatige.setBackground(Color.lightGray);
-        jb_productTerugzetten.setBackground(Color.lightGray);
     }
 
     // Handelt knop acties af
