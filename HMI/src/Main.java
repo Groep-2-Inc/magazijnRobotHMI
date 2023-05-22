@@ -11,7 +11,7 @@ public class Main {
         new Communication();
         
 
-        Communication.sendComms(434);
+//        Communication.sendComms(434);
 
 //        System.out.println(Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "0", "Heeft op Go gedrukt!"}));
 

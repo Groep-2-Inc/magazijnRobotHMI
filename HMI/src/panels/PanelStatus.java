@@ -1,6 +1,7 @@
 package panels;
 //Door Jason Joshua & Martijn
 
+import classes.Robot;
 import comms.Communication;
 import database.Database;
 
@@ -40,9 +41,7 @@ public class PanelStatus extends JPanel implements ActionListener {
         p.setMinimumSize(new Dimension(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1920, 900)),FrameHeader.getScreenHeight(FrameHeader.getPercentage(1080, 480))));
         p.setPreferredSize(new Dimension(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1920, 900)),FrameHeader.getScreenHeight(FrameHeader.getPercentage(1080, 480))));
 
-        Font Arial20 = new Font("Arial", Font.PLAIN, 20);
         //zet het font voor alle meldingen
-
         jb_robotVerbinding.setFont(new Font("Arial", Font.PLAIN, 24));
         jb_productTerugzetten.setFont(new Font("Arial", Font.PLAIN, 24));
         jb_rust.setFont(new Font("Arial", Font.PLAIN, 24));
@@ -102,11 +101,83 @@ public class PanelStatus extends JPanel implements ActionListener {
             jb_databaseVerbinding.setBackground(Color.red);
         }
 
+        boolean isEmg = false;
+        if(isEmg){
+            jb_nood.setBackground(Color.red);
+        }else{
+            jb_nood.setBackground(Color.lightGray);
+        }
+
+        switch (Robot.getRobotStatus()){
+            case 201:
+                jb_rust.setBackground(Color.green);
+                jb_productOphalen.setBackground(Color.lightGray);
+                jb_inBeweging.setBackground(Color.lightGray);
+                jb_productAfgeven.setBackground(Color.lightGray);
+                jb_handmatige.setBackground(Color.lightGray);
+                jb_productTerugzetten.setBackground(Color.lightGray);
+                break;
+            case 300:
+                jb_rust.setBackground(Color.lightGray);
+                jb_productOphalen.setBackground(Color.green);
+                jb_inBeweging.setBackground(Color.lightGray);
+                jb_productAfgeven.setBackground(Color.lightGray);
+                jb_handmatige.setBackground(Color.lightGray);
+                jb_productTerugzetten.setBackground(Color.lightGray);
+                break;
+            case 301:
+                jb_rust.setBackground(Color.lightGray);
+                jb_productOphalen.setBackground(Color.lightGray);
+                jb_inBeweging.setBackground(Color.green);
+                jb_productAfgeven.setBackground(Color.lightGray);
+                jb_handmatige.setBackground(Color.lightGray);
+                jb_productTerugzetten.setBackground(Color.lightGray);
+                break;
+            case 302:
+                jb_rust.setBackground(Color.lightGray);
+                jb_productOphalen.setBackground(Color.lightGray);
+                jb_inBeweging.setBackground(Color.lightGray);
+                jb_productAfgeven.setBackground(Color.green);
+                jb_handmatige.setBackground(Color.lightGray);
+                jb_productTerugzetten.setBackground(Color.lightGray);
+                break;
+            case 303:
+                jb_rust.setBackground(Color.lightGray);
+                jb_productOphalen.setBackground(Color.lightGray);
+                jb_inBeweging.setBackground(Color.lightGray);
+                jb_productAfgeven.setBackground(Color.lightGray);
+                jb_handmatige.setBackground(Color.lightGray);
+                jb_productTerugzetten.setBackground(Color.green);
+                break;
+            case 310:
+                jb_rust.setBackground(Color.lightGray);
+                jb_productOphalen.setBackground(Color.lightGray);
+                jb_inBeweging.setBackground(Color.lightGray);
+                jb_productAfgeven.setBackground(Color.lightGray);
+                jb_handmatige.setBackground(Color.green);
+                jb_productTerugzetten.setBackground(Color.lightGray);
+                break;
+            default:
+                jb_rust.setBackground(Color.lightGray);
+                jb_productOphalen.setBackground(Color.lightGray);
+                jb_inBeweging.setBackground(Color.lightGray);
+                jb_productAfgeven.setBackground(Color.lightGray);
+                jb_handmatige.setBackground(Color.lightGray);
+                jb_productTerugzetten.setBackground(Color.lightGray);
+                break;
+        }
+
+//        resetPanelStatusColors();
+    }
+
+    // Verplaats naar losse methode zodat die efficient kan worden aangeroepen
+    // Door Martijn
+    public static void resetPanelStatusColors(){
         //zet de background voor alle meldingen
+        // Door Jason Joshua
         jb_rust.setBackground(Color.lightGray);
         jb_productOphalen.setBackground(Color.lightGray);
         jb_inBeweging.setBackground(Color.lightGray);
-        jb_nood.setBackground(Color.lightGray);
         jb_productAfgeven.setBackground(Color.lightGray);
         jb_handmatige.setBackground(Color.lightGray);
         jb_productTerugzetten.setBackground(Color.lightGray);

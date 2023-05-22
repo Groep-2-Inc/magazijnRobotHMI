@@ -1,6 +1,7 @@
 package comms;
 // Door Martijn
 
+import classes.Robot;
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
@@ -59,6 +60,7 @@ public class Communication {
                     if(readComms() == 200){
                         // Zet hasFirstComms op true
                         hasComms = true;
+                        Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Robot verbinding gemaakt."}); // in het logboek wordt opgeslagen dat er op Go gedrukt is (Joëlle)
                     }
 
                     // Update de status op het home scherm
@@ -169,6 +171,8 @@ public class Communication {
                 receivedValue = value.trim();
                 // Hier wordt de CountDownLatch met één verlaagd. Dit betekent dat de await()-functie in de functie readComms() kan worden ontgrendeld.
                 latch.countDown();
+                Robot.setRobotStatus(Integer.parseInt(receivedValue));
+                PanelStatus.updateStatus();
                 System.out.println(Communication.class + " readSerialComms: recived: " + value);
             }
 
