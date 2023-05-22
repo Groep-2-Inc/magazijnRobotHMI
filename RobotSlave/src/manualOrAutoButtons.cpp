@@ -41,17 +41,15 @@ bool checkManualMode(){
 	return false;
 }
 
-int checkBtns(){
+void checkBtns(){
 	if(checkAutoMode()){
 		autoMode = true;
 		Serial.println("auto");
 		// autoLEDOn();
-		return 23;
 	} else if(checkManualMode()){
 		autoMode = false;
 		Serial.println("manual");
 		// manualLEDOn();
-		return 22;
 	}
 }
 

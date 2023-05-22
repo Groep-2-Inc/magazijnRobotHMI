@@ -42,6 +42,7 @@ void loop() {
 		if(!manual){
 			//als er een connectie is, ga verder
 			if(getConection()){
+				// toSlaveArduino(23);
 				//als de robot nog niet home is, ga dan naar home, als die wel home is, beweeg dan automatisch (Door Jason Joshua)
 				if(!hasHomed){
 					hasHomed = moveToHome();
