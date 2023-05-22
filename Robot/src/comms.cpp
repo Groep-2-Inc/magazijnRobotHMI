@@ -5,8 +5,6 @@
 
 byte i2c_rcv;
 
-// Start serial zodat deze in elk ander bestand gebruikt kan worden.
-// Start de communicatie tussen de arduino's.
 int recieved = 0;
 bool hasConection = false;
 int incomingData = 0;
@@ -16,6 +14,8 @@ void receiveEvent(int bytes){
   recieved = Wire.read();
 }
 
+// Start serial zodat deze in elk ander bestand gebruikt kan worden.
+// Start de communicatie tussen de arduino's.
 void commsSetup(){
   Serial.begin(9600);
   Wire.begin(9);
@@ -39,8 +39,6 @@ int fromJava() {
         		hasConection = true;
 				break;
 			case 500:
-				// Zet een LED aan als nood
-				// digitalWrite(7, HIGH);
 				toJava(500);
 			default:
 				break;

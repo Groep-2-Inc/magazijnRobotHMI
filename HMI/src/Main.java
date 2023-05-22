@@ -4,13 +4,11 @@ import env.GetEnv;
 import frames.FrameController;
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args){
         new GetEnv();
-//        new Database();
-//        new FrameController();
+        new Database();
+        new FrameController();
         new Communication();
-
-        Thread.sleep(8000);
         
 
         Communication.sendComms(434);

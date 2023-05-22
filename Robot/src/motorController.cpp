@@ -103,10 +103,10 @@ bool moveY (int coordinate){
 bool boolY = false;
 bool boolX = false;
 bool moveXY(int x, int y){
-    if(boolY == false){
+    if(!boolY){
         boolY = moveY(y);
     }
-    if(boolX == false){
+    if(!boolX){
         boolX = moveX(x);
     }
     return boolY && boolX;
@@ -120,14 +120,14 @@ void resetBoolXY(){
 
 //functie waarmee de robot homed   (Door Jason Joshua)
 bool moveToHome(){
-    if(checkEndStopY() != true){
+    if(!checkEndStopY()){
         moveDown();
-    } else if (checkEndStopY() == true){
+    } else if (checkEndStopY()){
         toSlaveArduino(0);
     }
-    if(checkEndStopX() != true){
+    if(!checkEndStopX()){
         moveLeft();
-    } else  if (checkEndStopX() == true){
+    } else  if (checkEndStopX()){
         stopMovement();
     }  
 

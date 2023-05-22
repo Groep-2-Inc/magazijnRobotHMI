@@ -44,6 +44,12 @@ void statusLightsOn(){
   }
 }
 
+void sendData(int data){
+  Wire.beginTransmission(9);
+  Wire.write(data);
+  Wire.endTransmission();
+}
+
 void loop() {
 
   // Serial.println(readY());
@@ -62,11 +68,11 @@ void loop() {
     if(canMove)
       moveBackward();
   }else if (x == 3){
-    // Beweeg naar achter
+    // Beweeg naar boven (door Jason Joshua)
     if(canMove)
       moveUp();
   }else if (x == 4){
-    // Beweeg naar achter
+    // Beweeg naar beneden (door Jason Joshua)
     if(canMove)
       moveDown();
   } else if (x == 5){
@@ -92,14 +98,10 @@ void loop() {
   measureZas();
 
   // als hasmoved true is, return een statuscode naar de hoofdarduino, zo niet return dan een andere statuscode  (door Jason Joshua)
-  if(getHasMoved() == true){
-  Wire.beginTransmission(9);
-  Wire.write(101);
-  Wire.endTransmission();
+  if(getHasMoved()){
+    sendData(101);
   } else {
-    Wire.beginTransmission(9);
-    Wire.write(100);
-    Wire.endTransmission();
+    sendData(100);
   }
 
   //delay voor het zorgen dat de arduinos meer gelijk lopen.
