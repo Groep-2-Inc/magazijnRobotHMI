@@ -101,43 +101,43 @@ public class PanelProductRow extends JPanel implements ActionListener {
         jtf_amount.setBorder(setBorder);
         jtf_amount.setFont(new Font("Arial", Font.PLAIN, 20));
         Dimension sizeJTFAmount = jtf_amount.getPreferredSize();
-        jtf_amount.setBounds(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 1220)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 60)), FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 60)), sizeJTFAmount.height);
+        jtf_amount.setBounds(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 1210)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 60)), FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 60)), sizeJTFAmount.height);
         jtf_amount.setEditable(isEditable);
         add(jtf_amount);
 
         //Button om productlijst te bewerken aanmaken en stylen (zichtbaar totdat op "bewerken" wordt gedrukt) (Sarah)
         Dimension sizeProductsEdit = jb_change.getPreferredSize();
-        jb_change.setBounds(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 1300)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 60)), sizeProductsEdit.width +20, sizeProductsEdit.height);
+        jb_change.setBounds(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 1280)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 60)), sizeProductsEdit.width +10, sizeProductsEdit.height);
         jb_change.setVisible(changeVisible);
         add(jb_change);
 
         //Button om aanpassingen in productlijst op te slaan aanmaken en stylen (onzichtbaar totdat op "bewerken" wordt gedrukt) (Sarah)
         Dimension sizeProductsEditSave = jb_save.getPreferredSize();
-        jb_save.setBounds(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 1300)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 60)), sizeProductsEditSave.width +20, sizeProductsEditSave.height);
+        jb_save.setBounds(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 1280)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 60)), sizeProductsEditSave.width +10, sizeProductsEditSave.height);
         jb_save.setVisible(cancelSaveVisible);
         add(jb_save);
 
         //Button om aanpassingen in productlijst te annuleren aanmaken en stylen (onzichtbaar totdat op "bewerken" wordt gedrukt) (Sarah)
         Dimension sizeProductsEditCancel = jb_cancel.getPreferredSize();
-        jb_cancel.setBounds(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 1400)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 60)), sizeProductsEditCancel.width +20, sizeProductsEditCancel.height);
+        jb_cancel.setBounds(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 1360)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 60)), sizeProductsEditCancel.width +10, sizeProductsEditCancel.height);
         jb_cancel.setVisible(cancelSaveVisible);
         add(jb_cancel);
 
         jl_invalid.setFont(new Font("Arial", Font.BOLD, 10));
         jl_invalid.setForeground(Color.red);
         Dimension sizeInvalid = jl_invalid.getPreferredSize();
-        jl_invalid.setBounds(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 1400)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 60)), sizeInvalid.width +20, sizeInvalid.height);
+        jl_invalid.setBounds(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 1360)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 65)), sizeInvalid.width +20, sizeInvalid.height);
         jl_invalid.setVisible(invalidVisible);
         add(jl_invalid);
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         //Als op "bewerken" wordt gedrukt: (Sarah)
         if (e.getSource() == jb_change) {
             //Andere knoppen worden op zichtbaar of onzichtbaar gezet (Sarah)
             changeVisible = false;
             cancelSaveVisible = true;
+            invalidVisible = false;
             jl_invalid.setVisible(false);
 
             removeAll();
@@ -154,13 +154,14 @@ public class PanelProductRow extends JPanel implements ActionListener {
             // Aanpassingen aan aantal producten worden opgeslagen, errors worden afgevangen (Sarah), try en catch samengevoegd naar één (Joëlle)
             try {
                 product.setStock(Integer.parseInt(getJtf_amount().getText()));
-                Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Hoeveelheid product met nummer " + product.getProductID() + " is aangepast"});
             } catch (NumberFormatException | NullPointerException ex) {
                 //Foutmelding als er geen nummer wordt ingevoerd (Sarah)
                  if(getJtf_amount() != null){
                      invalidVisible = true;
                  }
             }
+
+            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Hoeveelheid product met nummer " + product.getProductID() + " is aangepast"});
             removeAll();
             editAmount(Color.white, null, false);
         }
