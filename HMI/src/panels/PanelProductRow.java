@@ -153,6 +153,7 @@ public class PanelProductRow extends JPanel implements ActionListener {
             // Instellen dat aantal producten niet meer bewerkt kan worden (wijzigingen worden opgeslagen) (Sarah)
             // Aanpassingen aan aantal producten worden opgeslagen, errors worden afgevangen (Sarah), try en catch samengevoegd naar één (Joëlle)
             try {
+                Database.updateDatabase("UPDATE stockitemholdings SET QuantityOnHand = ? WHERE StockItemID = ?", new String[]{getJtf_amount().getText(), String.valueOf(product.getProductID())});
                 product.setStock(Integer.parseInt(getJtf_amount().getText()));
             } catch (NumberFormatException | NullPointerException ex) {
                 //Foutmelding als er geen nummer wordt ingevoerd (Sarah)
