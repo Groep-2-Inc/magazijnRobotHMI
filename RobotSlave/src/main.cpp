@@ -52,44 +52,91 @@ void sendData(int data){
 
 void loop() {
 
-  // Serial.println(readY());
-  // Als de waarde 0 is
-  if (x == 0){
-    // Stop met bewegen
-    stopMovement();
-    // Als de waarde 1 is
-  }else if (x == 1){
-    // Beweeg naar voren
-    if(canMove)
-      moveForward();
-  // Als de waarde 2 is
-  }else if (x == 2){
-    // Beweeg naar achter
-    if(canMove)
-      moveBackward();
-  }else if (x == 3){
-    // Beweeg naar boven (door Jason Joshua)
-    if(canMove)
-      moveUp();
-  }else if (x == 4){
-    // Beweeg naar beneden (door Jason Joshua)
-    if(canMove)
-      moveDown();
-  } else if (x == 5){
-    //verander de canmove bool (door Jason Joshua)
-    canMove = !canMove;
-  } else if (x == 6 || x == 7 || x == 8 || x == 9 || x == 10){
-    //als je kan bewegen, ga dan naar een specefieke y coordinaat (door Jason Joshua)
-    if(getHasMoved() == false && canMove){
-      moveY(x-5);
-    }
-  } else if (x == 11){
-    //reset de hasmoved (door Jason Joshua)
-    resetHasMoved();
-  } else if (x == 12){
-    //pak een product op (door Jason Joshua)
-    pickUpProduct();
+  switch (x)
+  {
+    case 0:
+      // Stop met bewegen
+      stopMovement();
+      break;
+    case 1:
+      // Beweeg naar voren
+      if(canMove)
+        moveForward();
+      break;
+    case 2:
+      // Beweeg naar achter
+      if(canMove)
+        moveBackward();
+      break;
+    case 3:
+      // Beweeg naar boven (door Jason Joshua)
+      if(canMove)
+        moveUp();
+      break;
+    case 4:
+      // Beweeg naar beneden (door Jason Joshua)
+      if(canMove)
+        moveDown();
+      break;
+    case 5:
+      //verander de canmove bool (door Jason Joshua)
+      canMove = !canMove;
+      break;
+    case 6: case 7: case 8: case 9: case 10:
+      //als je kan bewegen, ga dan naar een specefieke y coordinaat (door Jason Joshua)
+      if(getHasMoved() == false && canMove){
+        moveY(x-5);
+      }
+      break;
+    case 11:
+      //reset de hasmoved (door Jason Joshua)
+      resetHasMoved();
+      break;
+    case 12:
+      //pak een product op (door Jason Joshua)
+      pickUpProduct();
+    default:
+      break;
   }
+
+  //uitgecommend voor het testen. nog behouden tot alles hierboven 1000% werkt
+  // // Serial.println(readY());
+  // // Als de waarde 0 is
+  // if (x == 0){
+    
+  //   // Als de waarde 1 is
+  // }else if (x == 1){
+  //   // Beweeg naar voren
+  //   if(canMove)
+  //     moveForward();
+  // // Als de waarde 2 is
+  // }else if (x == 2){
+  //   // Beweeg naar achter
+  //   if(canMove)
+  //     moveBackward();
+  // }else if (x == 3){
+  //   // Beweeg naar boven (door Jason Joshua)
+  //   if(canMove)
+  //     moveUp();
+  // }else if (x == 4){
+  //   // Beweeg naar beneden (door Jason Joshua)
+  //   if(canMove)
+  //     moveDown();
+  // } else if (x == 5){
+  //   //verander de canmove bool (door Jason Joshua)
+  //   canMove = !canMove;
+  // } else if (x == 6 || x == 7 || x == 8 || x == 9 || x == 10){
+  //   //als je kan bewegen, ga dan naar een specefieke y coordinaat (door Jason Joshua)
+  //   if(getHasMoved() == false && canMove){
+  //     moveY(x-5);
+  //   }
+  // } else if (x == 11){
+  //   //reset de hasmoved (door Jason Joshua)
+  //   resetHasMoved();
+  // } else if (x == 12){
+  //   //pak een product op (door Jason Joshua)
+  //   pickUpProduct();
+  // }
 
   statusLightsOn();
 
