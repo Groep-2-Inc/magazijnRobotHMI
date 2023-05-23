@@ -17,12 +17,14 @@ void emergyStopSetup(){
 
 // Stopt de robot en stuurt melding naar HMI
 void stop(){
-    // stopt de robot
-    stopMovement();
-	toSlaveArduino(0);
-	emergency = true;
-    // Stuurt melding naar de HMI
-    toJava(500);
+	if(!emergency){
+		// stopt de robot
+		stopMovement();
+		toSlaveArduino(50);
+		// Stuurt melding naar de HMI
+		toJava(500);
+		emergency = true;
+	}
 }
 
 // Kijkt of de noodstop is ingedrukt en geeft deze lezing een debounce mee.
@@ -46,9 +48,8 @@ bool checkGoButton(){
 	// Leest de waarde van de go-knop uit
 	bool goPressed = !digitalRead(goButton); 
 	if(goPressed){
-		if(millis() - lastStopPressed > 250){
-			goPressed = millis();
-            lastGoPressed = goPressed;
+		if(millis() - lastGoPressed > 250){
+            lastGoPressed = millis();
 			return true;
 		}
 	}
@@ -59,10 +60,10 @@ bool checkGoButton(){
 // stopButton -> pin waar de noodstop op is aangesloten
 void checkStop(){
 	if(checkEmergencyStop()){
-		// Serial.println("STOP!");
 		stop();
-	} else if(checkGoButton()){
-		// Serial.println("go");
+	}
+	if(checkGoButton()){
+		toSlaveArduino(51);
 		emergency = false;
 	}
 }

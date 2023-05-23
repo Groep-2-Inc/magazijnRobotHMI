@@ -16,6 +16,7 @@
 
 bool canMove = true;
 int x = 0;
+bool emergency = false;
 
 // Leest de waarde van de data van de master arduino.
 void receiveEvent(int bytes){
@@ -34,82 +35,80 @@ void setup() {
   Serial.begin(9600);
 }
 
-void statusLightsOn(){
-  if(x == 21){
-    emergencyLEDOn();
-    autoLEDOff();
-    manualLEDOff();
-  } else if(x == 22){
-    manualLEDOn();
-    autoLEDOff();
-  } else if(x == 23){
-    autoLEDOn();
-    manualLEDOff();
-  }
-}
-
 void sendData(int data){
   Wire.beginTransmission(9);
   Wire.write(data);
   Wire.endTransmission();
 }
 
-// // Zorgt ervoor dat data vanuit de slave arduino naar de master arduino gestuurd wordt
-// void toMasterArduino(int value){
-//   Wire.beginTransmission(9);
-// 	Wire.write(value);
-// 	Wire.endTransmission();
-// }
-
 void loop() {
+  Serial.println(x);
 
-  switch (x)
-  {
-    case 0:
-      // Stop met bewegen
-      stopMovement();
-      break;
-    case 1:
-      // Beweeg naar voren
-      if(canMove)
-        moveForward();
-      break;
-    case 2:
-      // Beweeg naar achter
-      if(canMove)
-        moveBackward();
-      break;
-    case 3:
-      // Beweeg naar boven (door Jason Joshua)
-      if(canMove)
-        moveUp();
-      break;
-    case 4:
-      // Beweeg naar beneden (door Jason Joshua)
-      if(canMove)
-        moveDown();
-      break;
-    case 5:
-      //verander de canmove bool (door Jason Joshua)
-      canMove = !canMove;
-      break;
-    case 6: case 7: case 8: case 9: case 10:
-      //als je kan bewegen, ga dan naar een specefieke y coordinaat (door Jason Joshua)
-      if(getHasMoved() == false && canMove){
-        moveY(x-5);
-      }
-      break;
-    case 11:
-      //reset de hasmoved (door Jason Joshua)
-      resetHasMoved();
-      break;
-    case 12:
-      //pak een product op (door Jason Joshua)
-      pickUpProduct();
-    default:
-      break;
+  if(emergency){
+    stopMovement();
+    emergencyLEDOn();
+
+    if(x == 51){
+      manualLEDOn();
+      emergency = false;
+    }
+  }else{
+    switch (x){
+      case 0:
+        // Stop met bewegen
+        stopMovement();
+        break;
+      case 1:
+        // Beweeg naar voren
+        if(canMove)
+          moveForward();
+        break;
+      case 2:
+        // Beweeg naar achter
+        if(canMove)
+          moveBackward();
+        break;
+      case 3:
+        // Beweeg naar boven (door Jason Joshua)
+        if(canMove)
+          moveUp();
+        break;
+      case 4:
+        // Beweeg naar beneden (door Jason Joshua)
+        if(canMove)
+          moveDown();
+        break;
+      case 5:
+        //verander de canmove bool (door Jason Joshua)
+        canMove = !canMove;
+        break;
+      case 6: case 7: case 8: case 9: case 10:
+        //als je kan bewegen, ga dan naar een specefieke y coordinaat (door Jason Joshua)
+        if(getHasMoved() == false && canMove){
+          moveY(x-5);
+        }
+        break;
+      case 11:
+        //reset de hasmoved (door Jason Joshua)
+        resetHasMoved();
+        break;
+      case 12:
+        //pak een product op (door Jason Joshua)
+        pickUpProduct();
+        break;
+      case 22:
+        manualLEDOn();
+        break;
+      case 23:
+        autoLEDOn();
+        break;
+      case 50:
+        emergency = true;
+      default:
+        break;
+    }
   }
-
+  
   //uitgecommend voor het testen. nog behouden tot alles hierboven 1000% werkt
   // // Serial.println(readY());
   // // Als de waarde 0 is
@@ -149,8 +148,6 @@ void loop() {
   //   pickUpProduct();
   // }
 
-  statusLightsOn();
-
   checkBtns();
 
   measureZas();
@@ -163,16 +160,13 @@ void loop() {
   }
 
   if(isAutoMode()){
-    // Serial.println(isAutoMode());
     autoLEDOn();
     sendData(22);
   }else{
-    // Serial.println(isAutoMode());
     manualLEDOn();
     sendData(23);
   }
 
   //delay voor het zorgen dat de arduinos meer gelijk lopen.
   delay(10);
-  // Serial.print(readY());
 }

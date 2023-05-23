@@ -41,10 +41,10 @@ void loop() {
 	if(!isEmergency()){
 		if(getReceiveData() == 22){
 			manual = false;
-			Serial.println(getReceiveData());
+			toSlaveArduino(0);
+			stopMovement();
 		}else if(getReceiveData() == 23){
 			manual = true;
-			Serial.println(getReceiveData());
 		}
 		//als de robot niet op de manuele stand staat, beweeg dan automatisch (Door Jason Joshua)
 		if(!manual){
@@ -82,10 +82,5 @@ void loop() {
 			manualControl();
 			delay(20);
 		}
-	}else {
-		//stuurt melding naar slave Arduino om noodstoplampje te laten branden (Sarah)
-		toSlaveArduino(21);
-		//zet de breakpin aan (Door Jason Joshua)
-		toSlaveArduino(0);
-	} 
+	}
 }

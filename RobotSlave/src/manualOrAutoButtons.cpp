@@ -45,11 +45,9 @@ void checkBtns(){
 	if(checkAutoMode()){
 		autoMode = true;
 		Serial.println("auto");
-		// autoLEDOn();
 	} else if(checkManualMode()){
 		autoMode = false;
 		Serial.println("manual");
-		// manualLEDOn();
 	}
 }
 
