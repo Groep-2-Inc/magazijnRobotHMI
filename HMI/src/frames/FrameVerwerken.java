@@ -330,7 +330,7 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
 
         if(e.getSource() == jb_annuleer){
             System.out.println("er is op de annuleerknop gedrukt");
-            
+            o_order = null;
             FrameController.setActiveFrameHome(this);
         }
     }
