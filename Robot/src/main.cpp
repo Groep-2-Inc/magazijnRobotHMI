@@ -6,6 +6,7 @@
 #include <joystick.h>
 #include <endStop.h>
 #include <currentPositionController.h>
+#include <Wire.h>
 
 bool hasHomed = false;
 bool moved = false;
@@ -13,7 +14,7 @@ int curdata = 0;
 int x = 0;
 int y = 0;
 bool pickingProduct = false;
-bool manual = false;
+bool manual = true;
 
 // Sets correct pinmodes
 void setup() {  
@@ -29,7 +30,7 @@ void setup() {
 // Herhaald de volgende code meerder keren
 void loop() {
 	//check de noodstop
-    checkStop();	
+    checkStop();
 	
 	//als er nog geen conectie is check voor een conectie (Door Jason Joshua)
 	if(!getConection()){
@@ -38,6 +39,13 @@ void loop() {
 
 	//als er geen emergency is beweeg, als er wel een is zet de breakpins aan (Door Jason Joshua)
 	if(!isEmergency()){
+		if(getReceiveData() == 22){
+			manual = false;
+			Serial.println(getReceiveData());
+		}else if(getReceiveData() == 23){
+			manual = true;
+			Serial.println(getReceiveData());
+		}
 		//als de robot niet op de manuele stand staat, beweeg dan automatisch (Door Jason Joshua)
 		if(!manual){
 			//als er een connectie is, ga verder

@@ -14,6 +14,10 @@ void receiveEvent(int bytes){
   recieved = Wire.read();
 }
 
+int getReceiveData(){
+	return recieved;
+}
+
 // Start serial zodat deze in elk ander bestand gebruikt kan worden.
 // Start de communicatie tussen de arduino's.
 void commsSetup(){

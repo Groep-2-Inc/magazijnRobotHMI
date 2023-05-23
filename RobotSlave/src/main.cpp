@@ -37,10 +37,14 @@ void setup() {
 void statusLightsOn(){
   if(x == 21){
     emergencyLEDOn();
+    autoLEDOff();
+    manualLEDOff();
   } else if(x == 22){
     manualLEDOn();
+    autoLEDOff();
   } else if(x == 23){
     autoLEDOn();
+    manualLEDOff();
   }
 }
 
@@ -49,6 +53,13 @@ void sendData(int data){
   Wire.write(data);
   Wire.endTransmission();
 }
+
+// // Zorgt ervoor dat data vanuit de slave arduino naar de master arduino gestuurd wordt
+// void toMasterArduino(int value){
+//   Wire.beginTransmission(9);
+// 	Wire.write(value);
+// 	Wire.endTransmission();
+// }
 
 void loop() {
 
@@ -102,6 +113,16 @@ void loop() {
     sendData(101);
   } else {
     sendData(100);
+  }
+
+  if(isAutoMode()){
+    // Serial.println(isAutoMode());
+    autoLEDOn();
+    sendData(22);
+  }else{
+    // Serial.println(isAutoMode());
+    manualLEDOn();
+    sendData(23);
   }
 
   //delay voor het zorgen dat de arduinos meer gelijk lopen.
