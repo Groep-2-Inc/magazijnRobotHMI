@@ -193,10 +193,20 @@ int getCorY(int serialmessage){
     }
 }
 
+
+
+bool sendManualControl = false;
+void resetManualControl(){
+    sendManualControl = false;
+}
+
 // Deze functie zorgt ervoor dat de robot manueel gebruikt kan worden.
 void manualControl(){
-    toSlaveArduino(22);
-    // resetEndStop();
+    if(!sendManualControl){
+        toSlaveArduino(22);
+        sendManualControl = true;
+    }
+    
     // Leest waarde van de joystick uit en maakt hier een string van.
     String dir = readJoystick();
 

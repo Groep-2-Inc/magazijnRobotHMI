@@ -37,11 +37,3 @@ void emergencyLEDOn(){
     digitalWrite(manualLED, LOW);
     digitalWrite(emergencyLED, HIGH);
 }
-
-void autoLEDOff(){
-    digitalWrite(autoLED, LOW);
-}
-
-void manualLEDOff(){
-    digitalWrite(manualLED, LOW);
-}

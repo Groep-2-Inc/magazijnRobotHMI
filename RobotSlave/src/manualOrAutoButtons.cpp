@@ -52,7 +52,6 @@ void checkBtns(){
 }
 
 bool isAutoMode(){
-	Serial.println(autoMode);
 	return autoMode;
 }
 

@@ -43,6 +43,7 @@ void loop() {
 			manual = false;
 			toSlaveArduino(0);
 			stopMovement();
+			resetManualControl();
 		}else if(getReceiveData() == 23){
 			manual = true;
 		}

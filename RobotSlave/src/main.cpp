@@ -21,6 +21,7 @@ bool emergency = false;
 // Leest de waarde van de data van de master arduino.
 void receiveEvent(int bytes){
   x = Wire.read();
+  Serial.println(x);
 }
 
 // Zet de pinmode van de bovenstaande variabelen en zorgt ervoor dat de data van de master arduino ontvangen wordt.
@@ -42,13 +43,13 @@ void sendData(int data){
 }
 
 void loop() {
-  Serial.println(x);
-
   if(emergency){
     stopMovement();
     emergencyLEDOn();
 
+    // WERKT NIET
     if(x == 51){
+      Serial.println("WERKT");
       manualLEDOn();
       emergency = false;
     }
@@ -104,8 +105,29 @@ void loop() {
         break;
       case 50:
         emergency = true;
+        Serial.println("emergency");
+        break;
       default:
         break;
+    }
+
+    checkBtns();
+
+    measureZas();
+
+    // als hasmoved true is, return een statuscode naar de hoofdarduino, zo niet return dan een andere statuscode  (door Jason Joshua)
+    if(getHasMoved()){
+      sendData(101);
+    } else {
+      sendData(100);
+    }
+
+    if(isAutoMode()){
+      autoLEDOn();
+      sendData(22);
+    }else{
+      manualLEDOn();
+      sendData(23);
     }
   }
   
@@ -147,25 +169,6 @@ void loop() {
   //   //pak een product op (door Jason Joshua)
   //   pickUpProduct();
   // }
-
-  checkBtns();
-
-  measureZas();
-
-  // als hasmoved true is, return een statuscode naar de hoofdarduino, zo niet return dan een andere statuscode  (door Jason Joshua)
-  if(getHasMoved()){
-    sendData(101);
-  } else {
-    sendData(100);
-  }
-
-  if(isAutoMode()){
-    autoLEDOn();
-    sendData(22);
-  }else{
-    manualLEDOn();
-    sendData(23);
-  }
 
   //delay voor het zorgen dat de arduinos meer gelijk lopen.
   delay(10);
