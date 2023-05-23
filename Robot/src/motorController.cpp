@@ -16,9 +16,7 @@
 int globalSpeed = 255;
 const int directionPinX = 13;
 const int pwmPinX = 11;
-
 const int brakePinX = 8;
-
 const int xCor[7]{0, 1400, 2800, 4055, 5550, 7600, 8600};
 
 // Zorgt ervoor dat de robot direct stop wanneer deze functie wordt aangeroepen.

@@ -14,6 +14,8 @@ int x = 0;
 int y = 0;
 bool pickingProduct = false;
 bool manual = false;
+bool sendManualMessage = false;
+bool sendHomeMessage = false;
 
 // Sets correct pinmodes
 void setup() {  
@@ -46,9 +48,15 @@ void loop() {
 				if(!hasHomed){
 					hasHomed = moveToHome();
 				}else if(hasHomed){
+
+					if(!sendHomeMessage){
+						sendHomeMessage = false;
+						toJava(201);
+					}
+
 					//als de curdata niet gelijk is aan de data die gekregen is van java, stel deze dan gelijk en zet de x en y op de coordinaten die bij deze data horen (Door Jason Joshua)
-					if(curdata != getData()){
-						curdata = getData();
+					if(curdata != fromJava()){
+						curdata = fromJava();
 						x = getCorX(curdata);
 						y = getCorY(curdata);
 					}
@@ -66,9 +74,12 @@ void loop() {
 						pickUpProduct();
 					}
 				}
-				
 			}
 		} else {
+			if(!sendManualMessage){
+				sendManualMessage = true;
+				toJava(310);
+			}
 			//als de robot op de manuele stand sta roep de manual control functie aan, delay voor het gelijk laten lopen van de arduinos (Door Jason Joshua)
 			manualControl();
 			delay(20);

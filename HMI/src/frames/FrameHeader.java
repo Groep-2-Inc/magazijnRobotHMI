@@ -1,6 +1,7 @@
 package frames;
 
-import comms.Communication;
+import classes.Communication;
+import classes.Emergency;
 import database.Database;
 
 import javax.swing.*;
@@ -97,6 +98,8 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
     }
 
     public void noodStop(){
+        Emergency.startEmergency();
+
         //initializeer de noodstopframe
         jf_noodstopFrame = new JFrame("NOODSTOP");
         jf_noodstopFrame.setAlwaysOnTop( true );
@@ -117,8 +120,6 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
         jb_noodstopSluiten = new JButton("Verder");
         jb_noodstopSluiten.addActionListener(this);
 
-        // Verstuurd code 500 naar de robot
-        Communication.sendComms(500);
 
         //nieuw paneel voor de maregin
         p = new JPanel();

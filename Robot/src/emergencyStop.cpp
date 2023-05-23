@@ -8,6 +8,7 @@
 const int stopButtton = 10;
 const int goButton = 7;
 bool emergency = false;
+bool sendComms = false;
 
 // Zet de pinmode voor noodstop
 void emergyStopSetup(){
@@ -22,7 +23,11 @@ void stop(){
 	toSlaveArduino(0);
 	emergency = true;
     // Stuurt melding naar de HMI
-    toJava(500);
+
+	if(!sendComms){
+		sendComms = true;
+		toJava(500);
+	}
 }
 
 // Kijkt of de noodstop is ingedrukt en geeft deze lezing een debounce mee.
@@ -59,10 +64,8 @@ bool checkGoButton(){
 // stopButton -> pin waar de noodstop op is aangesloten
 void checkStop(){
 	if(checkEmergencyStop()){
-		// Serial.println("STOP!");
 		stop();
 	} else if(checkGoButton()){
-		// Serial.println("go");
 		emergency = false;
 	}
 }

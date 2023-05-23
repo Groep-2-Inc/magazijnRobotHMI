@@ -8,6 +8,13 @@ public class Robot {
     }
 
     public static void setRobotStatus(int robotStatus) {
-        Robot.robotStatus = robotStatus;
+        // Als de status van de robot 500 is
+        if(robotStatus == 500){
+            // Activeert de emergency
+            Emergency.startEmergency();
+        }else{
+            // Anders zet de juiste status
+            Robot.robotStatus = robotStatus;
+        }
     }
 }

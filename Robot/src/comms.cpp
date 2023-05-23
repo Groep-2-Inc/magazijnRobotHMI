@@ -49,12 +49,6 @@ int fromJava() {
   return incomingData;
 }
 
-int getData(){
-	fromJava();
-	return incomingData;
-}
-
-
 // Zorgt ervoor dat data vanuit de master arduino naar de slave arduino gestuurd wordt
 void toSlaveArduino(int value){
   // Serial.println(value);

@@ -1,7 +1,6 @@
-package comms;
+package classes;
 // Door Martijn
 
-import classes.Robot;
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
@@ -171,8 +170,11 @@ public class Communication {
                 receivedValue = value.trim();
                 // Hier wordt de CountDownLatch met één verlaagd. Dit betekent dat de await()-functie in de functie readComms() kan worden ontgrendeld.
                 latch.countDown();
+                // Zet de juiste robot status
                 Robot.setRobotStatus(Integer.parseInt(receivedValue));
+                // Update de panel
                 PanelStatus.updateStatus();
+                // Print de teruggestuurde waarde
                 System.out.println(Communication.class + " readSerialComms: recived: " + value);
             }
 

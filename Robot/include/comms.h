@@ -6,4 +6,3 @@ int fromJava();
 void toSlaveArduino(int value);
 int getFromSlave();
 bool getConection();
-int getData();

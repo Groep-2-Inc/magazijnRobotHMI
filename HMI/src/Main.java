@@ -1,4 +1,4 @@
-import comms.Communication;
+import classes.Communication;
 import database.Database;
 import env.GetEnv;
 import frames.FrameController;

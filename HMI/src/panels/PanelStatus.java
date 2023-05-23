@@ -1,8 +1,9 @@
 package panels;
 //Door Jason Joshua & Martijn
 
+import classes.Emergency;
 import classes.Robot;
-import comms.Communication;
+import classes.Communication;
 import database.Database;
 
 import frames.FrameHeader;
@@ -101,8 +102,7 @@ public class PanelStatus extends JPanel implements ActionListener {
             jb_databaseVerbinding.setBackground(Color.red);
         }
 
-        boolean isEmg = false;
-        if(isEmg){
+        if(Emergency.isEmergency()){
             jb_nood.setBackground(Color.red);
         }else{
             jb_nood.setBackground(Color.lightGray);
