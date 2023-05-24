@@ -18,8 +18,7 @@ bool checkAutoMode(){
 	bool autoPressed = !digitalRead(autoBtn); 
 	if(autoPressed){
 		if(millis() - lastAutoPressed > 250){
-			autoPressed = millis();
-            lastAutoPressed = autoPressed;
+            lastAutoPressed = millis();
 			return true;
 		}
 	}
@@ -33,8 +32,7 @@ bool checkManualMode(){
 	bool manualPressed = !digitalRead(manualBtn); 
 	if(manualPressed){
 		if(millis() - lastManualPressed > 250){
-			manualPressed = millis();
-            lastManualPressed = manualPressed;
+            lastManualPressed = millis();
 			return true;
 		}
 	}
@@ -44,10 +42,10 @@ bool checkManualMode(){
 void checkBtns(){
 	if(checkAutoMode()){
 		autoMode = true;
-		Serial.println("auto");
+		// Serial.println("auto");
 	} else if(checkManualMode()){
 		autoMode = false;
-		Serial.println("manual");
+		// Serial.println("manual");
 	}
 }
 

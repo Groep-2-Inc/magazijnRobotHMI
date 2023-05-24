@@ -81,7 +81,7 @@ void loop() {
 		} else {
 			//als de robot op de manuele stand sta roep de manual control functie aan, delay voor het gelijk laten lopen van de arduinos (Door Jason Joshua)
 			manualControl();
-			delay(20);
+			delay(10);
 		}
 	}
 }
