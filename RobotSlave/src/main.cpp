@@ -36,7 +36,7 @@ void setup() {
   Serial.begin(9600);
 }
 
-void sendData(int data){
+void toMasterArduino(int data){
   Wire.beginTransmission(9);
   Wire.write(data);
   Wire.endTransmission();
@@ -119,17 +119,17 @@ void loop() {
 
     // als hasmoved true is, return een statuscode naar de hoofdarduino, zo niet return dan een andere statuscode  (door Jason Joshua)
     if(getHasMoved()){
-      sendData(101);
+      toMasterArduino(101);
     } else {
-      sendData(100);
+      toMasterArduino(100);
     }
 
     if(isAutoMode()){
       autoLEDOn();
-      sendData(22);
+      toMasterArduino(22);
     }else{
       manualLEDOn();
-      sendData(23);
+      toMasterArduino(23);
     }
   }
   
