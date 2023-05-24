@@ -1,13 +1,12 @@
 package frames;
 
-import database.Database;
+import classes.Database;
 import panels.ProductsInBoxPanel;
 import classes.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.SQLOutput;
 import java.text.*;
 import java.util.*;
 

@@ -6,10 +6,8 @@ import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
 import java.io.IOException;
 
-import database.Database;
 import java.util.concurrent.CountDownLatch;
 
-import env.GetEnv;
 import panels.PanelStatus;
 
 public class Communication {

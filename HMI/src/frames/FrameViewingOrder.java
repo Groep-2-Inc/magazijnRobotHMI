@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.text.*;
 import java.util.*;
-import database.Database;
+import classes.Database;
 import classes.*;
 import panels.*;
 

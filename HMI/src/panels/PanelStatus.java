@@ -4,7 +4,7 @@ package panels;
 import classes.Emergency;
 import classes.Robot;
 import classes.Communication;
-import database.Database;
+import classes.Database;
 
 import frames.FrameHeader;
 

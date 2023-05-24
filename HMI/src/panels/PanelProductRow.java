@@ -1,7 +1,7 @@
 package panels;
 
 import classes.*;
-import database.Database;
+import classes.Database;
 import frames.FrameHeader;
 import javax.imageio.*;
 import javax.swing.*;

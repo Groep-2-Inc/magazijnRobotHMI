@@ -1,6 +1,6 @@
 import classes.Communication;
-import database.Database;
-import env.GetEnv;
+import classes.Database;
+import classes.GetEnv;
 import frames.FrameController;
 
 public class Main {

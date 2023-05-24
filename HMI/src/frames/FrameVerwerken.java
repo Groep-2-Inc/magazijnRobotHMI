@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 
-import database.Database;
+import classes.Database;
 import panels.PanelBins;
 import panels.PanelPositie;
 import classes.Order;

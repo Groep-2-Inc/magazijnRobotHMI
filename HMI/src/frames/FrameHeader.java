@@ -2,7 +2,7 @@ package frames;
 
 import classes.Communication;
 import classes.Emergency;
-import database.Database;
+import classes.Database;
 
 import javax.swing.*;
 import java.awt.*;
