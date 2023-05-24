@@ -12,7 +12,6 @@ import java.util.Date;
 
 import database.Database;
 import panels.PanelBins;
-import panels.PanelOrderStatus;
 import panels.PanelPositie;
 import classes.Order;
 
@@ -321,7 +320,6 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
         //als er op de knop gedrukt wordt, dan wordt een actie toegevoegd aan de database
         if(e.getSource() == jb_go){
            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Heeft op Go gedrukt!"}); // in het logboek wordt opgeslagen dat er op Go gedrukt is (Joëlle)
-            PanelOrderStatus.setOrder(o_order);
         }
         
         //ga naar het pakbonnenmakenschermUPDATE orders SET OrderCompleted = RAND(1)
