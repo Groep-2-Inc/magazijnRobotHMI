@@ -43,16 +43,18 @@ void sendData(int data){
 }
 
 void loop() {
+  // Serial.println(x);
   if(emergency){
     stopMovement();
     emergencyLEDOn();
 
-    // WERKT NIET
     if(x == 51){
-      Serial.println("WERKT");
+      // Serial.println("WERKT");
       manualLEDOn();
       emergency = false;
     }
+    // WERKT NIET
+  
   }else{
     switch (x){
       case 0:
@@ -105,7 +107,7 @@ void loop() {
         break;
       case 50:
         emergency = true;
-        Serial.println("emergency");
+        // Serial.println("emergency");
         break;
       default:
         break;
@@ -171,5 +173,5 @@ void loop() {
   // }
 
   //delay voor het zorgen dat de arduinos meer gelijk lopen.
-  delay(10);
+  // delay(10);
 }
