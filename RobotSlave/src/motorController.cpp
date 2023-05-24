@@ -22,6 +22,7 @@ int curY = 0;
 bool hasProduct = false;
 bool productPicked = false;
 
+// functie de met een gegeven nummer, de waarde van die plek uit de array haalt
 int returnYCor(int number){
     return yCor[number];
 }
@@ -46,26 +47,32 @@ void stopMovement(){
 
 // Zorgt ervoor dat de robot omhoog beweegt wanneer deze functie wordt aangeroepen.
 void moveUp(){
-  if(readY() < 5000){
+  if(readY() < 5000 && getManualMoveZas()){
     digitalWrite(directionPinY, LOW);
     digitalWrite(brakePinY, LOW);
     analogWrite(pwmPinY, globalSpeed);
-  } else {
+  } else if(readY() < 5000 && checkManualMoveBox() && !getManualMoveZas()){
+    digitalWrite(directionPinY, LOW);
+    digitalWrite(brakePinY, LOW);
+    analogWrite(pwmPinY, globalSpeed);
+  }else {
     stopMovement();
   }
 }
 
 // Zorgt ervoor dat de robot omlaag beweegt wanneer deze functie wordt aangeroepen.
 void moveDown(){
+  if(getManualMoveZas()){
     digitalWrite(directionPinY, HIGH);
     digitalWrite(brakePinY, LOW);
     analogWrite(pwmPinY, globalSpeed);
+  }
 }
 
 
-// Zorgt ervoor dat de z-as naar voren kan bewegen.
+// Zorgt ervoor dat de z-as naar voren kan bewegen, als dat mogelijk is (en hij dus niet de stelling omstoot (Joëlle))
 void moveForward(){
-  if(measureZas() < 8.80 && checkManualMove()){
+  if(measureZas() < 8.80 && checkManualMoveYas()){
     digitalWrite(directionPinZ, LOW);
     digitalWrite(brakePinZ, LOW);
     analogWrite(pwmPinZ, globalSpeed);

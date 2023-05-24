@@ -1,3 +1,6 @@
 #include <Arduino.h>
 
-bool checkManualMove();
+bool checkManualMoveYas();
+void checkManualMoveZas();
+bool checkManualMoveBox();
+bool getManualMoveZas();

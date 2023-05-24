@@ -6,6 +6,8 @@
 #include <statusLights.h>
 #include <IRSensor.h>
 #include <manualOrAutoButtons.h>
+#include <comms.h>
+#include <checkManualMove.h>
 
 // globalSpeed - Bepaald de snelheid van de robot.
 // directionPinZ -  Definieert de pinmode van de richting van de z-as.
@@ -44,11 +46,6 @@ void statusLightsOn(){
   }
 }
 
-void sendData(int data){
-  Wire.beginTransmission(9);
-  Wire.write(data);
-  Wire.endTransmission();
-}
 
 void loop() {
 
@@ -97,6 +94,8 @@ void loop() {
 
   measureZas();
 
+  // getCheckManualMoveZas(); 
+
   // als hasmoved true is, return een statuscode naar de hoofdarduino, zo niet return dan een andere statuscode  (door Jason Joshua)
   if(getHasMoved()){
     sendData(101);
@@ -107,5 +106,6 @@ void loop() {
   //delay voor het zorgen dat de arduinos meer gelijk lopen.
   delay(10);
   Serial.println(readY());
+  // Serial.println(measureZas());
 
 }

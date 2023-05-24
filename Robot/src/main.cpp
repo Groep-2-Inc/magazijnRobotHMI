@@ -79,5 +79,6 @@ void loop() {
 		//zet de breakpin aan (Door Jason Joshua)
 		toSlaveArduino(0);
 	}
-	Serial.println(readX());
+	// Serial.println(readX());
+	Serial.println(getFromSlave());
 }

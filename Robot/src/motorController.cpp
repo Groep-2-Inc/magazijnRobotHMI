@@ -22,6 +22,7 @@ const int brakePinX = 8;
 
 const int xCor[7]{0, 1420, 2820, 4075, 5570, 7620, 8620};
 
+// functie de met een gegeven nummer, de waarde van die plek uit de array haalt
 int returnXCor(int number){
     return xCor[number];
 }
@@ -211,42 +212,56 @@ void manualControl(){
     // Wanneer de waarde 1.0.0 is
     if (dir == "1.0.0"){
         // Beweeg naar links
-        moveLeft();
+        if(getCanMoveInBox()){
+            moveLeft();
+        }
     // Wanneer de waarde 2.0.0 is
     }else if (dir == "2.0.0"){
         // Beweeg naar rechts
-        moveRight();        
+        if(getCanMoveInBox()){
+            moveRight(); 
+        }       
     // Wanner de waarde 0.1.0 is
     }else if (dir == "0.1.0"){
         // Beweeg omhoog
         toSlaveArduino(3);
     // Wanneer de waarde 0.2.0 is
     }else if (dir == "0.2.0"){
+        if(getCanMoveInBox()){
         // Beweeg omlaag
-        moveDown();
+            moveDown();
+        }
     //Wanneer de waarde 1.1.0 is
     }else if (dir == "1.1.0"){
         // Beweeg naar linksboven
-        toSlaveArduino(3);
-        moveLeft();
+        if(getCanMoveInBox()){
+            toSlaveArduino(3);
+            moveLeft();
+        }
     // Wanneer de waarde 1.2.0 is
     }else if (dir == "1.2.0"){
         // Beweeg naar linksonder
-        moveDown();
-        moveLeft();
+        if(getCanMoveInBox()){
+            moveDown();
+            moveLeft();
+        }
     // Wanneer de waarde 2.1.0 is
     }else if (dir == "2.1.0"){
         // Beweeg naar rechtsboven
-        toSlaveArduino(3);
-        moveRight();
+        if(getCanMoveInBox()){
+            toSlaveArduino(3);
+            moveRight();
+        }
     // Wanneer de waarde 2.2.0 is
     }else if (dir == "2.2.0"){
         // Beweeg naar rechtsonder
-        moveDown();
-        moveRight();
+        if(getCanMoveInBox()){
+            moveDown();
+            moveRight();
+        }
     // Wanneer de waarde 0.0.1 is
     }else if (dir == "0.0.1"){
-        // Beweeg de z-as naar voren en stopt andere bewegingen
+        // Beweeg de z-as naar voren als dat mogelijk is (en hij dus niet de stelling omstoot (Joëlle)) en stopt andere bewegingen
         if(checkManualMove()){
             toSlaveArduino(1);
             stopMovement();
