@@ -28,6 +28,7 @@ public class Database {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 // Maakt verbinding met de database (doormiddel van, host, username en password).
                 con = DriverManager.getConnection(GetEnv.getDb_host(), GetEnv.getDb_username(), GetEnv.getDb_password());
+                System.out.println(Database.class + " connectToDatase: database connected");
                 hasDbConnection = true;
                 // Werkt de status bij in de applicatie
                 PanelStatus.updateStatus();
