@@ -9,7 +9,7 @@ public class Product {
     private int stock;
     private int weight;
     private String binLocation;
-
+    private String status;
     public Product(int productID, String productName, String imgPath, int amountOrdered, int weight, String binLocation) {
         this.productID = productID;
         this.productName = productName;
@@ -18,11 +18,16 @@ public class Product {
         this.binLocation = binLocation;
         this.weight = weight;
         this.stock = 0;
+        this.status = "waiting";
     }
 
     public Product(int productID, String productName, String imgPath, int stock, String binLocation, int weight){
         this(productID, productName, imgPath, 0, weight, binLocation);
         this.stock = stock;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public String getProductName() {
