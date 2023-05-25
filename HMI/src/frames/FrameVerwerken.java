@@ -26,7 +26,7 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
     private JButton jb_go = new JButton("GO!"); //button voor het starten van het pakken van de orders
     private JButton jb_pakbonnenMaken = new JButton("Pakbonnen maken"); //button voor het aanmaken van de pakbonnen
     private static Order o_order;
-
+    private PanelPositie panelPositie = new PanelPositie(); // Toont positie
 
     public FrameVerwerken(Order order){
         //initializeer alle nodige variabelen.
@@ -60,10 +60,9 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
         p3.setPreferredSize(new Dimension(getScreenWidth(88.5f)/2, getScreenHeight(74f)));
 
         //voeg het positie paneel toe aan het linker paneel
-        p = new PanelPositie();
-        p.setBorder(null);
-        p.setPreferredSize(new Dimension(getScreenWidth(51f), getScreenHeight(46.3f)));
-        p3.add(p);
+        panelPositie.setBorder(null);
+        panelPositie.setPreferredSize(new Dimension(getScreenWidth(51f), getScreenHeight(46.3f)));
+        p3.add(panelPositie);
 
         //voeg het bpp paneel toe aan het linker paneel
         p3.add(GetBPPPanel());
@@ -338,4 +337,6 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
     public static Order getO_order() {
         return o_order;
     }
+
+    public void updatePanelPositie(){ panelPositie.updatePanel();}
 }

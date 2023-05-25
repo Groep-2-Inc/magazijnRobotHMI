@@ -5,9 +5,10 @@ import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
 import java.io.IOException;
-
 import java.util.concurrent.CountDownLatch;
 
+import frames.FrameController;
+import frames.FrameHome;
 import panels.PanelStatus;
 
 public class Communication {
@@ -168,8 +169,19 @@ public class Communication {
                 receivedValue = value.trim();
                 // Hier wordt de CountDownLatch met één verlaagd. Dit betekent dat de await()-functie in de functie readComms() kan worden ontgrendeld.
                 latch.countDown();
-                // Zet de juiste robot status
-                Robot.setRobotStatus(Integer.parseInt(receivedValue));
+
+                // Past de status of de positie aan
+                int status = Integer.parseInt(receivedValue);
+                // Als het een positie update is
+                if(status > 400 && status < 500){
+                    // Zet de juiste robot positie
+                    Robot.setRobotPosisiton(status);
+                    FrameController.updatePositiePanel();
+                }else{
+                    // Zet de juiste robot status
+                    Robot.setRobotStatus(status);
+                }
+
                 // Update de panel
                 PanelStatus.updateStatus();
                 // Print de teruggestuurde waarde

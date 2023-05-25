@@ -2,6 +2,7 @@ package classes;
 
 public class Robot {
     private static int robotStatus;
+    private static int robotPosisiton;
 
     public static int getRobotStatus() {
         return robotStatus;
@@ -16,5 +17,13 @@ public class Robot {
             // Anders zet de juiste status
             Robot.robotStatus = robotStatus;
         }
+    }
+
+    public static int getRobotPosisiton() {
+        return robotPosisiton;
+    }
+
+    public static void setRobotPosisiton(int robotPosisiton) {
+        Robot.robotPosisiton = robotPosisiton;
     }
 }

@@ -63,5 +63,5 @@ int getFromSlave(){
 }
 
 bool getConection(){
-return hasConection;
+	return hasConection;
 }

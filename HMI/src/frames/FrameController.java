@@ -72,6 +72,12 @@ public class FrameController {
 //        jf_FrameMakeOrder = new FrameMakeOrder(products, customers);
     }
 
+    // Werkt de positie panel bij
+    public static void updatePositiePanel(){
+        jf_home.updatePanelPositie();
+        jf_FrameVerwerken.updatePanelPositie();
+    }
+
     public static void setActiveFrameHome(JFrame f){ //functie voor het aanzetten van het homeframe
         if(jf_home != f){
             jf_home.updateLogbookPanel();

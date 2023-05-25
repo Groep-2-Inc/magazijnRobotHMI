@@ -9,7 +9,6 @@ public class Main {
         new Database();
         new FrameController();
         new Communication();
-        
 
 //        Communication.sendComms(434);
 
