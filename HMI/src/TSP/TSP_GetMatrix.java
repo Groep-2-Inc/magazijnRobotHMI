@@ -1,38 +1,40 @@
 package TSP;
 
 public class TSP_GetMatrix {
-    public static int[][] getCordinates(int[][] matrix) {
+    public static int[][] getCordinates(String[] Cors) {
         //maak nieuwe array aan voor alle x en y posities
         int[][] pointxy = new int[TSP_main.N][2];
-        //initialiseer de y en x
-        int y = 0;
-        int x = 0;
-
-        //for loop die in de matrix zoekt naar een bepaald aantal punten (N)
-        for (int i = 0; i < TSP_main.N; i++) {
-            //for loop die door de lijnen heen kijkt (y coordinaat)
-            for (int[] line : matrix) {
-                //for loop die door de velden heen kijkt (x coordinaat)
-                for (int field: line){
-                    //verhoog de X coordinaat
-                    x++;
-                    //kijk of het veld gelijk is aan i
-                    if(field == i+1){
-                        //vul de X en Y coordinaat in
-                        pointxy[i][0] = x;
-                        pointxy[i][1] = (TSP_main.matrixsize - y);
-                        //reset de x en y coordinaat;
-                        x = 0;
-                        y = 0;
-                    }
+        int i = 0;
+//        for (int i = 0; i < TSP_main.N; i++) {
+            for (String line : Cors) {
+                if(line.contains("A")){
+                    pointxy[i][0] = 1;
+                } else if (line.contains("B")) {
+                    pointxy[i][0] = 2;
+                }else if (line.contains("C")) {
+                    pointxy[i][0] = 3;
+                }else if (line.contains("D")) {
+                    pointxy[i][0] = 4;
+                }else if (line.contains("E")) {
+                    pointxy[i][0] = 5;
                 }
-                //verhoog de y coordinaat en reset de x coordinaat
-                y++;
-                x=0;
+
+                if(line.contains("1")){
+                    pointxy[i][1] = 1;
+                }else if (line.contains("2")){
+                    pointxy[i][1] = 2;
+                }else if (line.contains("3")){
+                    pointxy[i][1] = 3;
+                }else if (line.contains("4")){
+                    pointxy[i][1] = 4;
+                }else if (line.contains("5")){
+                    pointxy[i][1] = 5;
+                }else if (line.contains("6")){
+                    pointxy[i][1] = 6;
+                }
+                i++;
             }
-            //reset de y coordinaat
-            y = 0;
-        }
+//        }
         //return een matrix met alle x en y punten
         return pointxy;
     }
@@ -55,7 +57,7 @@ public class TSP_GetMatrix {
                 int x2 = cordinates[i][0];
                 int y2 = cordinates[i][1];
                 //bereken de afstand
-                double distance = pytagoras((x1-x2), (y1 - y2));
+                double distance = pytagoras(((x1-x2)*7), ((y1 - y2)*5));
                 //voeg de afstand toe aan de matrix in de array van het huidige punt
                 distances[current][i] = distance;
             }
