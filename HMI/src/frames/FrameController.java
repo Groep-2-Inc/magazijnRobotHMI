@@ -5,6 +5,7 @@ package frames;
 import classes.Activity;
 import classes.Order;
 import classes.Product;
+import classes.Verwerken;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -73,9 +74,16 @@ public class FrameController {
     }
 
     // Werkt de positie panel bij
+    // Door Martijn
     public static void updatePositiePanel(){
+        // Update panel op home pagina
         jf_home.updatePanelPositie();
-        jf_FrameVerwerken.updatePanelPositie();
+
+        // Als de verwerken pagina een keer is geopend
+        if(Verwerken.isVerwerken()){
+            // Update de verwerken pagina
+            jf_FrameVerwerken.updatePanelPositie();
+        }
     }
 
     public static void setActiveFrameHome(JFrame f){ //functie voor het aanzetten van het homeframe
@@ -88,6 +96,7 @@ public class FrameController {
 
     public static void setActiveFrameVerwerken(JFrame f, Order o){ //functie van het aanzetten van het verwerken frame
         if(jf_FrameVerwerken != f){
+            Verwerken.setIsVerwerken(true);
             jf_FrameVerwerken = new FrameVerwerken(o);
             jf_FrameVerwerken.setVisible(true);
             f.setVisible(false);
