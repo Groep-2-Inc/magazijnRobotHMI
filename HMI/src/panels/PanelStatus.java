@@ -67,6 +67,10 @@ public class PanelStatus extends JPanel implements ActionListener {
         p.add(jb_handmatige);
         p.add(jb_productTerugzetten);
 
+        // Maakt nood knop niet klikbaar
+        jb_nood.setBorderPainted(false);
+        jb_nood.setFocusPainted(false);
+
         //voeg nieuwe box toe om het paneel in het midde te laten zitten
         Box box = new Box(BoxLayout.Y_AXIS);
         box.add(Box.createVerticalGlue());
@@ -75,7 +79,6 @@ public class PanelStatus extends JPanel implements ActionListener {
 
         jb_robotVerbinding.addActionListener(this);
         jb_databaseVerbinding.addActionListener(this);
-        jb_nood.addActionListener(this);
 
         //voeg deze box toe.
         add(box);
@@ -185,19 +188,6 @@ public class PanelStatus extends JPanel implements ActionListener {
             PanelStatus.updateStatus();
         }
 
-        // Als test!
-        if(e.getSource() == jb_nood){
-            if(!Communication.hasComms()){
-                Communication.sendComms(500);
-
-                // Werkt niet, panel logica moet in nieuwe methode komen!
-                if(Communication.readComms() == 500){
-                    jb_nood.setBackground(Color.red);
-                }
-
-                PanelStatus.updateStatus();
-            }
-        }
         if(e.getSource() == jb_databaseVerbinding) {
             if(!Database.hasDbConnection()) {
                 Database.connectToDatase();

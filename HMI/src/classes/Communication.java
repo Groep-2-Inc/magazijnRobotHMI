@@ -127,7 +127,7 @@ public class Communication {
                 System.out.println(Communication.class + " sendComms comms error: " + exc);
             }
         }else{
-            System.out.println(Communication.class + " sendComms: comms port not open, can't send message");
+            System.out.println(Communication.class + " sendComms: Comms port not open, can't send message");
         }
     }
 

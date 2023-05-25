@@ -335,10 +335,10 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
             Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Pakbon is gemaakt van order " + o_order.getOrderID()}); // in het logboek wordt opgeslagen dat pakbon is gemaakt (Joëlle)
         }
 
+        // Als je op de annuleer knop drukt
         if(e.getSource() == jb_annuleer){
-            System.out.println("er is op de annuleerknop gedrukt");
-            o_order = null;
-            FrameController.setActiveFrameHome(this);
+            // Ga terug naar viewingOrder
+            FrameController.setActiveViewingOrder(this, o_order);
         }
     }
 

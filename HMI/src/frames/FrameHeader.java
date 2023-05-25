@@ -3,6 +3,7 @@ package frames;
 import classes.Communication;
 import classes.Emergency;
 import classes.Database;
+import panels.PanelStatus;
 
 import javax.swing.*;
 import java.awt.*;
@@ -99,6 +100,7 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
 
     public void noodStop(){
         Emergency.startEmergency();
+        PanelStatus.updateStatus();
 
         //initializeer de noodstopframe
         jf_noodstopFrame = new JFrame("NOODSTOP");
@@ -119,7 +121,6 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
         l2.setFont(new Font("Arial", Font.PLAIN, 80));
         jb_noodstopSluiten = new JButton("Verder");
         jb_noodstopSluiten.addActionListener(this);
-
 
         //nieuw paneel voor de maregin
         p = new JPanel();
@@ -173,7 +174,7 @@ public class FrameHeader extends JFrame implements ActionListener, ItemListener{
         //als de noodstop wordt ingedrukt open het noodstopframe
         if(e.getSource() == jb_noodstop){
             noodStop();
-            System.out.println(Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "De noodstop is ingedrukt"})); // in het logbook wordt opgeslagen dat de noodstop is ingedrukt(Joëlle)
+            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "De noodstop is ingedrukt"}); // in het logbook wordt opgeslagen dat de noodstop is ingedrukt(Joëlle)
         }
 
         //als de noodstopSluiten knop wordt ingedrukt sluit het noodstopFrame
