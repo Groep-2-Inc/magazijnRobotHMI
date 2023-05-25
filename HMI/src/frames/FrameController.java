@@ -4,11 +4,7 @@ package frames;
 
 import classes.Activity;
 import classes.Order;
-import classes.Product;
-import classes.Verwerken;
-
 import javax.swing.*;
-import java.util.ArrayList;
 
 public class FrameController {
     private static FrameHome jf_home = new FrameHome();
@@ -80,7 +76,7 @@ public class FrameController {
         jf_home.updatePanelPositie();
 
         // Als de verwerken pagina een keer is geopend
-        if(Verwerken.isVerwerken()){
+        if(FrameVerwerken.isVerwerken()){
             // Update de verwerken pagina
             jf_FrameVerwerken.updatePanelPositie();
         }
@@ -96,7 +92,7 @@ public class FrameController {
 
     public static void setActiveFrameVerwerken(JFrame f, Order o){ //functie van het aanzetten van het verwerken frame
         if(jf_FrameVerwerken != f){
-            Verwerken.setIsVerwerken(true);
+            FrameVerwerken.setIsVerwerken(true);
             jf_FrameVerwerken = new FrameVerwerken(o);
             jf_FrameVerwerken.setVisible(true);
             f.setVisible(false);

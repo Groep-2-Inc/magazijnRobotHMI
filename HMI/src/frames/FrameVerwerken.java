@@ -28,6 +28,14 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
     private static Order o_order;
     private PanelPositie panelPositie = new PanelPositie(); // Toont positie
 
+    private static boolean isVerwerken;
+    public static boolean isVerwerken() {
+        return isVerwerken;
+    }
+    public static void setIsVerwerken(boolean verwerken) {
+        isVerwerken = verwerken;
+    }
+
     public FrameVerwerken(Order order){
         //initializeer alle nodige variabelen.
         closeProgram();

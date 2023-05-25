@@ -28,7 +28,6 @@ public class PanelPositie extends JPanel {
 
         // Zet huidige positie
         // Door Martijn
-
         int currXPoss = 0;
         int currYPoss = 0;
         // Als de huidige robot positie niet 0 is.
