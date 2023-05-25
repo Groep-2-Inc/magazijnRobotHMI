@@ -18,6 +18,8 @@
 
 bool canMove = true;
 int x = 0;
+bool sendData100 = true;
+bool sendData101 = true;
 
 // Leest de waarde van de data van de master arduino.
 void receiveEvent(int bytes){
@@ -94,18 +96,31 @@ void loop() {
 
   measureZas();
 
-  // getCheckManualMoveZas(); 
+  checkManualMoveZas(); // voor het regelmatig bijwerken van of de z-as mag bewegen, ev. weg voor debuggen
 
   // als hasmoved true is, return een statuscode naar de hoofdarduino, zo niet return dan een andere statuscode  (door Jason Joshua)
   if(getHasMoved()){
-    sendData(101);
+    if(sendData101){
+      sendData(101);
+      sendData100 = true;
+      sendData101 = false;
+      Serial.println("cccccccc");
+    }
+    // sendData(101);
   } else {
-    sendData(100);
+    if(sendData100){
+      sendData(100);
+      sendData101 = true;
+      sendData100 = false;
+      Serial.println("ddddddd");
+    }
+    // sendData(100);
   }
 
   //delay voor het zorgen dat de arduinos meer gelijk lopen.
   delay(10);
-  Serial.println(readY());
+  // Serial.println(readY());
   // Serial.println(measureZas());
+  Serial.println(x);
 
 }

@@ -1,5 +1,5 @@
 #include <Arduino.h>
 
-bool checkManualMove();
+bool checkManualMoveXas();
 bool checkManualMoveZas();
 bool getCanMoveInBox();
