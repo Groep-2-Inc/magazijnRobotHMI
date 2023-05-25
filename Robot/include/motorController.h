@@ -18,3 +18,5 @@ int getCorX(int);
 int getCorY(int);
 bool pickUpProduct();
 void resetManualControl();
+int returnXCor(int);
+
