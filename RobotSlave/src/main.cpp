@@ -51,6 +51,7 @@ void loop() {
   
     // Serial.println(x);
     if(emergency){
+      Serial.println("emg");
       stopMovement();
       emergencyLEDOn();
 
@@ -62,6 +63,7 @@ void loop() {
       // WERKT NIET
     
     }else{
+      Serial.println("geen emg");
       switch (x){
         case 0:
           // Stop met bewegen
@@ -113,7 +115,6 @@ void loop() {
           break;
         case 50:
           emergency = true;
-          // Serial.println("emergency");
           break;
         default:
           break;
@@ -140,7 +141,7 @@ void loop() {
         toMasterArduino(23);
       }
     }
-    
+  } 
     //uitgecommend voor het testen. nog behouden tot alles hierboven 1000% werkt
     // // Serial.println(readY());
     // // Als de waarde 0 is
@@ -179,7 +180,7 @@ void loop() {
     //   //pak een product op (door Jason Joshua)
     //   pickUpProduct();
     // }
-  }  
+  
 
   //delay voor het zorgen dat de arduinos meer gelijk lopen.
   // delay(10);
