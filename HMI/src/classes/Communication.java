@@ -176,8 +176,13 @@ public class Communication {
                 if(status > 400 && status < 500){
                     // Zet de juiste robot positie
                     Robot.setRobotPosisiton(status);
+                    // Update de positie panel
                     FrameController.updatePositiePanel();
+                    // Voegt regel toe aan logboek
+                    Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "2", "Robot bevindt zich in stelling: " + status});
                 }else{
+                    // Voegt regel toe aan logboek
+                    Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "2", "Robot status veranderd: " + status});
                     // Zet de juiste robot status
                     Robot.setRobotStatus(status);
                 }
