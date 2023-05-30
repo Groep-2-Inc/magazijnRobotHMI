@@ -1,7 +1,7 @@
 package TSP;
 
 public class TSP_Algoritm_1 {
-    static int N = TSP_main.N;
+    static int N = TSP_main.routeLength;
     static int[] final_path = new int[N];
 
     static boolean[] added = new boolean[N];
