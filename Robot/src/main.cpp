@@ -15,7 +15,12 @@ int y = 0;
 bool pickingProduct = false;
 bool manual = false;
 bool sendManualMessage = false;
-bool sendHomeMessage = false;
+bool sendRustMessage = false;
+bool sendHomeMovementMessage = false;
+bool sendFinishMessage = false;
+bool sendProductOphalenMessage = false;
+unsigned long lastRustMessage = 0;
+unsigned long lastProductOphalenMessage = 0;
 
 // Sets correct pinmodes
 void setup() {  
@@ -25,7 +30,6 @@ void setup() {
 	commsSetup();
 	encoderSetup();
 	endStopSetup();
-	// positionSetup();
 }
 
 // Herhaald de volgende code meerder keren
@@ -42,16 +46,25 @@ void loop() {
 	if(!isEmergency()){
 		//als de robot niet op de manuele stand staat, beweeg dan automatisch (Door Jason Joshua)
 		if(!manual){
-			//als er een connectie is, ga verder
-			if(getConection()){
+			// Als er een connectie is, ga verder na 2000ms
+			// getCommsStartTime() returnt de waarde van wanneer er voor het eerst verbinding is gemaakt
+			// toegevoegd zodat Java genoeg tijd heeft om data op te halen vanuit robot 
+			// Door Martijn
+			if(getConection() && millis() - getCommsStartTime() > 2000){
 				//als de robot nog niet home is, ga dan naar home, als die wel home is, beweeg dan automatisch (Door Jason Joshua)
 				if(!hasHomed){
+					// Versuurd één keer dat hij aan het homen is
+					if(!sendHomeMovementMessage){
+						toJava(301);
+						sendHomeMovementMessage = true;
+					}
+
 					hasHomed = moveToHome();
 				}else if(hasHomed){
-
-					if(!sendHomeMessage){
-						sendHomeMessage = false;
+					// Als hij thuis is stuur dan één keer 201 naar Java
+					if(!sendRustMessage){
 						toJava(201);
+						sendRustMessage = true;
 					}
 
 					//als de curdata niet gelijk is aan de data die gekregen is van java, stel deze dan gelijk en zet de x en y op de coordinaten die bij deze data horen (Door Jason Joshua)
@@ -62,6 +75,12 @@ void loop() {
 					}
 					//als x en y niet 0 is en de robot is geen product aan het pakken, beweeg dan naar de coordinaten, anders pak het product op  (Door Jason Joshua)
 					if(x != 0 && y != 0 && !pickingProduct){
+						// Verstuur één keer dat hij een product ophaalt
+						if(!sendProductOphalenMessage){
+							toJava(300);
+							sendProductOphalenMessage = true;
+						}
+
 						//zodra moved false is en move xy true is dan is de robot op de plek waar die moet zijn, zorg dan dat de robot stopt en begint met het pakken van een product (Door Jason Joshua)
 						if(moved == false && moveXY(x, y) == true){
 							moved = true;
@@ -89,5 +108,14 @@ void loop() {
 		toSlaveArduino(21);
 		//zet de breakpin aan (Door Jason Joshua)
 		toSlaveArduino(0);
-	} 
+	}
+
+	// Als de slave het product heeft verzameld
+	if(getFromSlave() == 13){
+		// Stuur één keer code 201 naar Java
+		if(!sendFinishMessage){
+			toJava(201);
+			sendFinishMessage = true;
+		}
+	}
 }

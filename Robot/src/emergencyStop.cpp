@@ -17,7 +17,7 @@ void emergyStopSetup(){
 }
 
 // Stopt de robot en stuurt melding naar HMI
-void stop(){
+void emgStop(){
     // stopt de robot
     stopMovement();
 	toSlaveArduino(0);
@@ -64,7 +64,7 @@ bool checkGoButton(){
 // stopButton -> pin waar de noodstop op is aangesloten
 void checkStop(){
 	if(checkEmergencyStop()){
-		stop();
+		emgStop();;
 	} else if(checkGoButton()){
 		emergency = false;
 	}

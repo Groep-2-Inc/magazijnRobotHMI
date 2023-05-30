@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <slaveCurPositionController.h>
 #include <IRSensor.h>
+#include <comms.h>
 
 //ints voor de pins en de global speed
 const int directionPinY = 12;
@@ -40,13 +41,13 @@ void stopMovement(){
 
 // Zorgt ervoor dat de robot omhoog beweegt wanneer deze functie wordt aangeroepen.
 void moveUp(){
-  if(readY() < 5000){
-    digitalWrite(directionPinY, LOW);
-    digitalWrite(brakePinY, LOW);
-    analogWrite(pwmPinY, globalSpeed);
-  } else {
-    stopMovement();
-  }
+	if(readY() < 5000){
+		digitalWrite(directionPinY, LOW);
+		digitalWrite(brakePinY, LOW);
+		analogWrite(pwmPinY, globalSpeed);
+	} else {
+		stopMovement();
+	}
 }
 
 // Zorgt ervoor dat de robot omlaag beweegt wanneer deze functie wordt aangeroepen.
@@ -59,26 +60,24 @@ void moveDown(){
 
 // Zorgt ervoor dat de z-as naar voren kan bewegen.
 void moveForward(){
-  if(measureZas() < 8.80){
-    digitalWrite(directionPinZ, LOW);
-    digitalWrite(brakePinZ, LOW);
-    analogWrite(pwmPinZ, globalSpeed);
-  } else {
-    stopMovement();
-  }
- 
+	if(measureZas() < 8.80){
+		digitalWrite(directionPinZ, LOW);
+		digitalWrite(brakePinZ, LOW);
+		analogWrite(pwmPinZ, globalSpeed);
+	} else {
+		stopMovement();
+	}
 }
 
 // Zorgt ervoor dat de z-as naar achter kan bewegen.
 void moveBackward(){
-  if (measureZas() > 4.16){
-    digitalWrite(directionPinZ, HIGH);
-    digitalWrite(brakePinZ, LOW);
-    analogWrite(pwmPinZ, globalSpeed);
-  } else {
-    stopMovement();
-  }
- 
+	if (measureZas() > 4.16){
+		digitalWrite(directionPinZ, HIGH);
+		digitalWrite(brakePinZ, LOW);
+		analogWrite(pwmPinZ, globalSpeed);
+	} else {
+		stopMovement();
+	}
 }
 
 //pak een product op (door Jason Joshua)
@@ -86,35 +85,34 @@ void pickUpProduct(){
   if(!productPicked){
     //als cury nog niet gedefinieerd is stel deze gelijk aan de huidige y (door Jason Joshua)
     if (curY == 0){
-    curY = readY();
+    	curY = readY();
     }
 
     //als je het product nog niet hebt, naar voren en dan een stukje omhoog. (door Jason Joshua)
     if(!hasProduct){
-      if(measureZas() < 8.76){
-        stopMovement();
-        moveForward();
-      }else if (readY() < curY + 300){
-        moveUp();
-      }else{
-        stopMovement();
-        hasProduct = true;
-      }
+		if(measureZas() < 8.76){
+			stopMovement();
+			moveForward();
+		}else if (readY() < curY + 300){
+			moveUp();
+		}else{
+			stopMovement();
+			hasProduct = true;
+		}
     } else {
-      if(measureZas() > 4.18){
-        moveBackward();
-      }else if (readY() > curY){
-        moveDown();
-      }else{
-        stopMovement();
-        hasProduct = false;
-        productPicked = true;
-      }
+		if(measureZas() > 4.18){
+			moveBackward();
+		}else if (readY() > curY){
+			moveDown();
+		}else{
+			stopMovement();
+			hasProduct = false;
+			productPicked = true;
+		}
     }
   } else {
     stopMovement();
   }
-  
 }
 
 //return de productpicked bool (door Jason Joshua)
@@ -137,12 +135,10 @@ void moveY (int coordinate){
 
 //reset de hasmoved bool (door Jason Joshua) (alvast voor het reseten van het bewegen om te zorgen dat de robot weer kan bewegen)
 void resetHasMoved(){
-  hasMoved = false;
+	hasMoved = false;
 }
 
 //return de hasmovde functie (door Jason Joshua)
 bool getHasMoved(){
-  return hasMoved;
+	return hasMoved;
 }
-
-
