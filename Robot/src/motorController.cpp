@@ -5,6 +5,7 @@
 #include <endStop.h>
 #include <currentPositionController.h>
 #include <endStop.h>
+#include <checkManualMove.h>
 
 // globalSpeed - Definieert de snelheid van de robot.
 // directionPinX - Definieerd de pinmode van de beweging op de x-as.
@@ -18,8 +19,14 @@ const int directionPinX = 13;
 const int pwmPinX = 11;
 
 const int brakePinX = 8;
+bool toSlaveArduino22 = true;
 
-const int xCor[7]{0, 1400, 2800, 4055, 5550, 7600, 8600};
+const int xCor[7]{0, 1420, 2820, 4075, 5570, 7620, 8620};
+
+// functie de met een gegeven nummer, de waarde van die plek uit de array haalt
+int returnXCor(int number){
+    return xCor[number];
+}
 
 // Zorgt ervoor dat de robot direct stop wanneer deze functie wordt aangeroepen.
 void stopMovement(){
@@ -195,7 +202,11 @@ int getCorY(int serialmessage){
 
 // Deze functie zorgt ervoor dat de robot manueel gebruikt kan worden.
 void manualControl(){
-    toSlaveArduino(22);
+    if(toSlaveArduino22){
+        toSlaveArduino(22);
+        toSlaveArduino22 = false;
+    }
+    // toSlaveArduino(22);
     // resetEndStop();
     // Leest waarde van de joystick uit en maakt hier een string van.
     String dir = readJoystick();
@@ -205,45 +216,61 @@ void manualControl(){
    
     // Wanneer de waarde 1.0.0 is
     if (dir == "1.0.0"){
-        // Beweeg naar links
-        moveLeft();
+        // Beweeg naar links, als dat kan
+        if(getCanMoveInBox()){
+            moveLeft();
+        }
     // Wanneer de waarde 2.0.0 is
     }else if (dir == "2.0.0"){
-        // Beweeg naar rechts
-        moveRight();        
+        // Beweeg naar rechts, als dat kan
+        if(getCanMoveInBox()){
+            moveRight(); 
+        }       
     // Wanner de waarde 0.1.0 is
     }else if (dir == "0.1.0"){
         // Beweeg omhoog
         toSlaveArduino(3);
     // Wanneer de waarde 0.2.0 is
     }else if (dir == "0.2.0"){
-        // Beweeg omlaag
-        moveDown();
+        // Beweeg omlaag, als dat kan
+        if(getCanMoveInBox()){
+            moveDown();
+        }
     //Wanneer de waarde 1.1.0 is
     }else if (dir == "1.1.0"){
-        // Beweeg naar linksboven
-        toSlaveArduino(3);
-        moveLeft();
+        // Beweeg naar linksboven, als dat kan
+        if(getCanMoveInBox()){
+            toSlaveArduino(3);
+            moveLeft();
+        }
     // Wanneer de waarde 1.2.0 is
     }else if (dir == "1.2.0"){
-        // Beweeg naar linksonder
-        moveDown();
-        moveLeft();
+        // Beweeg naar linksonder, als dat kan
+        if(getCanMoveInBox()){
+            moveDown();
+            moveLeft();
+        }
     // Wanneer de waarde 2.1.0 is
     }else if (dir == "2.1.0"){
-        // Beweeg naar rechtsboven
-        toSlaveArduino(3);
-        moveRight();
+        // Beweeg naar rechtsboven, als dat kan
+        if(getCanMoveInBox()){
+            toSlaveArduino(3);
+            moveRight();
+        }
     // Wanneer de waarde 2.2.0 is
     }else if (dir == "2.2.0"){
-        // Beweeg naar rechtsonder
-        moveDown();
-        moveRight();
+        // Beweeg naar rechtsonder, als dat kan
+        if(getCanMoveInBox()){
+            moveDown();
+            moveRight();
+        }
     // Wanneer de waarde 0.0.1 is
     }else if (dir == "0.0.1"){
-        // Beweeg de z-as naar voren en stopt andere bewegingen
-        toSlaveArduino(1);
-        stopMovement();
+        // Beweeg de z-as naar voren als dat mogelijk is (en hij dus niet de stelling omstoot (Joëlle)) en stopt andere bewegingen
+        if(checkManualMoveXas()){
+            toSlaveArduino(1);
+            stopMovement();
+        }
     // Wanneer de waarde 0.0.2 is
     }else if (dir == "0.0.2"){
         // Beweeg de z-as naar achter en stopt andere bewegingen

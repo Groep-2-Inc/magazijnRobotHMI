@@ -13,7 +13,8 @@ int curdata = 0;
 int x = 0;
 int y = 0;
 bool pickingProduct = false;
-bool manual = false;
+bool manual = true;
+bool toSlaveArduino21 = true;
 
 // Sets correct pinmodes
 void setup() {  
@@ -75,8 +76,15 @@ void loop() {
 		}
 	}else {
 		//stuurt melding naar slave Arduino om noodstoplampje te laten branden (Sarah)
+		if(toSlaveArduino21){
+    		toSlaveArduino(21);
+      		toSlaveArduino21 = false;
+			Serial.print("eeeee");
+    }
 		toSlaveArduino(21);
 		//zet de breakpin aan (Door Jason Joshua)
 		toSlaveArduino(0);
-	} 
+	}
+	// Serial.println(readX());
+	// Serial.println(getFromSlave());
 }

@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <slaveCurPositionController.h>
 #include <IRSensor.h>
+#include <checkManualMove.h>
 
 //ints voor de pins en de global speed
 const int directionPinY = 12;
@@ -15,10 +16,16 @@ const int brakePinZ = 8;
 //array met de y coordinaten aan de hand van de value die de encoder teruggeeft (door Jason Joshua)
 const int yCor[5]{150, 1200, 2250, 3300, 4350};
 
+
 //int om bij te houden wat de huidige y is, en 2 bools. wordt gebruikt bij het oppakken van de producten (door Jason Joshua)
 int curY = 0;
 bool hasProduct = false;
 bool productPicked = false;
+
+// functie de met een gegeven nummer, de waarde van die plek uit de array haalt
+int returnYCor(int number){
+    return yCor[number];
+}
 
 //motor setup om te zorgen dat alle pins juist gedefinieerd worden.
 void motorSetup(){
@@ -40,26 +47,32 @@ void stopMovement(){
 
 // Zorgt ervoor dat de robot omhoog beweegt wanneer deze functie wordt aangeroepen.
 void moveUp(){
-  if(readY() < 5000){
+  if(readY() < 5000 && getManualMoveZas()){
     digitalWrite(directionPinY, LOW);
     digitalWrite(brakePinY, LOW);
     analogWrite(pwmPinY, globalSpeed);
-  } else {
+  } else if(readY() < 5000 && checkManualMoveBox() && !getManualMoveZas()){
+    digitalWrite(directionPinY, LOW);
+    digitalWrite(brakePinY, LOW);
+    analogWrite(pwmPinY, globalSpeed);
+  }else {
     stopMovement();
   }
 }
 
 // Zorgt ervoor dat de robot omlaag beweegt wanneer deze functie wordt aangeroepen.
 void moveDown(){
+  if(getManualMoveZas()){
     digitalWrite(directionPinY, HIGH);
     digitalWrite(brakePinY, LOW);
     analogWrite(pwmPinY, globalSpeed);
+  }
 }
 
 
-// Zorgt ervoor dat de z-as naar voren kan bewegen.
+// Zorgt ervoor dat de z-as naar voren kan bewegen, als dat mogelijk is (en hij dus niet de stelling omstoot (Joëlle))
 void moveForward(){
-  if(measureZas() < 8.80){
+  if(measureZas() < 8.80 && checkManualMoveYas()){
     digitalWrite(directionPinZ, LOW);
     digitalWrite(brakePinZ, LOW);
     analogWrite(pwmPinZ, globalSpeed);

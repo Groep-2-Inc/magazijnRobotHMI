@@ -17,3 +17,4 @@ void resetBoolXY();
 int getCorX(int);
 int getCorY(int);
 bool pickUpProduct();
+int returnXCor(int);

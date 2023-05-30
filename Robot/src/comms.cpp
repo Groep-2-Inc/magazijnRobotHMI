@@ -12,6 +12,7 @@ int incomingData = 0;
 //voeg een recieve event toe voor de wire  (Door Jason Joshua)
 void receiveEvent(int bytes){
   recieved = Wire.read();
+  Serial.println(recieved);
 }
 
 // Start serial zodat deze in elk ander bestand gebruikt kan worden.
