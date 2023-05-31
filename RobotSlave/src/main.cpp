@@ -17,7 +17,6 @@
 bool canMove = true;
 int recivedValue = 0;
 bool sendProductPicked = false;
-int AutoOrManualData = 0;
 
 // Zet de pinmode van de bovenstaande variabelen en zorgt ervoor dat de data van de master arduino ontvangen wordt.
 void setup() {
@@ -94,23 +93,16 @@ void loop() {
 	if(isAutoMode()){
 		autoLEDOn();
 		toMasterArduino(23);
-		AutoOrManualData = 23;
 	}else {
 		manualLEDOn();
-		toMasterArduino(22);
-		AutoOrManualData = 22;
-	}
+		toMasterArduino(22);	}
 
 	if(recivedValue == 50){
+		Serial.println("11111111");
 		emergencyLEDOn();
 		stopMovement();
 	}else if(recivedValue == 51){
 		stopMovement();
-		if(AutoOrManualData == 22){
-			manualLEDOn();
-		}else if(AutoOrManualData == 23){
-			autoLEDOn();
-		}
 	}
 
 	//delay voor het zorgen dat de arduinos meer gelijk lopen.

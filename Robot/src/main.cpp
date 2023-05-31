@@ -113,12 +113,6 @@ void loop() {
 			manualControl();
 			delay(20);
 		}
-	}else {
-		// Stuurt code 50 naar slave voor de led
-		if(!emergencyLED){
-			toSlaveArduino(50);
-			emergencyLED = true;
-		}
 	}
 
 	// Als de slave het product heeft verzameld
@@ -132,8 +126,10 @@ void loop() {
 
 	if(getFromSlave() == 22){
 		manual = true;
+		toJava(310);
 	}else if(getFromSlave() == 23){
 		manual = false;
+		toJava(311);
 		toSlaveArduino(0);
 		stopMovement();
 	}
