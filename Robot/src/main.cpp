@@ -34,6 +34,9 @@ void setup() {
 	endStopSetup();
 }
 
+void reset(){
+	toJava(301);
+}
 // Herhaald de volgende code meerder keren
 void loop() {
 	//check de noodstop
@@ -124,6 +127,8 @@ void loop() {
 		// Stuur één keer code 201 naar Java
 		if(!sendFinishMessage){
 			toJava(201);
+			delay(800);
+			reset();
 			sendFinishMessage = true;
 		}
 	}
