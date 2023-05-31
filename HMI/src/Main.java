@@ -1,21 +1,17 @@
 import TSP.TSP_main;
-import comms.Communication;
-import database.Database;
-import env.GetEnv;
 import frames.FrameController;
 import classes.Communication;
 import classes.Database;
 import classes.GetEnv;
-import frames.FrameController;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) throws InterruptedException {
 //        new GetEnv();
 //        new Database();
 //        new FrameController();
 //        new Communication();
 //
-        // Thread.sleep(8000);
+//        Thread.sleep(8000);
 //
 //        Communication.sendComms(434);
 
@@ -26,7 +22,8 @@ public class Main {
         matrix[3] = "A4";
         matrix[4] = "A6";
 
-        for (int i:TSP_main.main(matrix)) {
+        for (int i : TSP_main.main(matrix)) {
             System.out.println(i);
         }
+    }
 }
