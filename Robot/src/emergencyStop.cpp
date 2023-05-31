@@ -64,7 +64,7 @@ bool checkGoButton(){
 // stopButton -> pin waar de noodstop op is aangesloten
 void checkStop(){
 	if(checkEmergencyStop()){
-		emgStop();;
+		emgStop();
 	} else if(checkGoButton()){
 		emergency = false;
 	}
