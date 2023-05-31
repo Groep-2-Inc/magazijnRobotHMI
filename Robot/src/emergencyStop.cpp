@@ -20,10 +20,9 @@ void emergyStopSetup(){
 void emgStop(){
     // stopt de robot
     stopMovement();
-	toSlaveArduino(0);
 	emergency = true;
-    // Stuurt melding naar de HMI
 
+    // Stuurt melding naar de HMI
 	if(!sendComms){
 		sendComms = true;
 		toJava(500);
@@ -52,8 +51,7 @@ bool checkGoButton(){
 	bool goPressed = !digitalRead(goButton); 
 	if(goPressed){
 		if(millis() - lastStopPressed > 250){
-			goPressed = millis();
-            lastGoPressed = goPressed;
+            lastGoPressed = millis();
 			return true;
 		}
 	}

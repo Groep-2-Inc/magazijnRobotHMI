@@ -23,6 +23,7 @@ bool sendProductOphalenMovingMessage = false;
 unsigned long lastSendProductOphalenMessage = 0;
 unsigned long lastRustMessage = 0;
 unsigned long lastProductOphalenMessage = 0;
+bool emergencyLED = false;
 
 // Sets correct pinmodes
 void setup() {  
@@ -113,10 +114,11 @@ void loop() {
 			delay(20);
 		}
 	}else {
-		//stuurt melding naar slave Arduino om noodstoplampje te laten branden (Sarah)
-		toSlaveArduino(21);
-		//zet de breakpin aan (Door Jason Joshua)
-		toSlaveArduino(0);
+		// Stuurt code 50 naar slave voor de led
+		if(!emergencyLED){
+			toSlaveArduino(50);
+			emergencyLED = true;
+		}
 	}
 
 	// Als de slave het product heeft verzameld

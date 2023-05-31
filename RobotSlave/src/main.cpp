@@ -98,6 +98,11 @@ void loop() {
 		toMasterArduino(22);
 	}
 
+	if(getRecivedValue() == 50){
+		emergencyLEDOn();
+		stopMovement();
+	}
+
 	//delay voor het zorgen dat de arduinos meer gelijk lopen.
 	delay(10);
 }
