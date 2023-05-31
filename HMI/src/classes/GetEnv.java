@@ -1,4 +1,4 @@
-package env;
+package classes;
 // Door Martijn
 
 import org.json.simple.JSONObject;

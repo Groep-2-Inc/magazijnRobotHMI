@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.text.*;
 import java.util.*;
-import database.Database;
+import classes.Database;
 import classes.*;
 import panels.*;
 
@@ -195,7 +195,8 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         if (e.getSource() == jb_pick) {
             FrameController.setActiveFrameVerwerken(this, order);
             Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "TSP en BPP wordt berekend van order " + order.getOrderID()}); // in het logbook wordt opgeslagen dat de TSP en BPM worden berekend(Joëlle)
-            //>>> FIRST FIT algoritme (Daan, Sarah )
+
+            //>>> FIRST FIT algoritme (Daan, Sarah)
             Bin startBinFirstFit = new Bin(); // Er wordt een eerste bin aangemaakt om te gebruiken (Daan, Sarah)
             Bin.binsFirstFit.add(startBinFirstFit); //De startBin wordt toegevoegd aan de arrayList 'binsFirstFit' (Daan, Sarah)
             //Onderstaand: bij elke index wordt opvolgorde van de arrayList 'binsFirstFit' gekeken of het object in de bin kan, anders wordt er een nieuwe bin aangemaakt (zie Bin.java) (Joëlle)
@@ -203,9 +204,7 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
                 Bin.binsFirstFit.get(Bin.indexBinsFirstFit).objectInBinFirstFit(order.getProducts().get(i));
             }
             Bin.getBins("First Fit");
-
         }
-
 
         //terug naar het order scherm (Joëlle)
         if (e.getSource() == jb_back) {

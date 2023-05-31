@@ -12,3 +12,4 @@
 .HMI/env.json
 .out/production/magazijnRobotHMI/
 HMI/env.json
+HMI/src/env.json

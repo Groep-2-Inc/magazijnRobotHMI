@@ -3,14 +3,8 @@ package frames;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import database.Database;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+
 import classes.*;
 
 public class FrameLogbook extends FrameHeader {

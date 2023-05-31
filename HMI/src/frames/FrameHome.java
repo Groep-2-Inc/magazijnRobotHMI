@@ -11,6 +11,7 @@ import java.awt.*;
 
 public class FrameHome extends FrameHeader{
     private PanelLogbook panelLogboek = new PanelLogbook();
+    public PanelPositie panelPositie = new PanelPositie();
 
     public FrameHome(){
         //initializeer het hoofd paneel
@@ -19,8 +20,9 @@ public class FrameHome extends FrameHeader{
         f.setLayout(new GridLayout(2,2));
         closeProgram();
 
+
         //voeg de panelen toe
-        f.add(new PanelPositie());
+        f.add(panelPositie);
         f.add(new PanelStatus());
         f.add(new PanelOrderStatus());
         f.add(panelLogboek);
@@ -29,7 +31,10 @@ public class FrameHome extends FrameHeader{
         add(f);
     }
 
+    // Werkt logboek en panelpositie bij
+    // Door Martijn
     public void updateLogbookPanel(){
         panelLogboek.updatePanel();
     }
+    public void updatePanelPositie(){ panelPositie.updatePanel();}
 }

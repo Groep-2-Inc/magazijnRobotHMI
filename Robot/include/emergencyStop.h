@@ -3,3 +3,4 @@
 void checkStop();
 int isEmergency();
 void emergyStopSetup();
+void emgStop();

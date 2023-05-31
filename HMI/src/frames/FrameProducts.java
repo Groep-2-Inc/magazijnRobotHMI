@@ -1,7 +1,7 @@
 package frames;
 // Door Sarah
 
-import database.Database;
+import classes.Database;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import panels.PanelProductRow;

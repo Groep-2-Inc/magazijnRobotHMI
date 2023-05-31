@@ -1,17 +1,18 @@
-import comms.Communication;
-import database.Database;
-import env.GetEnv;
+import classes.Communication;
+import classes.Database;
+import classes.GetEnv;
 import frames.FrameController;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) throws InterruptedException {
         new GetEnv();
         new Database();
         new FrameController();
         new Communication();
-        
 
-        Communication.sendComms(434);
+        Thread.sleep(8000);
+
+        Communication.sendComms(425);
 
 //        System.out.println(Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "0", "Heeft op Go gedrukt!"}));
 

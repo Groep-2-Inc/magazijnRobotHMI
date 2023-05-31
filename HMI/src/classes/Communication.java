@@ -1,15 +1,14 @@
-package comms;
+package classes;
 // Door Martijn
 
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
 import java.io.IOException;
-
-import database.Database;
 import java.util.concurrent.CountDownLatch;
 
-import env.GetEnv;
+import frames.FrameController;
+import frames.FrameHome;
 import panels.PanelStatus;
 
 public class Communication {
@@ -59,6 +58,7 @@ public class Communication {
                     if(readComms() == 200){
                         // Zet hasFirstComms op true
                         hasComms = true;
+                        Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Robot verbinding gemaakt."}); // in het logboek wordt opgeslagen dat er op Go gedrukt is (Joëlle)
                     }
 
                     // Update de status op het home scherm
@@ -82,21 +82,24 @@ public class Communication {
 
     // Sluit Serial comms
     public static boolean closeComms(){
-        try{
-            // Als het is gelukt verbinding te sluiten
-            if (sp.closePort()) {
-                // Print dit en return true
+        if(hasComms()){
+            try{
+                // Als het is gelukt verbinding te sluiten
+                if (sp.closePort()) {
+                    // Print dit en return true
+                    System.out.println(Communication.class + " closeComms: Port is closed :)");
+                    return true;
+                } else {
+                    // Anders print een error en return false
+                    System.out.println(Communication.class + " closeComms: Failed to close port :(");
+                    return false;
+                }
+            }catch (NullPointerException npe){
                 System.out.println(Communication.class + " closeComms: Port is closed :)");
                 return true;
-            } else {
-                // Anders print een error en return false
-                System.out.println(Communication.class + " closeComms: Failed to close port :(");
-                return false;
             }
-        }catch (NullPointerException npe){
-            System.out.println(Communication.class + " closeComms: Port is closed :)");
-            return true;
         }
+        return false;
     }
 
     // Methode die de waarde van hasFirstComms returnt
@@ -127,7 +130,7 @@ public class Communication {
                 System.out.println(Communication.class + " sendComms comms error: " + exc);
             }
         }else{
-            System.out.println(Communication.class + " sendComms: comms port not open, can't send message");
+            System.out.println(Communication.class + " sendComms: Comms port not open, can't send message");
         }
     }
 
@@ -169,6 +172,36 @@ public class Communication {
                 receivedValue = value.trim();
                 // Hier wordt de CountDownLatch met één verlaagd. Dit betekent dat de await()-functie in de functie readComms() kan worden ontgrendeld.
                 latch.countDown();
+
+                // Past de status of de positie aan
+                int status = Integer.parseInt(receivedValue);
+                // Als het een positie update is
+                if(status > 400 && status < 500){
+                    // Zet de juiste robot positie
+                    Robot.setRobotPosisiton(status);
+                    // Update de positie panel
+                    FrameController.updatePositiePanel();
+                    // Voegt regel toe aan logboek
+                    Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "2", "Robot bevindt zich in stelling: " + status});
+                } else if(status == 301){
+                    // Werkt een boolean van dat de robot aan het bewegen is
+                    Robot.setIsMoving(true);
+                } else{
+                    // Als de robot in rust is
+                    if(status == 201){
+                        // Zet isMoving op false
+                        Robot.setIsMoving(false);
+                    }
+
+                    // Voegt regel toe aan logboek
+                    Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "2", "Robot status veranderd: " + status});
+                    // Zet de juiste robot status
+                    Robot.setRobotStatus(status);
+                }
+
+                // Update de panel
+                PanelStatus.updateStatus();
+                // Print de teruggestuurde waarde
                 System.out.println(Communication.class + " readSerialComms: recived: " + value);
             }
 
