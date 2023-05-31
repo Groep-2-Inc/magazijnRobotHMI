@@ -183,7 +183,9 @@ public class Communication {
                     FrameController.updatePositiePanel();
                     // Voegt regel toe aan logboek
                     Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "2", "Robot bevindt zich in stelling: " + status});
-                } else if(status == 302){
+                } else if(status == 301){
+                    Verwerken.nextProduct();
+                }else if(status == 302){
                     // Werkt een boolean van dat de robot aan het bewegen is
                     Robot.setIsMoving(true);
                 } else{

@@ -100,7 +100,7 @@ void pickUpProduct(){
 			hasProduct = true;
 		}
     } else {
-		if(measureZas() > 4.18){
+		if(measureZas() > 4.22){
 			moveBackward();
 		}else if (readY() > curY){
 			moveDown();

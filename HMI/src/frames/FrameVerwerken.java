@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 
 import classes.Database;
+import classes.Verwerken;
 import panels.PanelBins;
 import panels.PanelPositie;
 import classes.Order;
@@ -326,7 +327,8 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
         super.actionPerformed(e);
         //als er op de knop gedrukt wordt, dan wordt een actie toegevoegd aan de database
         if(e.getSource() == jb_go){
-           Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Heeft op Go gedrukt!"}); // in het logboek wordt opgeslagen dat er op Go gedrukt is (Joëlle)
+            Verwerken.startVerwerken(o_order);
+            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Heeft op Go gedrukt!"}); // in het logboek wordt opgeslagen dat er op Go gedrukt is (Joëlle)
         }
         
         //ga naar het pakbonnenmakenschermUPDATE orders SET OrderCompleted = RAND(1)

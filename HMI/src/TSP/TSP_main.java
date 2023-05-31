@@ -71,4 +71,8 @@ public class TSP_main {
         //return vervolgens de statuscodes.
         return codes;
     }
+
+    public static int[] getFinalPath(){
+        return TSP_Algoritm_2.finalPath;
+    }
 }
