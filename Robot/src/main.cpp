@@ -21,8 +21,6 @@ bool sendFinishMessage = false;
 bool sendProductOphalenMessage = false;
 bool sendProductOphalenMovingMessage = false;
 unsigned long lastSendProductOphalenMessage = 0;
-unsigned long lastRustMessage = 0;
-unsigned long lastProductOphalenMessage = 0;
 
 // Sets correct pinmodes
 void setup() {  
@@ -126,9 +124,15 @@ void loop() {
 	if(getFromSlave() == 13){
 		// Stuur één keer code 201 naar Java
 		if(!sendFinishMessage){
-			toJava(201);
-			delay(800);
-			reset();
+			toJava(301);
+
+			toSlaveArduino(15);
+			
+			sendFinishMessage = false;
+			sendProductOphalenMessage = false;
+			sendProductOphalenMovingMessage = false;
+			lastSendProductOphalenMessage = 0;
+
 			sendFinishMessage = true;
 		}
 	}

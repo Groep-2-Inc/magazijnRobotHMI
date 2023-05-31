@@ -142,3 +142,9 @@ void resetHasMoved(){
 bool getHasMoved(){
 	return hasMoved;
 }
+
+void mcReset(){
+	hasMoved = false;
+	hasProduct = false;
+	productPicked = false;
+}

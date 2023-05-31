@@ -77,6 +77,8 @@ void loop() {
 	} else if (recivedValue == 12){
 		//pak een product op (door Jason Joshua)
 		pickUpProduct();
+	} else if (recivedValue == 15){
+		mcReset();
 	}
 
 	statusLightsOn();
