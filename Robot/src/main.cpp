@@ -127,4 +127,13 @@ void loop() {
 			sendFinishMessage = true;
 		}
 	}
+
+	if(getFromSlave() == 22){
+		manual = true;
+	}else if(getFromSlave() == 23){
+		manual = false;
+		toSlaveArduino(0);
+		stopMovement();
+	}
+
 }

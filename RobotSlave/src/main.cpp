@@ -28,16 +28,6 @@ void setup() {
 	commsSetup();
 }
 
-void statusLightsOn(){
-	if(recivedValue == 21){
-		emergencyLEDOn();
-	} else if(recivedValue == 22){
-		manualLEDOn();
-	} else if(recivedValue == 23){
-		autoLEDOn();
-	}
-}
-
 void loop() {
 	recivedValue = getRecivedValue();
 
@@ -79,8 +69,6 @@ void loop() {
 		pickUpProduct();
 	}
 
-	statusLightsOn();
-
 	checkBtns();
 
 	measureZas();
@@ -100,6 +88,14 @@ void loop() {
 			toMasterArduino(13);
 			sendProductPicked = true;
 		}
+	}
+
+	if(isAutoMode()){
+		autoLEDOn();
+		toMasterArduino(23);
+	}else {
+		manualLEDOn();
+		toMasterArduino(22);
 	}
 
 	//delay voor het zorgen dat de arduinos meer gelijk lopen.
