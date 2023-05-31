@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
 
 //door Jason Joshua van der Kolk
 public class PanelStatus extends JPanel implements ActionListener {
-    // Static door Martijn
+    // Static gemaakt door Martijn
     private static JButton jb_robotVerbinding = new JButton("Robot verbinding"); //melding voor robot verbinding
     private static JButton jb_databaseVerbinding = new JButton("Database verbinding"); //melding voor database verbinding
     private static JButton jb_rust = new JButton("Rust"); //melding voor rust
@@ -155,7 +155,7 @@ public class PanelStatus extends JPanel implements ActionListener {
                 jb_handmatige.setBackground(Color.lightGray);
                 jb_productTerugzetten.setBackground(Color.lightGray);
                 break;
-            case 302:
+            case 303:
                 jb_rust.setBackground(Color.lightGray);
                 jb_productOphalen.setBackground(Color.lightGray);
                 jb_inBeweging.setBackground(Color.lightGray);
@@ -163,7 +163,7 @@ public class PanelStatus extends JPanel implements ActionListener {
                 jb_handmatige.setBackground(Color.lightGray);
                 jb_productTerugzetten.setBackground(Color.lightGray);
                 break;
-            case 303:
+            case 304:
                 jb_rust.setBackground(Color.lightGray);
                 jb_productOphalen.setBackground(Color.lightGray);
                 jb_inBeweging.setBackground(Color.lightGray);
