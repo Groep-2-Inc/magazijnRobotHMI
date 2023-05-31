@@ -53,10 +53,10 @@ int checkBtns(){
 		// manualLEDOn();
 		return 22;
 	}
+	return 0;
 }
 
 bool isAutoMode(){
 	Serial.println(autoMode);
 	return autoMode;
 }
-

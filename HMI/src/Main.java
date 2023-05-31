@@ -3,6 +3,10 @@ import comms.Communication;
 import database.Database;
 import env.GetEnv;
 import frames.FrameController;
+import classes.Communication;
+import classes.Database;
+import classes.GetEnv;
+import frames.FrameController;
 
 public class Main {
     public static void main(String[] args){
@@ -11,6 +15,7 @@ public class Main {
 //        new FrameController();
 //        new Communication();
 //
+        // Thread.sleep(8000);
 //
 //        Communication.sendComms(434);
 
@@ -24,9 +29,4 @@ public class Main {
         for (int i:TSP_main.main(matrix)) {
             System.out.println(i);
         }
-
-//        System.out.println(Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "0", "Heeft op Go gedrukt!"}));
-
-//        System.out.println(Database.getDbData("select * from orders where CustomerID <= ? limit 10", new String[]{"10"}));
-    }
 }
