@@ -147,7 +147,7 @@ public class PanelStatus extends JPanel implements ActionListener {
                 jb_handmatige.setBackground(Color.lightGray);
                 jb_productTerugzetten.setBackground(Color.lightGray);
                 break;
-            case 301:
+            case 302:
                 jb_rust.setBackground(Color.lightGray);
                 jb_productOphalen.setBackground(Color.lightGray);
                 jb_inBeweging.setBackground(Color.green);

@@ -57,7 +57,7 @@ void loop() {
 				if(!hasHomed){
 					// Versuurd één keer dat hij aan het homen is
 					if(!sendHomeMovementMessage){
-						toJava(301);
+						toJava(302);
 						sendHomeMovementMessage = true;
 					}
 
@@ -86,7 +86,7 @@ void loop() {
 
 						// Verstuur één keer dat hij ook tegelijk in beweging is, doe dit alleen wel pas na 1.5sec van vorige bericht zodat Serial genoeg tijd heeft om hem te lezen
 						if(!sendProductOphalenMovingMessage && millis() - lastSendProductOphalenMessage > 2000){
-							toJava(301);
+							toJava(302);
 							sendProductOphalenMovingMessage = true;
 						}
 
