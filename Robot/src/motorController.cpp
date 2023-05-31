@@ -66,7 +66,7 @@ void moveDown(){
 }
 
 //functie voor het oppakken van een product (Door Jason Joshua)
-bool pickUpProduct(){
+void pickUpProduct(){
     toSlaveArduino(12);
 }
 

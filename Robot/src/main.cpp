@@ -19,6 +19,8 @@ bool sendRustMessage = false;
 bool sendHomeMovementMessage = false;
 bool sendFinishMessage = false;
 bool sendProductOphalenMessage = false;
+bool sendProductOphalenMovingMessage = false;
+unsigned long lastSendProductOphalenMessage = 0;
 unsigned long lastRustMessage = 0;
 unsigned long lastProductOphalenMessage = 0;
 
@@ -79,6 +81,13 @@ void loop() {
 						if(!sendProductOphalenMessage){
 							toJava(300);
 							sendProductOphalenMessage = true;
+							lastSendProductOphalenMessage = millis();
+						}
+
+						// Verstuur één keer dat hij ook tegelijk in beweging is, doe dit alleen wel pas na 1.5sec van vorige bericht zodat Serial genoeg tijd heeft om hem te lezen
+						if(!sendProductOphalenMovingMessage && millis() - lastSendProductOphalenMessage > 2000){
+							toJava(301);
+							sendProductOphalenMovingMessage = true;
 						}
 
 						//zodra moved false is en move xy true is dan is de robot op de plek waar die moet zijn, zorg dan dat de robot stopt en begint met het pakken van een product (Door Jason Joshua)

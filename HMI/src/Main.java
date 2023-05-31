@@ -12,7 +12,7 @@ public class Main {
 
         Thread.sleep(8000);
 
-        Communication.sendComms(434);
+        Communication.sendComms(425);
 
 //        System.out.println(Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "0", "Heeft op Go gedrukt!"}));
 

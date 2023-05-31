@@ -3,6 +3,7 @@ package classes;
 public class Robot {
     private static int robotStatus;
     private static int robotPosisiton;
+    private static boolean isMoving;
 
     public static int getRobotStatus() {
         return robotStatus;
@@ -25,5 +26,13 @@ public class Robot {
 
     public static void setRobotPosisiton(int robotPosisiton) {
         Robot.robotPosisiton = robotPosisiton;
+    }
+
+    public static boolean isMoving() {
+        return isMoving;
+    }
+
+    public static void setIsMoving(boolean isMoving) {
+        Robot.isMoving = isMoving;
     }
 }

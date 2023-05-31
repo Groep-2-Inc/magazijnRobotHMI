@@ -105,12 +105,31 @@ public class PanelStatus extends JPanel implements ActionListener {
             jb_databaseVerbinding.setBackground(Color.red);
         }
 
+        // Als er nood is
         if(Emergency.isEmergency()){
+            // Zet de kleur op rood
             jb_nood.setBackground(Color.red);
         }else{
             jb_nood.setBackground(Color.lightGray);
         }
 
+        // Als de robot aan het bewegen is
+        if(Robot.isMoving()){
+            // Zet de juiste kleuren in de panel
+            jb_inBeweging.setBackground(Color.green);
+            jb_rust.setBackground(Color.lightGray);
+        }else{
+            jb_inBeweging.setBackground(Color.lightGray);
+            jb_rust.setBackground(Color.green);
+        }
+
+        // Als hij geen communicatie heeft
+        if(!Communication.hasComms()){
+            // Zet rust op grijs
+            jb_rust.setBackground(Color.lightGray);
+        }
+
+        // Afhankelijk van de status kleur een ander veld groen / grijs
         switch (Robot.getRobotStatus()){
             case 201:
                 jb_rust.setBackground(Color.green);
@@ -123,7 +142,7 @@ public class PanelStatus extends JPanel implements ActionListener {
             case 300:
                 jb_rust.setBackground(Color.lightGray);
                 jb_productOphalen.setBackground(Color.green);
-                jb_inBeweging.setBackground(Color.lightGray);
+                jb_inBeweging.setBackground(Color.green);
                 jb_productAfgeven.setBackground(Color.lightGray);
                 jb_handmatige.setBackground(Color.lightGray);
                 jb_productTerugzetten.setBackground(Color.lightGray);
@@ -161,9 +180,7 @@ public class PanelStatus extends JPanel implements ActionListener {
                 jb_productTerugzetten.setBackground(Color.lightGray);
                 break;
             default:
-                jb_rust.setBackground(Color.lightGray);
                 jb_productOphalen.setBackground(Color.lightGray);
-                jb_inBeweging.setBackground(Color.lightGray);
                 jb_productAfgeven.setBackground(Color.lightGray);
                 jb_handmatige.setBackground(Color.lightGray);
                 jb_productTerugzetten.setBackground(Color.lightGray);
