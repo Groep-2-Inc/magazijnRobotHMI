@@ -31,17 +31,19 @@ public class Verwerken {
         doing++;
 
         if(doing == TSPRoute.length ){
-            System.out.println("klaar");
+            // Reset de status van de robot
             Robot.setIsMoving(false);
             Robot.setRobotStatus(201);
+            // Werkt de database bij
+            Database.updateDatabase("UPDATE order SET OrderCompleted = 1 WHERE OrderID = ?", new String[]{String.valueOf(order.getOrderID())});
         }else{
+            // Gaat product verzamelen
             pickProduct();
         }
     }
 
     static void pickProduct() {
-//        System.out.println(TSPRoute[doing]);
-
+        // Stuurt juiste route naar de robot
         Communication.sendComms(TSPRoute[doing]);
     }
 
@@ -70,5 +72,9 @@ public class Verwerken {
 
     public static boolean IsVerwerken() {
         return isVerwerken;
+    }
+
+    public static void setIsVerwerken(boolean isVerwerken) {
+        Verwerken.isVerwerken = isVerwerken;
     }
 }

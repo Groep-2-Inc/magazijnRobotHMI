@@ -69,7 +69,6 @@ public class FramePackingList extends FrameHeader implements ActionListener {
             //in het geval van de eerste doos (Joëlle)
             if (i == 0) {
                 //Doosnummer 1aanmaken en stylen (Sarah)
-                //TODO daadwerkelijk verschillende dozen met nummers aanmaken dmv BinPacking, ipv deze placeholder
                 add(jl_box1);
                 jl_box1.setFont(new Font("Arial", Font.PLAIN, 27));
                 Dimension sizeBox1 = jl_box1.getPreferredSize();
