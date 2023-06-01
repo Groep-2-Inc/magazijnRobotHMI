@@ -66,12 +66,10 @@ public class PanelOrderStatus extends JPanel {
                 p.add(panel);
             }
         } else{
-
             // Als hij geen order moet picken, geeft hij foutmelding en verwijdert alle JPanel components(dus producten) uit de panel (Sarah)
             noOrder.setVisible(true);
             Component[] componentsPanel = p.getComponents();
             for(Component c : componentsPanel){
-                System.out.println(c);
                 if(c instanceof JPanel){
                     p.remove(c);
                 }
