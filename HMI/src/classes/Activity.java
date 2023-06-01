@@ -2,7 +2,6 @@ package classes;
 // Door Joëlle
 // Bijgewerkt door Martijn
 
-import database.Database;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import panels.PanelLogbook;

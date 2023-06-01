@@ -1,7 +1,7 @@
 package panels;
 
 import classes.*;
-import database.Database;
+import classes.Database;
 import frames.FrameHeader;
 import javax.imageio.*;
 import javax.swing.*;
@@ -126,7 +126,7 @@ public class PanelProductRow extends JPanel implements ActionListener {
         jl_invalid.setFont(new Font("Arial", Font.BOLD, 10));
         jl_invalid.setForeground(Color.red);
         Dimension sizeInvalid = jl_invalid.getPreferredSize();
-        jl_invalid.setBounds(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 1360)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 65)), sizeInvalid.width +20, sizeInvalid.height);
+        jl_invalid.setBounds(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1536, 1370)), FrameHeader.getScreenHeight(FrameHeader.getPercentage(864, 65)), sizeInvalid.width +20, sizeInvalid.height);
         jl_invalid.setVisible(invalidVisible);
         add(jl_invalid);
     }
@@ -138,7 +138,6 @@ public class PanelProductRow extends JPanel implements ActionListener {
             changeVisible = false;
             cancelSaveVisible = true;
             invalidVisible = false;
-            jl_invalid.setVisible(false);
 
             removeAll();
             editAmount(Color.lightGray, BorderFactory.createLineBorder(Color.BLUE, 1), true);
@@ -153,8 +152,12 @@ public class PanelProductRow extends JPanel implements ActionListener {
             // Instellen dat aantal producten niet meer bewerkt kan worden (wijzigingen worden opgeslagen) (Sarah)
             // Aanpassingen aan aantal producten worden opgeslagen, errors worden afgevangen (Sarah), try en catch samengevoegd naar één (Joëlle)
             try {
-                Database.updateDatabase("UPDATE stockitemholdings SET QuantityOnHand = ? WHERE StockItemID = ?", new String[]{getJtf_amount().getText(), String.valueOf(product.getProductID())});
-                product.setStock(Integer.parseInt(getJtf_amount().getText()));
+                if(Integer.parseInt(getJtf_amount().getText()) >= 0){
+                    Database.updateDatabase("UPDATE stockitemholdings SET QuantityOnHand = ? WHERE StockItemID = ?", new String[]{getJtf_amount().getText(), String.valueOf(product.getProductID())});
+                    product.setStock(Integer.parseInt(getJtf_amount().getText()));
+                } else{
+                    invalidVisible = true;
+                }
             } catch (NumberFormatException | NullPointerException ex) {
                 //Foutmelding als er geen nummer wordt ingevoerd (Sarah)
                  if(getJtf_amount() != null){

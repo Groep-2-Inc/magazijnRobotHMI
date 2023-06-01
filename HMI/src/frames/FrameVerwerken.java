@@ -10,7 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 
-import database.Database;
+import classes.Database;
+import classes.Verwerken;
 import panels.PanelBins;
 import panels.PanelOrderStatus;
 import panels.PanelPositie;
@@ -27,7 +28,15 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
     private JButton jb_go = new JButton("GO!"); //button voor het starten van het pakken van de orders
     private JButton jb_pakbonnenMaken = new JButton("Pakbonnen maken"); //button voor het aanmaken van de pakbonnen
     private static Order o_order;
+    private PanelPositie panelPositie = new PanelPositie(); // Toont positie
 
+    private static boolean isVerwerken;
+    public static boolean isVerwerken() {
+        return isVerwerken;
+    }
+    public static void setIsVerwerken(boolean verwerken) {
+        isVerwerken = verwerken;
+    }
 
     public FrameVerwerken(Order order){
         //initializeer alle nodige variabelen.
@@ -61,10 +70,9 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
         p3.setPreferredSize(new Dimension(getScreenWidth(88.5f)/2, getScreenHeight(74f)));
 
         //voeg het positie paneel toe aan het linker paneel
-        p = new PanelPositie();
-        p.setBorder(null);
-        p.setPreferredSize(new Dimension(getScreenWidth(51f), getScreenHeight(46.3f)));
-        p3.add(p);
+        panelPositie.setBorder(null);
+        panelPositie.setPreferredSize(new Dimension(getScreenWidth(51f), getScreenHeight(46.3f)));
+        p3.add(panelPositie);
 
         //voeg het bpp paneel toe aan het linker paneel
         p3.add(GetBPPPanel());
@@ -324,9 +332,12 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
         super.actionPerformed(e);
         //als er op de knop gedrukt wordt, dan wordt een actie toegevoegd aan de database
         if(e.getSource() == jb_go){
-           Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Heeft op Go gedrukt!"}); // in het logboek wordt opgeslagen dat er op Go gedrukt is (Joëlle)
             // Stuurt order en of hij gepickt wordt naar PanelOrderStatus zodat dit getoont kan worden op homepage (Sarah)
             new PanelOrderStatus().setOrder( true, o_order);
+            // Begint met verwerken van de order
+            Verwerken.startVerwerken(o_order);
+            // Voegt nieuw logboek regel toe aan de database bij
+            Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Heeft op Go gedrukt!"}); // in het logboek wordt opgeslagen dat er op Go gedrukt is (Joëlle)
         }
         
         //ga naar het pakbonnenmakenschermUPDATE orders SET OrderCompleted = RAND(1)
@@ -335,17 +346,22 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
             Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Pakbon is gemaakt van order " + o_order.getOrderID()}); // in het logboek wordt opgeslagen dat pakbon is gemaakt (Joëlle)
         }
 
+        // Als je op de annuleer knop drukt
         if(e.getSource() == jb_annuleer){
-            System.out.println("er is op de annuleerknop gedrukt");
-            o_order = null;
-            FrameController.setActiveFrameHome(this);
-
             // Stuurt order en of hij gepickt wordt naar PanelOrderStatus zodat dit getoont kan worden op homepage (Sarah)
-            new PanelOrderStatus().setOrder( false, o_order);
+            new PanelOrderStatus().setOrder(false, o_order);
+
+            // Ga terug naar viewingOrder
+            FrameController.setActiveViewingOrder(this, o_order);
+
+            // Reset de verwerken boolean
+            Verwerken.setIsVerwerken(false);
         }
     }
 
     public static Order getO_order() {
         return o_order;
     }
+
+    public void updatePanelPositie(){ panelPositie.updatePanel();}
 }

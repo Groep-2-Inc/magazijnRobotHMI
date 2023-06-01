@@ -8,21 +8,27 @@
 const int stopButtton = 10;
 const int goButton = 7;
 bool emergency = false;
+bool sendComms = false;
 
 // Zet de pinmode voor noodstop
 void emergyStopSetup(){
 	pinMode(stopButtton, INPUT_PULLUP);
-	pinMode(goButton, INPUT_PULLUP);
+	// pinMode(goButton, INPUT_PULLUP);
+	pinMode(goButton, OUTPUT);
 }
 
 // Stopt de robot en stuurt melding naar HMI
-void stop(){
+void emgStop(){
     // stopt de robot
     stopMovement();
 	toSlaveArduino(0);
 	emergency = true;
     // Stuurt melding naar de HMI
-    toJava(500);
+
+	if(!sendComms){
+		sendComms = true;
+		toJava(500);
+	}
 }
 
 // Kijkt of de noodstop is ingedrukt en geeft deze lezing een debounce mee.
@@ -59,10 +65,8 @@ bool checkGoButton(){
 // stopButton -> pin waar de noodstop op is aangesloten
 void checkStop(){
 	if(checkEmergencyStop()){
-		// Serial.println("STOP!");
-		stop();
+		emgStop();
 	} else if(checkGoButton()){
-		// Serial.println("go");
 		emergency = false;
 	}
 }

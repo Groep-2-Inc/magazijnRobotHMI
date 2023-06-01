@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
 import java.awt.event.ItemEvent;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -12,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import comparator.*;
-import database.Database;
+import classes.Database;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import classes.*;

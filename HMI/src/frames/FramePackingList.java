@@ -1,13 +1,12 @@
 package frames;
 
-import database.Database;
+import classes.Database;
 import panels.ProductsInBoxPanel;
 import classes.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.SQLOutput;
 import java.text.*;
 import java.util.*;
 
@@ -64,7 +63,6 @@ public class FramePackingList extends FrameHeader implements ActionListener {
         Dimension sizeCustomer = jl_customer.getPreferredSize();
         jl_customer.setBounds(getScreenWidth(getPercentage(1536, 20)), getScreenHeight(getPercentage(864, 65)), sizeCustomer.width + getScreenWidth(getPercentage(1536, 10)), sizeCustomer.height);
 
-        boolean variableSecondPart = false;
         ArrayList<Bin> copyListBins1 = Bin.getBins("First Fit");
         //for loop die de dozen langs loopt (Joëlle)
         for(int i = 0; i< copyListBins1.size(); i++) {

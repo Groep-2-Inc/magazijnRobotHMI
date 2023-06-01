@@ -1,8 +1,10 @@
 package panels;
 //Door Jason Joshua & Martijn
 
-import comms.Communication;
-import database.Database;
+import classes.Emergency;
+import classes.Robot;
+import classes.Communication;
+import classes.Database;
 
 import frames.FrameHeader;
 
@@ -15,7 +17,7 @@ import java.awt.event.ActionListener;
 
 //door Jason Joshua van der Kolk
 public class PanelStatus extends JPanel implements ActionListener {
-    // Static door Martijn
+    // Static gemaakt door Martijn
     private static JButton jb_robotVerbinding = new JButton("Robot verbinding"); //melding voor robot verbinding
     private static JButton jb_databaseVerbinding = new JButton("Database verbinding"); //melding voor database verbinding
     private static JButton jb_rust = new JButton("Rust"); //melding voor rust
@@ -40,9 +42,7 @@ public class PanelStatus extends JPanel implements ActionListener {
         p.setMinimumSize(new Dimension(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1920, 900)),FrameHeader.getScreenHeight(FrameHeader.getPercentage(1080, 480))));
         p.setPreferredSize(new Dimension(FrameHeader.getScreenWidth(FrameHeader.getPercentage(1920, 900)),FrameHeader.getScreenHeight(FrameHeader.getPercentage(1080, 480))));
 
-        Font Arial20 = new Font("Arial", Font.PLAIN, 20);
         //zet het font voor alle meldingen
-
         jb_robotVerbinding.setFont(new Font("Arial", Font.PLAIN, 24));
         jb_productTerugzetten.setFont(new Font("Arial", Font.PLAIN, 24));
         jb_rust.setFont(new Font("Arial", Font.PLAIN, 24));
@@ -67,6 +67,10 @@ public class PanelStatus extends JPanel implements ActionListener {
         p.add(jb_handmatige);
         p.add(jb_productTerugzetten);
 
+        // Maakt nood knop niet klikbaar
+        jb_nood.setBorderPainted(false);
+        jb_nood.setFocusPainted(false);
+
         //voeg nieuwe box toe om het paneel in het midde te laten zitten
         Box box = new Box(BoxLayout.Y_AXIS);
         box.add(Box.createVerticalGlue());
@@ -75,7 +79,6 @@ public class PanelStatus extends JPanel implements ActionListener {
 
         jb_robotVerbinding.addActionListener(this);
         jb_databaseVerbinding.addActionListener(this);
-        jb_nood.addActionListener(this);
 
         //voeg deze box toe.
         add(box);
@@ -102,14 +105,87 @@ public class PanelStatus extends JPanel implements ActionListener {
             jb_databaseVerbinding.setBackground(Color.red);
         }
 
-        //zet de background voor alle meldingen
-        jb_rust.setBackground(Color.lightGray);
-        jb_productOphalen.setBackground(Color.lightGray);
-        jb_inBeweging.setBackground(Color.lightGray);
-        jb_nood.setBackground(Color.lightGray);
-        jb_productAfgeven.setBackground(Color.lightGray);
-        jb_handmatige.setBackground(Color.lightGray);
-        jb_productTerugzetten.setBackground(Color.lightGray);
+        // Als er nood is
+        if(Emergency.isEmergency()){
+            // Zet de kleur op rood
+            jb_nood.setBackground(Color.red);
+        }else{
+            jb_nood.setBackground(Color.lightGray);
+        }
+
+        // Als de robot aan het bewegen is
+        if(Robot.isMoving()){
+            // Zet de juiste kleuren in de panel
+            jb_inBeweging.setBackground(Color.green);
+            jb_rust.setBackground(Color.lightGray);
+        }else{
+            jb_inBeweging.setBackground(Color.lightGray);
+            jb_rust.setBackground(Color.green);
+        }
+
+        // Als hij geen communicatie heeft
+        if(!Communication.hasComms()){
+            // Zet rust op grijs
+            jb_rust.setBackground(Color.lightGray);
+        }
+
+        // Afhankelijk van de status kleur een ander veld groen / grijs
+        switch (Robot.getRobotStatus()){
+            case 201:
+                jb_rust.setBackground(Color.green);
+                jb_productOphalen.setBackground(Color.lightGray);
+                jb_inBeweging.setBackground(Color.lightGray);
+                jb_productAfgeven.setBackground(Color.lightGray);
+                jb_handmatige.setBackground(Color.lightGray);
+                jb_productTerugzetten.setBackground(Color.lightGray);
+                break;
+            case 300:
+                jb_rust.setBackground(Color.lightGray);
+                jb_productOphalen.setBackground(Color.green);
+                jb_inBeweging.setBackground(Color.green);
+                jb_productAfgeven.setBackground(Color.lightGray);
+                jb_handmatige.setBackground(Color.lightGray);
+                jb_productTerugzetten.setBackground(Color.lightGray);
+                break;
+            case 302:
+                jb_rust.setBackground(Color.lightGray);
+                jb_productOphalen.setBackground(Color.lightGray);
+                jb_inBeweging.setBackground(Color.green);
+                jb_productAfgeven.setBackground(Color.lightGray);
+                jb_handmatige.setBackground(Color.lightGray);
+                jb_productTerugzetten.setBackground(Color.lightGray);
+                break;
+            case 303:
+                jb_rust.setBackground(Color.lightGray);
+                jb_productOphalen.setBackground(Color.lightGray);
+                jb_inBeweging.setBackground(Color.lightGray);
+                jb_productAfgeven.setBackground(Color.green);
+                jb_handmatige.setBackground(Color.lightGray);
+                jb_productTerugzetten.setBackground(Color.lightGray);
+                break;
+            case 304:
+                jb_rust.setBackground(Color.lightGray);
+                jb_productOphalen.setBackground(Color.lightGray);
+                jb_inBeweging.setBackground(Color.lightGray);
+                jb_productAfgeven.setBackground(Color.lightGray);
+                jb_handmatige.setBackground(Color.lightGray);
+                jb_productTerugzetten.setBackground(Color.green);
+                break;
+            case 310:
+                jb_rust.setBackground(Color.lightGray);
+                jb_productOphalen.setBackground(Color.lightGray);
+                jb_inBeweging.setBackground(Color.lightGray);
+                jb_productAfgeven.setBackground(Color.lightGray);
+                jb_handmatige.setBackground(Color.green);
+                jb_productTerugzetten.setBackground(Color.lightGray);
+                break;
+            default:
+                jb_productOphalen.setBackground(Color.lightGray);
+                jb_productAfgeven.setBackground(Color.lightGray);
+                jb_handmatige.setBackground(Color.lightGray);
+                jb_productTerugzetten.setBackground(Color.lightGray);
+                break;
+        }
     }
 
     // Handelt knop acties af
@@ -129,19 +205,6 @@ public class PanelStatus extends JPanel implements ActionListener {
             PanelStatus.updateStatus();
         }
 
-        // Als test!
-        if(e.getSource() == jb_nood){
-            if(!Communication.hasComms()){
-                Communication.sendComms(500);
-
-                // Werkt niet, panel logica moet in nieuwe methode komen!
-                if(Communication.readComms() == 500){
-                    jb_nood.setBackground(Color.red);
-                }
-
-                PanelStatus.updateStatus();
-            }
-        }
         if(e.getSource() == jb_databaseVerbinding) {
             if(!Database.hasDbConnection()) {
                 Database.connectToDatase();
