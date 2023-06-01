@@ -71,7 +71,6 @@ void checkStop(){
 		}
 	} 
 	if(checkGoButton()){
-		// Serial.print("555555555555555555555555");
 		emergency = false;
 		for(int i = 0; i < 5; i++){
 			toSlaveArduino(51);

@@ -97,16 +97,13 @@ void loop() {
 	// Door Daan
 	// Als er geen emergency is
 	if(!emergency){
-		// Serial.println("1111111111111");
 		// Als de robot in auto mode staat
 		if(isAutoMode()){
-			// Serial.println("2222222222222222");
 			// Doe de auto mode led aan en stuur code 23 naar de master
 			autoLEDOn();
 			toMasterArduino(23);
 		// Als de robot in manual mode staat
 		}else {
-			// Serial.println("33333333333333333");
 			// Doe de manual mode led aan en stuur code 22 naar de master
 			manualLEDOn();
 			toMasterArduino(22);	
@@ -116,7 +113,6 @@ void loop() {
 
 	// Als de ontvangen waarde vanaf de slave 50 is
 	if(recivedValue == 50){
-		// Serial.println(recivedValue);
 		// Zet emergency op true, zet de emergency led aan en stopt het bewegen van de robot
 		emergency = true;
 		emergencyLEDOn();
@@ -124,7 +120,6 @@ void loop() {
 	// Anders als de ontvangen waarde vanaf de slave 51 is
 	}
 	if(recivedValue == 51){
-		Serial.println(recivedValue);
 		// Stopt het bewegen van de robot
 		emergency = false;
 		stopMovement();
