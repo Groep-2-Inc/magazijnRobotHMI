@@ -133,5 +133,4 @@ void loop() {
 		toSlaveArduino(0);
 		stopMovement();
 	}
-
 }
