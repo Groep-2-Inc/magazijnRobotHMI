@@ -38,7 +38,6 @@ void statusLightsOn(){
 	}
 }
 
-unsigned long pickedProductTime = getPickedTime();
 void loop() {
 	
 	recivedValue = getRecivedValue();
@@ -99,11 +98,11 @@ void loop() {
 	}
 	
 	if (recivedValue == 15){
-		Serial.println("RESET-----------------------------------------");
+		// Serial.println("RESET-----------------------------------------");
 		mcReset();
 	}
 
-	Serial.println(recivedValue);
+	// Serial.println(measureZas());
 
 
 	statusLightsOn();

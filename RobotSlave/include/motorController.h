@@ -12,4 +12,3 @@ bool getHasMoved();
 void pickUpProduct();
 bool getProductPicked();
 void mcReset();
-unsigned long getPickedTime();

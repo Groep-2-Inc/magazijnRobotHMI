@@ -45,7 +45,7 @@ void loop() {
 			toJava(301);
 			
 
-			delay(1000);
+			delay(500);
 			toSlaveArduino(15);
 			curdata = fromJava();
 			x = getCorX(curdata);
@@ -126,8 +126,10 @@ void loop() {
 							pickingProduct = true;
 						}
 					} else if (pickingProduct){
-						sendFinishMessage = false;
-						pickUpProduct();
+						if(x != 6){
+							sendFinishMessage = false;
+							pickUpProduct();
+						}
 					}
 				}
 			}

@@ -58,7 +58,7 @@ public class TSP_GetMatrix {
                 int x2 = cordinates[i][0];
                 int y2 = cordinates[i][1];
                 //bereken de afstand
-                double distance = pytagoras(((x1-x2)*7), ((y1 - y2)*5));
+                double distance = pytagoras(((x1-x2)*5), ((y1 - y2)*7));
                 //voeg de afstand toe aan de matrix in de array van het huidige punt
                 distances[current][i] = distance;
             }

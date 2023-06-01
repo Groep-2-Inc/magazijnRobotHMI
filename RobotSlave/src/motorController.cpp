@@ -22,6 +22,9 @@ bool hasProduct = false;
 bool productPicked = false;
 bool hasMoved = false;
 unsigned long pickedTime = 0;
+int pickedProducts = 0;
+bool hasIncreasedProductCount = false;
+bool hasIncreasedProductCount2 = false;
 
 //motor setup om te zorgen dat alle pins juist gedefinieerd worden.
 void motorSetup(){
@@ -62,7 +65,7 @@ void moveDown(){
 
 // Zorgt ervoor dat de z-as naar voren kan bewegen.
 void moveForward(){
-	if(measureZas() < 8.80){
+	if(measureZas() < 8.75){
 		digitalWrite(directionPinZ, LOW);
 		digitalWrite(brakePinZ, LOW);
 		analogWrite(pwmPinZ, globalSpeed);
@@ -73,7 +76,7 @@ void moveForward(){
 
 // Zorgt ervoor dat de z-as naar achter kan bewegen.
 void moveBackward(){
-	if (measureZas() > 4.16){
+	if (measureZas() > 4.07){
 		digitalWrite(directionPinZ, HIGH);
 		digitalWrite(brakePinZ, LOW);
 		analogWrite(pwmPinZ, globalSpeed);
@@ -87,6 +90,15 @@ void mcReset(){
 	hasProduct = false;
 	productPicked = false;
 	curY = 0;
+	if (!hasIncreasedProductCount && !hasIncreasedProductCount2){
+		pickedProducts++;
+		hasIncreasedProductCount = true;
+		pickedTime = millis();
+		// canIncreaseProduct = true;
+	} else if (!hasIncreasedProductCount2 && hasIncreasedProductCount && (millis() - pickedTime) > 2000){
+		pickedProducts++;
+		hasIncreasedProductCount2 = true;
+	}
 }
 
 //pak een product op (door Jason Joshua)
@@ -97,9 +109,19 @@ void pickUpProduct(){
     	curY = readY();
     }
 
+	float max = 8.70;
+
+	for(int i = 0; i < pickedProducts; i++){
+		max -= 2.0;
+		if(max < 5.0){
+			max = 5.0;
+		}
+	}
+	
+
     //als je het product nog niet hebt, naar voren en dan een stukje omhoog. (door Jason Joshua)
     if(!hasProduct){
-		if(measureZas() < 8.76){
+		if(measureZas() < max){
 			stopMovement();
 			moveForward();
 		}else if (readY() < curY + 300){
@@ -109,7 +131,7 @@ void pickUpProduct(){
 			hasProduct = true;
 		}
     } else {
-		if(measureZas() > 4.24){
+		if(measureZas() > 4.10){
 			moveBackward();
 		}else if (readY() > curY){
 			moveDown();
@@ -117,17 +139,12 @@ void pickUpProduct(){
 			stopMovement();
 			toMasterArduino(13);
 			productPicked = true;
-			// pickedTime = millis();
 			hasProduct = false;
 		}
     }
   } else {
     stopMovement();
   }
-}
-
-unsigned long getPickedTime(){
-	return pickedTime;
 }
 
 //return de productpicked bool (door Jason Joshua)

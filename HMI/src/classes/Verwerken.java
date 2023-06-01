@@ -30,7 +30,7 @@ public class Verwerken {
         done[doing] = true;
         doing++;
 
-        if(doing+1 == TSPRoute.length ){
+        if(doing == TSPRoute.length ){
             System.out.println("klaar");
             Robot.setIsMoving(false);
             Robot.setRobotStatus(201);
