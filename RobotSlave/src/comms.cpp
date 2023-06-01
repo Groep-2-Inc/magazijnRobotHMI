@@ -25,5 +25,5 @@ void toMasterArduino(int data){
 
 // Getter voor de ontvangen waarde
 int getRecivedValue(){
-  return x;
+    return x;
 }

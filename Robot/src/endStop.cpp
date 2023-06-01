@@ -46,8 +46,7 @@ bool checkEndStopY(){
 	bool endStopYPressed = digitalRead(endStopPinY); 
 	if(endStopYPressed){
 		if(millis() - previousPressedY > 250){
-			previousPressedY = millis();
-            endStopValueY = endStopYPressed;
+			endStopValueY = millis();
 			boolSendY = true;
 		}
 	}

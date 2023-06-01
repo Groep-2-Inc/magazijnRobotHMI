@@ -85,6 +85,7 @@ void moveBackward(){
 	}
 }
 
+//reset alle dingen van de Slave voor het ophalen van meerdere producten (door Jason Joshua)
 void mcReset(){
 	hasMoved = false;
 	hasProduct = false;
@@ -94,6 +95,7 @@ void mcReset(){
 		pickedProducts++;
 		hasIncreasedProductCount = true;
 		pickedTime = millis();
+		// canIncreaseProduct = true;
 	} else if (!hasIncreasedProductCount2 && hasIncreasedProductCount && (millis() - pickedTime) > 2000){
 		pickedProducts++;
 		hasIncreasedProductCount2 = true;
@@ -116,6 +118,7 @@ void pickUpProduct(){
 			max = 5.0;
 		}
 	}
+	
 
     //als je het product nog niet hebt, naar voren en dan een stukje omhoog. (door Jason Joshua)
     if(!hasProduct){
@@ -135,7 +138,10 @@ void pickUpProduct(){
 			moveDown();
 		}else{
 			stopMovement();
-			toMasterArduino(13);
+			for(int i = 0; i<3; i++){
+				toMasterArduino(13);
+				delay(10);
+			}
 			productPicked = true;
 			hasProduct = false;
 		}
@@ -151,6 +157,7 @@ bool getProductPicked(){
 }
 
 //als je nog niet bewogen hebt, beweeg naar een bepaalde coordinaat (door Jason Joshua)
+
 void moveY (int coordinate){
     coordinate = coordinate - 1;
     if (yCor[coordinate] > readY() && !hasMoved){

@@ -52,9 +52,8 @@ bool checkGoButton(){
 	// Leest de waarde van de go-knop uit
 	bool goPressed = !digitalRead(goButton); 
 	if(goPressed){
-		if(millis() - lastStopPressed > 250){
-			goPressed = millis();
-            lastGoPressed = goPressed;
+		if(millis() - lastGoPressed > 250){
+            lastGoPressed = millis();
 			return true;
 		}
 	}

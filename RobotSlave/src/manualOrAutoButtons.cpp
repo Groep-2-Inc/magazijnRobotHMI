@@ -33,8 +33,7 @@ bool checkManualMode(){
 	bool manualPressed = !digitalRead(manualBtn); 
 	if(manualPressed){
 		if(millis() - lastManualPressed > 250){
-			manualPressed = millis();
-            lastManualPressed = manualPressed;
+            lastManualPressed = millis();
 			return true;
 		}
 	}
