@@ -341,6 +341,9 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
         if(e.getSource() == jb_annuleer){
             // Ga terug naar viewingOrder
             FrameController.setActiveViewingOrder(this, o_order);
+
+            // Reset de verwerken boolean
+            Verwerken.setIsVerwerken(false);
         }
     }
 
