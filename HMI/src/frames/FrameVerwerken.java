@@ -13,6 +13,7 @@ import java.util.Date;
 import classes.Database;
 import classes.Verwerken;
 import panels.PanelBins;
+import panels.PanelOrderStatus;
 import panels.PanelPositie;
 import classes.Order;
 
@@ -197,39 +198,8 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
         return p;
     }
 
-    public JPanel GetProductPanel(){
-        //maak een nieuw subpaneel aan
-        JPanel p = new JPanel();
-
-        //maak nog een paneel aan voor de informatie
-        JPanel p2 = new JPanel();
-        p2.setPreferredSize(new Dimension(getScreenWidth(31.25f), getScreenHeight(69.4f)));
-        p2.setBorder(new LineBorder(Color.black, 1));
-
-        //maak nog een paneel aan voor het aantal producten en voeg deze toe aan de informatiepaneel
-        JPanel p3 = new JPanel();
-        p3.setPreferredSize(new Dimension(getScreenWidth(26f), getScreenHeight(2.8f)));
-        JLabel jlTotalProducts = new JLabel("          Totaal aantal producten: " + o_order.getProducts().size() + "          ");
-        jlTotalProducts.setFont(new Font("Arial", Font.BOLD, 16));
-        p3.add(jlTotalProducts);
-//        p3.setFont(new Font("Arial", Font.BOLD, 12));
-        p2.add(p3);
-        //maak een nieuw paneel aan voor de producten verzameld en voeg deze ook toe aan de informatiepaneel
-        p3 = new JPanel();
-        p3.setPreferredSize(new Dimension(getScreenWidth(26f), getScreenHeight(2.8f)));
-        JLabel jlTotalCollected = new JLabel("          Producten verzameld: 0 " +  "          ");
-        jlTotalCollected.setFont(new Font("Arial", Font.PLAIN, 14));
-        p3.add(jlTotalCollected);
-        p2.add(p3);
-
-        //voeg een lijntje toe
-        p3 = new JPanel();
-        p3.setPreferredSize(new Dimension(getScreenWidth(31.25f), 1));
-        p3.setBackground(Color.black);
-        p2.add(p3);
-
+    public static JPanel setProductsInfo(int i){
         //voeg de informatie toe aan het paneel
-        for(int i = 0; i<o_order.getProducts().size(); i++){
             JPanel jpProductInfo = new JPanel();
             JLabel jlNameAndNumberText = new JLabel("Naam, artikelnr: ");
             JLabel jlNameAndNumber = new JLabel(o_order.getProducts().get(i).getProductName() + ", " + o_order.getProducts().get(i).getProductID());
@@ -267,8 +237,43 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
             jlWeight.setBounds(getScreenWidth(4.8f), getScreenHeight(6f), getScreenWidth(29f), getScreenHeight(2f));
             jpProductInfo.add(jlWeight);
 
-            p2.add(jpProductInfo);
+            return jpProductInfo;
+    }
+
+    public static JPanel GetProductPanel(){
+        //maak een nieuw subpaneel aan
+        JPanel p = new JPanel();
+
+        //maak nog een paneel aan voor de informatie
+        JPanel p2 = new JPanel();
+        p2.setPreferredSize(new Dimension(getScreenWidth(31.25f), getScreenHeight(69.4f)));
+        p2.setBorder(new LineBorder(Color.black, 1));
+
+        //maak nog een paneel aan voor het aantal producten en voeg deze toe aan de informatiepaneel
+        JPanel p3 = new JPanel();
+        p3.setPreferredSize(new Dimension(getScreenWidth(26f), getScreenHeight(2.8f)));
+        JLabel jlTotalProducts = new JLabel("          Totaal aantal producten: " + o_order.getProducts().size() + "          ");
+        jlTotalProducts.setFont(new Font("Arial", Font.BOLD, 16));
+        p3.add(jlTotalProducts);
+//        p3.setFont(new Font("Arial", Font.BOLD, 12));
+        p2.add(p3);
+        //maak een nieuw paneel aan voor de producten verzameld en voeg deze ook toe aan de informatiepaneel
+        p3 = new JPanel();
+        p3.setPreferredSize(new Dimension(getScreenWidth(26f), getScreenHeight(2.8f)));
+        JLabel jlTotalCollected = new JLabel("          Producten verzameld: 0 " +  "          ");
+        jlTotalCollected.setFont(new Font("Arial", Font.PLAIN, 14));
+        p3.add(jlTotalCollected);
+        p2.add(p3);
+
+        for(int i = 0; i<o_order.getProducts().size(); i++){
+            p2.add(setProductsInfo(i));
         }
+
+        //voeg een lijntje toe
+        p3 = new JPanel();
+        p3.setPreferredSize(new Dimension(getScreenWidth(31.25f), 1));
+        p3.setBackground(Color.black);
+        p2.add(p3);
 
         //voeg het informatiepaneel toe aan het subpaneel
         p.add(p2);
@@ -327,7 +332,11 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
         super.actionPerformed(e);
         //als er op de knop gedrukt wordt, dan wordt een actie toegevoegd aan de database
         if(e.getSource() == jb_go){
+            // Stuurt order en of hij gepickt wordt naar PanelOrderStatus zodat dit getoont kan worden op homepage (Sarah)
+            new PanelOrderStatus().setOrder( true, o_order);
+            // Begint met verwerken van de order
             Verwerken.startVerwerken(o_order);
+            // Voegt nieuw logboek regel toe aan de database bij
             Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Heeft op Go gedrukt!"}); // in het logboek wordt opgeslagen dat er op Go gedrukt is (Joëlle)
         }
         
@@ -339,6 +348,9 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
 
         // Als je op de annuleer knop drukt
         if(e.getSource() == jb_annuleer){
+            // Stuurt order en of hij gepickt wordt naar PanelOrderStatus zodat dit getoont kan worden op homepage (Sarah)
+            new PanelOrderStatus().setOrder(false, o_order);
+
             // Ga terug naar viewingOrder
             FrameController.setActiveViewingOrder(this, o_order);
 
