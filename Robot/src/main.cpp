@@ -36,7 +36,7 @@ void setup() {
 void loop() {
 	// Als de slave het product heeft verzameld
 	if(getFromSlave() == 13){
-		// Stuur één keer code 301 naar Java
+		// Stuur één keer code 301 naar Java en reset alles (door Jason Joshua)
 		while(!sendFinishMessage){
 			toJava(301);
 			

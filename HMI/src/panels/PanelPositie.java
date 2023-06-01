@@ -61,7 +61,9 @@ public class PanelPositie extends JPanel {
                     // Maak het vakje groen
                     g.setColor(Color.green);
                     g.fillRect(xPos, yPos, FrameHeader.getScreenWidth(4.2f), FrameHeader.getScreenHeight(7.8f));
+                    //anders voor de route (door Jason Joshua)
                 }else if(Verwerken.IsVerwerken()){
+                    //vergelijk de positie met elke code in de route array, als de code overeenkomt met een van de posities maak het vakje dan oranje en voeg een tekst met de positie ervan toe. (door Jason Joshua)
                     for (int posFromTSP : Verwerken.getTSPRoute()) {
                         if (posFromTSP == (400 + 10 * (i - 1) + (j + 1)) && i2 != 0) {
                             System.out.println(posFromTSP);

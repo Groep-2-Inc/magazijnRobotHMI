@@ -78,7 +78,7 @@ void loop() {
 		//pak een product op (door Jason Joshua)
 		pickUpProduct();
 	}
-	
+	//als de value 15 is voer dan de reset uit  (door Jason Joshua)
 	if (recivedValue == 15){
 		mcReset();
 	}

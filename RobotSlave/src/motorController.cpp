@@ -85,6 +85,7 @@ void moveBackward(){
 	}
 }
 
+//reset alle dingen van de Slave voor het ophalen van meerdere producten (door Jason Joshua)
 void mcReset(){
 	hasMoved = false;
 	hasProduct = false;
