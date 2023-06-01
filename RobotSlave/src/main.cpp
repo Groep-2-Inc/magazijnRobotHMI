@@ -78,6 +78,10 @@ void loop() {
 		//pak een product op (door Jason Joshua)
 		pickUpProduct();
 	}
+	
+	if (recivedValue == 15){
+		mcReset();
+	}
 
 	statusLightsOn();
 
@@ -90,16 +94,6 @@ void loop() {
 		toMasterArduino(101);
 	} else {
 		toMasterArduino(100);
-	}
-
-	// Als het product is gepicked
-	// Door Martijn
-	if(getProductPicked()){
-		// Verstuur code 13 één keer naar de master
-		if(!sendProductPicked){
-			toMasterArduino(13);
-			sendProductPicked = true;
-		}
 	}
 
 	//delay voor het zorgen dat de arduinos meer gelijk lopen.
