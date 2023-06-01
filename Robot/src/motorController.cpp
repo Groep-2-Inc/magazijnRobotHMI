@@ -34,6 +34,7 @@ void motorSetup() {
 
 // Zorgt ervoor dat de robot naar links beweegt wanneer deze functie wordt aangeroepen. aangepast met ifstatement door Jason Joshua
 void moveLeft(){
+    // Serial.println("Links");
     if(checkEndStopX() != true){
     digitalWrite(directionPinX, LOW);
     digitalWrite(brakePinX, LOW);
@@ -45,6 +46,7 @@ void moveLeft(){
 
 // Zorgt ervoor dat de robot naar rechts beweegt wanneer deze functie wordt aangeroepen. aangepast met ifstatement door Jason Joshua
 void moveRight(){
+    // Serial.println("Rechts");
     if(readX() < 9000){
     digitalWrite(directionPinX, HIGH);
     digitalWrite(brakePinX, LOW);
@@ -198,6 +200,9 @@ void manualControl(){
     // resetEndStop();
     // Leest waarde van de joystick uit en maakt hier een string van.
     String dir = readJoystick();
+
+    // Serial.println(dir);
+
    
     // Wanneer de waarde 1.0.0 is
     if (dir == "1.0.0"){
