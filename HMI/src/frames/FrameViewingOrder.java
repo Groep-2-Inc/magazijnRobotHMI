@@ -194,7 +194,7 @@ public class FrameViewingOrder extends FrameHeader implements ActionListener {
         //naar pick scherm, door Jason Joshua van der Kolk
         if (e.getSource() == jb_pick) {
             // Als er geen order aan het verwerken is
-            if(!Verwerken.isVerwerken()){
+            if(!Verwerken.IsVerwerken()){
                 // Gaat naar de nieuwe pagina toe
                 FrameController.setActiveFrameVerwerken(this, order);
                 // Werkt de database bij
