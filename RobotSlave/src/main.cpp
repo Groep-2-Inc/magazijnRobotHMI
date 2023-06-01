@@ -17,6 +17,7 @@
 bool canMove = true;
 int recivedValue = 0;
 bool sendProductPicked = false;
+bool emergency = false;
 
 // Zet de pinmode van de bovenstaande variabelen en zorgt ervoor dat de data van de master arduino ontvangen wordt.
 void setup() {
@@ -90,18 +91,33 @@ void loop() {
 		}
 	}
 
-	if(isAutoMode()){
-		autoLEDOn();
-		toMasterArduino(23);
-	}else {
-		manualLEDOn();
-		toMasterArduino(22);	}
+	// Door Daan
+	// Als er geen emergency is
+	if(!emergency){
+		// Als de robot in auto mode staat
+		if(isAutoMode()){
+			// Doe de auto mode led aan en stuur code 23 naar de master
+			autoLEDOn();
+			toMasterArduino(23);
+		// Als de robot in manual mode staat
+		}else {
+			// Doe de manual mode led aan en stuur code 22 naar de master
+			manualLEDOn();
+			toMasterArduino(22);	
+		}
+	}
+	
 
+	// Als de ontvangen waarde vanaf de slave 50 is
 	if(recivedValue == 50){
-		Serial.println("11111111");
+		// Zet emergency op true, zet de emergency led aan en stopt het bewegen van de robot
+		emergency = true;
 		emergencyLEDOn();
 		stopMovement();
+	// Anders als de ontvangen waarde vanaf de slave 51 is
 	}else if(recivedValue == 51){
+		// Stopt het bewegen van de robot
+		emergency = false;
 		stopMovement();
 	}
 

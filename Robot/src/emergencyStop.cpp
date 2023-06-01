@@ -63,6 +63,7 @@ bool checkGoButton(){
 void checkStop(){
 	if(checkEmergencyStop()){
 		emgStop();
+		toSlaveArduino(50);
 	} else if(checkGoButton()){
 		emergency = false;
 		toSlaveArduino(51);
