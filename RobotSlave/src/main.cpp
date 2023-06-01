@@ -38,8 +38,27 @@ void statusLightsOn(){
 	}
 }
 
+unsigned long pickedProductTime = getPickedTime();
 void loop() {
+	
 	recivedValue = getRecivedValue();
+
+	// Als het product is gepicked
+	// Door Martijn
+	if(getProductPicked()){
+		digitalWrite(5, HIGH);
+		digitalWrite(6, LOW);
+
+		// toMasterArduino(13);
+		// recivedValue = 0;
+
+		// if(millis() - pickedProductTime > 1500){
+		// 	mcReset();
+		// }
+	}else{
+		digitalWrite(5, LOW);
+		digitalWrite(6, HIGH);
+	}
 
 	// Als de waarde 0 is
 	if (recivedValue == 0){
@@ -77,9 +96,15 @@ void loop() {
 	} else if (recivedValue == 12){
 		//pak een product op (door Jason Joshua)
 		pickUpProduct();
-	} else if (recivedValue == 15){
+	}
+	
+	if (recivedValue == 15){
+		Serial.println("RESET-----------------------------------------");
 		mcReset();
 	}
+
+	Serial.println(recivedValue);
+
 
 	statusLightsOn();
 
@@ -92,16 +117,6 @@ void loop() {
 		toMasterArduino(101);
 	} else {
 		toMasterArduino(100);
-	}
-
-	// Als het product is gepicked
-	// Door Martijn
-	if(getProductPicked()){
-		// Verstuur code 13 één keer naar de master
-		if(!sendProductPicked){
-			toMasterArduino(13);
-			sendProductPicked = true;
-		}
 	}
 
 	//delay voor het zorgen dat de arduinos meer gelijk lopen.

@@ -112,6 +112,7 @@ bool moveXY(int x, int y){
 
 //reset de bools  (Door Jason Joshua) (alvast voor het resetten van de robot voor het oppakken van meerdere producten)
 void resetBoolXY(){
+    hasMoved = false;
     boolY = false;
     boolX = false;
 }

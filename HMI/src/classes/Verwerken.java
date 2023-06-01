@@ -3,13 +3,13 @@ import TSP.*;
 // Houd de data van het werkeren bij
 
 public class Verwerken {
-    static int[] TSPRoute;
-    static int[] path;
-    static boolean isVerwerken = false;
-//    static boolean[] open;
-    static int doing;
-    static boolean[] done;
-    static Order order;
+    private static int[] TSPRoute;
+    private static int[] path;
+    private static boolean isVerwerken = false;
+//    private static boolean[] open;
+    private static int doing;
+    private static boolean[] done;
+    private static Order order;
 
     public static void startVerwerken(Order o){
         order = o;
@@ -29,11 +29,19 @@ public class Verwerken {
     static void nextProduct(){
         done[doing] = true;
         doing++;
-        pickProduct();
+
+        if(doing+1 == TSPRoute.length ){
+            System.out.println("klaar");
+            Robot.setIsMoving(false);
+            Robot.setRobotStatus(201);
+        }else{
+            pickProduct();
+        }
     }
 
-    static void pickProduct(){
+    static void pickProduct() {
 //        System.out.println(TSPRoute[doing]);
+
         Communication.sendComms(TSPRoute[doing]);
     }
 

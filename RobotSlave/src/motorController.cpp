@@ -20,6 +20,8 @@ const int yCor[5]{150, 1200, 2250, 3300, 4350};
 int curY = 0;
 bool hasProduct = false;
 bool productPicked = false;
+bool hasMoved = false;
+unsigned long pickedTime = 0;
 
 //motor setup om te zorgen dat alle pins juist gedefinieerd worden.
 void motorSetup(){
@@ -80,6 +82,13 @@ void moveBackward(){
 	}
 }
 
+void mcReset(){
+	hasMoved = false;
+	hasProduct = false;
+	productPicked = false;
+	curY = 0;
+}
+
 //pak een product op (door Jason Joshua)
 void pickUpProduct(){
   if(!productPicked){
@@ -100,19 +109,25 @@ void pickUpProduct(){
 			hasProduct = true;
 		}
     } else {
-		if(measureZas() > 4.22){
+		if(measureZas() > 4.24){
 			moveBackward();
 		}else if (readY() > curY){
 			moveDown();
 		}else{
 			stopMovement();
-			hasProduct = false;
+			toMasterArduino(13);
 			productPicked = true;
+			// pickedTime = millis();
+			hasProduct = false;
 		}
     }
   } else {
     stopMovement();
   }
+}
+
+unsigned long getPickedTime(){
+	return pickedTime;
 }
 
 //return de productpicked bool (door Jason Joshua)
@@ -121,7 +136,7 @@ bool getProductPicked(){
 }
 
 //als je nog niet bewogen hebt, beweeg naar een bepaalde coordinaat (door Jason Joshua)
-bool hasMoved = false;
+
 void moveY (int coordinate){
     coordinate = coordinate - 1;
     if (yCor[coordinate] > readY() && !hasMoved){
@@ -143,8 +158,3 @@ bool getHasMoved(){
 	return hasMoved;
 }
 
-void mcReset(){
-	hasMoved = false;
-	hasProduct = false;
-	productPicked = false;
-}

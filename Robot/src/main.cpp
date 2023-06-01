@@ -37,6 +37,32 @@ void reset(){
 }
 // Herhaald de volgende code meerder keren
 void loop() {
+	// Als de slave het product heeft verzameld
+	if(getFromSlave() == 13){
+		// digitalWrite(7, HIGH);
+		// Stuur één keer code 301 naar Java
+		while(!sendFinishMessage){
+			toJava(301);
+			
+
+			delay(1000);
+			toSlaveArduino(15);
+			curdata = fromJava();
+			x = getCorX(curdata);
+			y = getCorY(curdata);
+			resetBoolXY();
+			
+			// resetHasMoved();
+			pickingProduct = false;
+			moved = false;
+			// sendProductOphalenMessage = false;
+			// sendProductOphalenMovingMessage = false;
+			// lastSendProductOphalenMessage = 0;
+			
+			sendFinishMessage = true;
+		}
+	}
+
 	//check de noodstop
     checkStop();	
 	
@@ -100,6 +126,7 @@ void loop() {
 							pickingProduct = true;
 						}
 					} else if (pickingProduct){
+						sendFinishMessage = false;
 						pickUpProduct();
 					}
 				}
@@ -118,22 +145,5 @@ void loop() {
 		toSlaveArduino(21);
 		//zet de breakpin aan (Door Jason Joshua)
 		toSlaveArduino(0);
-	}
-
-	// Als de slave het product heeft verzameld
-	if(getFromSlave() == 13){
-		// Stuur één keer code 201 naar Java
-		if(!sendFinishMessage){
-			toJava(301);
-
-			toSlaveArduino(15);
-			
-			sendFinishMessage = false;
-			sendProductOphalenMessage = false;
-			sendProductOphalenMovingMessage = false;
-			lastSendProductOphalenMessage = 0;
-
-			sendFinishMessage = true;
-		}
 	}
 }
