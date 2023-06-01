@@ -138,7 +138,7 @@ void pickUpProduct(){
 			moveDown();
 		}else{
 			stopMovement();
-			for(int i = 0; i<2; i++){
+			for(int i = 0; i<3; i++){
 				toMasterArduino(13);
 				delay(10);
 			}
