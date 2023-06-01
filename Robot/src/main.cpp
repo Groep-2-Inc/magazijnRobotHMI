@@ -21,6 +21,8 @@ bool sendFinishMessage = false;
 bool sendProductOphalenMessage = false;
 bool sendProductOphalenMovingMessage = false;
 unsigned long lastSendProductOphalenMessage = 0;
+unsigned long lastRustMessage = 0;
+unsigned long lastProductOphalenMessage = 0;
 
 // Sets correct pinmodes
 void setup() {  
@@ -136,10 +138,24 @@ void loop() {
 			manualControl();
 			delay(20);
 		}
-	}else {
-		//stuurt melding naar slave Arduino om noodstoplampje te laten branden (Sarah)
-		toSlaveArduino(21);
-		//zet de breakpin aan (Door Jason Joshua)
+	}
+
+	// Als de slave het product heeft verzameld
+	if(getFromSlave() == 13){
+		// Stuur één keer code 201 naar Java
+		if(!sendFinishMessage){
+			toJava(201);
+			sendFinishMessage = true;
+		}
+	}
+
+	if(getFromSlave() == 22){
+		manual = true;
+		toJava(310);
+	}else if(getFromSlave() == 23){
+		manual = false;
+		toJava(311);
 		toSlaveArduino(0);
+		stopMovement();
 	}
 }
