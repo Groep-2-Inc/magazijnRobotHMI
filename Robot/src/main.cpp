@@ -32,19 +32,14 @@ void setup() {
 	endStopSetup();
 }
 
-void reset(){
-	toJava(301);
-}
 // Herhaald de volgende code meerder keren
 void loop() {
 	// Als de slave het product heeft verzameld
 	if(getFromSlave() == 13){
-		// digitalWrite(7, HIGH);
 		// Stuur één keer code 301 naar Java
 		while(!sendFinishMessage){
 			toJava(301);
 			
-
 			delay(500);
 			toSlaveArduino(15);
 			curdata = fromJava();
@@ -52,7 +47,6 @@ void loop() {
 			y = getCorY(curdata);
 			resetBoolXY();
 			
-			// resetHasMoved();
 			pickingProduct = false;
 			moved = false;
 			// sendProductOphalenMessage = false;

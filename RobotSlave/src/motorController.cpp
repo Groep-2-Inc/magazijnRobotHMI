@@ -94,7 +94,6 @@ void mcReset(){
 		pickedProducts++;
 		hasIncreasedProductCount = true;
 		pickedTime = millis();
-		// canIncreaseProduct = true;
 	} else if (!hasIncreasedProductCount2 && hasIncreasedProductCount && (millis() - pickedTime) > 2000){
 		pickedProducts++;
 		hasIncreasedProductCount2 = true;
@@ -117,7 +116,6 @@ void pickUpProduct(){
 			max = 5.0;
 		}
 	}
-	
 
     //als je het product nog niet hebt, naar voren en dan een stukje omhoog. (door Jason Joshua)
     if(!hasProduct){
@@ -153,7 +151,6 @@ bool getProductPicked(){
 }
 
 //als je nog niet bewogen hebt, beweeg naar een bepaalde coordinaat (door Jason Joshua)
-
 void moveY (int coordinate){
     coordinate = coordinate - 1;
     if (yCor[coordinate] > readY() && !hasMoved){

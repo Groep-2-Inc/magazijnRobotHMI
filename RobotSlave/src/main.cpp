@@ -39,25 +39,7 @@ void statusLightsOn(){
 }
 
 void loop() {
-	
 	recivedValue = getRecivedValue();
-
-	// Als het product is gepicked
-	// Door Martijn
-	if(getProductPicked()){
-		digitalWrite(5, HIGH);
-		digitalWrite(6, LOW);
-
-		// toMasterArduino(13);
-		// recivedValue = 0;
-
-		// if(millis() - pickedProductTime > 1500){
-		// 	mcReset();
-		// }
-	}else{
-		digitalWrite(5, LOW);
-		digitalWrite(6, HIGH);
-	}
 
 	// Als de waarde 0 is
 	if (recivedValue == 0){
@@ -98,12 +80,8 @@ void loop() {
 	}
 	
 	if (recivedValue == 15){
-		// Serial.println("RESET-----------------------------------------");
 		mcReset();
 	}
-
-	// Serial.println(measureZas());
-
 
 	statusLightsOn();
 
