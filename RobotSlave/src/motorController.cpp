@@ -138,7 +138,10 @@ void pickUpProduct(){
 			moveDown();
 		}else{
 			stopMovement();
-			toMasterArduino(13);
+			for(int i = 0; i<2; i++){
+				toMasterArduino(13);
+				delay(10);
+			}
 			productPicked = true;
 			hasProduct = false;
 		}

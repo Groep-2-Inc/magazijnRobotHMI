@@ -40,18 +40,19 @@ void loop() {
 	// Als de slave het product heeft verzameld
 	if(getFromSlave() == 13){
 		// Stuur één keer code 301 naar Java en reset alles (door Jason Joshua)
-		// digitalWrite(7, HIGH);
+		digitalWrite(7, HIGH);
 		// Stuur één keer code 301 naar Java
 		while(!sendFinishMessage){
 			toJava(301);
 			
 
-			delay(500);
+			delay(1000);
 			toSlaveArduino(15);
 			curdata = fromJava();
 			x = getCorX(curdata);
 			y = getCorY(curdata);
 			resetBoolXY();
+			digitalWrite(7, LOW);
 			
 			// resetHasMoved();
 			pickingProduct = false;
@@ -80,7 +81,7 @@ void loop() {
 			// getCommsStartTime() returnt de waarde van wanneer er voor het eerst verbinding is gemaakt
 			// toegevoegd zodat Java genoeg tijd heeft om data op te halen vanuit robot 
 			// Door Martijn
-			if(getConection() && millis() - getCommsStartTime() > 2000){
+			if(getConection() && millis() - getCommsStartTime() > 500){
 				//als de robot nog niet home is, ga dan naar home, als die wel home is, beweeg dan automatisch (Door Jason Joshua)
 				if(!hasHomed){
 					// Versuurd één keer dat hij aan het homen is
@@ -149,4 +150,6 @@ void loop() {
 		//zet de breakpin aan (Door Jason Joshua)
 		toSlaveArduino(0);
 	}
+
+	// delay(20);
 }
