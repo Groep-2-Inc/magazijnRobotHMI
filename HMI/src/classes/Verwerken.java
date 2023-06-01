@@ -1,6 +1,6 @@
 package classes;
 import TSP.*;
-// Houd de data van het werkeren bij
+// Houd de data van het werkeren bij, code door Jason Joshua en Martijn
 
 public class Verwerken {
     private static int[] TSPRoute;
@@ -12,36 +12,43 @@ public class Verwerken {
     private static Order order;
 
     public static void startVerwerken(Order o){
+        //initiazeer de variabelen
         order = o;
         isVerwerken = true;
         doing = 1;
 
+        //voer de algoritmes uit
         TSPRoute = TSP_main.main(getProductCords());
         path = TSP_main.getFinalPath();
 
 //        open = new boolean[order.getProductCount() + 2];
         done = new boolean[order.getProductCount() + 2];
 
+        //voer de pickproduct methode aan
         pickProduct();
 
     }
 
+    //ga naar het volgende product
     static void nextProduct(){
         done[doing] = true;
         doing++;
 
         if(doing == TSPRoute.length ){
-            System.out.println("klaar");
+            // Reset de status van de robot
             Robot.setIsMoving(false);
             Robot.setRobotStatus(201);
+            // Werkt de database bij
+            Database.updateDatabase("UPDATE order SET OrderCompleted = 1 WHERE OrderID = ?", new String[]{String.valueOf(order.getOrderID())});
         }else{
+            // Gaat product verzamelen
             pickProduct();
         }
     }
 
+    //pak het product
     static void pickProduct() {
-//        System.out.println(TSPRoute[doing]);
-
+        // Stuurt juiste route naar de robot
         Communication.sendComms(TSPRoute[doing]);
     }
 
@@ -64,4 +71,15 @@ public class Verwerken {
         return cordsArray;
     }
 
+    public static int[] getTSPRoute() {
+        return TSPRoute;
+    }
+
+    public static boolean IsVerwerken() {
+        return isVerwerken;
+    }
+
+    public static void setIsVerwerken(boolean isVerwerken) {
+        Verwerken.isVerwerken = isVerwerken;
+    }
 }
