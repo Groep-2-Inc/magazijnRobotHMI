@@ -329,6 +329,7 @@ public class FrameVerwerken extends FrameHeader implements ActionListener {
         if(e.getSource() == jb_go){
             Verwerken.startVerwerken(o_order);
             Database.updateDatabase("INSERT INTO logbook (type, text) VALUES (?, ?)", new String[]{ "1", "Heeft op Go gedrukt!"}); // in het logboek wordt opgeslagen dat er op Go gedrukt is (Joëlle)
+            updatePanelPositie();
         }
         
         //ga naar het pakbonnenmakenschermUPDATE orders SET OrderCompleted = RAND(1)

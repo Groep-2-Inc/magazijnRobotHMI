@@ -64,4 +64,11 @@ public class Verwerken {
         return cordsArray;
     }
 
+    public static int[] getTSPRoute() {
+        return TSPRoute;
+    }
+
+    public static boolean IsVerwerken() {
+        return isVerwerken;
+    }
 }

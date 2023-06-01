@@ -96,6 +96,7 @@ public class FrameController {
             jf_FrameVerwerken = new FrameVerwerken(o);
             jf_FrameVerwerken.setVisible(true);
             f.setVisible(false);
+            jf_FrameVerwerken.updatePanelPositie();
         }
     }
 
