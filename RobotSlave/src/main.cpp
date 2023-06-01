@@ -71,7 +71,11 @@ void loop() {
 			pickUpProduct();
 		}
 	}
-	
+
+	//als de value 15 is voer dan de reset uit  (door Jason Joshua)
+	if (recivedValue == 15){
+		mcReset();
+	}
 
 	checkBtns();
 
@@ -109,7 +113,6 @@ void loop() {
 			toMasterArduino(22);	
 		}
 	}
-	
 
 	// Als de ontvangen waarde vanaf de slave 50 is
 	if(recivedValue == 50){

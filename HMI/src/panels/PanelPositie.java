@@ -1,10 +1,12 @@
 package panels;
 
 import classes.Robot;
+import classes.Verwerken;
 import frames.FrameHeader;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import TSP.*;
 import frames.FrameHome;
 
 //door Jason Joshua van der Kolk
@@ -49,18 +51,37 @@ public class PanelPositie extends JPanel {
         for (int i = 5; i > 0; i--){
             // Tweede voor X-as
             for (int j = 0; j < 5; j++){
+                int i2 = 0;
+                g.setColor(Color.lightGray);
+                g.fillRect(xPos, yPos, FrameHeader.getScreenWidth(4.2f), FrameHeader.getScreenHeight(7.8f));
+
 
                 // Als de kolom overeen komt met huidige robot positie
                 if(i == currXPoss && j == currYPoss){
                     // Maak het vakje groen
                     g.setColor(Color.green);
-                }else{
-                    // Anders maak hem grijs
-                    g.setColor(Color.lightGray);
+                    g.fillRect(xPos, yPos, FrameHeader.getScreenWidth(4.2f), FrameHeader.getScreenHeight(7.8f));
+                    //anders voor de route (door Jason Joshua)
+                }else if(Verwerken.IsVerwerken()){
+                    //vergelijk de positie met elke code in de route array, als de code overeenkomt met een van de posities maak het vakje dan oranje en voeg een tekst met de positie ervan toe. (door Jason Joshua)
+                    for (int posFromTSP : Verwerken.getTSPRoute()) {
+                        if (posFromTSP == (400 + 10 * (i - 1) + (j + 1)) && i2 != 0) {
+                            System.out.println(posFromTSP);
+                            g.setColor(Color.orange);
+                            g.fillRect(xPos, yPos, FrameHeader.getScreenWidth(4.2f), FrameHeader.getScreenHeight(7.8f));
+
+                            g.setColor(Color.black);
+                            g.setFont(new Font("Arial", Font.PLAIN, 20));
+                            g.drawString(String.valueOf(i2), xPos + FrameHeader.getScreenWidth(1.8f), yPos + FrameHeader.getScreenWidth(2f));
+
+                        }
+                        i2++;
+                    }
                 }
 
-                g.fillRect(xPos, yPos, FrameHeader.getScreenWidth(4.2f), FrameHeader.getScreenHeight(7.8f));
                 xPos += FrameHeader.getScreenWidth(4.35f);
+
+
             }
             yPos += FrameHeader.getScreenHeight(8f);
             xPos = FrameHeader.getScreenWidth(14.65f);

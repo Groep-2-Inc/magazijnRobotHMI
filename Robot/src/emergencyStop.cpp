@@ -14,7 +14,8 @@ bool sendCheckStopStatus = false;
 // Zet de pinmode voor noodstop
 void emergyStopSetup(){
 	pinMode(stopButtton, INPUT_PULLUP);
-	pinMode(goButton, INPUT_PULLUP);
+	// pinMode(goButton, INPUT_PULLUP);
+	pinMode(goButton, OUTPUT);
 }
 
 // Stopt de robot en stuurt melding naar HMI

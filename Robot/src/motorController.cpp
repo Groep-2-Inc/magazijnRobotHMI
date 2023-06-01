@@ -110,6 +110,7 @@ bool moveXY(int x, int y){
 
 //reset de bools  (Door Jason Joshua) (alvast voor het resetten van de robot voor het oppakken van meerdere producten)
 void resetBoolXY(){
+    hasMoved = false;
     boolY = false;
     boolX = false;
 }
@@ -159,6 +160,8 @@ int getCorX(int serialmessage){
         case 405: case 415: case 425: case 435: case 445:
             return 5;
             break;
+        case 406:
+            return 6;
         default:
             return 0;
             break;
@@ -168,7 +171,7 @@ int getCorX(int serialmessage){
 //krijg de y coordinaat door middel van de statuscode  (Door Jason Joshua)
 int getCorY(int serialmessage){
     switch(serialmessage){
-        case 401: case 402: case 403: case 404: case 405:
+        case 401: case 402: case 403: case 404: case 405: case 406:
             return 1;
             break;
         case 411: case 412: case 413: case 414: case 415:

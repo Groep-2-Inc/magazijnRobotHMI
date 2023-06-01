@@ -23,7 +23,6 @@ bool sendProductOphalenMovingMessage = false;
 unsigned long lastSendProductOphalenMessage = 0;
 unsigned long lastRustMessage = 0;
 unsigned long lastProductOphalenMessage = 0;
-bool emergencyLED = false;
 
 // Sets correct pinmodes
 void setup() {  
@@ -37,6 +36,29 @@ void setup() {
 
 // Herhaald de volgende code meerder keren
 void loop() {
+	// Als de slave het product heeft verzameld
+	if(getFromSlave() == 13){
+		// Stuur één keer code 301 naar Java en reset alles (door Jason Joshua)
+		while(!sendFinishMessage){
+			toJava(301);
+			
+			delay(500);
+			toSlaveArduino(15);
+			curdata = fromJava();
+			x = getCorX(curdata);
+			y = getCorY(curdata);
+			resetBoolXY();
+			
+			pickingProduct = false;
+			moved = false;
+			// sendProductOphalenMessage = false;
+			// sendProductOphalenMovingMessage = false;
+			// lastSendProductOphalenMessage = 0;
+			
+			sendFinishMessage = true;
+		}
+	}
+
 	//check de noodstop
     checkStop();	
 	
@@ -58,7 +80,7 @@ void loop() {
 				if(!hasHomed){
 					// Versuurd één keer dat hij aan het homen is
 					if(!sendHomeMovementMessage){
-						toJava(301);
+						toJava(302);
 						sendHomeMovementMessage = true;
 					}
 
@@ -87,7 +109,7 @@ void loop() {
 
 						// Verstuur één keer dat hij ook tegelijk in beweging is, doe dit alleen wel pas na 1.5sec van vorige bericht zodat Serial genoeg tijd heeft om hem te lezen
 						if(!sendProductOphalenMovingMessage && millis() - lastSendProductOphalenMessage > 2000){
-							toJava(301);
+							toJava(302);
 							sendProductOphalenMovingMessage = true;
 						}
 
@@ -100,7 +122,10 @@ void loop() {
 							pickingProduct = true;
 						}
 					} else if (pickingProduct){
-						pickUpProduct();
+						if(x != 6){
+							sendFinishMessage = false;
+							pickUpProduct();
+						}
 					}
 				}
 			}
