@@ -34,6 +34,7 @@ public class Verwerken {
         done[doing] = true;
         doing++;
 
+        // WERKT NIET BETROUWBAAR AANGEZIEN DE WAARDE VAN DE ARRAY NIET OVEREENKOMT EN HIJ DIT NIET ALTIJD BIJWERKT
         if(doing == TSPRoute.length ){
             // Reset de status van de robot
             Robot.setIsMoving(false);
