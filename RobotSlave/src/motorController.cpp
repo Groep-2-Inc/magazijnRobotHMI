@@ -60,7 +60,7 @@ void moveUp(){
   }
 }
 
-// Zorgt ervoor dat de robot omlaag beweegt wanneer deze functie wordt aangeroepen.
+// Zorgt ervoor dat de robot omlaag beweegt wanneer deze functie wordt aangeroepen (en de robot kan bewegen (Joëlle).)
 void moveDown(){
   if(getManualMoveZas()){
     digitalWrite(directionPinY, HIGH);

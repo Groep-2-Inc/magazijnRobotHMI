@@ -14,11 +14,9 @@ bool checkManualMoveXas(){
     }
 }
 void checkManualMoveZas(){
-    Serial.println("komt in loop");
     if(getFromSlave() == 31){
         canMoveInBox = true;
     }else if(getFromSlave() == 32){
-        Serial.println("ontvangt 32");
         canMoveInBox = false;
     }
 }

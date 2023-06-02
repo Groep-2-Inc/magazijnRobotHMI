@@ -17,28 +17,24 @@ bool checkManualMoveYas(){
     }
 }
 
-// functie die terueggeeft of Zas mag bewegen (true) of niet (false) (Joëlle)
+
 unsigned long previousMillis = 0;
 
+//functie die checkt of de z-as is uitgeschoven, true hij is niet uitgeschoven, dus hij mag bewogen worden naar links,rechts, omhoog, omlaag (Joëlle)
 void checkManualMoveZas(){
     if(millis() - previousMillis > 10){
-        // Serial.println("11111111111111111111");
         if(measureZas() < 4.20){
-            // Serial.println("22222222222222222222");
             if(sendData31){
                 sendData(31);
                 sendData32 = true;
                 sendData31 = false;
-                Serial.println("aaaaaaaaaaaaaaaaaaaaa");
             }
             manualMoveZas  = true;
         }else{
-            // Serial.println("33333333333333333");
             if(sendData32){
                 sendData(32);
                 sendData31 = true;
                 sendData32 = false;
-                Serial.println("bbbbbbbbbbbbbbbbbbbbbbb");
             }
             manualMoveZas = false;
         }
@@ -46,6 +42,11 @@ void checkManualMoveZas(){
 
     }
 
+}
+
+//functie die de het wel/niet bewegen van de z-as teruggeeft (Joëlle)
+bool getManualMoveZas(){
+    return manualMoveZas;
 }
 
 // functie die teruggeeft of hij mag bewegen in de box, bij true bewegen, bij false mag dat niet (Joëlle)
@@ -56,8 +57,4 @@ bool checkManualMoveBox(){
     }else{
         return false;
     }
-}
-//functie die de het wel/niet bewegen van de z-as teruggeeft (Joëlle)
-bool getManualMoveZas(){
-    return manualMoveZas;
 }
