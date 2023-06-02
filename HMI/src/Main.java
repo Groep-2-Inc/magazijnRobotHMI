@@ -11,6 +11,37 @@ public class Main {
         new FrameController();
         new Communication();
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //        Thread.sleep(8000);
 //
 //        Communication.sendComms(434);

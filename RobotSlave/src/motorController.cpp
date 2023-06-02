@@ -110,7 +110,7 @@ void pickUpProduct(){
     	curY = readY();
     }
 
-	float max = 8.70;
+	float max = 8.40;
 
 	for(int i = 0; i < pickedProducts; i++){
 		max -= 2.0;

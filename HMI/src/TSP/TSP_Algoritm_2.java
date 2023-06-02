@@ -31,7 +31,7 @@ public class TSP_Algoritm_2 {
             double[] beginning = distances[0];
             int min = 0;
             for (int i = 1; i < N; i++ ) {
-                if(beginning[i] > beginning[min]){
+                if(beginning[i] < beginning[min]){
                     min = i;
                 } else if (min == 0){
                     min = i;
