@@ -233,10 +233,10 @@ public class Communication {
     public static int readComms() {
         int returnValue = 0;
         try{
-            // Roep de methode aan om de Serial communicatie uit te lezen
-            readSerialComms();
             // Initialiseer de CountDownLatch met 1
             latch = new CountDownLatch(1);
+            // Roep de methode aan om de Serial communicatie uit te lezen
+            readSerialComms();
             // Blokkeer de methode totdat de latch klaar is
             latch.await();
             // Haal de ontvangen waarde op uit receivedValue
